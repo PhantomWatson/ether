@@ -30,6 +30,12 @@ class Thought extends Entity
 	];
 	public $max_thoughtword_length = 30;
 
+	public function afterSave($created, $options = array()) {
+		if ($created) {
+			Cache::increment('getCount()');
+		}
+	}
+	
 	/**
 	 * Converts $word into a valid thoughtword (alphanumeric, no spaces, max 30 characters)
 	 * @param string $word
