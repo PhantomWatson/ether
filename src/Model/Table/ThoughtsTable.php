@@ -146,4 +146,16 @@ class ThoughtsTable extends Table
 			->distinct(['word'])
 			->count();
 	}
+
+	/**
+	 * Returns a random populated thoughtword
+	 * @return string
+	 */
+	public function getRandomPopulatedThoughtWord() {
+		$result = $this
+			->select(['word'])
+			->order('RAND()')
+			->first();
+		return $result['Thought']['word'];
+	}
 }
