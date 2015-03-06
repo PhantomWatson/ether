@@ -158,4 +158,23 @@ class ThoughtsTable extends Table
 			->first();
 		return $result['Thought']['word'];
 	}
+
+	/**
+	 * Returns an array of ['first letter' => [words beginning with that letter], ...]
+	 * @return array
+	 */
+	public function getAlphabeticallyGroupedWords() {
+		$words = $this->getWords();
+		$categorized = array();
+		foreach ($words as $word) {
+			$first_letter = substr($word, 0, 1);
+			 if (is_numeric($first_letter)) {
+			 	$categorized['#'][] = $word;
+			 } else {
+			 	$categorized[$first_letter][] = $word;
+			 }
+		}
+		ksort($categorized);
+		return $categorized;
+	}
 }
