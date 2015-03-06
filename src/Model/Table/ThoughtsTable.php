@@ -134,4 +134,16 @@ class ThoughtsTable extends Table
 		ksort($result);
 		return $result;
 	}
+
+	/**
+	 * Returns a count of unique populated thoughtwords
+	 * @return int
+	 */
+	public function getWordCount() {
+		return $this
+			->find('all')
+			->select(['word'])
+			->distinct(['word'])
+			->count();
+	}
 }
