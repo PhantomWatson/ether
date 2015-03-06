@@ -48,7 +48,12 @@ class ThoughtsTable extends Table
             ->requirePresence('word', 'create')
             ->notEmpty('word')
             ->requirePresence('thought', 'create')
-            ->notEmpty('thought')
+            ->add('thought', [
+    			'length' => [
+    				'rule' => ['minLength', 20],
+            		'message' => 'That thought is way too short! Please enter at least 20 characters.'
+        		]
+        	])
             ->requirePresence('color', 'create')
             ->notEmpty('color')
             ->add('time', 'valid', ['rule' => 'numeric'])
