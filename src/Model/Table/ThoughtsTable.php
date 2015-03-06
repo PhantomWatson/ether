@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Collection\Collection;
 
 /**
  * Thoughts Model
@@ -88,5 +89,19 @@ class ThoughtsTable extends Table
 	{
 		$rules->add($rules->existsIn(['user_id'], 'Users'));
 		return $rules;
+	}
+	
+	/**
+	 * Returns an alphabetized list of all unique thoughtwords
+	 * @return array
+	 */
+	public function getWords() {
+		return $this
+			->find('all')
+			->select(['word'])
+			->distinct(['word'])
+			->order(['word' => 'ASC'])
+			->extract('word')
+			->toArray();
 	}
 }
