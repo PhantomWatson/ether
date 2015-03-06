@@ -110,25 +110,15 @@ class ThoughtsTable extends Table
 	 * @return array
 	 */
 	public function getTopCloud() {
-		$result = $this
-			->find('list')
-			->select([
-				'keyField' => 'word',
-				'valueField' => 'COUNT(*) as count'
-			])
-			->group('word')
-			->order(['count' => 'DESC'])
-			->limit(300)
-			->toArray();
-		krsort($result);
-		return $result;
+		return $this->getCloud(300);
 	}
 
 	/**
-	 * Returns a list of the 300 most-populated thoughtwords and their thought counts
+	 * Returns a list of all thoughtwords and their thought counts
+	 * @param int $limit
 	 * @return array
 	 */
-	public function getCloud($limit = 0) {
+	public function getCloud($limit = false) {
 		$query = $this
 			->find('list')
 			->select([
