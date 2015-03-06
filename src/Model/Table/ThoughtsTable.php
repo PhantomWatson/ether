@@ -123,4 +123,25 @@ class ThoughtsTable extends Table
 		krsort($result);
 		return $result;
 	}
+
+	/**
+	 * Returns a list of the 300 most-populated thoughtwords and their thought counts
+	 * @return array
+	 */
+	public function getCloud($limit = 0) {
+		$query = $this
+			->find('list')
+			->select([
+				'keyField' => 'word',
+				'valueField' => 'COUNT(*) as count'
+			])
+			->group('word')
+			->order(['count' => 'DESC']);
+		if ($limit) {
+			$query->limit($limit);
+		}
+		$result = $query->toArray();
+		ksort($result);
+		return $result;
+	}
 }
