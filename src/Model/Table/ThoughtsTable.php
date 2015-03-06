@@ -90,7 +90,7 @@ class ThoughtsTable extends Table
 		$rules->add($rules->existsIn(['user_id'], 'Users'));
 		return $rules;
 	}
-	
+
 	/**
 	 * Returns an alphabetized list of all unique thoughtwords
 	 * @return array
@@ -103,5 +103,24 @@ class ThoughtsTable extends Table
 			->order(['word' => 'ASC'])
 			->extract('word')
 			->toArray();
+	}
+
+	/**
+	 * Returns a list of the 300 most-populated thoughtwords and their thought counts
+	 * @return array
+	 */
+	public function getTopCloud() {
+		$result = $this
+			->find('list')
+			->select([
+				'keyField' => 'word',
+				'valueField' => 'COUNT(*) as count'
+			])
+			->group('word')
+			->order(['count' => 'DESC'])
+			->limit(300)
+			->toArray();
+		krsort($result);
+		return $result;
 	}
 }
