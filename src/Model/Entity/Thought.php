@@ -48,4 +48,21 @@ class Thought extends Entity
 		}
 		return strtolower($word);
 	}
+	
+	/**
+	 * Checks to see if the thought in $this->request->data is already in the database
+	 * @return int|boolean Either the ID of the existing thought or FALSE
+	 */
+	public function isDuplicate() {
+		$user_id = $this->request->data['Thought']['user_id'];
+		$thought = $this->request->data['Thought']['thought'];
+		$thoughts = TableRegistry::get('Thoughts');
+		$query = $thoughts->findByUserIdAndThought($user_id, $thought);
+		$query
+			->select(['id'])
+			->order(['Thought.created' => 'DESC'])
+			->first();
+		$results = $query->toArray();
+		return isset($results['Thought']['id']) ? $results['Thought']['id'] : false;
+	}
 }
