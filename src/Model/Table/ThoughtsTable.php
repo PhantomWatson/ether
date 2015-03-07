@@ -4,6 +4,7 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 use Cake\Collection\Collection;
 
@@ -176,5 +177,59 @@ class ThoughtsTable extends Table
 		}
 		ksort($categorized);
 		return $categorized;
+	}
+
+	/**
+	 * Used to get paginated thoughts and comments combined
+	 */
+	public function findPaginateWithComments(Query $query, array $options) {
+		$limit = 20;
+		$offset = 0;
+		$query
+			->select([
+				//'"thought" as "type"',
+				'time' => 'Thoughts.created',
+				'thought_id' => 'Thoughts.id',
+				'thought_word' => 'Thoughts.word',
+				'thought_anonymous' => 'Thoughts.anonymous',
+				'comment_id' => 0
+			])
+			->contain([
+				'Users' => [
+					'fields' => ['id', 'color']
+				]
+			])
+			->limit(9999)
+			->offset(null);
+		$comments = TableRegistry::get('Comments');
+		$comments_query = $comments
+			->find('all')
+			->select([
+				//'"commented" as "type"',
+				'time' => 'Comments.created',
+				'thought_id' => 0,
+				'thought_word' => 0,
+				'thought_anonymous' => 0,
+				'comment_id' => 'Comments.id'
+			])
+			->contain([
+				'Users' => [
+					'fields' => ['id', 'color']
+				]
+			])
+			->join([
+				'table' => 'thoughts',
+		        'alias' => 'Thoughts',
+		        'type' => 'LEFT',
+		        'conditions' => 'Comments.thought_id = Thoughts.id',
+			])
+			->limit(8888)
+			->offset(null)
+			->order(['time' => 'DESC']);
+		$query
+			->unionAll($comments_query)
+			->limit($limit)
+			->offset(0);
+		return $query;
 	}
 }
