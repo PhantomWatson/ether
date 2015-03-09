@@ -181,14 +181,23 @@ class ThoughtsTable extends Table
 
 	/**
 	 * Used to get paginated thoughts and comments combined
+	 * @param Query $query
+	 * @param array $options
+	 * @return Query
 	 */
-	public function findPaginateWithComments(Query $query, array $options) {
-		$limit = 20;
-		$offset = 0;
-		$query
+	public function findRecentActivity(Query $query, array $options) {
+		/* Discard $query and create a new query so limit and offset can be correctly
+		 * applied. Otherwise, if $query is combined with $comments_query, limit
+		 * and offset are applied to the first of the two SELECT statements instead of
+		 * being applied to the whole union at the end of the statement. */
+		$limit = $query->clause('limit');
+		$offset = $query->clause('offset');
+
+		$thoughts = TableRegistry::get('Thoughts');
+		$thoughts_query = $thoughts->find('all');
+		$thoughts_query
 			->select([
-				//'"thought" as "type"',
-				'time' => 'Thoughts.created',
+				'created' => 'Thoughts.created',
 				'thought_id' => 'Thoughts.id',
 				'thought_word' => 'Thoughts.word',
 				'thought_anonymous' => 'Thoughts.anonymous',
@@ -198,18 +207,16 @@ class ThoughtsTable extends Table
 				'Users' => [
 					'fields' => ['id', 'color']
 				]
-			])
-			->limit(9999)
-			->offset(null);
+			]);
+
 		$comments = TableRegistry::get('Comments');
 		$comments_query = $comments
 			->find('all')
 			->select([
-				//'"commented" as "type"',
-				'time' => 'Comments.created',
-				'thought_id' => 0,
-				'thought_word' => 0,
-				'thought_anonymous' => 0,
+				'created' => 'Comments.created',
+				'thought_id' => 'Thoughts.id',
+				'thought_word' => 'Thoughts.word',
+				'thought_anonymous' => 'Thoughts.anonymous',
 				'comment_id' => 'Comments.id'
 			])
 			->contain([
@@ -219,17 +226,14 @@ class ThoughtsTable extends Table
 			])
 			->join([
 				'table' => 'thoughts',
-		        'alias' => 'Thoughts',
-		        'type' => 'LEFT',
-		        'conditions' => 'Comments.thought_id = Thoughts.id',
+				'alias' => 'Thoughts',
+				'conditions' => 'Comments.thought_id = Thoughts.id'
 			])
-			->limit(8888)
-			->offset(null)
-			->order(['time' => 'DESC']);
-		$query
-			->unionAll($comments_query)
+			->order(['created' => 'DESC'])
 			->limit($limit)
-			->offset(0);
-		return $query;
+			->offset($offset);
+
+		$combined_query = $thoughts_query->unionAll($comments_query);
+		return $combined_query;
 	}
 }
