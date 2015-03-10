@@ -254,16 +254,13 @@ class ThoughtsTable extends Table
 	 * Checks to see if the thought in $this->request->data is already in the database
 	 * @return int|boolean Either the ID of the existing thought or FALSE
 	 */
-	public function isDuplicate() {
-		$user_id = $this->request->data['Thought']['user_id'];
-		$thought = $this->request->data['Thought']['thought'];
-		$thoughts = TableRegistry::get('Thoughts');
-		$query = $thoughts->findByUserIdAndThought($user_id, $thought);
-		$query
+	public function isDuplicate($user_id, $thought) {
+		$results = $this
+			->findByUserIdAndThought($user_id, $thought)
 			->select(['id'])
 			->order(['Thought.created' => 'DESC'])
-			->first();
-		$results = $query->toArray();
+			->first()
+			->toArray();
 		return isset($results['Thought']['id']) ? $results['Thought']['id'] : false;
 	}
 }
