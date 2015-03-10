@@ -27,7 +27,21 @@ use Cake\View\Exception\MissingTemplateException;
  */
 class PagesController extends AppController
 {
+	public $helpers = [
+		'Paginator' => []
+	];
+
+	public function initialize() {
+		parent::initialize();
+		$this->loadComponent('Paginator');
+	}
+
     public function home() {
-    	
+		$this->paginate['finder']['recentActivity'] = [];
+	    $this->paginate['limit'] = 5;
+		$this->loadModel('Thoughts');
+		$this->set(array(
+			'recent_activity' => $this->paginate($this->Thoughts)
+		));
     }
 }
