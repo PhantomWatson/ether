@@ -16,6 +16,9 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 
+// For initialize()
+use Cake\Core\Configure;
+
 /**
  * Application Controller
  *
@@ -34,8 +37,8 @@ class AppController extends Controller
      *
      * @return void
      */
-    public function initialize()
-    {
+    public function initialize() {
         $this->loadComponent('Flash');
+		$this->set('debug', Configure::read('debug'));
     }
 }
