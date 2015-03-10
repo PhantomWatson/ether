@@ -1,21 +1,21 @@
 <ul>
-	<?php foreach ($results as $result): ?>
+	<?php foreach ($actions as $action): ?>
 		<li>
-			<?php if ($result->thought_anonymous && ! $result->comment_id): ?>
+			<?php if ($action->thought_anonymous && ! $action->comment_id): ?>
 				An anonymous user
 			<?php else: ?>
-				User #<?php echo $result->user['color']; ?>
+				User #<?php echo $action->user['color']; ?>
 			<?php endif; ?>
 
-			<?php if ($result->comment_id): ?>
+			<?php if ($action->comment_id): ?>
 				commented on
 			<?php else: ?>
 				posted
 			<?php endif; ?>
 
-			thought #<?php echo $result->thought_id; ?> (<?php echo $result->thought_word; ?>)
+			thought #<?php echo $action->thought_id; ?> (<?php echo $action->thought_word; ?>)
 
-			at <?php echo $result->created; ?>
+			at <?php echo $action->created; ?>
 		</li>
 	<?php endforeach; ?>
 </ul>
