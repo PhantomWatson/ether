@@ -18,7 +18,6 @@ use Cake\Event\EventManagerTrait;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\DispatcherFilter;
 use Cake\Routing\Router;
-use Cake\Utility\String;
 use DebugKit\Panel\DebugPanel;
 use DebugKit\Panel\PanelRegistry;
 
@@ -185,6 +184,8 @@ class DebugBarFilter extends DispatcherFilter
             'panels' => []
         ];
         $requests = TableRegistry::get('DebugKit.Requests');
+        $requests->gc();
+
         $row = $requests->newEntity($data);
         $row->isNew(true);
 
