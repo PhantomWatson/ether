@@ -66,11 +66,9 @@
 
 		<?php if ($this->fetch('buffered_js')): ?>
 			<script>
-				//<![CDATA[
-					$(document).ready(function () {
-						<?php echo $this->fetch('buffered_js'); ?>
-					});
-				//]]>
+				$(document).ready(function () {
+					<?php echo $this->fetch('buffered_js'); ?>
+				});
 			</script>
 		<?php endif; ?>
 	</body>
