@@ -28,11 +28,6 @@
 			echo $this->Html->css('base.css');
     		echo $this->Html->css('cake.css');
 		?>
-		<!--[if !IE 7]>
-			<style type="text/css">
-				#content_outer {display: table; height: 100%}
-			</style>
-		<![endif]-->
 		<meta name="title" content="<?php echo $title; ?>" />
 		<meta name="description" content="Ether: An experimental freeform thought repository. What's on YOUR mind?" />
 		<meta name="author" content="Phantom Watson" />
