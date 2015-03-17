@@ -57,7 +57,7 @@
 
 		<?php
 			echo $this->Html->script('script');
-			//echo $this->Html->script('bootstrap.min.js');
+			echo $this->Html->script('../bootstrap/js/bootstrap.min.js');
 			echo $this->fetch('script');
 			//$this->Js->buffer("setupOnPopState();");
 			//echo $this->Js->writeBuffer();
