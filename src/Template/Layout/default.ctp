@@ -13,14 +13,16 @@
 			?>
 		</title>
 		<link rel="dns-prefetch" href="//ajax.googleapis.com" />
+
+		<?php if ($debug): ?>
+			<link rel="stylesheet/less" type="text/css" href="/css/style.less" />
+			<script type="text/javascript">less = { env: 'development' };</script>
+			<?php echo $this->Html->script('less.min'); ?>
+		<?php else: ?>
+			<?php echo $this->Html->css('style'); ?>
+		<?php endif; ?>
+
 		<?php
-			if ($debug) {
-				//echo '<link rel="stylesheet/less" type="text/css" href="'.$this->Html->assetUrl('style.less', array('pathPrefix' => CSS_URL)).'" />';
-				//echo '<script type="text/javascript">less = { env: \'development\' };</script>';
-				//echo $this->Html->script('less-1.5.0.min');
-			} else {
-				echo $this->Html->css('style');
-			}
 			echo $this->Html->meta('icon');
 			echo $this->fetch('meta');
 			echo $this->Html->css('base.css');
