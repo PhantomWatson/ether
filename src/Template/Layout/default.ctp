@@ -56,7 +56,7 @@
 		<script>window.jQuery || document.write('<script src="/js/jquery-1.9.1.min.js"><\/script>')</script>
 
 		<?php
-			//echo $this->Html->script('script');
+			echo $this->Html->script('script');
 			//echo $this->Html->script('bootstrap.min.js');
 			echo $this->fetch('script');
 			//$this->Js->buffer("setupOnPopState();");
