@@ -183,13 +183,16 @@ class ThoughtsTable extends Table
 	 * @return Query
 	 */
 	public function findRecentActivity(Query $query, array $options) {
-		/* Discard $query and create a new query so limit and offset can be correctly
-		 * applied. Otherwise, if $query is combined with $comments_query, limit
-		 * and offset are applied to the first of the two SELECT statements instead of
-		 * being applied to the whole union at the end of the statement. */
+		$combined_query = $this->getThoughtsAndComments();
 		$limit = $query->clause('limit');
 		$offset = $query->clause('offset');
+		$direction = isset($_GET['direction']) ? $_GET['direction'] : 'DESC';
+		$sort_field = isset($_GET['sort']) ? $_GET['sort'] : 'created';
+		$combined_query->epilog("ORDER BY $sort_field $direction LIMIT $limit OFFSET $offset");
+		return $combined_query;
+	}
 
+	public function getThoughtsAndComments() {
 		$thoughts = TableRegistry::get('Thoughts');
 		$thoughts_query = $thoughts->find('all');
 		$thoughts_query
@@ -225,13 +228,8 @@ class ThoughtsTable extends Table
 				'table' => 'thoughts',
 				'alias' => 'Thoughts',
 				'conditions' => 'Comments.thought_id = Thoughts.id'
-			])
-			->order(['created' => 'DESC'])
-			->limit($limit)
-			->offset($offset);
-
-		$combined_query = $thoughts_query->unionAll($comments_query);
-		return $combined_query;
+			]);
+		return $thoughts_query->unionAll($comments_query);
 	}
 
 	/**
