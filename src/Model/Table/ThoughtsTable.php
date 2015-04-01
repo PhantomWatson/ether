@@ -7,6 +7,7 @@ use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 use Cake\Collection\Collection;
+use Cake\Network\Exception\BadRequestException;
 
 /**
  * Thoughts Model
@@ -186,9 +187,11 @@ class ThoughtsTable extends Table
 		$combined_query = $this->getThoughtsAndComments();
 		$limit = $query->clause('limit');
 		$offset = $query->clause('offset');
-		$direction = isset($_GET['direction']) ? $_GET['direction'] : 'DESC';
-		$sort_field = isset($_GET['sort']) ? $_GET['sort'] : 'created';
-		$combined_query->epilog("ORDER BY $sort_field $direction LIMIT $limit OFFSET $offset");
+		$direction = isset($_GET['direction']) ? strtolower($_GET['direction']) : 'desc';
+		if (! in_array($direction, array('asc', 'desc'))) {
+			throw new BadRequestException('Invalid sorting direction');
+		}
+		$combined_query->epilog("ORDER BY created $direction LIMIT $limit OFFSET $offset");
 		return $combined_query;
 	}
 
