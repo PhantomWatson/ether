@@ -230,33 +230,41 @@ var registrationForm = {
 	}
 };
 
-function showFlashMessages() {
-	var messages = $('#flash_messages');
-	if (! messages.is(':visible')) {
-		messages.fadeIn(500);
-	}
-}
-
-function hideFlashMessages() {
-	var messages = $('#flash_messages');
-	if (messages.is(':visible')) {
-		messages.fadeOut(500, function() {
-			$('#flash_messages ul').empty();
+var flashMessage = {
+	fadeDuration: 300,
+	init: function () {
+		if (! $('#flash_messages ul').is(':empty')) {
+			this.show();
+		}
+		$('#close_flash_msg').click(function(event) {
+			event.preventDefault();
+			flashMessage.hide();
 		});
+	},
+	show: function () {
+		var container = $('#flash_messages');
+		if (! container.is(':visible')) {
+			container.fadeIn(this.fadeDuration);
+		}
+	},
+	hide: function () {
+		var container = $('#flash_messages');
+		if (container.is(':visible')) {
+			container.fadeOut(this.fadeDuration, function() {
+				$('#flash_messages ul').empty();
+			});
+		}
+	},
+	insert: function (message, classname) {
+		var msgLi = $('<li class="'+classname+'">'+message+'</li>')
+			.hide()
+			.fadeIn(this.fadeDuration);
+		$('#flash_messages ul').append(msgLi);
+		if (! $('#flash_messages').is(':visible')) {
+			this.show();
+		}
 	}
-}
-
-function insertFlashMessage(message, classname) {
-	var msgLi = $(document.createElement('li'))
-		.addClass(classname)
-		.append('<p>'+message+'</p>')
-		.hide()
-		.fadeIn(500);
-	$('#flash_messages ul').append(msgLi);
-	if (! $('#flash_messages').is(':visible')) {
-		showFlashMessages();
-	}
-}
+};
 
 function setupThoughtwordLinks(container) {
 	container.find('a.thoughtword').click(function (event) {
