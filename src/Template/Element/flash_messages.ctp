@@ -10,19 +10,18 @@
 <?php $this->end(); ?>
 
 <div id="flash_messages" style="display: none;">
-	<div>
-		<div>
-			<div class="close"><a href="#" id="close_flash_msg">Close</a></div>
-			<div class="messages_wrapper">
-				<ul>
-					<?php foreach ($flash_messages as $msg): ?>
-						<li class="<?php echo $msg['class']; ?>">
-							<?php echo $msg['message']; ?>
-						</li>
-					<?php endforeach; ?>
-				</ul>
-				<br class="clear" />
-			</div>
-		</div>
+	<div class="close">
+		<a href="#" id="close_flash_msg">
+			Close
+		</a>
+	</div>
+	<div class="messages_wrapper">
+		<ul>
+			<?php foreach ($flash_messages as $msg): ?>
+				<li class="<?php echo $msg['class']; ?>">
+					<?php echo $msg['message']; ?>
+				</li>
+			<?php endforeach; ?>
+		</ul>
 	</div>
 </div>
