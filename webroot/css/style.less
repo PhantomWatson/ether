@@ -1122,18 +1122,16 @@ input {
 		padding: 0px;
 
 		li {
+			.alert-info;
+
 			/* Default "notification" mode, overridden by .error and .success */
-			background-color: #CFE5FF;
-			background-image: url('/img/icons/information.png');
 			background-position: 5px 7px;
 		    background-repeat: no-repeat;
-			border-color: #00006F;
 			border-radius: 5px;
 			box-shadow: 2px 2px 2px rgba(0, 0, 0, .3);
 			border-style: solid;
 		    border-width: 1px;
 		    clear: left;
-			color: #00006F;
 		    display: inline-block;
 		    float: left;
 		    list-style-type: none;
@@ -1149,16 +1147,10 @@ input {
 				border-top-width: 1px;
 			}
 			&.error {
-				background-color: #FFCBAF;
-				background-image: url('/img/icons/cross-circle.png');
-				border-color: #7F0000;
-				color: #7F0000;
+				.alert-danger;
 			}
 			&.success {
-				background-color: #AFFFBA;
-				background-image: url('/img/icons/tick-circle.png');
-				border-color: #004F00;
-				color: #004F00;
+				.alert-success;
 			}
 			img {
 				margin-right: 10px;
