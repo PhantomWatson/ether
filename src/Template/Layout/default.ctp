@@ -38,7 +38,7 @@
 		<?php
 			//echo $this->element('flash_messages');
 			echo $this->Flash->render();
-			//echo $this->element('header');
+			echo $this->element('header');
 		?>
 
 		<?php echo $this->fetch('overlay'); ?>
