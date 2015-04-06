@@ -27,10 +27,13 @@
 				]
 			]
 		);
-		echo $this->Form->end([
-			'label' => 'Log in',
-			'class' => 'btn btn-default'
-		]);
+		echo $this->Form->submit(
+			'Log in',
+			[
+				'class' => 'btn btn-default'
+			]
+		);
+		echo $this->Form->end();
 		echo $this->Html->link(
 			'Forgot password?',
 			[
