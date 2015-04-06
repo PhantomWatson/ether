@@ -39,6 +39,28 @@ class AppController extends Controller
      */
     public function initialize() {
         $this->loadComponent('Flash');
+
+		$this->loadComponent('Auth', [
+			'loginAction' => [
+				'controller' => 'Users',
+				'action' => 'login'
+			],
+			'authenticate' => [
+				'Form' => [
+					'fields' => ['username' => 'email']
+				]
+			]
+		]);
+
 		$this->set('debug', Configure::read('debug'));
     }
+
+	public function beforeRender(\Cake\Event\Event $event) {
+		$this->Auth->authError = ($this->Auth->user('id')) ?
+			'Sorry, you do not have access to that location.' :
+			'Please <a href="/login">log in</a> before you try that.';
+		$this->set(array(
+			'logged_in' => $this->Auth->user('id') != null
+		));
+	}
 }
