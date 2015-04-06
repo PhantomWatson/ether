@@ -233,7 +233,7 @@ var registrationForm = {
 var flashMessage = {
 	fadeDuration: 300,
 	init: function () {
-		if (! $('#flash_messages ul').is(':empty')) {
+		if ($('#flash_messages ul li').length > 0) {
 			this.show();
 		}
 		$('#close_flash_msg').click(function(event) {
@@ -241,7 +241,7 @@ var flashMessage = {
 			flashMessage.hide();
 		});
 	},
-	show: function () {
+	show: function () { console.log('foo');
 		var container = $('#flash_messages');
 		if (! container.is(':visible')) {
 			container.fadeIn(this.fadeDuration);
