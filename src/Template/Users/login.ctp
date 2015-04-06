@@ -27,15 +27,6 @@
 				]
 			]
 		);
-		echo $this->Form->input(
-			'remember_me',
-			[
-				'type' => 'checkbox',
-				'label' => [
-					'text' => ' Remember me'
-				]
-			]
-		);
 		echo $this->Form->end([
 			'label' => 'Log in',
 			'class' => 'btn btn-default'
