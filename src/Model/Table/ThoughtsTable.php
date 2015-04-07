@@ -204,6 +204,10 @@ class ThoughtsTable extends Table
 			throw new BadRequestException('Invalid sorting direction');
 		}
 		$combinedQuery->epilog("ORDER BY created $direction LIMIT $limit OFFSET $offset");
+		$combinedQuery->counter(function ($query) {
+			$comments = TableRegistry::get('Comments');
+			return $comments->find('all')->count() + $this->find('all')->count();
+		});
 		return $combinedQuery;
 	}
 
