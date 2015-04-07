@@ -78,7 +78,7 @@ class UsersController extends AppController
 				for ($n = 1; $n <= 3; $n++) {
 					$this->request->data['color'] .= str_pad(dechex(rand(0, 250)), 2, '0', STR_PAD_LEFT);
 				}
-				$isTaken = $this->User->colorIsTaken($this->request->data['color']);
+				$isTaken = $this->Users->colorIsTaken($this->request->data['color']);
 			} while ($isTaken);
 			$this->set('random_color', true);
 		}
