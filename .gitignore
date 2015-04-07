@@ -1,6 +1,7 @@
 # CakePHP
 /vendor/*
 /config/app.php
+/config/recaptcha.php
 /tmp/*
 /logs/*
 
