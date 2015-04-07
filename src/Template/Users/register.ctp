@@ -35,7 +35,7 @@
 				'type' => 'password',
 				'class' => 'form-control',
 				'placeholder' => 'Enter your password',
-				'div' => ]
+				'div' => [
 					'class' => 'form-group'
 				]
 			]
@@ -82,7 +82,7 @@
 </div>
 
 <?php
-	$this->Html->script('/jscolor/jscolor.js', ['inline' => false]);
+	$this->Html->script('/jscolor/jscolor.js', ['block' => true]);
 	$this->append('buffered_js');
 ?>
 	var myPicker = new jscolor.color(document.getElementById('color_hex'), {
