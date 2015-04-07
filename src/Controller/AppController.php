@@ -29,17 +29,8 @@ use Cake\Core\Configure;
  */
 class AppController extends Controller
 {
-
-    /**
-     * Initialization hook method.
-     *
-     * Use this method to add common initialization code like loading components.
-     *
-     * @return void
-     */
     public function initialize() {
         $this->loadComponent('Flash');
-
 		$this->loadComponent('Auth', [
 			'loginAction' => [
 				'controller' => 'Users',
@@ -51,7 +42,6 @@ class AppController extends Controller
 				]
 			]
 		]);
-
 		$this->set('debug', Configure::read('debug'));
     }
 
