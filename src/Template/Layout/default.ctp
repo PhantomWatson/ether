@@ -25,8 +25,6 @@
 		<?php
 			echo $this->Html->meta('icon');
 			echo $this->fetch('meta');
-			echo $this->Html->css('base.css');
-    		echo $this->Html->css('cake.css');
 		?>
 		<meta name="title" content="<?php echo $title; ?>" />
 		<meta name="description" content="Ether: An experimental freeform thought repository. What's on YOUR mind?" />
