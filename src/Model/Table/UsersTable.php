@@ -95,4 +95,18 @@ class UsersTable extends Table
         $rules->add($rules->isUnique(['email']));
         return $rules;
     }
+
+	/**
+	 * Checks whether or not a color is already assigned to a user
+	 * @param string $color
+	 * @return boolean
+	 */
+	public function colorIsTaken(string $color) {
+		$color = str_replace('#', '', $color);
+		$result = $this->find('count')
+			->where([
+				'User.color' => $color
+			]);
+		return $result > 0;
+	}
 }
