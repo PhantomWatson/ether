@@ -24,7 +24,7 @@
 				<?php echo $this->Html->link(
 					'Thoughts',
 					array(
-						'controller' => 'thoughts',
+						'controller' => 'Thoughts',
 						'action' => 'index'
 					)
 				); ?>
@@ -33,7 +33,7 @@
 				<?php echo $this->Html->link(
 					'Random',
 					array(
-						'controller' => 'thoughts',
+						'controller' => 'Thoughts',
 						'action' => 'random'
 					),
 					array(
@@ -45,7 +45,7 @@
 				<?php echo $this->Html->link(
 					'About',
 					array(
-						'controller' => 'pages',
+						'controller' => 'Pages',
 						'action' => 'about'
 					)
 				); ?>
@@ -56,7 +56,7 @@
 					<?php echo $this->Html->link(
 						'Think',
 						array(
-							'controller' => 'thoughts',
+							'controller' => 'Thoughts',
 							'action' => 'add'
 						)
 					); ?>
@@ -65,7 +65,7 @@
 					<?php echo $this->Html->link(
 						'Messages',
 						array(
-							'controller' => 'messages',
+							'controller' => 'Messages',
 							'action' => 'index'
 						),
 						array(
@@ -77,7 +77,7 @@
 					<?php echo $this->Html->link(
 						'Account',
 						array(
-							'controller' => 'users',
+							'controller' => 'Users',
 							'action' => 'account'
 						)
 					); ?>
@@ -86,7 +86,7 @@
 					<?php echo $this->Html->link(
 						'Logout',
 						array(
-							'controller' => 'users',
+							'controller' => 'Users',
 							'action' => 'logout'
 						)
 					); ?>
@@ -96,7 +96,7 @@
 					<?php echo $this->Html->link(
 						'Login',
 						array(
-							'controller' => 'users',
+							'controller' => 'Users',
 							'action' => 'login'
 						),
 						array(
@@ -108,7 +108,7 @@
 					<?php echo $this->Html->link(
 						'Register',
 						array(
-							'controller' => 'users',
+							'controller' => 'Users',
 							'action' => 'register'
 						),
 						array(
@@ -126,7 +126,7 @@
 		<?php
 			use Cake\Routing\Router;
 			$goto_url = Router::url(array(
-				'controller' => 'thoughts',
+				'controller' => 'Thoughts',
 				'action' => 'word'
 			));
 		?>
