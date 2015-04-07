@@ -180,6 +180,7 @@ Request::addDetector('tablet', function ($request) {
  */
 
 Plugin::load('Migrations');
+Plugin::load('Recaptcha', ['routes' => true, 'bootstrap' => true]);
 
 // Only try to load DebugKit in development mode
 // Debug Kit should not be installed on a production system
