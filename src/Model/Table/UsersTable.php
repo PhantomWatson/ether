@@ -101,7 +101,7 @@ class UsersTable extends Table
 	 * @param string $color
 	 * @return boolean
 	 */
-	public function colorIsTaken(string $color) {
+	public function colorIsTaken($color) {
 		$color = str_replace('#', '', $color);
 		$query = $this->find('all')
 			->where(['color' => $color]);
