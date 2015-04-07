@@ -81,27 +81,7 @@
 	?>
 </div>
 
-<?php
-	$this->Html->script('/jscolor/jscolor.js', ['block' => true]);
-	$this->append('buffered_js');
-?>
-	var myPicker = new jscolor.color(document.getElementById('color_hex'), {
-		hash: true
-	});
-
-	$('#color_hex').change(function () {
-		if (registrationForm.validateColor()) {
-			registrationForm.checkColorAvailability();
-		} else {
-			registrationForm.showColorAjaxMessage('', null);
-		}
-	});
-
-	$('#UserRegisterForm').submit(function (event) {
-		if (! registrationForm.validateColor()) {
-			alert('Please select a valid color.');
-			return false;
-		}
-		return true;
-	});
+<?php $this->Html->script('/jscolor/jscolor.js', ['block' => true]); ?>
+<?php $this->append('buffered_js'); ?>
+	registrationForm.init();
 <?php $this->end(); ?>

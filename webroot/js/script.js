@@ -145,7 +145,29 @@ function h2d(h) {
 
 var registrationForm = {
 	color_avail_request: null,
-		
+	
+	init: function () {
+		var myPicker = new jscolor.color(document.getElementById('color_hex'), {
+			hash: true
+		});
+
+		$('#color_hex').change(function () {
+			if (registrationForm.validateColor()) {
+				registrationForm.checkColorAvailability();
+			} else {
+				registrationForm.showColorAjaxMessage('', null);
+			}
+		});
+
+		$('#UserRegisterForm').submit(function (event) {
+			if (! registrationForm.validateColor()) {
+				alert('Please select a valid color.');
+				return false;
+			}
+			return true;
+		});
+	},
+	
 	validateColor: function () {
 		var chosen_color = $('#color_hex').val();
 		
