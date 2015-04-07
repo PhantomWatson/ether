@@ -11,7 +11,8 @@ use App\Controller\AppController;
 class UsersController extends AppController
 {
 
-	public function initialize() {
+	public function initialize()
+	{
 		parent::initialize();
 		$this->Auth->allow(['index', 'register', 'login', 'view', 'check_color_availability']);
 
@@ -53,15 +54,15 @@ class UsersController extends AppController
 	        	$user = $this->Users->patchEntity($user, $this->request->data);
 
 	        	// Clean email and color
-	        	$clean_email = trim($user->email);
-				$clean_email = strtolower($clean_email);
-				$clean_color = strtolower($user->color);
-				$clean_color = preg_replace("/[^a-z0-9]/", '', $clean_color);
+	        	$cleanEmail = trim($user->email);
+				$cleanEmail = strtolower($cleanEmail);
+				$cleanColor = strtolower($user->color);
+				$cleanColor = preg_replace("/[^a-z0-9]/", '', $cleanColor);
 
 				$user->set([
 					'password' => $this->request->data['User']['password'],
-					'email' => $clean_email,
-					'color' => $clean_color,
+					'email' => $cleanEmail,
+					'color' => $cleanColor,
 					'password_version' => 3
 				]);
 
@@ -139,7 +140,8 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-	public function login() {
+	public function login()
+	{
 		if ($this->request->is('post')) {
 			$user = $this->Auth->identify();
 			if ($user) {
@@ -154,7 +156,8 @@ class UsersController extends AppController
 		));
 	}
 
-	public function check_color_availability($color = null) {
+	public function check_color_availability($color = null)
+	{
 		$this->layout = 'ajax';
 		$this->set('available', ! $this->Users->colorIsTaken($color));
 	}

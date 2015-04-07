@@ -97,7 +97,8 @@ class ThoughtsTable extends Table
 	 * Returns an alphabetized list of all unique thoughtwords
 	 * @return array
 	 */
-	public function getWords() {
+	public function getWords()
+	{
 		return $this
 			->find('all')
 			->select(['word'])
@@ -111,7 +112,8 @@ class ThoughtsTable extends Table
 	 * Returns a list of the 300 most-populated thoughtwords and their thought counts
 	 * @return array
 	 */
-	public function getTopCloud() {
+	public function getTopCloud()
+	{
 		return $this->getCloud(300);
 	}
 
@@ -120,7 +122,8 @@ class ThoughtsTable extends Table
 	 * @param int $limit
 	 * @return array
 	 */
-	public function getCloud($limit = false) {
+	public function getCloud($limit = false)
+	{
 		$query = $this
 			->find('list', [
 				'keyField' => 'word',
@@ -138,7 +141,8 @@ class ThoughtsTable extends Table
 	 * Returns a count of unique populated thoughtwords
 	 * @return int
 	 */
-	public function getWordCount() {
+	public function getWordCount()
+	{
 		return $this
 			->find('all')
 			->select(['word'])
@@ -150,7 +154,8 @@ class ThoughtsTable extends Table
 	 * Returns a random populated thoughtword
 	 * @return string
 	 */
-	public function getRandomPopulatedThoughtWord() {
+	public function getRandomPopulatedThoughtWord()
+	{
 		$result = $this
 			->select(['word'])
 			->order('RAND()')
@@ -162,7 +167,8 @@ class ThoughtsTable extends Table
 	 * Returns an array of ['first letter' => [words beginning with that letter], ...]
 	 * @return array
 	 */
-	public function getAlphabeticallyGroupedWords() {
+	public function getAlphabeticallyGroupedWords()
+	{
 		$words = $this->getWords();
 		$categorized = array();
 		foreach ($words as $word) {
@@ -183,22 +189,24 @@ class ThoughtsTable extends Table
 	 * @param array $options
 	 * @return Query
 	 */
-	public function findRecentActivity(Query $query, array $options) {
-		$combined_query = $this->getThoughtsAndComments();
+	public function findRecentActivity(Query $query, array $options)
+	{
+		$combinedQuery = $this->getThoughtsAndComments();
 		$limit = $query->clause('limit');
 		$offset = $query->clause('offset');
 		$direction = isset($_GET['direction']) ? strtolower($_GET['direction']) : 'desc';
 		if (! in_array($direction, array('asc', 'desc'))) {
 			throw new BadRequestException('Invalid sorting direction');
 		}
-		$combined_query->epilog("ORDER BY created $direction LIMIT $limit OFFSET $offset");
-		return $combined_query;
+		$combinedQuery->epilog("ORDER BY created $direction LIMIT $limit OFFSET $offset");
+		return $combinedQuery;
 	}
 
-	public function getThoughtsAndComments() {
+	public function getThoughtsAndComments()
+	{
 		$thoughts = TableRegistry::get('Thoughts');
-		$thoughts_query = $thoughts->find('all');
-		$thoughts_query
+		$thoughtsQuery = $thoughts->find('all');
+		$thoughtsQuery
 			->select([
 				'created' => 'Thoughts.created',
 				'thought_id' => 'Thoughts.id',
@@ -213,7 +221,7 @@ class ThoughtsTable extends Table
 			]);
 
 		$comments = TableRegistry::get('Comments');
-		$comments_query = $comments
+		$commentsQuery = $comments
 			->find('all')
 			->select([
 				'created' => 'Comments.created',
@@ -232,7 +240,7 @@ class ThoughtsTable extends Table
 				'alias' => 'Thoughts',
 				'conditions' => 'Comments.thought_id = Thoughts.id'
 			]);
-		return $thoughts_query->unionAll($comments_query);
+		return $thoughtsQuery->unionAll($commentsQuery);
 	}
 
 	/**
@@ -240,7 +248,8 @@ class ThoughtsTable extends Table
 	 * @param string $word
 	 * @return string
 	 */
-	public function format_thoughtword($word) {
+	public function format_thoughtword($word)
+	{
 		$word = preg_replace('/[^a-zA-Z0-9]/', '', $word);
 		if (strlen($word) > $this->max_thoughtword_length) {
 			$word = substr($word, 0, $this->max_thoughtword_length);
@@ -252,9 +261,10 @@ class ThoughtsTable extends Table
 	 * Checks to see if the thought in $this->request->data is already in the database
 	 * @return int|boolean Either the ID of the existing thought or FALSE
 	 */
-	public function isDuplicate($user_id, $thought) {
+	public function isDuplicate($userId, $thought)
+	{
 		$results = $this
-			->findByUserIdAndThought($user_id, $thought)
+			->findByUserIdAndThought($userId, $thought)
 			->select(['id'])
 			->order(['Thought.created' => 'DESC'])
 			->first()
