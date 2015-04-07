@@ -124,17 +124,22 @@ class ThoughtsTable extends Table
 	 */
 	public function getCloud($limit = false)
 	{
-		$query = $this
-			->find('list', [
+		$query = $this->find('list', [
 				'keyField' => 'word',
-				'valueField' => 'COUNT(*)'
+				'valueField' => 'count'
 			])
-			->group('keyfield')
-			->order(['word' => 'DESC']);
+			->select([
+				'word',
+				'count' => $this->find()->func()->count('*')
+			])
+			->group('word')
+			->order(['count' => 'DESC']);
 		if ($limit) {
 			$query->limit($limit);
 		}
-		return $query->toArray();
+		$result = $query->toArray();
+		ksort($result);
+		return $result;
 	}
 
 	/**
