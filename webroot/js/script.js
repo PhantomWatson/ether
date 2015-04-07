@@ -230,7 +230,7 @@ var registrationForm = {
 		this.color_avail_request = $.ajax({
 			url: '/users/check_color_availability/'+color,
 			beforeSend: function () {
-				var message = '<img src="/img/loading4.gif" /> Checking to see if #'+color+' is available...';
+				var message = '<img src="/img/loading_small.gif" /> Checking to see if #'+color+' is available...';
 				registrationForm.showColorAjaxMessage(message, null);
 			},
 			success: function (data) {
@@ -615,7 +615,7 @@ var profilePage = {
 				beforeSend: function () {
 					submit_button.prop('disabled', true);
 					textarea.prop('disabled', true);
-					var loading_indicator = $('<img src="/img/loading4.gif" class="loading" alt="Loading..." />');
+					var loading_indicator = $('<img src="/img/loading_small.gif" class="loading" alt="Loading..." />');
 					submit_container.prepend(loading_indicator);
 					submit_container.find('.result').fadeOut(200, function () {
 						$(this).remove();
