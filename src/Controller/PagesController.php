@@ -33,16 +33,9 @@ class PagesController extends AppController
 	];
 
 	public $paginate = [
-		//'Thoughts' => [
-			'finder' => [
-				'recentActivity'/* => [
-					'limit' => 7,
-					'offset' => 123,
-					'direction' => 'asc',
-					'page' => 2
-				]*/
-			]
-		//]
+		'finder' => [
+			'recentActivity' => []
+		]
 	];
 
 	public function initialize()
@@ -54,7 +47,6 @@ class PagesController extends AppController
 
     public function home()
     {
-		$this->paginate['Thoughts']['finder']['recentActivity'] = [];
 		$this->loadModel('Thoughts');
 		$this->set(array(
 			'recentActivity' => $this->paginate($this->Thoughts),
