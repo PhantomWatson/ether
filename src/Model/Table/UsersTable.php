@@ -103,10 +103,8 @@ class UsersTable extends Table
 	 */
 	public function colorIsTaken(string $color) {
 		$color = str_replace('#', '', $color);
-		$result = $this->find('count')
-			->where([
-				'User.color' => $color
-			]);
-		return $result > 0;
+		$query = $this->find('all')
+			->where(['color' => $color]);
+		return $query->count() > 0;
 	}
 }
