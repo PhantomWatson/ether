@@ -197,7 +197,7 @@ class ThoughtsTable extends Table
 	public function findRecentActivity(Query $query, array $options)
 	{
 		$combinedQuery = $this->getThoughtsAndComments();
-		$limit = $query->clause('limit');
+		$limit = 10;
 		$offset = $query->clause('offset');
 		$direction = isset($_GET['direction']) ? strtolower($_GET['direction']) : 'desc';
 		if (! in_array($direction, array('asc', 'desc'))) {
