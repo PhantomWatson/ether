@@ -14,6 +14,10 @@ class UsersController extends AppController
 	public function initialize() {
 		parent::initialize();
 		$this->Auth->allow(['index', 'register', 'login', 'view']);
+
+		if ($this->request->action === 'register') {
+			$this->loadComponent('Recaptcha.Recaptcha');
+		}
 	}
 
     /**
@@ -43,7 +47,6 @@ class UsersController extends AppController
 
     public function register()
     {
-    	$this->loadComponent('Recaptcha.Recaptcha');
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
         	if ($this->Recaptcha->verify()) {
