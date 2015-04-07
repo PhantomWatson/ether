@@ -1,5 +1,5 @@
 <ul>
-	<?php foreach ($recent_activity as $action): ?>
+	<?php foreach ($recentActivity as $action): ?>
 		<li>
 			<?php if ($action->thought_anonymous && ! $action->comment_id): ?>
 				An anonymous user

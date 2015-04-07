@@ -17,7 +17,7 @@
 	</div>
 	<div class="messages_wrapper">
 		<ul>
-			<?php foreach ($flash_messages as $msg): ?>
+			<?php foreach ($flashMessages as $msg): ?>
 				<li class="<?php echo $msg['class']; ?>">
 					<?php echo $msg['message']; ?>
 				</li>

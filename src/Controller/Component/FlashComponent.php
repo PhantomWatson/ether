@@ -15,9 +15,9 @@ class FlashComponent extends Component {
 	 * @param string $class success, error, notification (default), or dump
 	 */
 	public function set($message, $class = 'notification') {
-		$stored_messages = $this->request->session()->read('FlashMessage');
-		$stored_messages[] = compact('message', 'class');
-		$this->request->session()->write('FlashMessage', $stored_messages);
+		$storedMessages = $this->request->session()->read('FlashMessage');
+		$storedMessages[] = compact('message', 'class');
+		$this->request->session()->write('FlashMessage', $storedMessages);
 	}
 
 	/**
@@ -53,25 +53,26 @@ class FlashComponent extends Component {
 	}
 
 	/**
-	 * Sets an array to be displayed by the element 'flash_messages'
+	 * Sets an array to be displayed by the element 'flashMessages'
 	 * @return array
 	 */
 	private function __prepareFlashMessages() {
-		$stored_messages = $this->request->session()->read('FlashMessage');
-		$stored_messages = $stored_messages ? $stored_messages : [];
+		$storedMessages = $this->request->session()->read('FlashMessage');
+		$storedMessages = $storedMessages ? $storedMessages : [];
 		$this->request->session()->delete('FlashMessage');
 
 		// Add auth error messages
-		if ($auth_error = $this->request->session()->read('Message.auth')) {
-			$stored_messages[] = [
-				'message' => $auth_error['message'],
+		$authError = $this->request->session()->read('Message.auth');
+		if ($authError) {
+			$storedMessages[] = [
+				'message' => $authError['message'],
 				'class' => 'error'
 			];
 			$this->request->session()->delete('Message.auth');
 		}
 
 		// Process variable dumping
-		foreach ($stored_messages as &$message) {
+		foreach ($storedMessages as &$message) {
 			if ($message['class'] == 'dump') {
 				$message = [
 					'message' => '<pre>'.print_r($message['message'], true).'</pre>',
@@ -80,6 +81,6 @@ class FlashComponent extends Component {
 			}
 		}
 
-		$this->_registry->getController()->set('flash_messages', $stored_messages);
+		$this->_registry->getController()->set('flashMessages', $storedMessages);
 	}
 }
