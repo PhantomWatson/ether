@@ -13,7 +13,7 @@ class UsersController extends AppController
 
 	public function initialize() {
 		parent::initialize();
-		$this->Auth->allow(['index', 'register', 'login', 'view']);
+		$this->Auth->allow(['index', 'register', 'login', 'view', 'check_color_availability']);
 
 		if ($this->request->action === 'register') {
 			$this->loadComponent('Recaptcha.Recaptcha');
@@ -152,5 +152,10 @@ class UsersController extends AppController
 		$this->set(array(
 			'title_for_layout' => 'Log in'
 		));
+	}
+
+	public function check_color_availability($color = null) {
+		$this->layout = 'ajax';
+		$this->set('available', ! $this->Users->colorIsTaken($color));
 	}
 }
