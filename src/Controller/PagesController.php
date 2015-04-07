@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Core\Configure;
 use Cake\Network\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
+use Cake\ORM\TableRegistry;
 
 /**
  * Static content controller
@@ -31,17 +32,33 @@ class PagesController extends AppController
 		'Paginator' => []
 	];
 
-	public function initialize() {
+	public $paginate = [
+		//'Thoughts' => [
+			'finder' => [
+				'recentActivity'/* => [
+					'limit' => 7,
+					'offset' => 123,
+					'direction' => 'asc',
+					'page' => 2
+				]*/
+			]
+		//]
+	];
+
+	public function initialize()
+	{
 		parent::initialize();
 		$this->loadComponent('Paginator');
+		$this->Auth->allow();
 	}
 
-    public function home() {
-		$this->paginate['finder']['recentActivity'] = [];
-	    $this->paginate['limit'] = 5;
+    public function home()
+    {
+		$this->paginate['Thoughts']['finder']['recentActivity'] = [];
 		$this->loadModel('Thoughts');
 		$this->set(array(
-			'recent_activity' => $this->paginate($this->Thoughts)
+			'recentActivity' => $this->paginate($this->Thoughts),
+			'topCloud' => $this->Thoughts->getTopCloud()
 		));
     }
 }
