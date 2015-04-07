@@ -45,6 +45,10 @@ Router::scope('/', function ($routes) {
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'home']);
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
+	$routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
+	$routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
+	$routes->connect('/register', ['controller' => 'Users', 'action' => 'register']);
+
     /**
      * Connect catchall routes for all controllers.
      *
