@@ -11,6 +11,12 @@ use App\Controller\AppController;
 class ThoughtsController extends AppController
 {
 
+	public function initialize()
+	{
+		parent::initialize();
+		$this->Auth->allow(['recent']);
+	}
+
     /**
      * Index method
      *
@@ -103,4 +109,11 @@ class ThoughtsController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+	public function recent($page = 1)
+	{
+		$this->paginate['Thoughts']['finder']['recentActivity'] = [];
+		$this->layout = 'ajax';
+		$this->set('recentActivity', $this->paginate('Thoughts'));
+	}
 }
