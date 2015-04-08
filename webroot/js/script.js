@@ -652,12 +652,12 @@ var recentActivity = {
 			$.ajax({
 				url: link.attr('href'),
 				beforeSend: function () {
-					container.fadeTo(300, 0.5);
+					container.fadeTo(200, 0.5);
 				},
 				success: function (data) {
-					container.fadeOut(200, function () {
+					container.fadeOut(100, function () {
 						container.html(data);
-						container.fadeTo(200, 1);
+						container.fadeTo(100, 1);
 					});
 				},
 				error: function () {
