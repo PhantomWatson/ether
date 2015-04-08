@@ -6,7 +6,7 @@
 	]
 ]); ?>
 
-<div class="prev_next_button">
+<div class="pagination">
 	<?php if ($this->Paginator->hasPrev()): ?>
 		<?php echo $this->Paginator->prev(
 			'&uarr; &uarr; &uarr;',
@@ -65,7 +65,7 @@
 	<?php endforeach; ?>
 </ul>
 
-<div class="prev_next_button">
+<div class="pagination">
 	<?php if ($this->Paginator->hasNext()): ?>
 		<?php echo $this->Paginator->next(
 			'&darr; &darr; &darr;',
@@ -75,5 +75,5 @@
 </div>
 
 <?php $this->append('buffered_js'); ?>
-	setupThoughtwordLinks($('#recent'));
+	recentActivity.init();
 <?php $this->end(); ?>
