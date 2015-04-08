@@ -640,4 +640,31 @@ var profilePage = {
 			});
 		});
 	}
-}
+};
+
+var recentActivity = {
+	init: function () {
+		console.log('initted');
+		var container = $('#recent_activity');
+		container.find('.pagination a').click(function (event) {
+			event.preventDefault();
+			var link = $(this);
+			$.ajax({
+				url: link.attr('href'),
+				beforeSend: function () {
+					container.fadeTo(300, 0.5);
+				},
+				success: function (data) {
+					container.fadeOut(200, function () {
+						container.html(data);
+						container.fadeTo(200, 1);
+					});
+				},
+				error: function () {
+					container.fadeTo(200, 1);
+					alert('Whoops. There was an error. Please try again.');
+				}
+			});
+		});
+	}
+};
