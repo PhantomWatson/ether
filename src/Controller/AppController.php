@@ -53,8 +53,9 @@ class AppController extends Controller
 		$this->Auth->authError = ($this->Auth->user('id')) ?
 			'Sorry, you do not have access to that location.' :
 			'Please <a href="/login">log in</a> before you try that.';
+
 		$this->set(array(
-			'logged_in' => $this->Auth->user('id') != null
+			'loggedIn' => $this->Auth->user('id') != null
 		));
 	}
 }

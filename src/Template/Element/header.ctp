@@ -51,7 +51,7 @@
 				); ?>
 			</li>
 
-			<?php if (isset($logged_in) && $logged_in): ?>
+			<?php if (isset($loggedIn) && $loggedIn): ?>
 				<li>
 					<?php echo $this->Html->link(
 						'Think',
