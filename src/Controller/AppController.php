@@ -73,6 +73,7 @@ class AppController extends Controller
 		// Check session
 		if ($this->request->session()->check('hasNewMessages')) {
 			$hasNewMessages = $this->request->session()->check('hasNewMessages');
+
 		// Check database and save result to session
 		} else {
 			$this->loadModel('Messages');
