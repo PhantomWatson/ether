@@ -32,4 +32,9 @@ class User extends Entity
         'comments' => true,
         'thoughts' => true,
     ];
+
+    protected function _setPassword($password)
+    {
+        return (new DefaultPasswordHasher)->hash($password);
+    }
 }
