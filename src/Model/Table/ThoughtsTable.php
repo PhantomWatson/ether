@@ -289,7 +289,9 @@ class ThoughtsTable extends Table
 			->where(['word' => $word])
 			->order(['Thoughts.created' => 'DESC'])
 			->contain([
-				'Users',
+				'Users' => function ($q) {
+					return $q->select(['id', 'color']);
+				},
 				'Comments'
 			])
 			->toArray();
