@@ -38,7 +38,11 @@ class AppController extends Controller
 			],
 			'authenticate' => [
 				'Form' => [
-					'fields' => ['username' => 'email']
+					'fields' => ['username' => 'email'],
+					'passwordHasher' => [
+						'className' => 'Fallback',
+						'hashers' => ['Default', 'Legacy']
+					]
 				]
 			]
 		]);

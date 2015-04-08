@@ -146,6 +146,12 @@ class UsersController extends AppController
 			$user = $this->Auth->identify();
 			if ($user) {
 				$this->Auth->setUser($user);
+				if ($this->Auth->authenticationProvider()->needsPasswordRehash()) {
+					$user = $this->Users->get($this->Auth->user('id'));
+					$user->password = $this->request->data('password');
+					$user->password_version = 3;
+					$this->Users->save($user);
+				}
 				return $this->redirect($this->Auth->redirectUrl());
 			} else {
 				$this->Flash->error('Email or password is incorrect');
