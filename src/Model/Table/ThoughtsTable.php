@@ -282,4 +282,16 @@ class ThoughtsTable extends Table
 			->toArray();
 		return isset($results['Thought']['id']) ? $results['Thought']['id'] : false;
 	}
+
+	public function getFromWord($word)
+	{
+		return $this->find('all')
+			->where(['word' => $word])
+			->order(['Thoughts.created' => 'DESC'])
+			->contain([
+				'Users',
+				'Comments'
+			])
+			->toArray();
+	}
 }
