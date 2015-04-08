@@ -29,6 +29,12 @@ use Cake\Core\Configure;
  */
 class AppController extends Controller
 {
+	public $helpers = [
+		'Time' => [
+			'className' => 'EtherTime'
+		]
+	];
+
     public function initialize() {
         $this->loadComponent('Flash');
 		$this->loadComponent('Auth', [
