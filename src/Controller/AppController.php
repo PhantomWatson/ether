@@ -57,5 +57,28 @@ class AppController extends Controller
 		$this->set(array(
 			'loggedIn' => $this->Auth->user('id') != null
 		));
+
+		$this->__setNewMessagesAlert();
+	}
+
+	/**
+	 * Sets the variable $hasNewMessages for logged-in users
+	 */
+	private function __setNewMessagesAlert() {
+		$userId = $this->Auth->user('id');
+		if (! $userId) {
+			return;
+		}
+
+		// Check session
+		if ($this->request->session()->check('hasNewMessages')) {
+			$hasNewMessages = $this->request->session()->check('hasNewMessages');
+		// Check database and save result to session
+		} else {
+			$this->loadModel('Messages');
+			$hasNewMessages = $this->Messages->userHasNewMessages($userId);
+			$this->request->session()->write('hasNewMessages', $hasNewMessages);
+		}
+		$this->set(compact('hasNewMessages'));
 	}
 }
