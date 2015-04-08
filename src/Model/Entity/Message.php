@@ -26,6 +26,7 @@ class Message extends Entity
         'message' => true,
         'parsedTextCache' => true,
         'cacheTimestamp' => true,
+        'received' => true,
         'recipient' => true,
         'sender' => true,
     ];
