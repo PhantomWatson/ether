@@ -64,8 +64,10 @@ class AppController extends Controller
 			'Sorry, you do not have access to that location.' :
 			'Please <a href="/login">log in</a> before you try that.';
 
+		$userId = $this->Auth->user('id');
 		$this->set(array(
-			'loggedIn' => $this->Auth->user('id') != null
+			'userId' => $userId,
+			'loggedIn' => $userId !== null
 		));
 
 		$this->__setNewMessagesAlert();
