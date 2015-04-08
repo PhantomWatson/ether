@@ -14,3 +14,11 @@
  */
 ?>
 <?= $this->fetch('content') ?>
+
+<?php if ($this->fetch('buffered_js')): ?>
+	<script>
+		$(document).ready(function () {
+			<?= $this->fetch('buffered_js') ?>
+		});
+	</script>
+<?php endif; ?>
