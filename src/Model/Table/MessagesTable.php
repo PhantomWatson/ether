@@ -87,4 +87,15 @@ class MessagesTable extends Table
         $rules->add($rules->existsIn(['sender_id'], 'Senders'));
         return $rules;
     }
+
+	public function userHasNewMessages($userId)
+	{
+		$count = $this->find('all')
+			->where([
+				'recipient_id' => $userId,
+				'received' => 0
+			])
+			->count();
+		return $count > 0;
+	}
 }
