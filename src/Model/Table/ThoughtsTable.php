@@ -15,6 +15,8 @@ use Cake\Network\Exception\BadRequestException;
 class ThoughtsTable extends Table
 {
 
+	public $maxThoughtwordLength = 30;
+
 	/**
 	 * Initialize method
 	 *
@@ -253,15 +255,15 @@ class ThoughtsTable extends Table
 	}
 
 	/**
-	 * Converts $word into a valid thoughtword (alphanumeric, no spaces, max 30 characters)
+	 * Converts $word into a valid thoughtword (alphanumeric, lowercase, no spaces, max length enforced)
 	 * @param string $word
 	 * @return string
 	 */
-	public function format_thoughtword($word)
+	public function formatThoughtword($word)
 	{
 		$word = preg_replace('/[^a-zA-Z0-9]/', '', $word);
-		if (strlen($word) > $this->max_thoughtword_length) {
-			$word = substr($word, 0, $this->max_thoughtword_length);
+		if (strlen($word) > $this->maxThoughtwordLength) {
+			$word = substr($word, 0, $this->maxThoughtwordLength);
 		}
 		return strtolower($word);
 	}
