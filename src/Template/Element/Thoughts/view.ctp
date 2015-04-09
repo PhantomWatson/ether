@@ -28,7 +28,7 @@
 	</div>
 	<div class="body">
 		<?php
-			echo $thought['thought'];
+			echo $thought['parsedTextCache'];
 			/*
 			echo $this->element('thoughts/formatted_thought', array(
 				'input' => $thought,
