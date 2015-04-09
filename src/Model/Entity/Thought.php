@@ -2,6 +2,7 @@
 namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
+use Cake\ORM\TableRegistry;
 
 /**
  * Thought Entity.
@@ -34,5 +35,16 @@ class Thought extends Entity
 		if ($created) {
 			Cache::increment('getCount()');
 		}
+	}
+
+	public function _getParsedTextCache($parsedTextCache) {
+		if ($parsedTextCache == '') {
+			$thoughts = TableRegistry::get('Thoughts');
+			$parsedTextCache = $thoughts->linkThoughtwords($this->_properties['thought']);
+			$thought = $thoughts->find('all')->where(['id' => $this->_properties['id']])->first();
+			$thought->parsedTextCache = $parsedTextCache;
+			$thoughts->save($thought);
+		}
+		return $parsedTextCache;
 	}
 }
