@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
 
 /**
  * Users Model
@@ -137,5 +138,19 @@ class UsersTable extends Table
             ])
         	->first()
         	->toArray();
+	}
+
+	public function getColorsWithThoughts()
+	{
+		return $this->find('all')
+			->select([
+				'id',
+				'color',
+				'count' => $this->find()->func()->count('Thoughts.id')
+			])
+			->matching('Thoughts')
+			->group(['Users.id'])
+			->having(['count >' => 0])
+			->toArray();
 	}
 }
