@@ -43,6 +43,7 @@ class Thought extends Entity
 			$parsedTextCache = $thoughts->linkThoughtwords($this->_properties['thought']);
 			$thought = $thoughts->find('all')->where(['id' => $this->_properties['id']])->first();
 			$thought->parsedTextCache = $parsedTextCache;
+			$thought->parsed = date('Y-m-d H:i:s');
 			$thoughts->save($thought);
 		}
 		return $parsedTextCache;
