@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Network\Exception\BadRequestException;
 
 /**
  * Thoughts Controller
@@ -14,7 +15,7 @@ class ThoughtsController extends AppController
 	public function initialize()
 	{
 		parent::initialize();
-		$this->Auth->allow(['recent']);
+		$this->Auth->allow(['recent', 'word']);
 	}
 
     /**
@@ -115,5 +116,21 @@ class ThoughtsController extends AppController
 		$this->paginate['Thoughts']['finder']['recentActivity'] = [];
 		$this->layout = 'ajax';
 		$this->set('recentActivity', $this->paginate('Thoughts'));
+	}
+
+	public function word($word = null)
+	{
+		if (isset($this->request->data['Thought']['word'])) {
+			$word = $this->request->data['Thought']['word'];
+		}
+		$word = $this->Thoughts->formatThoughtword($word);
+		if ($word === '') {
+			throw new BadRequestException('Invalid thoughtword');
+		}
+		$this->set(array(
+			'title_for_layout' => ucwords($word),
+			'thoughts' => $this->Thoughts->getFromWord($word),
+			'word' => $word
+		));
 	}
 }
