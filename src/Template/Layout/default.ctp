@@ -5,8 +5,7 @@
 		<title>
 			<?php
 				$title = 'Ether - Thought Repository';
-				$title_for_layout = $this->fetch('title');
-				if ($title_for_layout) {
+				if (isset($title_for_layout) && $title_for_layout !== '') {
 					$title = 'Ether :: '.$title_for_layout;
 				}
 				echo $title;
