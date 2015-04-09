@@ -337,7 +337,7 @@ class ThoughtsTable extends Table
 				continue;
 			}
 
-			$url = Router::url(['controller' => 'Thoughts', 'action' => 'word', $word]);
+			$url = Router::url(['controller' => 'Thoughts', 'action' => 'word', $word, 'plugin' => false]);
 
 			// Thoughtword is intact inside chunk
 			// (So leave leading/trailing non-alphanumeric character out of link)
