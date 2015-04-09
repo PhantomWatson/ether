@@ -23,31 +23,20 @@
 			<li>
 				<?php echo $this->Html->link(
 					'Thoughts',
-					array(
-						'controller' => 'Thoughts',
-						'action' => 'index'
-					)
+					['controller' => 'Thoughts', 'action' => 'index']
 				); ?>
 			</li>
 			<li>
 				<?php echo $this->Html->link(
 					'Random',
-					array(
-						'controller' => 'Thoughts',
-						'action' => 'random'
-					),
-					array(
-						'id' => 'random_link'
-					)
+					['controller' => 'Thoughts', 'action' => 'random'],
+					['id' => 'random_link']
 				); ?>
 			</li>
 			<li>
 				<?php echo $this->Html->link(
 					'About',
-					array(
-						'controller' => 'Pages',
-						'action' => 'about'
-					)
+					['controller' => 'Pages', 'action' => 'about']
 				); ?>
 			</li>
 
@@ -55,65 +44,41 @@
 				<li>
 					<?php echo $this->Html->link(
 						'Think',
-						array(
-							'controller' => 'Thoughts',
-							'action' => 'add'
-						)
+						['controller' => 'Thoughts', 'action' => 'add']
 					); ?>
 				</li>
 				<li>
 					<?php echo $this->Html->link(
 						'Messages',
-						array(
-							'controller' => 'Messages',
-							'action' => 'index'
-						),
-						array(
-							'class' => $new_messages ? 'new_messages' : ''
-						)
+						['controller' => 'Messages', 'action' => 'index'],
+						['class' => $hasNewMessages ? 'new_messages' : '']
 					); ?>
 				</li>
 				<li>
 					<?php echo $this->Html->link(
 						'Account',
-						array(
-							'controller' => 'Users',
-							'action' => 'account'
-						)
+						['controller' => 'Users', 'action' => 'account']
 					); ?>
 				</li>
 				<li>
 					<?php echo $this->Html->link(
 						'Logout',
-						array(
-							'controller' => 'Users',
-							'action' => 'logout'
-						)
+						['controller' => 'Users', 'action' => 'logout']
 					); ?>
 				</li>
 			<?php else: ?>
 				<li>
 					<?php echo $this->Html->link(
 						'Login',
-						array(
-							'controller' => 'Users',
-							'action' => 'login'
-						),
-						array(
-							'id' => 'login_link'
-						)
+						['controller' => 'Users', 'action' => 'login'],
+						['id' => 'login_link']
 					); ?>
 				</li>
 				<li>
 					<?php echo $this->Html->link(
 						'Register',
-						array(
-							'controller' => 'Users',
-							'action' => 'register'
-						),
-						array(
-							'id' => 'register_link'
-						)
+						['controller' => 'Users', 'action' => 'register'],
+						['id' => 'register_link']
 					); ?>
 				</li>
 			<?php endif; ?>
@@ -125,10 +90,7 @@
 		</ul>
 		<?php
 			use Cake\Routing\Router;
-			$goto_url = Router::url(array(
-				'controller' => 'Thoughts',
-				'action' => 'word'
-			));
+			$goto_url = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
 		?>
 		<form class="navbar-form navbar-left" role="search" action="<?php echo $goto_url; ?>" method="post">
 			<div class="form-group">
