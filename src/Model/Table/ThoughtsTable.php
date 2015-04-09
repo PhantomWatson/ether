@@ -8,6 +8,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 use Cake\Collection\Collection;
 use Cake\Network\Exception\BadRequestException;
+use Cake\Routing\Router;
 
 /**
  * Thoughts Model
@@ -295,5 +296,96 @@ class ThoughtsTable extends Table
 				'Comments'
 			])
 			->toArray();
+	}
+
+	/**
+	 * Returns $input with links around every thoughtword
+	 * @param string $input
+	 * @return string
+	 */
+	public function linkThoughtwords($input) {
+		$thoughtwords = $this->getWords();
+		$allowedTags = '<i><b>'; //<center><ul><ol><li><sup><sub> removed in Ether v2
+		$input = stripslashes($input); // Unnecessary after slashes are stripped out of the database
+		$input = strip_tags($input, $allowedTags);
+		$trimPattern = "/(^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$)/"; // Pattern used to isolate leading/trailing non-alphanumeric characters
+		$nonalphanumericPattern = '/[^a-zA-Z0-9]/';
+		$whitespaceAndTagsPattern = "/( |\n|\r|<i>|<\/i>|<b>|<\/b>)/";
+		$entirelyNonalphanumericPattern = '/^[^a-zA-Z0-9]+$/';
+		$formattedText = '';
+		$textBroken = preg_split($whitespaceAndTagsPattern, $input, -1, PREG_SPLIT_DELIM_CAPTURE);
+		foreach ($textBroken as $n => $textChunk) {
+
+			// Chunk is a delimiter
+			if (preg_match($whitespaceAndTagsPattern, $textChunk)) {
+				$formattedText .= $textChunk;
+				continue;
+			}
+
+			// Chunk is too long
+			if (strlen($textChunk) > $this->maxThoughtwordLength) {
+				$formattedText .= chunk_split($textChunk, $this->maxThoughtwordLength, "<wbr>");
+				continue;
+			}
+
+			// Lowercase, alphanumeric-only version of chunk
+			$word = strtolower(preg_replace($nonalphanumericPattern, "", $textChunk));
+
+			// Chunk is ineligible for linking
+			if (! in_array($word, $thoughtwords)) {
+				$formattedText .= $textChunk;
+				continue;
+			}
+
+			$url = Router::url(['controller' => 'Thoughts', 'action' => 'word', $word]);
+
+			// Thoughtword is intact inside chunk
+			// (So leave leading/trailing non-alphanumeric character out of link)
+			$stripos = stripos($textChunk, $word);
+			if ($stripos !== false) {
+				$unformattedWord = substr($textChunk, $stripos, strlen($word));
+				$formattedText .= str_replace(
+					$unformattedWord,
+					'<a href="'.$url.'" class="thoughtword">'.$unformattedWord.'</a>',
+					$textChunk
+				);
+				continue;
+			}
+
+			// Thoughtword is broken up (such as the word 'funhouse' is broken up in 'fun-house')
+			// (So include intervening non-alphanumeric characters in link, but not leading/trailing)
+			$splitChunk = preg_split($trimPattern, $textChunk, -1, PREG_SPLIT_DELIM_CAPTURE);
+
+			// Removes empty subchunks
+			foreach ($splitChunk as $key => $subchunk) {
+				if ($subchunk == '') {
+					unset($splitChunk[$key]);
+				}
+			}
+			$splitChunk = array_values($splitChunk); // Resets keys
+			$lastKey = count($splitChunk) - 1;
+
+			// If the chunk of text LEADS with non-alphanumeric characters, don't include them in the link.
+			$firstChunk = $splitChunk[0];
+			if ($leadingCharacters = preg_match($entirelyNonalphanumericPattern, $firstChunk)) {
+				$formattedText .= $firstChunk;
+				array_shift($splitChunk);
+				$lastKey--;
+			}
+
+			// If the chunk of text ENDS with non-alphanumeric characters, don't include them in the link.
+			$lastChunk = $splitChunk[$lastKey];
+			if ($trailingCharacters = preg_match($entirelyNonalphanumericPattern, $lastChunk)) {
+				array_pop($splitChunk);
+			}
+
+			$linkedChunk = ($leadingCharacters || $trailingCharacters) ? implode("", $splitChunk) : $textChunk;
+			$formattedText .= '<a href="'.$url.'" class="thoughtword">'.$linkedChunk.'</a>';
+
+			if ($trailingCharacters) {
+				$formattedText .= $lastChunk;
+			}
+		}
+		return $formattedText;
 	}
 }
