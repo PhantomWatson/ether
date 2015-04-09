@@ -34,16 +34,17 @@ class UsersController extends AppController
     /**
      * View method
      *
-     * @param string|null $id User id
+     * @param string|null $color User color
      * @return void
      * @throws \Cake\Network\Exception\NotFoundException
      */
-    public function view($id = null)
+    public function view($color = null)
     {
-        $user = $this->Users->get($id, [
-            'contain' => ['Comments', 'Thoughts']
-        ]);
-        $this->set('user', $user);
+        $user = $this->Users->getProfileInfo($color);
+        $this->set([
+        	'title_for_layout' => "Thinker #$color",
+        	'user' => $user
+		]);
     }
 
     public function register()
