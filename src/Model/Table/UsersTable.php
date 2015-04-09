@@ -108,4 +108,34 @@ class UsersTable extends Table
 			->where(['color' => $color]);
 		return $query->count() > 0;
 	}
+
+	/**
+	 * Returns an array of the data needed for a user's profile
+	 * @param string $color
+	 * @return array
+	 * @throws \Cake\Network\Exception\NotFoundException
+	 */
+	public function getProfileInfo($color)
+	{
+		return $this->findByColor($color)
+        	->select([
+        		'id',
+        		'color',
+        		'acceptMessages',
+        		'profile'
+        	])
+        	->contain([
+            	'Thoughts' => function ($q) {
+            		return $q
+            			->select(['id', 'word', 'user_id'])
+						->order([
+							'word' => 'ASC',
+							'created' => 'DESC'
+						])
+						->distinct(['word']);
+				}
+            ])
+        	->first()
+        	->toArray();
+	}
 }
