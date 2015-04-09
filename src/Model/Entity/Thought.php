@@ -28,6 +28,7 @@ class Thought extends Entity
 		'anonymous' => true,
 		'user' => true,
 		'comments' => true,
+		'parsed' => true
 	];
 	public $max_thoughtword_length = 30;
 
