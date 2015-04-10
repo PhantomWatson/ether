@@ -1,30 +1,77 @@
-<div class="actions columns large-2 medium-3">
-    <h3><?= __('Actions') ?></h3>
-    <ul class="side-nav">
-        <li><?= $this->Html->link(__('List Thoughts'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Comments'), ['controller' => 'Comments', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Comment'), ['controller' => 'Comments', 'action' => 'add']) ?> </li>
-    </ul>
+<div id="content_title">
+	<h1>
+		<?php echo $title_for_layout; ?>
+	</h1>
 </div>
-<div class="thoughts form large-10 medium-9 columns">
-    <?= $this->Form->create($thought); ?>
-    <fieldset>
-        <legend><?= __('Add Thought') ?></legend>
-        <?php
-            echo $this->Form->input('user_id', ['options' => $users]);
-            echo $this->Form->input('word');
-            echo $this->Form->input('thought');
-            echo $this->Form->input('color');
-            echo $this->Form->input('time');
-            echo $this->Form->input('edited');
-            echo $this->Form->input('comments_enabled');
-            echo $this->Form->input('parsedTextCache');
-            echo $this->Form->input('cacheTimestamp');
-            echo $this->Form->input('anonymous');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+
+<div class="content_box">
+	<?php echo $this->Form->create(
+		'Thought',
+		[
+			'url' => ['controller' => 'Thoughts', 'action' => 'add'],
+			'id' => 'ThoughtAddForm'
+		]
+	); ?>
+
+	<?php
+		echo $this->Form->input(
+			'word',
+			[
+				'class' => 'control-label form-control',
+				'label' => [
+					'class' => 'control-label',
+					'text' => 'Thoughtword'
+				],
+				'placeholder' => 'Enter a word to associated your thought with',
+				'value' => isset($word) ? $word : null
+			]
+		);
+	?>
+
+	<?php
+		echo $this->Form->input(
+			'thought',
+			[
+				'class' => 'form-control',
+				'label' => [
+					'class' => 'control-label',
+					'text' => 'Thought'
+				],
+				'type' => 'textarea'
+			]
+		);
+	?>
+	<div class="footnote">Allowable HTML: &lt;b&gt; &lt;i&gt;</div>
+
+	<div class="options row">
+		<div class="form-group col-md-5">
+			<?php echo $this->Form->input(
+				'comments_enabled',
+				[
+					'label' => 'Allow comments',
+					'type' => 'checkbox'
+				]
+			); ?>
+		</div>
+
+		<div class="form-group col-md-5">
+			<?php echo $this->Form->input(
+				'anonymous',
+				[
+					'label' => 'Post anonymously',
+					'type' => 'checkbox'
+				]
+			); ?>
+		</div>
+
+		<div class="col-md-2">
+			<?php
+				echo $this->Form->submit(
+					'Think',
+					['class' => 'btn btn-default']
+				);
+				echo $this->Form->end();
+			?>
+		</div>
+	</div>
 </div>
