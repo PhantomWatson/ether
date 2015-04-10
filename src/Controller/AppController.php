@@ -32,6 +32,9 @@ class AppController extends Controller
 	public $helpers = [
 		'Time' => [
 			'className' => 'EtherTime'
+		],
+		'Form' => [
+			'templates' => 'ether_form'
 		]
 	];
 
