@@ -388,4 +388,12 @@ class ThoughtsTable extends Table
 		}
 		return $formattedText;
 	}
+
+	public function afterSave($created, $options = array())
+	{
+		if ($created) {
+			$event = new Event('Model.Thought.created', $this, $options);
+			$this->eventManager()->dispatch($event);
+		}
+	}
 }
