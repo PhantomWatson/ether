@@ -28,7 +28,10 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $this->set('users', $this->paginate($this->Users));
+		$this->set(array(
+			'title_for_layout' => 'Thinkers',
+			'colors' => $this->Users->getColorsWithThoughts(),
+		));
     }
 
     /**
