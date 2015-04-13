@@ -55,20 +55,20 @@ class ThoughtsController extends AppController
     {
         $thought = $this->Thoughts->newEntity();
         if ($this->request->is('post')) {
+            $this->request->data['user_id'] = $this->Auth->user('id');
             $thought = $this->Thoughts->patchEntity($thought, $this->request->data);
-			$thought->user_id = $this->Auth->user('id');
-            if ($this->Thoughts->save($thought)) {
+            if ($thought->errors()) {
+            	$this->Flash->error('Please correct the indicated '.__n('error', 'errors', count($thought->errors())).' before continuing.');
+			} elseif ($this->Thoughts->save($thought)) {
                 $this->Flash->success('Your thought has been thunk. Thanks for thinking that thought!');
-                return $this->redirect([
-                	'action' => 'word',
-                	$thought->word
-                ]);
+                return $this->redirect(['action' => 'word', $thought->word]);
             } else {
                 $this->Flash->error('There was an error posting that thought. Please try again.');
             }
         }
         $this->set([
-        	'title_for_layout' => 'Post a New Thought'
+        	'title_for_layout' => 'Post a New Thought',
+        	'thought' => $thought
         ]);
     }
 
