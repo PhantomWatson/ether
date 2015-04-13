@@ -4,7 +4,7 @@
 		'color' => $thought['user']['color'],
 		'anonymous' => $thought['anonymous']
 	]); ?>
-	<?php if ($userId == $thought['User']['id']): ?>
+	<?php if ($userId == $thought['user']['id']): ?>
 		<div class="controls">
 			<?php echo $this->Html->link(
 				'Edit',
