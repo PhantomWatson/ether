@@ -65,7 +65,11 @@ class ThoughtsController extends AppController
             } else {
                 $this->Flash->error('There was an error posting that thought. Please try again.');
             }
-        }
+        } else {
+        	if ($this->request->query('word') !== null) {
+        		$this->request->data['word'] = $this->request->query('word');
+			}
+		}
         $this->set([
         	'title_for_layout' => 'Post a New Thought',
         	'thought' => $thought

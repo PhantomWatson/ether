@@ -15,8 +15,7 @@
 				'class' => 'control-label',
 				'text' => 'Thoughtword'
 			],
-			'placeholder' => 'Enter a word to associated your thought with',
-			'value' => isset($word) ? $word : null
+			'placeholder' => 'Enter a word to associated your thought with'
 		]
 	);
 ?>
