@@ -194,3 +194,12 @@ if (Configure::read('debug')) {
 DispatcherFactory::add('Asset');
 DispatcherFactory::add('Routing');
 DispatcherFactory::add('ControllerFactory');
+
+/**
+ * Event listeners
+ */
+use App\Event\ThoughtListener;
+$ThoughtListener = new ThoughtListener();
+
+use Cake\Event\EventManager;
+EventManager::instance()->attach($ThoughtListener);
