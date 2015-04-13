@@ -60,22 +60,9 @@ class ThoughtsTable extends Table
 					'message' => 'That thought is way too short! Please enter at least 20 characters.'
 				]
 			])
-			->requirePresence('color', 'create')
-			->notEmpty('color')
-			->add('time', 'valid', ['rule' => 'numeric'])
-			->requirePresence('time', 'create')
-			->notEmpty('time')
-			->add('edited', 'valid', ['rule' => 'numeric'])
-			->requirePresence('edited', 'create')
-			->notEmpty('edited')
 			->add('comments_enabled', 'valid', ['rule' => 'numeric'])
 			->requirePresence('comments_enabled', 'create')
 			->notEmpty('comments_enabled')
-			->requirePresence('parsedTextCache', 'create')
-			->notEmpty('parsedTextCache')
-			->add('cacheTimestamp', 'valid', ['rule' => 'numeric'])
-			->requirePresence('cacheTimestamp', 'create')
-			->notEmpty('cacheTimestamp')
 			->add('anonymous', 'valid', ['rule' => 'boolean'])
 			->requirePresence('anonymous', 'create')
 			->notEmpty('anonymous');
