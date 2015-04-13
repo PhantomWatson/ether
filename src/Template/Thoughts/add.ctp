@@ -6,7 +6,7 @@
 
 <div class="content_box">
 	<?php echo $this->Form->create(
-		'Thought',
+		$thought,
 		[
 			'url' => ['controller' => 'Thoughts', 'action' => 'add'],
 			'id' => 'ThoughtAddForm'
