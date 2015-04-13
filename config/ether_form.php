@@ -1,6 +1,7 @@
 <?php
 return [
-	'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>'
+	'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
+	'inputContainerError' => '<div class="form-group {{type}}{{required}} error">{{content}}{{error}}</div>'
 
 	/* defaults
 	'button' => '<button{{attrs}}>{{text}}</button>',
