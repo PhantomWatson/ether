@@ -61,12 +61,8 @@ class ThoughtsTable extends Table
 					'message' => 'That thought is way too short! Please enter at least 20 characters.'
 				]
 			])
-			->add('comments_enabled', 'valid', ['rule' => 'numeric'])
-			->requirePresence('comments_enabled', 'create')
-			->notEmpty('comments_enabled')
-			->add('anonymous', 'valid', ['rule' => 'boolean'])
-			->requirePresence('anonymous', 'create')
-			->notEmpty('anonymous');
+			->add('comments_enabled', 'valid', ['rule' => 'boolean'])
+			->add('anonymous', 'valid', ['rule' => 'boolean']);
 
 		return $validator;
 	}
