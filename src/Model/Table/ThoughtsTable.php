@@ -9,6 +9,7 @@ use Cake\Validation\Validator;
 use Cake\Collection\Collection;
 use Cake\Network\Exception\BadRequestException;
 use Cake\Routing\Router;
+use Cake\Event\Event;
 
 /**
  * Thoughts Model
