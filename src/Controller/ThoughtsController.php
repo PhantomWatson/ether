@@ -25,11 +25,10 @@ class ThoughtsController extends AppController
         if (in_array($this->request->action, $authorOnlyActions)) {
         	$thoughtId = $this->request->pass[0];
         	$authorId = $this->Thoughts->getAuthorId($thoughtId);
-        	return (bool) ($user['id'] === $authorId);
+        	return $user['id'] === $authorId;
 		}
 
-        // Otherwise, any logged-in user is granted access
-        return parent::initialize();
+        return parent::isAuthorized();
     }
 
     /**
