@@ -62,11 +62,12 @@ class AppController extends Controller
 		$this->set('debug', Configure::read('debug'));
     }
 
-	public function beforeRender(\Cake\Event\Event $event) {
-		$this->Auth->authError = ($this->Auth->user('id')) ?
-			'Sorry, you do not have access to that location.' :
-			'Please <a href="/login">log in</a> before you try that.';
+	public function beforeFilter(\Cake\Event\Event $event) {
+		$authError = $this->Auth->user('id') ? 'Sorry, you do not have access to that location.' : 'Please <a href="/login">log in</a> before you try that.';
+		$this->Auth->config('authError', $authError);
+	}
 
+	public function beforeRender(\Cake\Event\Event $event) {
 		$userId = $this->Auth->user('id');
 		$this->set(array(
 			'userId' => $userId,
