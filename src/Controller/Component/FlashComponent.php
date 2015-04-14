@@ -16,6 +16,16 @@ class FlashComponent extends Component {
 	 */
 	public function set($message, $class = 'notification') {
 		$storedMessages = $this->request->session()->read('FlashMessage');
+
+		// Handle the $options parameter passed by the Authentication component
+		if (is_array($class)) {
+			if (isset($class['params']['class'])) {
+				$class = $class['params']['class'];
+			} else {
+				$class = 'notification';
+			}
+		}
+
 		$storedMessages[] = compact('message', 'class');
 		$this->request->session()->write('FlashMessage', $storedMessages);
 	}
