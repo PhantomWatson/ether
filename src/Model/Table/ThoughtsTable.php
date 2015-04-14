@@ -373,9 +373,9 @@ class ThoughtsTable extends Table
 		return $formattedText;
 	}
 
-	public function afterSave($created, $options = array())
+	public function afterSave($entity, $options = [])
 	{
-		if ($created) {
+		if ($entity->isNew()) {
 			$event = new Event('Model.Thought.created', $this, $options);
 			$this->eventManager()->dispatch($event);
 		}
