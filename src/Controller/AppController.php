@@ -8,8 +8,8 @@
  * Redistributions of files must retain the above copyright notice.
  *
  * @copyright Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link      http://cakephp.org CakePHP(tm) Project
- * @since     0.2.9
+ * @link	  http://cakephp.org CakePHP(tm) Project
+ * @since	 0.2.9
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 namespace App\Controller;
@@ -38,8 +38,8 @@ class AppController extends Controller
 		]
 	];
 
-    public function initialize() {
-        $this->loadComponent('Flash');
+	public function initialize() {
+		$this->loadComponent('Flash');
 		$this->loadComponent('Auth', [
 			'loginAction' => [
 				'controller' => 'Users',
@@ -57,10 +57,16 @@ class AppController extends Controller
 						'hashers' => ['Default', 'Legacy']
 					]
 				]
-			]
+			],
+			'authorize' => ['Controller']
 		]);
 		$this->set('debug', Configure::read('debug'));
-    }
+	}
+
+	public function isAuthorized($user = null)
+	{
+		return true;
+	}
 
 	public function beforeFilter(\Cake\Event\Event $event) {
 		$authError = $this->Auth->user('id') ? 'Sorry, you do not have access to that location.' : 'Please <a href="/login">log in</a> before you try that.';
