@@ -96,23 +96,29 @@ class ThoughtsController extends AppController
      * @return void
      * @throws \Cake\Network\Exception\NotFoundException
      */
-    public function edit($id = null)
-    {
-        $thought = $this->Thoughts->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $thought = $this->Thoughts->patchEntity($thought, $this->request->data);
-            if ($this->Thoughts->save($thought)) {
-                $this->Flash->success('The thought has been saved.');
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error('The thought could not be saved. Please, try again.');
-            }
-        }
-        $users = $this->Thoughts->Users->find('list', ['limit' => 200]);
-        $this->set(compact('thought', 'users'));
-    }
+	public function edit($id = null)
+	{
+		$thought = $this->Thoughts->get($id, [
+			'contain' => []
+		]);
+		if ($this->request->is(['patch', 'post', 'put'])) {
+			$thought = $this->Thoughts->patchEntity($thought, $this->request->data, [
+				'fieldList' => ['word', 'thought', 'comments_enabled', 'anonymous']
+			]);
+			if ($thought->errors()) {
+            	$this->Flash->error('Please correct the indicated '.__n('error', 'errors', count($thought->errors())).' before continuing.');
+			} elseif ($this->Thoughts->save($thought)) {
+				$this->Flash->success('Your thought has been updated.');
+				return $this->redirect(['action' => 'word', $thought->word]);
+			} else {
+				$this->Flash->error('There was an error updating that thought. Please try again.');
+			}
+		}
+		$this->set([
+			'thought' => $thought,
+			'title_for_layout' => 'Update Thought'
+		]);
+	}
 
     /**
      * Delete method
