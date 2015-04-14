@@ -18,6 +18,20 @@ class ThoughtsController extends AppController
 		$this->Auth->allow(['recent', 'word']);
 	}
 
+	public function isAuthorized($user = null)
+	{
+        // Author-only actions
+        $authorOnlyActions = array('edit', 'delete');
+        if (in_array($this->request->action, $authorOnlyActions)) {
+        	$thoughtId = $this->request->pass[0];
+        	$authorId = $this->Thoughts->getAuthorId($thoughtId);
+        	return (bool) $user['id'] === $authorId;
+		}
+
+        // Otherwise, any logged-in user is granted access
+        return true;
+    }
+
     /**
      * Index method
      *
