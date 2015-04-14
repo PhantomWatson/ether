@@ -380,4 +380,11 @@ class ThoughtsTable extends Table
 			$this->eventManager()->dispatch($event);
 		}
 	}
+
+	public function getAuthorId($thoughtId)
+	{
+		return $this->get($thoughtId, [
+			'fields' => ['user_id']
+		])->user_id;
+	}
 }
