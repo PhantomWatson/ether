@@ -32,12 +32,6 @@ class Thought extends Entity
 	];
 	public $max_thoughtword_length = 30;
 
-	public function afterSave($created, $options = array()) {
-		if ($created) {
-			Cache::increment('getCount()');
-		}
-	}
-
 	public function _getParsedTextCache($parsedTextCache) {
 		if ($parsedTextCache == '') {
 			$thoughts = TableRegistry::get('Thoughts');
