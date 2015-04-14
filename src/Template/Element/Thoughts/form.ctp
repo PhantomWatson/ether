@@ -1,7 +1,10 @@
 <?php echo $this->Form->create(
 	$thought,
 	[
-		'url' => ['controller' => 'Thoughts', 'action' => 'add'],
+		'url' => [
+			'controller' => 'Thoughts',
+			'action' => $this->request->action == 'edit' ? 'edit' : 'add'
+		],
 		'id' => 'ThoughtAddForm'
 	]
 ); ?>
