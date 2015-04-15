@@ -375,10 +375,9 @@ class ThoughtsTable extends Table
 
 	public function afterSave($event, $entity, $options = [])
 	{
-		if ($entity->isNew()) {
-			$event = new Event('Model.Thought.created', $this, compact('entity', 'options'));
-			$this->eventManager()->dispatch($event);
-		}
+		$eventName = $entity->isNew() ? 'Model.Thought.created' : 'Model.Thought.updated';
+		$event = new Event($eventName, $this, compact('entity', 'options'));
+		$this->eventManager()->dispatch($event);
 	}
 
 	public function getAuthorId($thoughtId)
