@@ -20,7 +20,10 @@ class ThoughtListener implements EventListenerInterface
 
 	public function updatePopulatedThoughtwords($event, $entity, $options)
 	{
-		// new thought word is $event->data['word']
+		// Exit if entity was updated without changing word
+		if (! $entity->isNew() && ! $entity->dirty('word')) {
+			return;
+		}
 
 		// Check to see if the count of thoughts with this word is 1
 		// If so, it's a new addition to the list of populated thoughtwords
