@@ -3,6 +3,7 @@ namespace App\Event;
 
 use Cake\Event\EventListenerInterface;
 use Cake\ORM\TableRegistry;
+use Cake\I18n\Time;
 
 class ThoughtListener implements EventListenerInterface
 {
@@ -11,8 +12,8 @@ class ThoughtListener implements EventListenerInterface
 	{
 		return [
 			'Model.Thought.created' => [
-				'updatePopulatedThoughtwords',
-				'parseThought'
+				['callable' => 'updatePopulatedThoughtwords'],
+				['callable' => 'parseThought']
 			]
 		];
 	}
@@ -29,13 +30,14 @@ class ThoughtListener implements EventListenerInterface
 	public function parseThought($event, $entity, $options)
 	{
 		// Don't bother re-parsing thought if it hasn't changed
-		if (! $entity->dirty('thought')) {
+		if (! $entity->isNew() && ! $entity->dirty('thought')) {
 			return;
 		}
 
 		$thoughts = TableRegistry::get('Thoughts');
-		$parsedThought = $tables->linkThoughtwords($event->data['thought']);
+		$parsedThought = $thoughts->linkThoughtwords($entity->get('thought'));
 		$entity->set('parsedTextCache', $parsedThought);
+		$entity->set('parsed', Time::now());
 		$thoughts->save($entity);
 	}
 }
