@@ -376,7 +376,7 @@ class ThoughtsTable extends Table
 	public function afterSave($event, $entity, $options = [])
 	{
 		if ($entity->isNew()) {
-			$event = new Event('Model.Thought.created', $this, $options);
+			$event = new Event('Model.Thought.created', $this, compact('entity', 'options'));
 			$this->eventManager()->dispatch($event);
 		}
 	}
