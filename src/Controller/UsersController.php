@@ -156,7 +156,7 @@ class UsersController extends AppController
 					$user->password_version = 3;
 					$this->Users->save($user);
 				}
-				$this->RememberMe->setCookie();
+				$this->AutoLogin->setCookie();
 				return $this->redirect($this->Auth->redirectUrl());
 			} else {
 				$this->Flash->error('Email or password is incorrect');

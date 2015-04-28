@@ -50,7 +50,7 @@ class AppController extends Controller
 			],
 			'authorize' => ['Controller']
 		]);
-		$this->loadComponent('RememberMe');
+		$this->loadComponent('AutoLogin');
 		$this->set('debug', Configure::read('debug'));
 	}
 

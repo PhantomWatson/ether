@@ -3,14 +3,14 @@ namespace App\Controller\Component;
 
 use Cake\Controller\Component;
 
-class RememberMeComponent extends Component {
+class AutoLoginComponent extends Component {
 
 	public $components = ['Cookie', 'Auth'];
 	public $request;
 	public $settings = [];
 	protected $_defaultConfig = [
 		'autoLogin' => true,
-		'cookieKey' => 'rememberMe',
+		'cookieKey' => 'autoLogin',
 		'cookieSettings' => [],
 		'fields' => [
 			'email',
