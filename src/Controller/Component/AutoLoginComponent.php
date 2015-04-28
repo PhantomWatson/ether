@@ -1,4 +1,11 @@
 <?php
+/**
+ * @author Graham Watson <graham@phantomwatson.com>
+ * @copyright 2015, Graham Watson
+ * @license https://github.com/PhantomWatson/CakePHP-AutoLoginComponent/LICENSE.md MIT License
+ * @link https://github.com/PhantomWatson/CakePHP-AutoLoginComponent
+ */
+
 namespace App\Controller\Component;
 
 use Cake\Controller\Component;
