@@ -32,3 +32,6 @@ local.properties
 
 # PDT-specific
 .buildpath
+
+# Composer
+composer.phar
