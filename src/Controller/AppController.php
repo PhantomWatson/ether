@@ -28,7 +28,8 @@ class AppController extends Controller
 		]
 	];
 
-	public function initialize() {
+	public function initialize()
+	{
 		$this->loadComponent('Flash');
 		$this->loadComponent('Auth', [
 			'loginAction' => [
@@ -59,12 +60,14 @@ class AppController extends Controller
 		return true;
 	}
 
-	public function beforeFilter(\Cake\Event\Event $event) {
+	public function beforeFilter(\Cake\Event\Event $event)
+	{
 		$authError = $this->Auth->user('id') ? 'Sorry, you do not have access to that location.' : 'Please <a href="/login">log in</a> before you try that.';
 		$this->Auth->config('authError', $authError);
 	}
 
-	public function beforeRender(\Cake\Event\Event $event) {
+	public function beforeRender(\Cake\Event\Event $event)
+	{
 		$userId = $this->Auth->user('id');
 		$this->set(array(
 			'userId' => $userId,
@@ -77,7 +80,8 @@ class AppController extends Controller
 	/**
 	 * Sets the variable $hasNewMessages for logged-in users
 	 */
-	private function __setNewMessagesAlert() {
+	private function __setNewMessagesAlert()
+	{
 		$userId = $this->Auth->user('id');
 		if (! $userId) {
 			return;
