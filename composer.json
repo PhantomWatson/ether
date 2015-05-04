@@ -11,7 +11,9 @@
 		"cakephp/migrations" : "~1.0",
 		"cakephp/plugin-installer" : "dev-master",
 		"cake17/cakephp-recaptcha" : "dev-master",
-		"phantomwatson/cakephp-autologin": "dev-master"
+		"phantomwatson/cakephp-autologin": "dev-master",
+		"phpunit/phpunit": "*",
+		"cakephp/cakephp-codesniffer": "*"
 	},
 	"require-dev" : {
 		"psy/psysh" : "@stable",
