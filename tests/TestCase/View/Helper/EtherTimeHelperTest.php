@@ -1,7 +1,7 @@
 <?php
 namespace App\Test\TestCase\View\Helper;
 
-use App\View\Helper\ProgressHelper;
+use App\View\Helper\EtherTimeHelper;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 
