@@ -17,8 +17,8 @@ class MessagesControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'Messages' => 'app.messages',
-        'Recipients' => 'app.recipients',
-        'Senders' => 'app.senders'
+        'Recipients' => 'app.users',
+        'Senders' => 'app.users'
     ];
 
     /**

@@ -18,8 +18,8 @@ class MessagesTableTest extends TestCase
      */
     public $fixtures = [
         'Messages' => 'app.messages',
-        'Recipients' => 'app.recipients',
-        'Senders' => 'app.senders'
+        'Recipients' => 'app.users',
+        'Senders' => 'app.users'
     ];
 
     /**
