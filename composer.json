@@ -10,7 +10,8 @@
 		"mobiledetect/mobiledetectlib" : "2.*",
 		"cakephp/migrations" : "~1.0",
 		"cakephp/plugin-installer" : "dev-master",
-		"cake17/cakephp-recaptcha" : "dev-master"
+		"cake17/cakephp-recaptcha" : "dev-master",
+		"phantomwatson/cakephp-autologin": "dev-master"
 	},
 	"require-dev" : {
 		"psy/psysh" : "@stable",
@@ -23,7 +24,8 @@
 	},
 	"autoload" : {
 		"psr-4" : {
-			"App\\" : "src"
+			"App\\" : "src",
+			"AutoLogin\\" : "./vendor/phantomwatson/cakephp-autologin/src"
 		}
 	},
 	"autoload-dev" : {

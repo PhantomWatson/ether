@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "80a9827a091992130a1776860a63f747",
+    "hash": "be0192555e57c9ddf2c1a8ca974f0a55",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -482,6 +482,48 @@
                 "time"
             ],
             "time": "2014-09-26 02:52:02"
+        },
+        {
+            "name": "phantomwatson/cakephp-autologin",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PhantomWatson/CakePHP-AutoLoginComponent.git",
+                "reference": "2cd3020094a4d00099644b089b0ad6b9a27d3471"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PhantomWatson/CakePHP-AutoLoginComponent/zipball/2cd3020094a4d00099644b089b0ad6b9a27d3471",
+                "reference": "2cd3020094a4d00099644b089b0ad6b9a27d3471",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "3.0.*"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "AutoLogin\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Watson",
+                    "homepage": "http://phantomwatson.com",
+                    "role": "Author"
+                }
+            ],
+            "description": "CakePHP AutoLogin Component",
+            "homepage": "https://github.com/PhantomWatson/CakePHP-AutoLoginComponent",
+            "keywords": [
+                "autologin",
+                "cakephp"
+            ],
+            "time": "2015-04-30 16:59:45"
         },
         {
             "name": "psr/log",
@@ -1141,6 +1183,7 @@
     "stability-flags": {
         "cakephp/plugin-installer": 20,
         "cake17/cakephp-recaptcha": 20,
+        "phantomwatson/cakephp-autologin": 20,
         "psy/psysh": 0
     },
     "prefer-stable": true,
