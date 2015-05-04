@@ -13,4 +13,14 @@ class EtherTimeHelperTest extends TestCase
         $View = new View();
         $this->EtherTime = new EtherTimeHelper($View);
     }
+
+    public function testAbbreviatedTimeAgoInWords()
+    {
+        // Five minutes ago
+        $expected = '5 minutes ago';
+        $timestamp = time() - 60 * 5;
+        $time = date('Y-m-d H:i:s');
+        $result = $this->EtherTime->abbreviatedTimeAgoInWords($time);
+        $this->assertEquals($expected, $result);
+    }
 }
