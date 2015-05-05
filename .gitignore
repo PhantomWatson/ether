@@ -4,6 +4,7 @@
 /config/recaptcha.php
 /tmp/*
 /logs/*
+/webroot/coverage/*
 
 # Eclipse
 *.pydevproject
