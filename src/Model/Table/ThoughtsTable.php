@@ -149,6 +149,7 @@ class ThoughtsTable extends Table
 	public function getRandomPopulatedThoughtWord()
 	{
 		$result = $this
+		    ->find('all')
 			->select(['word'])
 			->order('RAND()')
 			->first();
