@@ -263,4 +263,16 @@ class UsersTable extends Table
         $user->newMessages = 1;
         $this->save($user);
     }
+
+    /**
+     * Returns true if the user has configured their account to accept messages
+     *
+     * @param int $userId
+     * @return boolean
+     */
+    public function acceptsMessages($userId)
+    {
+        $user = $this->get($userId);
+        return (boolean) $user->acceptMessages;
+    }
 }
