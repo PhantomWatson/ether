@@ -163,7 +163,8 @@ class ThoughtsController extends AppController
         ));
     }
 
-    public function random() {
+    public function random()
+    {
         $word = $this->Thoughts->getRandomPopulatedThoughtWord();
         $this->redirect(['action' => 'word', $word]);
     }
