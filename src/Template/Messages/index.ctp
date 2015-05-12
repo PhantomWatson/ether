@@ -8,13 +8,13 @@
 			<ul>
 				<?php foreach ($conversations as $other_user_id => $conversation): ?>
 					<li>
-						<a href="#" data-user-id="<?php echo $other_user_id; ?>">
+						<a href="#" data-user-id="<?= $other_user_id ?>">
 							<span class="penpal">
-								<span class="colorbox" style="background-color: #<?php echo $conversation['color']; ?>"></span>
-								#<?php echo $conversation['color']; ?>
+								<span class="colorbox" style="background-color: #<?= $conversation['color'] ?>"></span>
+								#<?= $conversation['color'] ?>
 							</span>
 							<span class="time">
-							    <?php echo $this->Time->abbreviatedTimeAgoInWords($conversation['time']); ?>
+							    <?= $this->Time->abbreviatedTimeAgoInWords($conversation['time']) ?>
 							</span>
 						</a>
 					</li>
