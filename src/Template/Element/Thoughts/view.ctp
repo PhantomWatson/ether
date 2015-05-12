@@ -57,7 +57,7 @@
 				<?php //echo $this->element('comments/add', compact('thoughtId'))); ?>
 			</div>
 			<div class="post" id="newcomment<?php echo $thought['id']; ?>button">
-				<?php if ($this->Session->check('Auth.User.id')): ?>
+				<?php if ($this->request->session()->check('Auth.User.id')): ?>
 					<a href="#">
 						Leave Comment
 					</a>

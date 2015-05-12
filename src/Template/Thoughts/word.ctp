@@ -66,7 +66,7 @@
 		</div>
 	</div>
 	<div id="newthoughtbutton" class="newthoughtbutton">
-		<?php if ($this->Session->check('Auth.User.id')): ?>
+		<?php if ($this->request->session()->check('Auth.User.id')): ?>
 			<a href="#" onclick="return add_thought()">
 				Add a Thought
 			</a>
