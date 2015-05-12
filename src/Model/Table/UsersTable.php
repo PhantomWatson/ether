@@ -241,4 +241,15 @@ class UsersTable extends Table
 		}
 		return $sorted_groups;
 	}
+
+    /**
+     * Deactivates the "you have new messages" flag for the selected user
+     * @param int $userId
+     */
+    public function setMessagesRead($userId)
+    {
+        $user = $this->get($userId);
+        $user->newMessages = 0;
+        $this->save($user);
+    }
 }
