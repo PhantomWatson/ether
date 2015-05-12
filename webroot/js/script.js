@@ -561,7 +561,7 @@ var messagesPage = {
 		this.cancelCurrentRequest();
 		conv_link.addClass('loading');
 		this.currentRequest = $.ajax({
-			url: '/messages/view_conversation/'+user_id,
+			url: '/messages/conversation/'+user_id,
 			complete: function () {
 				conv_link.removeClass('loading');
 			},
