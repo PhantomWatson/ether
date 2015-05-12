@@ -53,4 +53,11 @@ class PagesController extends AppController
 			'topCloud' => $this->Thoughts->getTopCloud()
 		));
     }
+
+    public function about()
+    {
+        $this->set(array(
+            'title_for_layout' => 'About',
+        ));
+    }
 }
