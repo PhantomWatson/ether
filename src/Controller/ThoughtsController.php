@@ -32,17 +32,12 @@ class ThoughtsController extends AppController
         return parent::isAuthorized();
     }
 
-    /**
-     * Index method
-     *
-     * @return void
-     */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Users']
-        ];
-        $this->set('thoughts', $this->paginate($this->Thoughts));
+        $this->set([
+            'title_for_layout' => 'Thoughts',
+            'categorized' => $this->Thoughts->getAlphabeticallyGroupedWords()
+        ]);
     }
 
     /**
