@@ -98,4 +98,49 @@ class MessagesTable extends Table
 			->count();
 		return $count > 0;
 	}
+
+    /**
+     * Returns an array of metadata about conversations the user has engaged in
+     *
+     * @param int $userId
+     */
+    public function getConversationsIndex($userId)
+    {
+        $results = $this->find('all')
+            ->where([
+                'OR' => [
+                    'Message.sender_id' => $userId,
+                    'Message.recipient_id' => $userId
+                ]
+            ])
+            ->select([
+                'DISTINCT Message.sender_id',
+                'Message.recipient_id',
+                'Message.created'
+            ])
+            ->contain([
+                'Sender' => function ($q) {
+                    return $q->select(['id', 'color']);
+                },
+                'Recipient' => function ($q) {
+                    return $q->select(['id', 'color']);
+                }
+            ])
+            ->order(['Message.created' => 'DESC'])
+            ->toArray();
+
+        $conversations = [];
+        foreach ($results as $result) {
+            $otherUser = ($result['Sender']['id'] == $userId) ? 'Recipient' : 'Sender';
+            $otherUserId = $result[$otherUser]['id'];
+            if (isset($conversations[$otherUserId])) {
+                continue;
+            }
+            $conversations[$otherUserId] = [
+                'color' => $result[$otherUser]['color'],
+                'time' => $result['Message']['created']
+            ];
+        }
+        return $conversations;
+    }
 }
