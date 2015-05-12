@@ -25,9 +25,11 @@ class MessagesTable extends Table
         $this->primaryKey('id');
         $this->addBehavior('Timestamp');
         $this->belongsTo('Recipients', [
+            'className' => 'Users',
             'foreignKey' => 'recipient_id'
         ]);
         $this->belongsTo('Senders', [
+            'className' => 'Users',
             'foreignKey' => 'sender_id'
         ]);
     }
