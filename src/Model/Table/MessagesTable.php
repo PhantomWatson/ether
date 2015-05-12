@@ -109,24 +109,25 @@ class MessagesTable extends Table
         $results = $this->find('all')
             ->where([
                 'OR' => [
-                    'Message.sender_id' => $userId,
-                    'Message.recipient_id' => $userId
+                    'sender_id' => $userId,
+                    'recipient_id' => $userId
                 ]
             ])
             ->select([
-                'DISTINCT Message.sender_id',
-                'Message.recipient_id',
-                'Message.created'
+                'sender_id',
+                'recipient_id',
+                'created'
             ])
+            ->distinct(['sender_id'])
             ->contain([
-                'Sender' => function ($q) {
+                'Senders' => function ($q) {
                     return $q->select(['id', 'color']);
                 },
-                'Recipient' => function ($q) {
+                'Recipients' => function ($q) {
                     return $q->select(['id', 'color']);
                 }
             ])
-            ->order(['Message.created' => 'DESC'])
+            ->order(['Messages.created' => 'DESC'])
             ->toArray();
 
         $conversations = [];
