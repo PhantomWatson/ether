@@ -252,4 +252,15 @@ class UsersTable extends Table
         $user->newMessages = 0;
         $this->save($user);
     }
+
+    /**
+     * Activates the "you have new messages" flag for the selected user
+     * @param int $userId
+     */
+    public function setMessagesUnread($userId)
+    {
+        $user = $this->get($userId);
+        $user->newMessages = 1;
+        $this->save($user);
+    }
 }
