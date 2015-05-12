@@ -11,17 +11,16 @@ use App\Controller\AppController;
 class MessagesController extends AppController
 {
 
-    /**
-     * Index method
-     *
-     * @return void
-     */
-    public function index()
+    public function index($penpalUserId = null)
     {
-        $this->paginate = [
-            'contain' => ['Recipients', 'Senders']
-        ];
-        $this->set('messages', $this->paginate($this->Messages));
+        $userId = $this->Auth->user('id');
+        $this->loadModel('Users');
+        $this->Users->setMessagesUnread($userId);
+        $this->set(array(
+            'title_for_layout' => 'Messages',
+            'conversations' => $this->Messages->getConversationsIndex($userId),
+            'selected_user_id' => $penpalUserId
+        ));
     }
 
     /**
