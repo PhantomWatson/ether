@@ -148,12 +148,11 @@ class ThoughtsTable extends Table
      */
     public function getRandomPopulatedThoughtWord()
     {
-        $result = $this
-            ->find('all')
+        return $this->find('all')
             ->select(['word'])
             ->order('RAND()')
-            ->first();
-        return $result['Thought']['word'];
+            ->first()
+            ->word;
     }
 
     /**
