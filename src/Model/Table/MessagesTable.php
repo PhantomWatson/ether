@@ -134,14 +134,14 @@ class MessagesTable extends Table
 
         $conversations = [];
         foreach ($results as $result) {
-            $otherUser = ($result['Sender']['id'] == $userId) ? 'Recipient' : 'Sender';
+            $otherUser = ($result['sender']['id'] == $userId) ? 'recipient' : 'sender';
             $otherUserId = $result[$otherUser]['id'];
             if (isset($conversations[$otherUserId])) {
                 continue;
             }
             $conversations[$otherUserId] = [
                 'color' => $result[$otherUser]['color'],
-                'time' => $result['Message']['created']
+                'time' => $result['created']
             ];
         }
         return $conversations;
