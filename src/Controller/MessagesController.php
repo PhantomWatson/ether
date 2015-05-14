@@ -104,4 +104,16 @@ class MessagesController extends AppController
         }
         return $this->redirect(['action' => 'index']);
     }
+
+    public function conversation($penpalId = null)
+    {
+        $userId = $this->Auth->user('id');
+        $this->loadModel('Users');
+        $this->set(array(
+            'messages' => $this->Messages->getConversation($userId, $penpalId),
+            'penpalId' => $penpalId,
+            'penpalAcceptsMessages' => $this->Users->acceptsMessages($penpalId),
+            'messageEntity' => $this->Messages->newEntity()
+        ));
+    }
 }
