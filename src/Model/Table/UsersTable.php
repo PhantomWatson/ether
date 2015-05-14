@@ -275,4 +275,12 @@ class UsersTable extends Table
         $user = $this->get($userId);
         return (boolean) $user->acceptMessages;
     }
+
+    public function getIdFromColor($color)
+    {
+        return $this->findByColor($color)
+            ->select(['id'])
+            ->first()
+            ->id;
+    }
 }
