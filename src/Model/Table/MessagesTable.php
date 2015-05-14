@@ -146,4 +146,38 @@ class MessagesTable extends Table
         }
         return $conversations;
     }
+
+    public function getConversation($userId, $anotherUserId)
+    {
+        return $this->find('all')
+            ->where([
+                'OR' => [
+                    [
+                        'sender_id' => $userId,
+                        'recipient_id' => $anotherUserId
+                    ],
+                    [
+                        'sender_id' => $anotherUserId,
+                        'recipient_id' => $userId
+                    ]
+                ]
+            ])
+            ->select([
+                'id',
+                'sender_id',
+                'recipient_id',
+                'created',
+                'message'
+            ])
+            ->contain([
+                'Senders' => function ($q) {
+                    return $q->select(['id', 'color']);
+                },
+                'Recipients' => function ($q) {
+                    return $q->select(['id', 'color']);
+                }
+            ])
+            ->order(['Messages.created' => 'ASC'])
+            ->toArray();
+    }
 }
