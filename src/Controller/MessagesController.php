@@ -11,6 +11,12 @@ use App\Controller\AppController;
 class MessagesController extends AppController
 {
 
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('RequestHandler');
+    }
+
     public function index($penpalUserId = null)
     {
         $userId = $this->Auth->user('id');
