@@ -545,8 +545,8 @@ var messagesPage = {
 	init: function () {
 		$('#conversations_index a').click(function (event) {
 			event.preventDefault();
-			var user_id = $(this).data('userId');
-			messagesPage.selectConversation(user_id);
+			var color = $(this).data('color');
+			messagesPage.selectConversation(color);
 		});
 	},
 	cancelCurrentRequest: function () {
@@ -555,13 +555,13 @@ var messagesPage = {
 		}
 		$('#conversations_index .loading').removeClass('loading');
 	},
-	selectConversation: function (user_id, scroll_to_selection) {
+	selectConversation: function (color, scroll_to_selection) {
 		var conv_index = $('#conversations_index');
-		var conv_link = conv_index.find('a[data-user-id='+user_id+']');
+		var conv_link = conv_index.find('a[data-color='+color+']');
 		this.cancelCurrentRequest();
 		conv_link.addClass('loading');
 		this.currentRequest = $.ajax({
-			url: '/messages/conversation/'+user_id,
+			url: '/messages/conversation/'+color,
 			complete: function () {
 				conv_link.removeClass('loading');
 			},

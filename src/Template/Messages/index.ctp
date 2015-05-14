@@ -8,7 +8,7 @@
 			<ul>
 				<?php foreach ($conversations as $other_user_id => $conversation): ?>
 					<li>
-						<a href="#" data-user-id="<?= $other_user_id ?>">
+						<a href="#" data-color="<?= $conversation['color'] ?>">
 							<span class="penpal">
 								<span class="colorbox" style="background-color: #<?= $conversation['color'] ?>"></span>
 								#<?= $conversation['color'] ?>

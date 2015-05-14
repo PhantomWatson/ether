@@ -105,10 +105,11 @@ class MessagesController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function conversation($penpalId = null)
+    public function conversation($penpalColor = null)
     {
         $userId = $this->Auth->user('id');
         $this->loadModel('Users');
+        $penpalId = $this->Users->getIdFromColor($penpalColor);
         $this->set(array(
             'messages' => $this->Messages->getConversation($userId, $penpalId),
             'penpalId' => $penpalId,
