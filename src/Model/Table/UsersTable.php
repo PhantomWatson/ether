@@ -80,7 +80,12 @@ class UsersTable extends Table
             ->notEmpty('emailUpdates')
             ->add('newMessages', 'valid', ['rule' => 'numeric'])
             ->requirePresence('newMessages', 'create')
-            ->notEmpty('newMessages');
+            ->notEmpty('newMessages')
+            ->notEmpty('new_password')
+            ->add('confirm_password', 'compareWith', [
+                'rule' => ['compareWith', 'new_password'],
+                'message' => 'Passwords do not match.'
+            ]);
 
         return $validator;
     }
