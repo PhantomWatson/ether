@@ -13,7 +13,7 @@
 	echo $this->Form->input(
 		'word',
 		[
-			'class' => 'control-label form-control',
+			'class' => 'form-control',
 			'label' => [
 				'class' => 'control-label',
 				'text' => 'Thoughtword'
