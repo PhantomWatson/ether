@@ -32,6 +32,8 @@ class User extends Entity
         'newMessages' => true,
         'comments' => true,
         'thoughts' => true,
+        'new_password' => true,
+        'confirm_password' => true
     ];
 
     protected function _setPassword($password)
