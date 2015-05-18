@@ -188,7 +188,7 @@ class UsersController extends AppController
             'user' => $user
         ]);
 
-        if (! $this->request->is('post')) {
+        if (! ($this->request->is('post') || $this->request->is('put'))) {
             return;
         }
 
