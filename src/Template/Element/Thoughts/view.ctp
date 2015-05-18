@@ -11,7 +11,7 @@
 				['controller' => 'Thoughts', 'action' => 'edit', $thought['id']]
 			); ?>
 			|
-			<?php echo $this->Html->link(
+			<?php echo $this->Form->postLink(
 				'Delete',
 				['controller' => 'Thoughts', 'action' => 'delete', $thought['id']],
 				['confirm' => 'Are you sure that you want to remove this thought?']
