@@ -197,6 +197,11 @@ class UsersController extends AppController
         ]);
         if ($user->errors()) {
             $this->Flash->error('Please correct the indicated '.__n('error', 'errors', count($user->errors())).' before continuing.');
+
+            // To prevent these fields from being auto-filled
+            unset($this->request->data['new_password']);
+            unset($this->request->data['confirm_password']);
+
             return;
         }
 
@@ -218,10 +223,6 @@ class UsersController extends AppController
                 $this->Flash->error('There was an error changing your password. Please try again.');
             }
 
-            // To prevent these fields from being auto-filled
-            unset($this->request->data['new_password']);
-            unset($this->request->data['confirm_password']);
-
         // Introspection
         } elseif ($action == 'introspection') {
             if ($this->Users->save($user)) {
@@ -238,5 +239,9 @@ class UsersController extends AppController
                 $this->Flash->error('There was an error updating your account settings.');
             }
         }
+
+        // To prevent these fields from being auto-filled
+        unset($this->request->data['new_password']);
+        unset($this->request->data['confirm_password']);
     }
 }
