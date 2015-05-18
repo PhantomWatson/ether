@@ -127,12 +127,14 @@ class ThoughtsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $thought = $this->Thoughts->get($id);
+        $word = $thought->word;
         if ($this->Thoughts->delete($thought)) {
             $this->Flash->success('The thought has been deleted.');
+            return $this->redirect(['action' => 'word', $word]);
         } else {
             $this->Flash->error('The thought could not be deleted. Please, try again.');
+            return $this->redirect($this->request->referer());
         }
-        return $this->redirect(['action' => 'index']);
     }
 
     public function recent($page = 1)
