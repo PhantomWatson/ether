@@ -183,57 +183,60 @@ class UsersController extends AppController
     {
         $userId = $this->Auth->user('id');
         $user = $this->Users->get($userId);
-        if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->data, [
-                'fieldList' => ['new_password', 'confirm_password', 'password', 'profile', 'acceptMessages', 'messageNotification', 'emailUpdates']
-            ]);
-            if ($user->errors()) {
-                $this->Flash->error('Please correct the indicated '.__n('error', 'errors', count($user->errors())).' before continuing.');
-            } else {
-
-                $action = $this->request->data['action'];
-
-                // Change password
-                if ($action == 'change_password') {
-                    $user->password = $this->request->data['new_password'];
-                    $user->password_version = 3;
-                    if ($this->Users->save($user)) {
-
-                        // Reset AutoLogin cookie with new password
-                        $this->request->data['email'] = $user->email;
-                        $this->request->data['password'] = $this->request->data['new_password'];
-                        $this->AutoLogin->setCookie();
-
-                        $this->Flash->success('Your password has been changed.');
-                    } else {
-                        $this->Flash->error('There was an error changing your password. Please try again.');
-                    }
-
-                    // To prevent these fields from being auto-filled
-                    unset($this->request->data['new_password']);
-                    unset($this->request->data['confirm_password']);
-
-                // Introspection
-                } elseif ($action == 'introspection') {
-                    if ($this->Users->save($user)) {
-                        $this->Flash->success('Introspection updated.');
-                    } else {
-                        $this->Flash->error('There was an error updating your introspection. Please try again.');
-                    }
-
-                // Options
-                } elseif ($action == 'options') {
-                    if ($this->Users->save($user)) {
-                        $this->Flash->success('Account settings updated.');
-                    } else {
-                        $this->Flash->error('There was an error updating your account settings.');
-                    }
-                }
-            }
-        }
         $this->set([
             'title_for_layout' => 'Account',
             'user' => $user
         ]);
+
+        if (! $this->request->is('post')) {
+            return;
+        }
+
+        $user = $this->Users->patchEntity($user, $this->request->data, [
+            'fieldList' => ['new_password', 'confirm_password', 'password', 'profile', 'acceptMessages', 'messageNotification', 'emailUpdates']
+        ]);
+        if ($user->errors()) {
+            $this->Flash->error('Please correct the indicated '.__n('error', 'errors', count($user->errors())).' before continuing.');
+            return;
+        }
+
+        $action = $this->request->data['action'];
+
+        // Change password
+        if ($action == 'change_password') {
+            $user->password = $this->request->data['new_password'];
+            $user->password_version = 3;
+            if ($this->Users->save($user)) {
+
+                // Reset AutoLogin cookie with new password
+                $this->request->data['email'] = $user->email;
+                $this->request->data['password'] = $this->request->data['new_password'];
+                $this->AutoLogin->setCookie();
+
+                $this->Flash->success('Your password has been changed.');
+            } else {
+                $this->Flash->error('There was an error changing your password. Please try again.');
+            }
+
+            // To prevent these fields from being auto-filled
+            unset($this->request->data['new_password']);
+            unset($this->request->data['confirm_password']);
+
+        // Introspection
+        } elseif ($action == 'introspection') {
+            if ($this->Users->save($user)) {
+                $this->Flash->success('Introspection updated.');
+            } else {
+                $this->Flash->error('There was an error updating your introspection. Please try again.');
+            }
+
+        // Options
+        } elseif ($action == 'options') {
+            if ($this->Users->save($user)) {
+                $this->Flash->success('Account settings updated.');
+            } else {
+                $this->Flash->error('There was an error updating your account settings.');
+            }
+        }
     }
 }
