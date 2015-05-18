@@ -4,10 +4,7 @@
             Introspection
         </h2>
         <?php
-            echo $this->Form->create(
-                $user,
-                ['controller' => 'Users', 'action' => 'account']
-            );
+            echo $this->Form->create($user);
             echo $this->Form->input(
                 'profile',
                 [
