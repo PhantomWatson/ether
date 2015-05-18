@@ -45,7 +45,8 @@
                     'div' => ['class' => 'form-group'],
                     'label' => 'Password',
                     'placeholder' => 'Enter your new password',
-                    'type' => 'password'
+                    'type' => 'password',
+                    'value' => ''
                 ]
             );
             echo $this->Form->input(
@@ -55,7 +56,8 @@
                     'class' => 'form-control',
                     'div' => ['class' => 'form-group'],
                     'type' => 'password',
-                    'placeholder' => 'Wasn\'t that fun? Do it again.'
+                    'placeholder' => 'Wasn\'t that fun? Do it again.',
+                    'value' => ''
                 ]
             );
             echo $this->Form->input(
