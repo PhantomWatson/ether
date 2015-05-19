@@ -119,7 +119,7 @@ function h2d(h) {
     return parseInt(h,16);
 }
 
-var registrationForm = {
+var registration = {
     color_avail_request: null,
     
     init: function () {
