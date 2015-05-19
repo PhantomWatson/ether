@@ -43,14 +43,10 @@
         <div class="comments">
             <?php foreach ($thought['comments'] as $comment): ?>
                 <a name="c<?php echo $comment['id']; ?>"></a>
-                <?php
-                    /* echo $this->element('comments/view', [
-                        'comment' => $comment['comment'],
-                        'color' => $comment['user']['color'],
-                        'id' => $comment['id'],
-                        'thoughtwords' => $thoughtwords
-                    ]); */
-                ?>
+                <?= $this->element('comments/view', [
+                    'comment' => $comment['comment'],
+                    'color' => $comment['user']['color'],
+                ]) ?>
             <?php endforeach; ?>
             <div id="newcomment<?php echo $thought['id']; ?>view"></div>
             <div id="newcomment<?php echo $thought['id']; ?>add" style="display: none;" class="add_comment">
