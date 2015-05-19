@@ -49,83 +49,57 @@ function adjustBackground() {
 }
 
 function add_comment(thought_id) {
-	var form_container = $('newcomment' + thought_id + 'add');
-	if (form_container.visible()) {
-		return false;
+	var form_container = $('#newcomment' + thought_id + 'add');
+	if (form_container.is(':visible')) {
+		return;
 	}
-	var button = $('newcomment' + thought_id + 'button');
-	Effect.SlideUp(button, {
-		duration: 0.2,
-		queue: {position: 'end', limit: 1, scope: 'addcomment_button'},
-	});
-	Effect.SlideDown(form_container, {
-		duration: 0.2,
-		queue: {position: 'end', limit: 1, scope: 'addcomment'},
-		afterFinish: function() {
-			Effect.ScrollTo(form_container, {duration: '0.2', offset: -40});
-			form_container.down('textarea').focus();
-		}
-	});
-	return false;
+	var button = $('#newcomment' + thought_id + 'button');
+	button.slideUp(200);
+	form_container.slideDown(200);
+	form_container.find('textarea').focus();
 }
 
-function cancel_comment(thought_id) {
-	var form_container = $('newcomment' + thought_id + 'add');
-	if (! form_container.visible()) {
-		return false;
+function cancel_comment(thoughtId) {
+	var formContainer = $('#newcomment' + thoughtId + 'add');
+	if (formContainer.is(':visible')) {
+		$('#newcomment' + thoughtId + 'button').slideDown(200);
+		formContainer.slideUp(200);
+	} else {
+		console.log('#newcomment' + thoughtId + 'add is not visible');
 	}
-	var button = $('newcomment' + thought_id + 'button');
-	Effect.SlideDown(button, {
-		duration: 0.2,
-		queue: {position: 'end', limit: 1, scope: 'addcomment_button'},
-	});
-	Effect.SlideUp(form_container, {
-		duration: 0.2,
-		queue: {position: 'end', limit: 1, scope: 'addcomment'},
-	});
-	return false;
 }
 
 function insert_comment(thought_id) {
-	$('newcomment' + thought_id + 'view').insert({'bottom': $('comment_just_added')});
-	$('comment_just_added').id = '';
-	$('newcomment' + thought_id + 'add').down('textarea').update();
+	$('#newcomment' + thought_id + 'view').insert({'bottom': $('#comment_just_added')});
+	$('#comment_just_added').attr('id', '');
+	$('#newcomment' + thought_id + 'add').find('textarea').html('');
 	cancel_comment(thought_id);
 }
 
 function add_thought(thought_id) {
-	var form_container = $('newthoughtadd');
-	if (form_container.visible()) {
-		return false;
+	var form_container = $('#newthoughtadd');
+	if (form_container.is(':visible')) {
+		return;
 	}
-	Effect.SlideDown(form_container, {
-		duration: 0.2,
-		queue: {position: 'end', limit: 1, scope: 'addthought'},
-		afterFinish: function() {
-			form_container.down('textarea').focus();
-		}
-	});
-	$('newthoughtbutton').hide();
-	return false;
+	form_container.slideDown(200, function() {
+		form_container.find('textarea').focus();
+	}
+	$('#newthoughtbutton').hide();
 }
 
 function cancel_thought() {
-	var form_container = $('newthoughtadd');
-	if (! form_container.visible()) {
-		return false;
+	var form_container = $('#newthoughtadd');
+	if (! form_container.is(':visible')) {
+		return;
 	}
-	Effect.SlideUp(form_container, {
-		duration: 0.2,
-		queue: {position: 'end', limit: 1, scope: 'addthought'}
-	});
-	$('newthoughtbutton').show();
-	return false;
+	form_container.slideUp(200);
+	$('#newthoughtbutton').show();
 }
 
 function insert_thought() {
-	$('newthoughtview').insert({'top': $('thought_just_added')});
-	$('thought_just_added').id = '';
-	$('newthoughtadd_form').down('textarea').update();
+	$('#newthoughtview').prepend($('#thought_just_added'));
+	$('#thought_just_added').attr('id', '');
+	$('#newthoughtadd_form').find('textarea').html('');
 	cancel_thought();
 }
 
@@ -644,7 +618,6 @@ var profilePage = {
 
 var recentActivity = {
 	init: function () {
-		console.log('initted');
 		var container = $('#recent_activity');
 		container.find('.pagination a').click(function (event) {
 			event.preventDefault();
