@@ -49,18 +49,8 @@ class CommentsTable extends Table
             ->add('user_id', 'valid', ['rule' => 'numeric'])
             ->requirePresence('user_id', 'create')
             ->notEmpty('user_id')
-            ->requirePresence('color', 'create')
-            ->notEmpty('color')
             ->requirePresence('comment', 'create')
-            ->notEmpty('comment')
-            ->add('time', 'valid', ['rule' => 'numeric'])
-            ->requirePresence('time', 'create')
-            ->notEmpty('time')
-            ->requirePresence('parsedTextCache', 'create')
-            ->notEmpty('parsedTextCache')
-            ->add('cacheTimestamp', 'valid', ['rule' => 'numeric'])
-            ->requirePresence('cacheTimestamp', 'create')
-            ->notEmpty('cacheTimestamp');
+            ->notEmpty('comment');
 
         return $validator;
     }
