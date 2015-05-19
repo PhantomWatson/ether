@@ -22,7 +22,7 @@ class ThoughtsController extends AppController
     public function isAuthorized($user = null)
     {
         // Author-only actions
-        $authorOnlyActions = array('edit', 'delete');
+        $authorOnlyActions = ['edit', 'delete'];
         if (in_array($this->request->action, $authorOnlyActions)) {
             $thoughtId = $this->request->pass[0];
             $authorId = $this->Thoughts->getAuthorId($thoughtId);
@@ -153,11 +153,11 @@ class ThoughtsController extends AppController
         if ($word === '') {
             throw new BadRequestException('Invalid thoughtword');
         }
-        $this->set(array(
+        $this->set([
             'title_for_layout' => ucwords($word),
             'thoughts' => $this->Thoughts->getFromWord($word),
             'word' => $word
-        ));
+        ]);
     }
 
     public function random()
