@@ -535,7 +535,7 @@ var messages = {
         $('#conversations_index a').click(function (event) {
             event.preventDefault();
             var color = $(this).data('color');
-            messagesPage.selectConversation(color);
+            messages.selectConversation(color);
         });
     },
     cancelCurrentRequest: function () {
