@@ -31,13 +31,6 @@
 
 <?= $this->Form->end() ?>
 
-<a href="#" id="cancel_comment_t<?= $thoughtId ?>">
+<a href="#" class="cancel_comment" data-thought-id="<?= $thoughtId ?>">
     Cancel
 </a>
-
-<?php $this->append('buffered_js'); ?>
-    $('#cancel_comment_t<?= $thoughtId ?>').click(function (event) {
-        event.preventDefault();
-        comment.cancel(<?= $thoughtId ?>);
-    });
-<?php $this->end(); ?>

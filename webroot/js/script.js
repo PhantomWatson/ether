@@ -77,6 +77,14 @@ var comment = {
 };
 
 var thought = {
+	init: function () {
+		$('a.cancel_comment').click(function (event) {
+			event.preventDefault();
+			var thoughtId = $(this).data('thoughtId');
+			comment.cancel(thoughtId);
+		});
+	},
+	
     add: function () {
         var formContainer = $('#newthoughtadd');
         if (formContainer.is(':visible')) {

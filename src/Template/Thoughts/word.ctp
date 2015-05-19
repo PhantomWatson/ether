@@ -81,4 +81,8 @@
 	<?php foreach ($thoughts as $thought): ?>
 		<?php echo $this->element('Thoughts/view', compact('thought')); ?>
 	<?php endforeach; ?>
+
+	<?php $this->append('buffered_js'); ?>
+	   thought.init();
+	<?php $this->end(); ?>
 <?php endif; ?>
