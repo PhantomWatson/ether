@@ -76,38 +76,40 @@ var comment = {
     }
 };
 
-function add_thought(thought_id) {
-	var form_container = $('#newthoughtadd');
-	if (form_container.is(':visible')) {
-		return;
-	}
-	form_container.slideDown(200, function() {
-		form_container.find('textarea').focus();
-	}
-	$('#newthoughtbutton').hide();
-}
-
-function cancel_thought() {
-	var form_container = $('#newthoughtadd');
-	if (! form_container.is(':visible')) {
-		return;
-	}
-	form_container.slideUp(200);
-	$('#newthoughtbutton').show();
-}
-
-function insert_thought() {
-	$('#newthoughtview').prepend($('#thought_just_added'));
-	$('#thought_just_added').attr('id', '');
-	$('#newthoughtadd_form').find('textarea').html('');
-	cancel_thought();
-}
-
-function dontwannathink() {
-	$('#wannathink_choices').slideUp(500, function () {
-		$('#wannathink_rejection').slideDown(500);
-	});
-}
+var thought = {
+    add: function () {
+    	var formContainer = $('#newthoughtadd');
+    	if (formContainer.is(':visible')) {
+    		return;
+    	}
+    	formContainer.slideDown(200, function() {
+    		formContainer.find('textarea').focus();
+    	}
+    	$('#newthoughtbutton').hide();
+    }
+    
+	cancel: function () {
+    	var formContainer = $('#newthoughtadd');
+    	if (! formContainer.is(':visible')) {
+    		return;
+    	}
+    	formContainer.slideUp(200);
+    	$('#newthoughtbutton').show();
+    }
+    
+    insert: function () {
+    	$('#newthoughtview').prepend($('#thought_just_added'));
+    	$('#thought_just_added').attr('id', '');
+    	$('#newthoughtadd_form').find('textarea').html('');
+    	this.cancel();
+    }
+    
+    dontWannaThink: function () {
+    	$('#wannathink_choices').slideUp(500, function () {
+    		$('#wannathink_rejection').slideDown(500);
+    	});
+    }
+};
 
 function d2h(d) {
 	return d.toString(16);
