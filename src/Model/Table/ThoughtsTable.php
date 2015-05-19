@@ -277,7 +277,15 @@ class ThoughtsTable extends Table
                 'Users' => function ($q) {
                     return $q->select(['id', 'color']);
                 },
-                'Comments'
+                'Comments' => function ($q) {
+                    return $q
+                        ->select(['id', 'thought_id', 'user_id', 'comment'])
+                        ->contain([
+                            'Users' => function ($q) {
+                                return $q->select(['id', 'color']);
+                            }
+                        ]);
+                },
             ])
             ->toArray();
     }
