@@ -84,9 +84,9 @@ var thought = {
         }
         formContainer.slideDown(200, function() {
             formContainer.find('textarea').focus();
-        }
+        });
         $('#newthoughtbutton').hide();
-    }
+    },
     
     cancel: function () {
         var formContainer = $('#newthoughtadd');
@@ -95,14 +95,14 @@ var thought = {
         }
         formContainer.slideUp(200);
         $('#newthoughtbutton').show();
-    }
+    },
     
     insert: function () {
         $('#newthoughtview').prepend($('#thought_just_added'));
         $('#thought_just_added').attr('id', '');
         $('#newthoughtadd_form').find('textarea').html('');
         this.cancel();
-    }
+    },
     
     dontWannaThink: function () {
         $('#wannathink_choices').slideUp(500, function () {
