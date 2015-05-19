@@ -54,7 +54,7 @@
 			<?php endforeach; ?>
 			<div id="newcomment<?php echo $thought['id']; ?>view"></div>
 			<div id="newcomment<?php echo $thought['id']; ?>add" style="display: none;" class="add_comment">
-				<?php //echo $this->element('comments/add', compact('thoughtId'))); ?>
+				<?= $this->element('comments/add', ['thoughtId' => $thought['id']]) ?>
 			</div>
 			<div class="post" id="newcomment<?php echo $thought['id']; ?>button">
 				<?php if ($this->request->session()->check('Auth.User.id')): ?>
@@ -64,7 +64,7 @@
 					<?php $this->append('buffered_js'); ?>
 						$('#newcomment<?= $thought['id'] ?>button').click(function (event) {
 							event.preventDefault();
-							add_comment(<?= $thought['id'] ?>);
+							comment.add(<?= $thought['id'] ?>);
 						});
 					<?php $this->end(); ?>
 				<?php else: ?>
