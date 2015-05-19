@@ -271,6 +271,7 @@ class ThoughtsTable extends Table
     public function getFromWord($word)
     {
         return $this->find('all')
+            ->select(['id', 'user_id', 'word', 'thought', 'comments_enabled', 'parsedTextCache', 'anonymous', 'created', 'modified'])
             ->where(['word' => $word])
             ->order(['Thoughts.created' => 'DESC'])
             ->contain([
