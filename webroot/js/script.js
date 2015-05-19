@@ -78,6 +78,11 @@ var comment = {
 
 var thought = {
 	init: function () {
+		$('a.add_comment').click(function (event) {
+			event.preventDefault();
+			var thoughtId = $(this).data('thoughtId');
+			comment.add(thoughtId);
+		});
 		$('a.cancel_comment').click(function (event) {
 			event.preventDefault();
 			var thoughtId = $(this).data('thoughtId');

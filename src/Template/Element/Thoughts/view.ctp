@@ -58,15 +58,9 @@
 			</div>
 			<div class="post" id="newcomment<?php echo $thought['id']; ?>button">
 				<?php if ($this->request->session()->check('Auth.User.id')): ?>
-					<a href="#">
+					<a href="#" class="add_comment" data-thought-id="<?= $thought['id'] ?>">
 						Leave Comment
 					</a>
-					<?php $this->append('buffered_js'); ?>
-						$('#newcomment<?= $thought['id'] ?>button').click(function (event) {
-							event.preventDefault();
-							comment.add(<?= $thought['id'] ?>);
-						});
-					<?php $this->end(); ?>
 				<?php else: ?>
 					<?php echo $this->Html->link(
 						'Log In to Leave Comment',
