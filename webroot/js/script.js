@@ -516,7 +516,7 @@ var userIndex = {
     }
 };
 
-var messagesPage = {
+var messages = {
     currentRequest: null,
     init: function () {
         $('#conversations_index a').click(function (event) {
@@ -574,7 +574,7 @@ var messagesPage = {
     }
 };
 
-var profilePage = {
+var profile = {
     init: function () {
         var profile_message_form = $('#profile_message_form');
         var textarea = profile_message_form.find('textarea');
