@@ -50,15 +50,14 @@ class CommentsController extends AppController
         if ($this->request->is('post')) {
             $comment = $this->Comments->patchEntity($comment, $this->request->data);
             if ($this->Comments->save($comment)) {
-                $this->Flash->success('The comment has been saved.');
-                return $this->redirect(['action' => 'index']);
+                $this->Flash->success('Comment posted.');
+                $word = $this->Comments->Thoughts->get($this->request->data['thought_id'])->word;
+                return $this->redirect(['controller' => 'Thoughts', 'action' => 'word', $word]);
             } else {
-                $this->Flash->error('The comment could not be saved. Please, try again.');
+                $this->Flash->error('Your comment could not be posted. Please try again.');
+                return  $this->redirect($this->request->referer());
             }
         }
-        $thoughts = $this->Comments->Thoughts->find('list', ['limit' => 200]);
-        $users = $this->Comments->Users->find('list', ['limit' => 200]);
-        $this->set(compact('comment', 'thoughts', 'users'));
     }
 
     /**
