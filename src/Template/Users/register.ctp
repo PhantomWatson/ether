@@ -83,5 +83,5 @@
 
 <?php $this->Html->script('/jscolor/jscolor.js', ['block' => true]); ?>
 <?php $this->append('buffered_js'); ?>
-	registrationForm.init();
+	registration.init();
 <?php $this->end(); ?>

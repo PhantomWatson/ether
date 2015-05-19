@@ -49,7 +49,7 @@
 	<?php $this->append('buffered_js'); ?>
 		$('#dontwannathink').click(function (event) {
 			event.preventDefault();
-			dontwannathink();
+			thought.dontWannaThink();
 		});
 	<?php $this->end(); ?>
 <?php else: ?>

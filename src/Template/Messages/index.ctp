@@ -29,10 +29,10 @@
 
 		<?php $this->append('buffered_js'); ?>
 
-			messagesPage.init();
+			messages.init();
 
 			<?php if ($selected_user_id): ?>
-				$this->Js->buffer("messagesPage.selectConversation($selected_user_id, true);");
+				messages.selectConversation(<?= $selected_user_id ?>, true);
 			<?php endif; ?>
 
 		<?php $this->end(); ?>
