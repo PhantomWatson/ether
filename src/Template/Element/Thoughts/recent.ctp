@@ -6,14 +6,14 @@
 	]
 ]); ?>
 
-<div class="pagination">
-	<?php if ($this->Paginator->hasPrev()): ?>
+<?php if ($this->Paginator->hasPrev()): ?>
+    <div class="pagination">
 		<?php echo $this->Paginator->prev(
 			'&uarr; &uarr; &uarr;',
 			['escape' => false]
 		); ?>
-	<?php endif; ?>
-</div>
+	</div>
+<?php endif; ?>
 
 <ul>
 	<?php foreach ($recentActivity as $action): ?>
@@ -65,14 +65,14 @@
 	<?php endforeach; ?>
 </ul>
 
-<div class="pagination">
-	<?php if ($this->Paginator->hasNext()): ?>
+<?php if ($this->Paginator->hasNext()): ?>
+    <div class="pagination">
 		<?php echo $this->Paginator->next(
 			'&darr; &darr; &darr;',
 			['escape' => false]
 		); ?>
-	<?php endif; ?>
-</div>
+    </div>
+<?php endif; ?>
 
 <?php $this->append('buffered_js'); ?>
 	recentActivity.init();
