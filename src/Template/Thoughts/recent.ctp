@@ -1,1 +1,1 @@
-<?php echo $this->element('recent_activity'); ?>
+<?php echo $this->element('Thoughts'.DS.'recent'); ?>
