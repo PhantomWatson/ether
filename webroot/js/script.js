@@ -634,7 +634,7 @@ var profile = {
 var recentActivity = {
     init: function () {
         var container = $('#recent');
-        container.find('.pagination a').click(function (event) {
+        container.find('.nav a').click(function (event) {
             event.preventDefault();
             var link = $(this);
             $.ajax({

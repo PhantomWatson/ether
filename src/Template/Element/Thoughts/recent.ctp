@@ -7,7 +7,7 @@
 ]); ?>
 
 <?php if ($this->Paginator->hasPrev()): ?>
-    <ul class="pagination">
+    <ul class="nav">
         <?= $this->Paginator->prev(
             '&uarr; &uarr; &uarr;',
             ['escape' => false]
@@ -66,10 +66,12 @@
 </ul>
 
 <?php if ($this->Paginator->hasNext()): ?>
-    <ul class="pagination">
+    <ul class="nav">
         <?= $this->Paginator->next(
             '&darr; &darr; &darr;',
-            ['escape' => false]
+            [
+                'escape' => false
+            ]
         ) ?>
     </ul>
 <?php endif; ?>
