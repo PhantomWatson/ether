@@ -7,12 +7,12 @@
 ]); ?>
 
 <?php if ($this->Paginator->hasPrev()): ?>
-    <div class="pagination">
+    <ul class="pagination">
         <?= $this->Paginator->prev(
             '&uarr; &uarr; &uarr;',
             ['escape' => false]
         ) ?>
-    </div>
+    </ul>
 <?php endif; ?>
 
 <ul>
@@ -66,12 +66,12 @@
 </ul>
 
 <?php if ($this->Paginator->hasNext()): ?>
-    <div class="pagination">
+    <ul class="pagination">
         <?= $this->Paginator->next(
             '&darr; &darr; &darr;',
             ['escape' => false]
         ) ?>
-    </div>
+    </ul>
 <?php endif; ?>
 
 <?php $this->append('buffered_js'); ?>
