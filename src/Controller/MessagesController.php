@@ -44,13 +44,46 @@ class MessagesController extends AppController
         $this->set('message', $message);
     }
 
-    /**
-     * Add method
-     *
-     * @return void
-     */
-    public function add()
+    public function send()
     {
+        if ($this->request->is('post')) {
+
+            $recipientId = $this->request->data['recipient_id'];
+            $senderId = $this->Auth->user('id');
+            $this->request->data['sender_id'] = $senderId;
+            $this->request->data['message'] = trim($this->request->data['message']);
+
+            if ($this->request->data['message'] == '') {
+                $this->Flash->error('You can\'t send a blank message. It would be terribly disappointing for the recipient.');
+            } else {
+                $recipient = $this->Messages->Recipients->get($recipientId);
+                if ($recipient->acceptMessages) {
+                    $message = $this->Messages->newEntity();
+                    $message = $this->Messages->patchEntity($message, $this->request->data);
+                    if ($this->Messages->save($message)) {
+                        $this->Flash->success('Message sent.');
+                        $recipient->newMessages = true;
+                        $recipient->save();
+                    } else {
+                        $this->Flash->error('The message could not be saved. Please, try again.');
+                    }
+                } else {
+                    $this->Flash->error('Sorry, this Thinker has chosen not to receive messages. Your message was not sent. :(');
+                }
+            }
+
+            if (! $this->request->is('ajax')) {
+                $this->redirect($this->request->referer());
+            }
+        }
+    }
+
+
+
+
+
+
+        // Baked code below
         $message = $this->Messages->newEntity();
         if ($this->request->is('post')) {
             $message = $this->Messages->patchEntity($message, $this->request->data);
