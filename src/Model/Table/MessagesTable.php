@@ -120,7 +120,7 @@ class MessagesTable extends Table
                 'recipient_id',
                 'created'
             ])
-            ->distinct(['sender_id'])
+            ->distinct(['sender_id', 'recipient_id'])
             ->contain([
                 'Senders' => function ($q) {
                     return $q->select(['id', 'color']);
