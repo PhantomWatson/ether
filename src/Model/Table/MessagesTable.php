@@ -93,17 +93,12 @@ class MessagesTable extends Table
      */
     public function getConversationsIndex($userId)
     {
-        $results = $this->find('all')
-            ->where([
-                'OR' => [
-                    'sender_id' => $userId,
-                    'recipient_id' => $userId
-                ]
-            ])
+        $query = $this->find('all');
+        $results = $query
             ->select([
                 'sender_id',
                 'recipient_id',
-                'created'
+                'created' => $query->func()->max('Messages.created')
             ])
             ->distinct(['sender_id', 'recipient_id'])
             ->contain([
@@ -114,7 +109,13 @@ class MessagesTable extends Table
                     return $q->select(['id', 'color']);
                 }
             ])
-            ->order(['Messages.created' => 'DESC'])
+            ->where([
+                'OR' => [
+                    'sender_id' => $userId,
+                    'recipient_id' => $userId
+                ]
+            ])
+            ->order(['created' => 'DESC'])
             ->toArray();
 
         $conversations = [];
