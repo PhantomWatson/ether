@@ -65,7 +65,7 @@ class MessagesController extends AppController
                         $recipient->newMessages = true;
                         $recipient->save();
                     } else {
-                        $this->Flash->error('The message could not be saved. Please, try again.');
+                        $this->Flash->error('There was an error sending that message. Please try again.');
                     }
                 } else {
                     $this->Flash->error('Sorry, this Thinker has chosen not to receive messages. Your message was not sent. :(');
