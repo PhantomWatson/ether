@@ -78,27 +78,6 @@ class MessagesController extends AppController
         }
     }
 
-
-
-
-
-
-        // Baked code below
-        $message = $this->Messages->newEntity();
-        if ($this->request->is('post')) {
-            $message = $this->Messages->patchEntity($message, $this->request->data);
-            if ($this->Messages->save($message)) {
-                $this->Flash->success('The message has been saved.');
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error('The message could not be saved. Please, try again.');
-            }
-        }
-        $recipients = $this->Messages->Recipients->find('list', ['limit' => 200]);
-        $senders = $this->Messages->Senders->find('list', ['limit' => 200]);
-        $this->set(compact('message', 'recipients', 'senders'));
-    }
-
     /**
      * Edit method
      *
