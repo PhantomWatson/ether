@@ -13,7 +13,8 @@
 		"cake17/cakephp-recaptcha" : "dev-master",
 		"phantomwatson/cakephp-autologin": "dev-master",
 		"phpunit/phpunit": "*",
-		"cakephp/cakephp-codesniffer": "*"
+		"cakephp/cakephp-codesniffer": "*",
+		"oyejorge/less.php": "~1.5"
 	},
 	"require-dev" : {
 		"psy/psysh" : "@stable",
