@@ -53,6 +53,8 @@ Router::scope('/', function ($routes) {
 
 	$routes->connect('/t/:word/*', ['controller' => 'Thoughts', 'action' => 'word'], ['pass' => ['word']]);
 
+	$routes->connect('/messages/with/:color', ['controller' => 'Messages', 'action' => 'index'], ['pass' => ['color']]);
+
     /**
      * Connect catchall routes for all controllers.
      *
