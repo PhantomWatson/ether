@@ -64,6 +64,7 @@ class MessagesController extends AppController
                         $this->Flash->success('Message sent.');
                         $recipient->newMessages = true;
                         $this->Messages->Recipients->save($recipient);
+                        $this->redirect(['action' => 'conversation', $recipient->color]);
                     } else {
                         $this->Flash->error('There was an error sending that message. Please try again.');
                         $this->Flash->dump($message->errors());
