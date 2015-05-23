@@ -48,7 +48,7 @@
         <?php endif; ?>
     </div>
 
-    <?php /* if ((isset($messagesCount) && $messagesCount) || $user['acceptMessages']): ?>
+    <?php if ((isset($messagesCount) && $messagesCount) || $user['acceptMessages']): ?>
         <div class="content_box">
             <h2>
                 Communication
@@ -71,7 +71,7 @@
                 </div>
             <?php endif; ?>
         </div>
-    <?php endif; */ ?>
+    <?php endif; ?>
 </div>
 
 <?php $this->append('buffered_js'); ?>

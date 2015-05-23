@@ -17,7 +17,7 @@ class MessagesController extends AppController
         $this->loadComponent('RequestHandler');
     }
 
-    public function index($penpalUserId = null)
+    public function index($penpalColor = null)
     {
         $userId = $this->Auth->user('id');
         $this->loadModel('Users');
@@ -25,7 +25,7 @@ class MessagesController extends AppController
         $this->set(array(
             'title_for_layout' => 'Messages',
             'conversations' => $this->Messages->getConversationsIndex($userId),
-            'selected_user_id' => $penpalUserId
+            'penpalColor' => $penpalColor
         ));
     }
 

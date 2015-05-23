@@ -31,8 +31,8 @@
 
 			messages.init();
 
-			<?php if ($selected_user_id): ?>
-				messages.selectConversation(<?= $selected_user_id ?>, true);
+			<?php if ($penpalColor): ?>
+				messages.selectConversation(<?= $penpalColor ?>, true);
 			<?php endif; ?>
 
 		<?php $this->end(); ?>
