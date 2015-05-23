@@ -44,10 +44,21 @@ class UsersController extends AppController
     public function view($color = null)
     {
         $user = $this->Users->getProfileInfo($color);
+        $this->loadModel('Messages');
         $this->set([
         	'title_for_layout' => "Thinker #$color",
         	'user' => $user
 		]);
+
+        $userId = $this->Auth->user('id');
+        $selectedUserId = $this->Users->getIdFromColor($color);
+        if ($userId) {
+            $this->set('messagesCount', $this->Messages->getConversationCount($userId, $selectedUserId));
+        }
+
+        if ($user['acceptMessages']) {
+            $this->set('messageEntity', $this->Messages->newEntity());
+        }
     }
 
     public function register()
