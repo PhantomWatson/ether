@@ -166,4 +166,29 @@ class MessagesTable extends Table
             ->order(['Messages.created' => 'ASC'])
             ->toArray();
     }
+
+    /**
+     * Returns the number of messages exchanged between two users
+     *
+     * @param int $userId
+     * @param int $anotherUserId
+     * @return int
+     */
+    public function getConversationCount($userId, $anotherUserId)
+    {
+        return $this->find('all')
+            ->where([
+                'OR' => [
+                    [
+                        'sender_id' => $userId,
+                        'recipient_id' => $anotherUserId
+                    ],
+                    [
+                        'sender_id' => $anotherUserId,
+                        'recipient_id' => $userId
+                    ]
+                ]
+            ])
+            ->count();
+    }
 }
