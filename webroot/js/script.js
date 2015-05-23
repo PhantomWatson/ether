@@ -557,22 +557,17 @@ var messages = {
             success: function (data) {
                 conv_index.find('a.selected').removeClass('selected');
                 conv_link.addClass('selected');
-                var outer_container = $('#selected_conversation_wrapper');
                 var inner_container = $('#conversation');
                 
+                // Fade out previous conversation
                 if (inner_container.length > 0) {
                     inner_container.fadeOut(150, function () {
-                        outer_container.html(data);
-                        inner_container = $('#conversation');
-                        inner_container.fadeIn(150);
-                        inner_container.scrollTop(inner_container.prop('scrollHeight'));
+                    	messages.fadeInConversation(data);
                     });
+                    
                 } else {
-                    outer_container.fadeOut(150, function () {
-                        outer_container.html(data);
-                        outer_container.fadeIn(150);
-                        inner_container = $('#conversation');
-                        inner_container.scrollTop(inner_container.prop('scrollHeight'));
+                	$('#selected_conversation_wrapper').fadeOut(150, function () {
+                		messages.fadeInConversation(data);
                     });
                 }
                 
@@ -584,6 +579,17 @@ var messages = {
                 }
             }
         });
+    },
+    fadeInConversation: function (data) {
+    	var outer_container = $('#selected_conversation_wrapper');
+        var inner_container = $('#conversation');
+    	outer_container.html(data);
+        inner_container = $('#conversation');
+        inner_container.fadeIn(150);
+        if (! outer_container.is(':visible')) {
+        	outer_container.fadeIn(150);
+        }
+        inner_container.scrollTop(inner_container.prop('scrollHeight'));
     }
 };
 
