@@ -57,17 +57,43 @@
                 <?= $this->Html->link(
                     "View $messagesCount message".($messagesCount == 1 ? '' : 's')." between you and this Thinker.",
                     [
-                        'controller' => 'messages',
-                        'action' => 'with',
-                        'color' => $color
+                        'controller' => 'Messages',
+                        'action' => 'index',
+                        $user['color']
                     ]
                 ) ?>
             <?php endif; ?>
             <?php if ($user['acceptMessages']): ?>
                 <div id="profile_send_message">
-                    <?= $this->element('messages/send', [
-                        'recipient_id' => $user['id']
-                    ]) ?>
+                    <?php
+                        echo $this->Form->create(
+                            $messageEntity,
+                            [
+                                'url' => ['controller' => 'Messages', 'action' => 'send']
+                            ]
+                        );
+                        echo $this->Form->input(
+                            'message',
+                            [
+                                'class' => 'form-control',
+                                'div' => ['class' => 'form-group'],
+                                'label' => false,
+                                'placeholder' => 'Send a message'
+                            ]
+                        );
+                        echo $this->Form->input(
+                            'recipient_id',
+                            [
+                                'type' => 'hidden',
+                                'value' => $user['id']
+                            ]
+                        );
+                        echo $this->Form->submit(
+                            'Send',
+                            ['class' => 'btn btn-default']
+                        );
+                        echo $this->Form->end();
+                    ?>
                 </div>
             <?php endif; ?>
         </div>
