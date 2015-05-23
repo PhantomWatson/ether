@@ -586,10 +586,45 @@ var messages = {
     	outer_container.html(data);
         inner_container = $('#conversation');
         inner_container.fadeIn(150);
-        if (! outer_container.is(':visible')) {
-        	outer_container.fadeIn(150);
+        if (outer_container.is(':visible')) {
+        	inner_container.scrollTop(inner_container.prop('scrollHeight'));
+        } else {
+        	outer_container.fadeIn(150, function () {
+        		inner_container.scrollTop(inner_container.prop('scrollHeight'));
+        	});
         }
-        inner_container.scrollTop(inner_container.prop('scrollHeight'));
+        outer_container.find('form').submit(function (event) {
+        	event.preventDefault();
+        	messages.send();
+        });
+    },
+    send: function () {
+    	var outer_container = $('#selected_conversation_wrapper');
+    	var data = {
+    		message: outer_container.find('textarea').val(),
+    		recipient_id: outer_container.find('input[name=recipient_id]').val()
+    	};
+    	var button = outer_container.find('input[type=submit]');
+    	$.ajax({
+    		type: 'POST',
+    		url: '/messages/send',
+    		data: data,
+    		beforeSend: function () {
+    			button.prop('disabled', true);
+    			$('<img src="/img/loading_small.gif" class="loading" alt="Loading..." />').insertBefore(button);
+    		},
+    		success: function (data) {
+    			outer_container.fadeOut(150, function () {
+    				outer_container.html(data);
+    				outer_container.fadeIn(150);
+    				outer_container.scrollTop(outer_container.prop('scrollHeight'));
+    			});
+    		},
+    		error: function () {
+    			button.prop('disabled', false);
+    			button.siblings('img.loading').remove();
+    		}
+    	});
     }
 };
 
