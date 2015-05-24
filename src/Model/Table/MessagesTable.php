@@ -56,7 +56,7 @@ class MessagesTable extends Table
             ->add('availableToRecipient', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('availableToRecipient')
             ->requirePresence('message', 'create')
-            ->notEmpty('message');
+            ->notEmpty('message', 'You can\'t send a blank message. It would be terribly disappointing for the recipient.');
 
         return $validator;
     }
