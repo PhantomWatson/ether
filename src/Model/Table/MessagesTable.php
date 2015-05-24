@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
 
 /**
  * Messages Model
@@ -46,6 +47,13 @@ class MessagesTable extends Table
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
             ->add('recipient_id', 'valid', ['rule' => 'numeric'])
+            ->add('recipient_id', 'acceptsMessages',[
+                'rule' => function ($value, $context) {
+                    $users = TableRegistry::get('Users');
+                    return $users->acceptsMessages($value);
+                },
+                'message' => 'Sorry, this Thinker has chosen not to receive messages. Your message was not sent. :('
+            ])
             ->requirePresence('recipient_id', 'create')
             ->notEmpty('recipient_id')
             ->add('sender_id', 'valid', ['rule' => 'numeric'])
