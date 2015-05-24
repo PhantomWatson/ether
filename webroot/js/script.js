@@ -252,7 +252,7 @@ var flashMessage = {
             flashMessage.hide();
         });
     },
-    show: function () { console.log('foo');
+    show: function () {
         var container = $('#flash_messages');
         if (! container.is(':visible')) {
             container.fadeIn(this.fadeDuration);
@@ -600,27 +600,33 @@ var messages = {
     },
     send: function () {
     	var outer_container = $('#selected_conversation_wrapper');
+    	var recipientColor = outer_container.find('input[name=recipient]').val();
     	var data = {
     		message: outer_container.find('textarea').val(),
-    		recipient: outer_container.find('input[name=recipient]').val()
+    		recipient: recipientColor
     	};
     	var button = outer_container.find('input[type=submit]');
     	$.ajax({
     		type: 'POST',
     		url: '/messages/send',
     		data: data,
+    		dataType: 'json',
     		beforeSend: function () {
     			button.prop('disabled', true);
     			$('<img src="/img/loading_small.gif" class="loading" alt="Loading..." />').insertBefore(button);
     		},
     		success: function (data) {
-    			outer_container.fadeOut(150, function () {
-    				outer_container.html(data);
-    				outer_container.fadeIn(150);
-    				outer_container.scrollTop(outer_container.prop('scrollHeight'));
-    			});
+    			if (data.error) {
+    				flashMessage.insert(data.error, 'error');
+    				button.prop('disabled', false);
+        			button.siblings('img.loading').remove();
+    			}
+    			if (data.success) {
+    				messages.selectConversation(recipientColor);
+    			}
     		},
     		error: function () {
+    			flashMessage.insert('There was an error sending that message. Please try again.', 'error');
     			button.prop('disabled', false);
     			button.siblings('img.loading').remove();
     		}

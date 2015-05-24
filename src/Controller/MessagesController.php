@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Utility\Hash;
 
 /**
  * Messages Controller
@@ -44,40 +45,52 @@ class MessagesController extends AppController
         $this->set('message', $message);
     }
 
+    /**
+     * The target of message-sending forms. If requested via AJAX, the view
+     * will contain a JSON object describing the results. Otherwise, redirects back
+     * to the referer with a flash message.
+     */
     public function send()
     {
         if ($this->request->is('post')) {
+            // Gather data
             $this->loadModel('Users');
-            $recipientColor = $this->request->data['recipient'];
-            $recipientId = $this->Users->getIdFromColor($recipientColor);
-            $senderId = $this->Auth->user('id');
-            $this->request->data['sender_id'] = $senderId;
+            $recipientId = $this->Users->getIdFromColor($this->request->data['recipient']);
+            $this->request->data['recipient_id'] = $recipientId;
+            $this->request->data['sender_id'] = $this->Auth->user('id');
             $this->request->data['message'] = trim($this->request->data['message']);
 
-            if ($this->request->data['message'] == '') {
-                $this->Flash->error('You can\'t send a blank message. It would be terribly disappointing for the recipient.');
-            } else {
+            $errorMsg = null;
+            $msgSent = false;
+            $message = $this->Messages->newEntity();
+            $message = $this->Messages->patchEntity($message, $this->request->data);
+            if ($message->errors()) {
+                $errors = Hash::flatten($message->errors());
+                $errorMsg = implode('<br />', $errors);
+            } elseif ($this->Messages->save($message)) {
+                $msgSent = true;
                 $recipient = $this->Messages->Recipients->get($recipientId);
-                if ($recipient->acceptMessages) {
-                    $message = $this->Messages->newEntity();
-                    $message = $this->Messages->patchEntity($message, $this->request->data);
-                    if ($this->Messages->save($message)) {
-                        $this->Flash->success('Message sent.');
-                        $recipient->newMessages = true;
-                        $this->Messages->Recipients->save($recipient);
-                        $this->redirect(['action' => 'conversation', $recipient->color]);
-                    } else {
-                        $this->Flash->error('There was an error sending that message. Please try again.');
-                        $this->Flash->dump($message->errors());
-                    }
-                } else {
-                    $this->Flash->error('Sorry, this Thinker has chosen not to receive messages. Your message was not sent. :(');
-                }
+                $recipient->newMessages = true;
+                $this->Messages->Recipients->save($recipient);
+            } else {
+                $errorMsg = 'There was an error sending that message. Please try again.';
             }
 
-            if (! $this->request->is('ajax')) {
-                $this->redirect($this->request->referer());
+            if ($this->request->is('ajax')) {
+                $this->set('result', [
+                    'error' => $errorMsg,
+                    'success' => $msgSent
+                ]);
+            } else {
+                if ($errorMsg) {
+                    $this->Flash->error($errorMsg);
+                }
+                if ($msgSent) {
+                    $this->Flash->success('Message sent');
+                }
+                return $this->redirect($this->request->referer());
             }
+
         }
     }
 
