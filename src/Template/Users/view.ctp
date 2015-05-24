@@ -82,10 +82,10 @@
                             ]
                         );
                         echo $this->Form->input(
-                            'recipient_id',
+                            'recipient',
                             [
                                 'type' => 'hidden',
-                                'value' => $user['id']
+                                'value' => $user['color']
                             ]
                         );
                         echo $this->Form->submit(

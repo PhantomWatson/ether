@@ -602,7 +602,7 @@ var messages = {
     	var outer_container = $('#selected_conversation_wrapper');
     	var data = {
     		message: outer_container.find('textarea').val(),
-    		recipient_id: outer_container.find('input[name=recipient_id]').val()
+    		recipient: outer_container.find('input[name=recipient]').val()
     	};
     	var button = outer_container.find('input[type=submit]');
     	$.ajax({

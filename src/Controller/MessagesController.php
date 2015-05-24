@@ -47,8 +47,9 @@ class MessagesController extends AppController
     public function send()
     {
         if ($this->request->is('post')) {
-
-            $recipientId = $this->request->data['recipient_id'];
+            $this->loadModel('Users');
+            $recipientColor = $this->request->data['recipient'];
+            $recipientId = $this->Users->getIdFromColor($recipientColor);
             $senderId = $this->Auth->user('id');
             $this->request->data['sender_id'] = $senderId;
             $this->request->data['message'] = trim($this->request->data['message']);
@@ -130,9 +131,11 @@ class MessagesController extends AppController
         $userId = $this->Auth->user('id');
         $this->loadModel('Users');
         $penpalId = $this->Users->getIdFromColor($penpalColor);
+        $penpal = $this->Users->get($penpalId);
         $this->set(array(
             'messages' => $this->Messages->getConversation($userId, $penpalId),
             'penpalId' => $penpalId,
+            'penpalColor' => $penpal->color,
             'penpalAcceptsMessages' => $this->Users->acceptsMessages($penpalId),
             'messageEntity' => $this->Messages->newEntity()
         ));

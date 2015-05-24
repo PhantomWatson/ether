@@ -52,10 +52,10 @@
                 ]
             );
             echo $this->Form->input(
-                'recipient_id',
+                'recipient',
                 [
                     'type' => 'hidden',
-                    'value' => $penpalId
+                    'value' => $penpalColor
                 ]
             );
             echo $this->Form->submit(
