@@ -5,6 +5,7 @@
 /tmp/*
 /logs/*
 /webroot/coverage/*
+/node_modules/*
 
 # Eclipse
 *.pydevproject
