@@ -288,4 +288,9 @@ class UsersTable extends Table
             ->first()
             ->id;
     }
+
+    public function getActiveThinkerCount()
+    {
+        return $this->Thoughts->find('all')->select(['user_id'])->distinct(['user_id'])->count();
+    }
 }
