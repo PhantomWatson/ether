@@ -395,4 +395,9 @@ class ThoughtsTable extends Table
             'fields' => ['user_id']
         ])->user_id;
     }
+
+    public function getCount()
+    {
+        return $this->find('all')->count();
+    }
 }
