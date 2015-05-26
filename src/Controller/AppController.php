@@ -75,6 +75,14 @@ class AppController extends Controller
 		));
 
 		$this->__setNewMessagesAlert();
+        if ($this->layout == 'default' || ! $this->layout) {
+            $this->loadModel('Thoughts');
+            $this->loadModel('Users');
+            $this->set([
+                'thoughtCount' => $this->Thoughts->getCount(),
+                'thinkerCount' => $this->Users->getActiveThinkerCount()
+            ]);
+        }
 	}
 
 	/**

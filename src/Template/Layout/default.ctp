@@ -67,5 +67,12 @@
 				});
 			</script>
 		<?php endif; ?>
+
+		<div id="footer">
+            <div class="copyright">
+                <strong>ETHER</strong> is an experimental thought repository which has collected <?= number_format($thoughtCount) ?> thoughts from <?= number_format($thinkerCount) ?> thinkers since 2006.
+                &copy; <?php echo date('Y'); ?> <a href="mailto:graham@phantomwatson.com">Phantom Watson</a>
+            </div>
+        </div>
 	</body>
 </html>
