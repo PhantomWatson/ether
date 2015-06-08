@@ -32,7 +32,8 @@ class Thought extends Entity
     ];
     public $max_thoughtword_length = 30;
 
-    public function _getParsedTextCache($parsedTextCache) {
+    public function _getParsedTextCache($parsedTextCache)
+    {
         if ($parsedTextCache == '') {
             $thoughts = TableRegistry::get('Thoughts');
             $parsedTextCache = $thoughts->linkThoughtwords($this->_properties['thought']);

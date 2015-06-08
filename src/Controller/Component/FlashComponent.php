@@ -4,8 +4,10 @@ namespace App\Controller\Component;
 use Cake\Controller\Component;
 use Cake\Network\Session;
 
-class FlashComponent extends Component {
-    public function beforeRender(\Cake\Event\Event $event) {
+class FlashComponent extends Component
+{
+    public function beforeRender(\Cake\Event\Event $event)
+    {
         $this->__prepareFlashMessages();
     }
 
@@ -14,7 +16,8 @@ class FlashComponent extends Component {
      * @param string $message Message (or variable to be dumped)
      * @param string $class success, error, notification (default), or dump
      */
-    public function set($message, $class = 'notification') {
+    public function set($message, $class = 'notification')
+    {
         $storedMessages = $this->request->session()->read('FlashMessage');
 
         // Handle the $options parameter passed by the Authentication component
@@ -34,7 +37,8 @@ class FlashComponent extends Component {
      * Adds a flash message with 'success' class
      * @param string $message
      */
-    public function success($message) {
+    public function success($message)
+    {
         $this->set($message, 'success');
     }
 
@@ -42,7 +46,8 @@ class FlashComponent extends Component {
      * Adds a flash message with 'error' class
      * @param string $message
      */
-    public function error($message) {
+    public function error($message)
+    {
         $this->set($message, 'error');
     }
 
@@ -50,7 +55,8 @@ class FlashComponent extends Component {
      * Adds a flash message with 'notification' class
      * @param string $message
      */
-    public function notification($message) {
+    public function notification($message)
+    {
         $this->set($message, 'notification');
     }
 
@@ -58,7 +64,8 @@ class FlashComponent extends Component {
      * Adds a variable to be output in a flash message
      * @param string $variable
      */
-    public function dump($variable) {
+    public function dump($variable)
+    {
         $this->set($variable, 'dump');
     }
 
@@ -66,7 +73,8 @@ class FlashComponent extends Component {
      * Sets an array to be displayed by the element 'flashMessages'
      * @return array
      */
-    private function __prepareFlashMessages() {
+    private function __prepareFlashMessages()
+    {
         $storedMessages = $this->request->session()->read('FlashMessage');
         $storedMessages = $storedMessages ? $storedMessages : [];
         $this->request->session()->delete('FlashMessage');

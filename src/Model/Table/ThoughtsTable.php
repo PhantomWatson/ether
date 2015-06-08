@@ -165,11 +165,11 @@ class ThoughtsTable extends Table
         $categorized = array();
         foreach ($words as $word) {
             $first_letter = substr($word, 0, 1);
-             if (is_numeric($first_letter)) {
-                 $categorized['#'][] = $word;
-             } else {
-                 $categorized[$first_letter][] = $word;
-             }
+            if (is_numeric($first_letter)) {
+                $categorized['#'][] = $word;
+            } else {
+                $categorized[$first_letter][] = $word;
+            }
         }
         ksort($categorized);
         return $categorized;
@@ -296,7 +296,8 @@ class ThoughtsTable extends Table
      * @param string $input
      * @return string
      */
-    public function linkThoughtwords($input) {
+    public function linkThoughtwords($input)
+    {
         $thoughtwords = $this->getWords();
         $allowedTags = '<i><b>'; //<center><ul><ol><li><sup><sub> removed in Ether v2
         $input = stripslashes($input); // Unnecessary after slashes are stripped out of the database
@@ -308,7 +309,6 @@ class ThoughtsTable extends Table
         $formattedText = '';
         $textBroken = preg_split($whitespaceAndTagsPattern, $input, -1, PREG_SPLIT_DELIM_CAPTURE);
         foreach ($textBroken as $n => $textChunk) {
-
             // Chunk is a delimiter
             if (preg_match($whitespaceAndTagsPattern, $textChunk)) {
                 $formattedText .= $textChunk;

@@ -218,7 +218,6 @@ class UsersController extends AppController
             $user->password = $this->request->data['new_password'];
             $user->password_version = 3;
             if ($this->Users->save($user)) {
-
                 // Reset AutoLogin cookie with new password
                 $this->request->data['email'] = $user->email;
                 $this->request->data['password'] = $this->request->data['new_password'];

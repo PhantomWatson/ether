@@ -47,7 +47,7 @@ class MessagesTable extends Table
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
             ->add('recipient_id', 'valid', ['rule' => 'numeric'])
-            ->add('recipient_id', 'acceptsMessages',[
+            ->add('recipient_id', 'acceptsMessages', [
                 'rule' => function ($value, $context) {
                     $users = TableRegistry::get('Users');
                     return $users->acceptsMessages($value);
