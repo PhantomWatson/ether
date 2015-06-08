@@ -1,15 +1,19 @@
 var gulp = require('gulp');
-
 var less = require('gulp-less');
-var path = require('path');
+var watchLess = require('gulp-watch-less');
+var plumber = require('gulp-plumber');
+var notify = require("gulp-notify");
+
+gulp.task('default', ['less']);
+
 gulp.task('less', function () {
-  return gulp.src('./webroot/css/style.less')
-    .pipe(less({
-      paths: [ path.join(__dirname) ]
-    }))
-    .pipe(gulp.dest('./webroot/css'));
-});
-
-gulp.task('default', function() {
-
+	gulp.src('webroot/css/style.less')
+		.pipe(less())
+        .pipe(gulp.dest('webroot/css'))
+        .pipe(notify('LESS compiled'));
+	
+	watchLess('webroot/css/style.less')
+		.pipe(less())
+        .pipe(gulp.dest('webroot/css'))
+        .pipe(notify('LESS compiled'));
 });
