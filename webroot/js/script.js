@@ -19,12 +19,12 @@ function adjustBackground() {
     var body_tag = document.getElementById('body_tag');
     var color = new RGBColor(body_tag.style.backgroundColor);
     var rand_color = Math.floor(Math.random()*3);
-    if (Math.round(Math.random()) == 0) {
+    if (Math.round(Math.random()) === 0) {
         var adjustment = -1;
     } else {
         var adjustment = 1;
     }
-    if (rand_color == 0) {
+    if (rand_color === 0) {
         target_color = color.r;
     } else if (rand_color == 1) {
         target_color = color.g;
@@ -36,7 +36,7 @@ function adjustBackground() {
     } else if (adjustment == -1 && target_color <= lower_limit) {
         adjustment = 1;
     }
-    if (rand_color == 0) {
+    if (rand_color === 0) {
         color.r += adjustment;
     } else if (rand_color == 1) {
         color.g += adjustment;
@@ -213,7 +213,7 @@ var registration = {
     checkColorAvailability: function () {
         var color = $('#color_hex').val();
         color = color.replace('#', '');
-        if (this.color_avail_request != null) {
+        if (this.color_avail_request !== null) {
             this.color_avail_request.abort();
         }
         this.color_avail_request = $.ajax({
@@ -320,7 +320,7 @@ function overlayContent(options) {
         return;
     }
     
-    if ($('#overlaid').length == 0) {
+    if ($('#overlaid').length === 0) {
         $('body').append($('<div id=\"overlaid_bg\" title="Click to close popup"></div>'));
         $('body').append($('<div id=\"overlaid\" data-origin-url=\"'+window.location.pathname+'\"></div>'));
         setupOverlayCloser();
