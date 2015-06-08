@@ -361,6 +361,7 @@ function overlayContent(options) {
                 
                 /* Opening a popup for /random should function the same as
                  * opening a popup for whatever word /random picks. */
+                var displayed_url = url;
                 if (url == '/random') {
                     var thoughtword = inner_container
                         .find('h1')
@@ -368,9 +369,7 @@ function overlayContent(options) {
                         .html()
                         .trim()
                         .toLowerCase();
-                    var displayed_url = '/t/'+thoughtword;
-                } else {
-                    var displayed_url = url;
+                    displayed_url = '/t/'+thoughtword;
                 }
                 
                 if (options.push_history_state) {
