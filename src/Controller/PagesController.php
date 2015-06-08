@@ -28,30 +28,30 @@ use Cake\ORM\TableRegistry;
  */
 class PagesController extends AppController
 {
-	public $helpers = [
-		'Paginator' => []
-	];
+    public $helpers = [
+        'Paginator' => []
+    ];
 
-	public $paginate = [
-		'finder' => [
-			'recentActivity' => []
-		]
-	];
+    public $paginate = [
+        'finder' => [
+            'recentActivity' => []
+        ]
+    ];
 
-	public function initialize()
-	{
-		parent::initialize();
-		$this->loadComponent('Paginator');
-		$this->Auth->allow();
-	}
+    public function initialize()
+    {
+        parent::initialize();
+        $this->loadComponent('Paginator');
+        $this->Auth->allow();
+    }
 
     public function home()
     {
-		$this->loadModel('Thoughts');
-		$this->set(array(
-			'recentActivity' => $this->paginate($this->Thoughts),
-			'topCloud' => $this->Thoughts->getTopCloud()
-		));
+        $this->loadModel('Thoughts');
+        $this->set(array(
+            'recentActivity' => $this->paginate($this->Thoughts),
+            'topCloud' => $this->Thoughts->getTopCloud()
+        ));
     }
 
     public function about()

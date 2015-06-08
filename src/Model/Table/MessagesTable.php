@@ -83,16 +83,16 @@ class MessagesTable extends Table
         return $rules;
     }
 
-	public function userHasNewMessages($userId)
-	{
-		$count = $this->find('all')
-			->where([
-				'recipient_id' => $userId,
-				'received' => 0
-			])
-			->count();
-		return $count > 0;
-	}
+    public function userHasNewMessages($userId)
+    {
+        $count = $this->find('all')
+            ->where([
+                'recipient_id' => $userId,
+                'received' => 0
+            ])
+            ->count();
+        return $count > 0;
+    }
 
     /**
      * Returns an array of metadata about conversations the user has engaged in

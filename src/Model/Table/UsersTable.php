@@ -104,148 +104,148 @@ class UsersTable extends Table
         return $rules;
     }
 
-	/**
-	 * Checks whether or not a color is already assigned to a user
-	 * @param string $color
-	 * @return boolean
-	 */
-	public function colorIsTaken($color)
-	{
-		$color = str_replace('#', '', $color);
-		$query = $this->find('all')
-			->where(['color' => $color]);
-		return $query->count() > 0;
-	}
+    /**
+     * Checks whether or not a color is already assigned to a user
+     * @param string $color
+     * @return boolean
+     */
+    public function colorIsTaken($color)
+    {
+        $color = str_replace('#', '', $color);
+        $query = $this->find('all')
+            ->where(['color' => $color]);
+        return $query->count() > 0;
+    }
 
-	/**
-	 * Returns an array of the data needed for a user's profile
-	 * @param string $color
-	 * @return array
-	 * @throws \Cake\Network\Exception\NotFoundException
-	 */
-	public function getProfileInfo($color)
-	{
-		return $this->findByColor($color)
-        	->select([
-        		'id',
-        		'color',
-        		'acceptMessages',
-        		'profile'
-        	])
-        	->contain([
-            	'Thoughts' => function ($q) {
-            		return $q
-            			->select(['id', 'word', 'user_id'])
-						->order([
-							'word' => 'ASC',
-							'created' => 'DESC'
-						])
-						->distinct(['word']);
-				}
+    /**
+     * Returns an array of the data needed for a user's profile
+     * @param string $color
+     * @return array
+     * @throws \Cake\Network\Exception\NotFoundException
+     */
+    public function getProfileInfo($color)
+    {
+        return $this->findByColor($color)
+            ->select([
+                'id',
+                'color',
+                'acceptMessages',
+                'profile'
             ])
-        	->first()
-        	->toArray();
-	}
+            ->contain([
+                'Thoughts' => function ($q) {
+                    return $q
+                        ->select(['id', 'word', 'user_id'])
+                        ->order([
+                            'word' => 'ASC',
+                            'created' => 'DESC'
+                        ])
+                        ->distinct(['word']);
+                }
+            ])
+            ->first()
+            ->toArray();
+    }
 
 
-	public function getColorsWithThoughts()
-	{
-		$result = $this->find('all')
-			->select([
-				'color',
-				'count' => $this->find()->func()->count('Thoughts.id')
-			])
-			->matching('Thoughts')
-			->group(['Users.id'])
-			->having(['count >' => 0])
-			->hydrate(false);
-		$collection = new Collection($result);
-		$combined = $collection->combine('color', 'count');
-		$colors = $combined->toArray();
-		$sorted = $this->sortColors($colors);
-		return $sorted;
-	}
+    public function getColorsWithThoughts()
+    {
+        $result = $this->find('all')
+            ->select([
+                'color',
+                'count' => $this->find()->func()->count('Thoughts.id')
+            ])
+            ->matching('Thoughts')
+            ->group(['Users.id'])
+            ->having(['count >' => 0])
+            ->hydrate(false);
+        $collection = new Collection($result);
+        $combined = $collection->combine('color', 'count');
+        $colors = $combined->toArray();
+        $sorted = $this->sortColors($colors);
+        return $sorted;
+    }
 
-	/**
-	 * Takes an array of color => thoughtCount and groups it into sorted red, green, blue, etc. categories
-	 * @param array $colors
-	 * @return array
-	 * @throws \Cake\Network\Exception\InternalErrorException
-	 */
-	public function sortColors($colors)
-	{
-		$tolerance = 40;
-		$hex_codes = [];
-		$colors_categorized = [];
-		$sorted_groups = array(
-			'red' => [],
-			'yellow' => [],
-			'green' => [],
-			'cyan' => [],
-			'blue' => [],
-			'purple' => [],
-			'gray' => []
-		);
+    /**
+     * Takes an array of color => thoughtCount and groups it into sorted red, green, blue, etc. categories
+     * @param array $colors
+     * @return array
+     * @throws \Cake\Network\Exception\InternalErrorException
+     */
+    public function sortColors($colors)
+    {
+        $tolerance = 40;
+        $hex_codes = [];
+        $colors_categorized = [];
+        $sorted_groups = array(
+            'red' => [],
+            'yellow' => [],
+            'green' => [],
+            'cyan' => [],
+            'blue' => [],
+            'purple' => [],
+            'gray' => []
+        );
 
-		foreach ($colors as $color => $count) {
-			$color_split = str_split($color, 2);
-			$this_color = [];
-			$this_color['count'] = $count;
+        foreach ($colors as $color => $count) {
+            $color_split = str_split($color, 2);
+            $this_color = [];
+            $this_color['count'] = $count;
 
-			// Figure out what sort of color this is
-			$this_color['red'] = $red = hexdec($color_split[0]);
-			$this_color['green'] = $green = hexdec($color_split[1]);
-			$this_color['blue'] = $blue = hexdec($color_split[2]);
-			$yellow = abs($red- $green);
-			$cyan = abs($green - $blue);
-			$purple = abs($blue - $red);
-			if ($red== $green && $green == $blue) {
-				$category = 'gray';
-			} elseif ($yellow < $tolerance && $red> $blue && $green > $blue) {
-				$category = 'yellow';
-			} elseif ($cyan < $tolerance && $blue > $red && $green > $red) {
-				$category = 'cyan';
-			} elseif ($purple < $tolerance && $red > $green && $blue > $green) {
-				$category = 'purple';
-			} elseif ($red > $green && $red > $blue) {
-				$category = 'red';
-			} elseif ($green > $red && $green > $blue) {
-				$category = 'green';
-			} elseif ($blue > $green && $blue > $red) {
-				$category = 'blue';
-			} else {
-				throw new InternalErrorException("Error with color #$color");
-			}
-			$colors_categorized[$category][] = $this_color;
+            // Figure out what sort of color this is
+            $this_color['red'] = $red = hexdec($color_split[0]);
+            $this_color['green'] = $green = hexdec($color_split[1]);
+            $this_color['blue'] = $blue = hexdec($color_split[2]);
+            $yellow = abs($red- $green);
+            $cyan = abs($green - $blue);
+            $purple = abs($blue - $red);
+            if ($red== $green && $green == $blue) {
+                $category = 'gray';
+            } elseif ($yellow < $tolerance && $red> $blue && $green > $blue) {
+                $category = 'yellow';
+            } elseif ($cyan < $tolerance && $blue > $red && $green > $red) {
+                $category = 'cyan';
+            } elseif ($purple < $tolerance && $red > $green && $blue > $green) {
+                $category = 'purple';
+            } elseif ($red > $green && $red > $blue) {
+                $category = 'red';
+            } elseif ($green > $red && $green > $blue) {
+                $category = 'green';
+            } elseif ($blue > $green && $blue > $red) {
+                $category = 'blue';
+            } else {
+                throw new InternalErrorException("Error with color #$color");
+            }
+            $colors_categorized[$category][] = $this_color;
 
-			$rgb = $this_color['red'].' '.$this_color['green'].' '.$this_color['blue'];
-			$hex_codes[$rgb] = $color;
-		}
-		$group_key = 0;
-		foreach ($colors_categorized as $category => $category_colors) {
-			$sorted_group = [];
-			foreach ($category_colors as $color) {
-				$rgb = $color['red'].' '.$color['green'].' '.$color['blue'];
-				$hex = $hex_codes[$rgb];
-				$dec = hexdec($hex);
-				$sorted_group[$dec] = [
-					'color' => $hex,
-					'count' => $color['count']
-				];
-			}
-			if ($group_key % 2 == 1) {
-				krsort($sorted_group);
-			} else {
-				ksort($sorted_group);
-			}
-			$collection = new Collection($sorted_group);
-			$combined = $collection->combine('color', 'count');
-			$sorted_groups[$category] = $combined->toArray();
+            $rgb = $this_color['red'].' '.$this_color['green'].' '.$this_color['blue'];
+            $hex_codes[$rgb] = $color;
+        }
+        $group_key = 0;
+        foreach ($colors_categorized as $category => $category_colors) {
+            $sorted_group = [];
+            foreach ($category_colors as $color) {
+                $rgb = $color['red'].' '.$color['green'].' '.$color['blue'];
+                $hex = $hex_codes[$rgb];
+                $dec = hexdec($hex);
+                $sorted_group[$dec] = [
+                    'color' => $hex,
+                    'count' => $color['count']
+                ];
+            }
+            if ($group_key % 2 == 1) {
+                krsort($sorted_group);
+            } else {
+                ksort($sorted_group);
+            }
+            $collection = new Collection($sorted_group);
+            $combined = $collection->combine('color', 'count');
+            $sorted_groups[$category] = $combined->toArray();
 
-			$group_key++;
-		}
-		return $sorted_groups;
-	}
+            $group_key++;
+        }
+        return $sorted_groups;
+    }
 
     /**
      * Deactivates the "you have new messages" flag for the selected user

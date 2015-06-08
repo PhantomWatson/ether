@@ -8,43 +8,43 @@ use Cake\I18n\Time;
 class ThoughtListener implements EventListenerInterface
 {
 
-	public function implementedEvents()
-	{
-		return [
-			'Model.Thought.created' => [
-				['callable' => 'updatePopulatedThoughtwords'],
-				['callable' => 'parseThought']
-			],
-			'Model.Thought.updated' => [
-				['callable' => 'updatePopulatedThoughtwords'],
-				['callable' => 'parseThought']
-			]
-		];
-	}
+    public function implementedEvents()
+    {
+        return [
+            'Model.Thought.created' => [
+                ['callable' => 'updatePopulatedThoughtwords'],
+                ['callable' => 'parseThought']
+            ],
+            'Model.Thought.updated' => [
+                ['callable' => 'updatePopulatedThoughtwords'],
+                ['callable' => 'parseThought']
+            ]
+        ];
+    }
 
-	public function updatePopulatedThoughtwords($event, $entity, $options)
-	{
-		// Exit if entity was updated without changing word
-		if (! $entity->isNew() && ! $entity->dirty('word')) {
-			return;
-		}
+    public function updatePopulatedThoughtwords($event, $entity, $options)
+    {
+        // Exit if entity was updated without changing word
+        if (! $entity->isNew() && ! $entity->dirty('word')) {
+            return;
+        }
 
-		// Check to see if the count of thoughts with this word is 1
-		// If so, it's a new addition to the list of populated thoughtwords
-		// and the cached list should be cleared and rewritten here (so the slight delay is experienced by the poster, not the next viewer)
-	}
+        // Check to see if the count of thoughts with this word is 1
+        // If so, it's a new addition to the list of populated thoughtwords
+        // and the cached list should be cleared and rewritten here (so the slight delay is experienced by the poster, not the next viewer)
+    }
 
-	public function parseThought($event, $entity, $options)
-	{
-		// Don't bother re-parsing thought if it hasn't changed
-		if (! $entity->isNew() && ! $entity->dirty('thought')) {
-			return;
-		}
+    public function parseThought($event, $entity, $options)
+    {
+        // Don't bother re-parsing thought if it hasn't changed
+        if (! $entity->isNew() && ! $entity->dirty('thought')) {
+            return;
+        }
 
-		$thoughts = TableRegistry::get('Thoughts');
-		$parsedThought = $thoughts->linkThoughtwords($entity->get('thought'));
-		$entity->set('parsedTextCache', $parsedThought);
-		$entity->set('parsed', Time::now());
-		$thoughts->save($entity);
-	}
+        $thoughts = TableRegistry::get('Thoughts');
+        $parsedThought = $thoughts->linkThoughtwords($entity->get('thought'));
+        $entity->set('parsedTextCache', $parsedThought);
+        $entity->set('parsed', Time::now());
+        $thoughts->save($entity);
+    }
 }

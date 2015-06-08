@@ -11,15 +11,15 @@ use App\Controller\AppController;
 class UsersController extends AppController
 {
 
-	public function initialize()
-	{
-		parent::initialize();
-		$this->Auth->allow(['index', 'register', 'login', 'view', 'check_color_availability']);
+    public function initialize()
+    {
+        parent::initialize();
+        $this->Auth->allow(['index', 'register', 'login', 'view', 'check_color_availability']);
 
-		if ($this->request->action === 'register') {
-			$this->loadComponent('Recaptcha.Recaptcha');
-		}
-	}
+        if ($this->request->action === 'register') {
+            $this->loadComponent('Recaptcha.Recaptcha');
+        }
+    }
 
     /**
      * Index method
@@ -28,10 +28,10 @@ class UsersController extends AppController
      */
     public function index()
     {
-		$this->set(array(
-			'title_for_layout' => 'Thinkers',
-			'colors' => $this->Users->getColorsWithThoughts(),
-		));
+        $this->set(array(
+            'title_for_layout' => 'Thinkers',
+            'colors' => $this->Users->getColorsWithThoughts(),
+        ));
     }
 
     /**
@@ -46,9 +46,9 @@ class UsersController extends AppController
         $user = $this->Users->getProfileInfo($color);
         $this->loadModel('Messages');
         $this->set([
-        	'title_for_layout' => "Thinker #$color",
-        	'user' => $user
-		]);
+            'title_for_layout' => "Thinker #$color",
+            'user' => $user
+        ]);
 
         $userId = $this->Auth->user('id');
         $selectedUserId = $this->Users->getIdFromColor($color);
@@ -65,51 +65,51 @@ class UsersController extends AppController
     {
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
-        	if ($this->Recaptcha->verify()) {
-	        	$user = $this->Users->patchEntity($user, $this->request->data);
+            if ($this->Recaptcha->verify()) {
+                $user = $this->Users->patchEntity($user, $this->request->data);
 
-	        	// Clean email and color
-	        	$cleanEmail = trim($user->email);
-				$cleanEmail = strtolower($cleanEmail);
-				$cleanColor = strtolower($user->color);
-				$cleanColor = preg_replace("/[^a-z0-9]/", '', $cleanColor);
+                // Clean email and color
+                $cleanEmail = trim($user->email);
+                $cleanEmail = strtolower($cleanEmail);
+                $cleanColor = strtolower($user->color);
+                $cleanColor = preg_replace("/[^a-z0-9]/", '', $cleanColor);
 
-				$user->set([
-					'password' => $this->request->data['User']['password'],
-					'email' => $cleanEmail,
-					'color' => $cleanColor,
-					'password_version' => 3
-				]);
+                $user->set([
+                    'password' => $this->request->data['User']['password'],
+                    'email' => $cleanEmail,
+                    'color' => $cleanColor,
+                    'password_version' => 3
+                ]);
 
-	            if ($this->Users->save($user)) {
-	                $this->Flash->success('Your account has been registered. You may now log in.');
-	                return $this->redirect(['action' => 'login']);
-	            } else {
-	                $this->Flash->error('There was an error registering your account. Please try again.');
-	            }
-			} else {
-				$this->Flash->error('Invalid CAPTCHA response');
-			}
+                if ($this->Users->save($user)) {
+                    $this->Flash->success('Your account has been registered. You may now log in.');
+                    return $this->redirect(['action' => 'login']);
+                } else {
+                    $this->Flash->error('There was an error registering your account. Please try again.');
+                }
+            } else {
+                $this->Flash->error('Invalid CAPTCHA response');
+            }
         } else {
-        	// Select a random available color
-			do {
-				$this->request->data['color'] = '#';
-				for ($n = 1; $n <= 3; $n++) {
-					$this->request->data['color'] .= str_pad(dechex(rand(0, 250)), 2, '0', STR_PAD_LEFT);
-				}
-				$isTaken = $this->Users->colorIsTaken($this->request->data['color']);
-			} while ($isTaken);
-			$this->set('random_color', true);
-		}
+            // Select a random available color
+            do {
+                $this->request->data['color'] = '#';
+                for ($n = 1; $n <= 3; $n++) {
+                    $this->request->data['color'] .= str_pad(dechex(rand(0, 250)), 2, '0', STR_PAD_LEFT);
+                }
+                $isTaken = $this->Users->colorIsTaken($this->request->data['color']);
+            } while ($isTaken);
+            $this->set('random_color', true);
+        }
 
-		/* So the password fields aren't filled out automatically when the user
-		 * is bounced back to the page by a validation error */
-		$this->request->data['User']['new_password'] = null;
-	    $this->request->data['User']['confirm_password'] = null;
+        /* So the password fields aren't filled out automatically when the user
+         * is bounced back to the page by a validation error */
+        $this->request->data['User']['new_password'] = null;
+        $this->request->data['User']['confirm_password'] = null;
 
         $this->set([
-        	'title_for_layout' => 'Register Account',
-		]);
+            'title_for_layout' => 'Register Account',
+        ]);
     }
 
     /**
@@ -155,40 +155,40 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-	public function login()
-	{
-		if ($this->request->is('post')) {
-			$user = $this->Auth->identify();
-			if ($user) {
-				$this->Auth->setUser($user);
-				if ($this->Auth->authenticationProvider()->needsPasswordRehash()) {
-					$user = $this->Users->get($this->Auth->user('id'));
-					$user->password = $this->request->data('password');
-					$user->password_version = 3;
-					$this->Users->save($user);
-				}
-				$this->AutoLogin->setCookie();
-				return $this->redirect($this->Auth->redirectUrl());
-			} else {
-				$this->Flash->error('Email or password is incorrect');
-			}
-		}
-		$this->set(array(
-			'title_for_layout' => 'Log in'
-		));
-	}
+    public function login()
+    {
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                if ($this->Auth->authenticationProvider()->needsPasswordRehash()) {
+                    $user = $this->Users->get($this->Auth->user('id'));
+                    $user->password = $this->request->data('password');
+                    $user->password_version = 3;
+                    $this->Users->save($user);
+                }
+                $this->AutoLogin->setCookie();
+                return $this->redirect($this->Auth->redirectUrl());
+            } else {
+                $this->Flash->error('Email or password is incorrect');
+            }
+        }
+        $this->set(array(
+            'title_for_layout' => 'Log in'
+        ));
+    }
 
-	public function logout()
-	{
-		$this->AutoLogin->destroyCookie();
-		return $this->redirect($this->Auth->logout());
-	}
+    public function logout()
+    {
+        $this->AutoLogin->destroyCookie();
+        return $this->redirect($this->Auth->logout());
+    }
 
-	public function check_color_availability($color = null)
-	{
-		$this->layout = 'ajax';
-		$this->set('available', ! $this->Users->colorIsTaken($color));
-	}
+    public function check_color_availability($color = null)
+    {
+        $this->layout = 'ajax';
+        $this->set('available', ! $this->Users->colorIsTaken($color));
+    }
 
     public function account()
     {
