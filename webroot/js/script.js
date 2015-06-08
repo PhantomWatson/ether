@@ -6,7 +6,7 @@ function toggleBGFade(fade_interval) {
         clearInterval(fading_interval_id);
         fading_interval_id = 0;
     } else {
-        fading_interval_id = setInterval("adjustBackground()", fade_interval);
+        fading_interval_id = setInterval(function() {adjustBackground();}, fade_interval);
     }
 }
 
