@@ -8,8 +8,9 @@ var uglify = require('gulp-uglify');
 var rename = require("gulp-rename");
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
+var phpcs = require('gulp-phpcs');
 
-gulp.task('default', ['less', 'js', 'jswatch']);
+gulp.task('default', ['less', 'js', 'jswatch', 'php', 'phpwatch']);
 
 gulp.task('less', function () {
 	var cleanCSSPlugin = new LessPluginCleanCSS({advanced: true});
@@ -41,4 +42,20 @@ gulp.task('js', function() {
 
 gulp.task('jswatch', function() {
 	return gulp.watch('webroot/js/script.js', ['js']);
+});
+
+gulp.task('php', function() {
+	return gulp.src(['src/**/*.php'])
+		// Validate files using PHP Code Sniffer
+		.pipe(phpcs({
+			bin: 'C:/xampp/htdocs/ether3/vendor/bin/phpcs',
+			standard: 'PSR2',
+			warningSeverity: 0
+		}))
+		// Log all problems that was found
+		.pipe(phpcs.reporter('log'));
+});
+
+gulp.task('phpwatch', function() {
+	return gulp.watch('src/**/*.php', ['php']);
 });
