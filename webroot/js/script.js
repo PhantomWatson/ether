@@ -19,11 +19,7 @@ function adjustBackground() {
     var body_tag = document.getElementById('body_tag');
     var color = new RGBColor(body_tag.style.backgroundColor);
     var rand_color = Math.floor(Math.random()*3);
-    if (Math.round(Math.random()) === 0) {
-        var adjustment = -1;
-    } else {
-        var adjustment = 1;
-    }
+    var adjustment = Math.round(Math.random()) === 0 ? -1 : 1;
     if (rand_color === 0) {
         target_color = color.r;
     } else if (rand_color == 1) {
