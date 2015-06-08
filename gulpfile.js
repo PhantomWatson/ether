@@ -6,6 +6,8 @@ var notify = require("gulp-notify");
 var LessPluginCleanCSS = require('less-plugin-clean-css');
 var uglify = require('gulp-uglify');
 var rename = require("gulp-rename");
+var jshint = require('gulp-jshint');
+var stylish = require('jshint-stylish');
 
 gulp.task('default', ['less', 'js', 'jswatch']);
 
@@ -27,11 +29,14 @@ gulp.task('less', function () {
 
 gulp.task('js', function() {
 	gulp.src('webroot/js/script.js')
+		.pipe(jshint())
+	    .pipe(jshint.reporter(stylish))
 		.pipe(uglify())
 		.pipe(rename({
 			extname: '.min.js'
 		}))
-		.pipe(gulp.dest('webroot/js'));
+		.pipe(gulp.dest('webroot/js'))
+		.pipe(notify('JS linted and minified'));
 });
 
 gulp.task('jswatch', function() {
