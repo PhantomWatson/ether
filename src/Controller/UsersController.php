@@ -14,7 +14,7 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['index', 'register', 'login', 'view', 'check_color_availability']);
+        $this->Auth->allow(['index', 'register', 'login', 'view', 'checkColorAvailability']);
 
         if ($this->request->action === 'register') {
             $this->loadComponent('Recaptcha.Recaptcha');
@@ -184,7 +184,7 @@ class UsersController extends AppController
         return $this->redirect($this->Auth->logout());
     }
 
-    public function check_color_availability($color = null)
+    public function checkColorAvailability($color = null)
     {
         $this->layout = 'ajax';
         $this->set('available', ! $this->Users->colorIsTaken($color));

@@ -213,7 +213,7 @@ var registration = {
             this.color_avail_request.abort();
         }
         this.color_avail_request = $.ajax({
-            url: '/users/check_color_availability/'+color,
+            url: '/users/checkColorAvailability/'+color,
             beforeSend: function () {
                 var message = '<img src="/img/loading_small.gif" /> Checking to see if #'+color+' is available...';
                 registrationForm.showColorAjaxMessage(message, null);
