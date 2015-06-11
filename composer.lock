@@ -294,16 +294,16 @@
         },
         {
             "name": "cakephp/migrations",
-            "version": "1.1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/migrations.git",
-                "reference": "b5758f5b62569d9de4f9a6bb81f4f868a87b3060"
+                "reference": "5221b4c66d98c6d506ad0324967f9f346e16b19c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/migrations/zipball/b5758f5b62569d9de4f9a6bb81f4f868a87b3060",
-                "reference": "b5758f5b62569d9de4f9a6bb81f4f868a87b3060",
+                "url": "https://api.github.com/repos/cakephp/migrations/zipball/5221b4c66d98c6d506ad0324967f9f346e16b19c",
+                "reference": "5221b4c66d98c6d506ad0324967f9f346e16b19c",
                 "shasum": ""
             },
             "require": {
@@ -312,7 +312,7 @@
                 "robmorgan/phinx": ">=0.4.2 <1.0"
             },
             "require-dev": {
-                "cakephp/bake": "dev-master",
+                "cakephp/bake": "@stable",
                 "phpunit/phpunit": "*"
             },
             "suggest": {
@@ -340,7 +340,7 @@
                 "cakephp",
                 "migrations"
             ],
-            "time": "2015-05-29 21:28:50"
+            "time": "2015-06-08 20:09:08"
         },
         {
             "name": "cakephp/plugin-installer",
@@ -348,12 +348,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/plugin-installer.git",
-                "reference": "87cb0b70fc642f4a4ce5b6d8006392f01e8d0260"
+                "reference": "8a71f10fcc455b8b9756529433d5f0fd818b0ce1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/plugin-installer/zipball/87cb0b70fc642f4a4ce5b6d8006392f01e8d0260",
-                "reference": "87cb0b70fc642f4a4ce5b6d8006392f01e8d0260",
+                "url": "https://api.github.com/repos/cakephp/plugin-installer/zipball/8a71f10fcc455b8b9756529433d5f0fd818b0ce1",
+                "reference": "8a71f10fcc455b8b9756529433d5f0fd818b0ce1",
                 "shasum": ""
             },
             "require-dev": {
@@ -380,7 +380,7 @@
                 }
             ],
             "description": "A composer installer for CakePHP 3.0+ plugins.",
-            "time": "2015-02-06 02:06:07"
+            "time": "2015-06-10 10:35:13"
         },
         {
             "name": "doctrine/instantiator",
@@ -790,16 +790,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.1.3",
+            "version": "2.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "28a6b34e91d789b2608072ab3c82eaae7cdb973c"
+                "reference": "be2286cb8c7e1773eded49d9719219e6f74f9e3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/28a6b34e91d789b2608072ab3c82eaae7cdb973c",
-                "reference": "28a6b34e91d789b2608072ab3c82eaae7cdb973c",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/be2286cb8c7e1773eded49d9719219e6f74f9e3e",
+                "reference": "be2286cb8c7e1773eded49d9719219e6f74f9e3e",
                 "shasum": ""
             },
             "require": {
@@ -848,7 +848,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-06-03 07:01:01"
+            "time": "2015-06-09 13:05:42"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -1036,16 +1036,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.7.1",
+            "version": "4.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "bdd15c9ec6e16a307398d5385b3445673608e805"
+                "reference": "41fea1e84ed84d373f5ac099a1276c4358c90708"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/bdd15c9ec6e16a307398d5385b3445673608e805",
-                "reference": "bdd15c9ec6e16a307398d5385b3445673608e805",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/41fea1e84ed84d373f5ac099a1276c4358c90708",
+                "reference": "41fea1e84ed84d373f5ac099a1276c4358c90708",
                 "shasum": ""
             },
             "require": {
@@ -1104,20 +1104,20 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-06-05 13:25:13"
+            "time": "2015-06-11 16:20:25"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "2.3.3",
+            "version": "2.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "253c005852591fd547fc18cd5b7b43a1ec82d8f7"
+                "reference": "92408bb1968a81b3217a6fdf6c1a198da83caa35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/253c005852591fd547fc18cd5b7b43a1ec82d8f7",
-                "reference": "253c005852591fd547fc18cd5b7b43a1ec82d8f7",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/92408bb1968a81b3217a6fdf6c1a198da83caa35",
+                "reference": "92408bb1968a81b3217a6fdf6c1a198da83caa35",
                 "shasum": ""
             },
             "require": {
@@ -1159,7 +1159,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2015-05-29 05:19:18"
+            "time": "2015-06-11 15:55:48"
         },
         {
             "name": "psr/log",
@@ -1817,16 +1817,16 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.7.0",
+            "version": "v2.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "ae4551fd6d4d4f51f2e7390fbc902fbd67f3b7ba"
+                "reference": "a0d43eb3e17d4f4c6990289805a488a0482a07f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/ae4551fd6d4d4f51f2e7390fbc902fbd67f3b7ba",
-                "reference": "ae4551fd6d4d4f51f2e7390fbc902fbd67f3b7ba",
+                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/a0d43eb3e17d4f4c6990289805a488a0482a07f3",
+                "reference": "a0d43eb3e17d4f4c6990289805a488a0482a07f3",
                 "shasum": ""
             },
             "require": {
@@ -1862,7 +1862,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2015-05-15 13:33:16"
+            "time": "2015-06-08 09:37:21"
         },
         {
             "name": "symfony/yaml",
@@ -1964,16 +1964,16 @@
         },
         {
             "name": "cakephp/debug_kit",
-            "version": "3.1.4",
+            "version": "3.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/debug_kit.git",
-                "reference": "e16052f7da172c38e03f410be5f38c85e988992c"
+                "reference": "d638baa2c6883692737a6e53ccbe38978e3bec1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/e16052f7da172c38e03f410be5f38c85e988992c",
-                "reference": "e16052f7da172c38e03f410be5f38c85e988992c",
+                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/d638baa2c6883692737a6e53ccbe38978e3bec1e",
+                "reference": "d638baa2c6883692737a6e53ccbe38978e3bec1e",
                 "shasum": ""
             },
             "require": {
@@ -2020,7 +2020,7 @@
                 "debug",
                 "kit"
             ],
-            "time": "2015-05-29 20:52:25"
+            "time": "2015-06-07 15:17:16"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
