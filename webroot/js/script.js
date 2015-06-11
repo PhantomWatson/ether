@@ -469,30 +469,32 @@ function setupHeaderLinks() {
     });
 }
 
-function setupThoughtwordIndex() {
-    $('body').scrollspy({
-        target: '.abc_thoughts_shortcuts',
-        offset: 140
-    });
-    $('.abc_thoughts_shortcuts a').click(function (event) {
-        $('html,body').animate({
-            scrollTop: $(this.hash).offset().top
-        }, 1000);
-    });
-    $('#alphabetical_words').find('a.thoughtword').click(function (event) {
-        event.preventDefault();
-        var top_offset = $(this).parents('section').children('h2').offset().top;
-        overlayContent({
-            url: $(this).attr('href'),
-            success: function () {
-                $('#overlaid').css({
-                    top: top_offset+'px',
-                    position: 'absolute'
-                });
-            }
+var thoughtwordIndex = {
+    init: function () {
+        $('body').scrollspy({
+            target: '.abc_thoughts_shortcuts',
+            offset: 140
         });
-    });
-}
+        $('.abc_thoughts_shortcuts a').click(function (event) {
+            $('html,body').animate({
+                scrollTop: $(this.hash).offset().top
+            }, 1000);
+        });
+        $('#alphabetical_words').find('a.thoughtword').click(function (event) {
+            event.preventDefault();
+            var top_offset = $(this).parents('section').children('h2').offset().top;
+            overlayContent({
+                url: $(this).attr('href'),
+                success: function () {
+                    $('#overlaid').css({
+                        top: top_offset+'px',
+                        position: 'absolute'
+                    });
+                }
+            });
+        });
+    }
+};
 
 var userIndex = {
     init: function () {

@@ -34,5 +34,5 @@
 </div>
 
 <?php $this->append('buffered_js'); ?>
-    setupThoughtwordIndex();
+    thoughtwordIndex.init();
 <?php $this->end(); ?>
