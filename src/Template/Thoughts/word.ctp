@@ -14,7 +14,7 @@
     <div class="content_box">
         <div id="wannathink_choices">
             <div>
-                <?php if ($logged_in): ?>
+                <?php if ($loggedIn): ?>
                     <p>
                         No one has yet thought about <strong><?php echo $word; ?></strong>.<br />
                         Would you like to?
