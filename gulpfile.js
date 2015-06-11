@@ -12,20 +12,12 @@ var phpcs = require('gulp-phpcs');
 var phpunit = require('gulp-phpunit');
 var _ = require('lodash');
 
-gulp.task('default', ['less', 'js', 'jswatch', 'php', 'phpwatch']);
+gulp.task('default', ['less', 'js', 'phpcs', 'phpunit', 'watch']);
 
 gulp.task('less', function () {
 	var cleanCSSPlugin = new LessPluginCleanCSS({advanced: true});
-	var lessConfig = {
-		plugins: [cleanCSSPlugin]
-	};
 	gulp.src('webroot/css/style.less')
-		.pipe(less(lessConfig))
-        .pipe(gulp.dest('webroot/css'))
-        .pipe(notify('LESS compiled'));
-	
-	watchLess('webroot/css/style.less')
-		.pipe(less(lessConfig))
+		.pipe(less({plugins: [cleanCSSPlugin]}))
         .pipe(gulp.dest('webroot/css'))
         .pipe(notify('LESS compiled'));
 });
@@ -42,11 +34,7 @@ gulp.task('js', function() {
 		.pipe(notify('JS linted and minified'));
 });
 
-gulp.task('jswatch', function() {
-	return gulp.watch('webroot/js/script.js', ['js']);
-});
-
-gulp.task('php', function() {
+gulp.task('phpcs', function() {
 	return gulp.src(['src/**/*.php'])
 		// Validate files using PHP Code Sniffer
 		.pipe(phpcs({
@@ -56,10 +44,6 @@ gulp.task('php', function() {
 		}))
 		// Log all problems that was found
 		.pipe(phpcs.reporter('log'));
-});
-
-gulp.task('phpwatch', function() {
-	return gulp.watch('src/**/*.php', ['php', 'phpunit']);
 });
 
 gulp.task('phpunit', function() {
@@ -78,3 +62,13 @@ function testNotification(status, pluginName, override) {
     options = _.merge(options, override);
     return options;
 }
+
+gulp.task('watch', function() {
+	var cleanCSSPlugin = new LessPluginCleanCSS({advanced: true});
+	watchLess('webroot/css/style.less', ['less'])
+    	.pipe(less({plugins: [cleanCSSPlugin]}))
+        .pipe(gulp.dest('webroot/css'))
+        .pipe(notify('LESS compiled'));
+	gulp.watch('webroot/js/script.js', ['js']);
+	gulp.watch('src/**/*.php', ['phpcs', 'phpunit']);
+});
