@@ -153,9 +153,13 @@ class ThoughtsController extends AppController
         if ($word === '') {
             throw new BadRequestException('Invalid thoughtword');
         }
+        $thoughts = $this->Thoughts->getFromWord($word);
+        if (empty($thoughts)) {
+            $this->response->statusCode(404);
+        }
         $this->set([
             'title_for_layout' => ucwords($word),
-            'thoughts' => $this->Thoughts->getFromWord($word),
+            'thoughts' => $thoughts,
             'word' => $word
         ]);
     }
