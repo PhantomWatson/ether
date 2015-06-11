@@ -9,6 +9,8 @@ var rename = require("gulp-rename");
 var jshint = require('gulp-jshint');
 var stylish = require('jshint-stylish');
 var phpcs = require('gulp-phpcs');
+var phpunit = require('gulp-phpunit');
+var _ = require('lodash');
 
 gulp.task('default', ['less', 'js', 'jswatch', 'php', 'phpwatch']);
 
@@ -57,5 +59,22 @@ gulp.task('php', function() {
 });
 
 gulp.task('phpwatch', function() {
-	return gulp.watch('src/**/*.php', ['php']);
+	return gulp.watch('src/**/*.php', ['php', 'phpunit']);
 });
+
+gulp.task('phpunit', function() {
+    gulp.src('phpunit.xml')
+        .pipe(phpunit('', {notify: true}))
+        .on('error', notify.onError(testNotification('fail', 'phpunit')))
+        .pipe(notify(testNotification('pass', 'phpunit')));
+});
+
+function testNotification(status, pluginName, override) {
+    var options = {
+        title:   ( status == 'pass' ) ? 'Tests Passed' : 'Tests Failed',
+        message: ( status == 'pass' ) ? '\n\nAll tests have passed!\n\n' : '\n\nOne or more tests failed...\n\n',
+        icon:    __dirname + '/node_modules/gulp-' + pluginName +'/assets/test-' + status + '.png'
+    };
+    options = _.merge(options, override);
+    return options;
+}
