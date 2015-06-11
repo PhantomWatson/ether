@@ -16,7 +16,7 @@ class ThoughtsController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['recent', 'word']);
+        $this->Auth->allow(['recent', 'word', 'index']);
     }
 
     public function isAuthorized($user = null)
