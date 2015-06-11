@@ -40,7 +40,7 @@ class ThoughtsControllerTest extends IntegrationTestCase
      */
     public function testWord()
     {
-        $this->get(['controller' => 'Thoughts', 'action' => 'word', 'ether']);
+        $this->get(['controller' => 'Thoughts', 'action' => 'word', 'testword']);
         $this->assertResponseOk();
     }
 
