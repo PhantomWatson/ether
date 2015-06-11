@@ -3,6 +3,7 @@ namespace App\Test\TestCase\Controller;
 
 use App\Controller\ThoughtsController;
 use Cake\TestSuite\IntegrationTestCase;
+use Cake\Routing\Router;
 
 /**
  * App\Controller\ThoughtsController Test Case
@@ -28,7 +29,8 @@ class ThoughtsControllerTest extends IntegrationTestCase
      */
     public function testIndex()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->get(['controller' => 'Thoughts', 'action' => 'index']);
+        $this->assertResponseOk();
     }
 
     /**
@@ -36,9 +38,10 @@ class ThoughtsControllerTest extends IntegrationTestCase
      *
      * @return void
      */
-    public function testView()
+    public function testWord()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->get(['controller' => 'Thoughts', 'action' => 'word', 'ether']);
+        $this->assertResponseOk();
     }
 
     /**
