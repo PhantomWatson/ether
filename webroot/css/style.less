@@ -9,6 +9,7 @@
 @grid-float-breakpoint: 850px;
 @FontColorError: #D00;
 @FontColorSuccess: #0D0;
+@linkColor: #B4A7BF;
 
 html, body {
 	background-attachment: fixed;
@@ -40,7 +41,7 @@ br.clear {
 	display: block;
 }
 a {
-	color: #B4A7BF;
+	color: @linkColor;
 	text-decoration: none;
 
 	&:hover {
@@ -894,13 +895,25 @@ input {
 		box-shadow: 0 0 5px #000;
 		display: inline-block;
 		margin-left: 20px;
-
-		> li {
-			> a {
-				border-radius: 4px;
-			}
-		}
 	}
+	a {
+        border-radius: 4px;
+    }
+	li.active {
+        > a {
+            background-color: inherit;
+            border-bottom-color: inherit;
+            border-radius: 4px;
+            color: @linkColor;
+        }
+    }
+}
+body.popup_active {
+    .abc_thoughts_shortcuts {
+        .nav-tabs > li.active > a {
+            border-color: transparent;
+        }
+    }
 }
 #recent {
 	float: right;
