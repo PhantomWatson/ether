@@ -364,7 +364,7 @@ input {
 	margin-left: (@ContentWidth / -2);
 	position: absolute;
 	top: 100px;
-	z-index: 3;
+	z-index: 10;
 }
 #overlaid_bg {
 	background-color: rgba(34, 34, 34, 0.7);
@@ -377,7 +377,7 @@ input {
 	position: fixed;
 	right: 0;
 	top: 80px;
-	z-index: 3;
+	z-index: 10;
 
 	&.loading {
 		background-image: url('/img/loading_small.gif');
@@ -885,6 +885,7 @@ input {
 }
 .abc_thoughts_shortcuts {
 	top: 100px;
+	z-index: 3;
 
 	ul {
 		background-color: #222;
