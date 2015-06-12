@@ -316,6 +316,7 @@ function overlayContent(options) {
         return;
     }
     
+    // Make / find the popup container and bg container
     if ($('#overlaid').length === 0) {
         $('body').append($('<div id=\"overlaid_bg\" title="Click to close popup"></div>'));
         $('body').append($('<div id=\"overlaid\" data-origin-url=\"'+window.location.pathname+'\"></div>'));
@@ -323,6 +324,10 @@ function overlayContent(options) {
     }
     var container = $('#overlaid');
     var bg = $('#overlaid_bg');
+    
+    // Tell the body tag what's up
+    $('body').addClass('popup_active');
+    
     var async_load = function (url, bg, container) {
         // If this popup has already been loaded, show it
         var existing_popup = container.children('div[data-popup-url="'+url+'"]');
@@ -447,6 +452,7 @@ function closePopup(push_history_state) {
                 maxHeight: 'none'
             });
             $(window).scrollTop(scrollTop);
+            $('body.popup_active').removeClass('popup_active');
         });
     });
 }
