@@ -1,4 +1,4 @@
-<div class="abc_thoughts_shortcuts navbar-fixed-top">
+<div class="navbar-fixed-top" id="abc_thoughts_shortcuts">
     <ul class="nav nav-tabs">
         <?php foreach ($categorized as $first => $words): ?>
             <li>
