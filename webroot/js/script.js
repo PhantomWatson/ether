@@ -389,10 +389,12 @@ function overlayContent(options) {
             async_load(options.url, bg, container);
         });
     } else {
+    	var scrollTop = $(window).scrollTop();
     	$('#content_outer').css({
             overflow: 'hidden',
             maxHeight: '100%'
         });
+    	$('#content_outer').scrollTop(scrollTop);
         bg.fadeIn(300, function () {
             async_load(options.url, bg, container);
         });
@@ -439,10 +441,12 @@ function closePopup(push_history_state) {
                 pushHistoryState(origin_url);
             }
             $('#overlaid > div').hide();
+            var scrollTop = $('#content_outer').scrollTop();
             $('#content_outer').css({
                 overflow: 'auto',
                 maxHeight: 'none'
             });
+            $(window).scrollTop(scrollTop);
         });
     });
 }
