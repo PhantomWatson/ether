@@ -350,10 +350,6 @@ function overlayContent(options) {
                 container.append(inner_container);
                 
                 container.fadeIn(300);
-                var scroll_to = $('#overlaid').offset().top - $('#header').height();
-                $('html,body').animate({
-                    scrollTop: scroll_to
-                }, 1000);
                 var thought_containers = container.find('> div > div.thought');
                 if (thought_containers.length > 0) {
                     setupThoughtwordLinks(thought_containers);
@@ -393,6 +389,10 @@ function overlayContent(options) {
             async_load(options.url, bg, container);
         });
     } else {
+    	$('#content_outer').css({
+            overflow: 'hidden',
+            maxHeight: '100%'
+        });
         bg.fadeIn(300, function () {
             async_load(options.url, bg, container);
         });
@@ -439,6 +439,10 @@ function closePopup(push_history_state) {
                 pushHistoryState(origin_url);
             }
             $('#overlaid > div').hide();
+            $('#content_outer').css({
+                overflow: 'auto',
+                maxHeight: 'none'
+            });
         });
     });
 }
@@ -484,13 +488,7 @@ var thoughtwordIndex = {
             event.preventDefault();
             var top_offset = $(this).parents('section').children('h2').offset().top;
             overlayContent({
-                url: $(this).attr('href'),
-                success: function () {
-                    $('#overlaid').css({
-                        top: top_offset+'px',
-                        position: 'absolute'
-                    });
-                }
+                url: $(this).attr('href')
             });
         });
     }
