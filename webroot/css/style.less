@@ -205,6 +205,13 @@ input {
 	min-height: 100%;
 	position: relative;
 }
+body.popup_active {
+    #content_outer {
+        max-height: 100%;
+        overflow: hidden;
+        position: fixed;
+    }
+}
 #content {
 	overflow: auto;
 	padding: 20px 20px @FooterHeight 20px;

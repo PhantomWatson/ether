@@ -325,6 +325,9 @@ function overlayContent(options) {
     var container = $('#overlaid');
     var bg = $('#overlaid_bg');
     
+    // Remember scroll position of background content so it can be preserved
+    var scrollTop = $(window).scrollTop();
+    
     // Tell the body tag what's up
     $('body').addClass('popup_active');
     
@@ -394,11 +397,6 @@ function overlayContent(options) {
             async_load(options.url, bg, container);
         });
     } else {
-    	var scrollTop = $(window).scrollTop();
-    	$('#content_outer').css({
-            overflow: 'hidden',
-            maxHeight: '100%'
-        });
     	$('#content_outer').scrollTop(scrollTop);
         bg.fadeIn(300, function () {
             async_load(options.url, bg, container);
@@ -447,12 +445,8 @@ function closePopup(push_history_state) {
             }
             $('#overlaid > div').hide();
             var scrollTop = $('#content_outer').scrollTop();
-            $('#content_outer').css({
-                overflow: 'auto',
-                maxHeight: 'none'
-            });
-            $(window).scrollTop(scrollTop);
             $('body.popup_active').removeClass('popup_active');
+            $(window).scrollTop(scrollTop);
         });
     });
 }
