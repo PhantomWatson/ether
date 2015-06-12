@@ -157,6 +157,9 @@ class ThoughtsController extends AppController
         if (empty($thoughts)) {
             $this->response->statusCode(404);
         }
+        if ($this->request->is('ajax')) {
+            $this->layout = 'ajax';
+        }
         $this->set([
             'title_for_layout' => ucwords($word),
             'thoughts' => $thoughts,
