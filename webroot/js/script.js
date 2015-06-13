@@ -276,7 +276,7 @@ var flashMessage = {
 function setupThoughtwordLinks(container) {
     container.find('a.thoughtword').click(function (event) {
         event.preventDefault();
-        overlayContent({
+        popup.open({
             url: $(this).attr('href')
         });
     });
@@ -304,39 +304,69 @@ function setupCloudElaboration() {
     });
 }
 
-function overlayContent(options) {
-    if (! options.hasOwnProperty('push_history_state')) {
-        options.push_history_state = true;
-    }
-    
-    // If url is this page's original url and a popup is open, just close the popup 
-    var origin_url = $('#overlaid').data('originUrl');
-    if (options.url == origin_url && popupIsOpen()) {
-        closePopup(options.push_history_state);
-        return;
-    }
-    
-    // Make / find the popup container and bg container
-    if ($('#overlaid').length === 0) {
-        $('body').append($('<div id=\"overlaid_bg\" title="Click to close popup"></div>'));
-        $('body').append($('<div id=\"overlaid\" data-origin-url=\"'+window.location.pathname+'\"></div>'));
-        setupOverlayCloser();
-    }
-    var container = $('#overlaid');
-    var bg = $('#overlaid_bg');
-    
-    // Remember scroll position of background content so it can be preserved
-    var scrollTop = $(window).scrollTop();
-    
-    // Tell the body tag what's up
-    $('body').addClass('popup_active');
-    
-    var async_load = function (url, bg, container) {
+var popup = {
+	init: function () {
+		var background = $('<div id=\"overlaid_bg\" title="Click to close popup"></div>');
+		background.click(function (event) {
+            popup.close();
+        });
+		$('html').keydown(function (event) {
+            // Close when esc key is pressed
+            if (event.which == 27) {
+                popup.close();
+            }
+        });
+		var popupContainer = $('<div id=\"overlaid\" data-origin-url=\"'+window.location.pathname+'\"></div>');
+		$('body').append(background).append(popupContainer);
+	},
+	
+	open: function (options) {
+		if (! options.hasOwnProperty('push_history_state')) {
+	        options.push_history_state = true;
+	    }
+	    
+	    // If url is this page's original url and a popup is open, just close the popup 
+	    var origin_url = $('#overlaid').data('originUrl');
+	    if (options.url == origin_url && this.isOpen()) {
+	        this.close(options.push_history_state);
+	        return;
+	    }
+	    
+	    // Initialize popup container(s)
+	    if ($('#overlaid').length === 0) {
+	        this.init();
+	    }
+	    
+	    // Remember scroll position of background content so it can be preserved
+	    var scrollTop = $(window).scrollTop();
+	    
+	    // Tell the body tag what's up
+	    $('body').addClass('popup_active');
+	    
+	    if (this.isOpen()) {
+	    	var container = $('#overlaid');
+	        container.fadeOut(300, function () {
+	            container.children('div').hide();
+	            popup.ajaxLoad(options);
+	        });
+	    } else {
+	    	var bg = $('#overlaid_bg');
+	    	$('#content_outer').scrollTop(scrollTop);
+	        bg.fadeIn(300, function () {
+	            popup.ajaxLoad(options);
+	        });
+	    }
+	},
+	
+	ajaxLoad: function (options) {
+		var container = $('#overlaid');
+	    var bg = $('#overlaid_bg');
+		
         // If this popup has already been loaded, show it
-        var existing_popup = container.children('div[data-popup-url="'+url+'"]');
+        var existing_popup = container.children('div[data-popup-url="'+options.url+'"]');
         if (existing_popup.length > 0) {
             if (options.push_history_state) {
-                pushHistoryState(url);
+                pushHistoryState(options.url);
             }
             existing_popup.show();
             container.fadeIn(300);
@@ -345,36 +375,21 @@ function overlayContent(options) {
         
         bg.addClass('loading');
         $.ajax({
-            url: url,
-            beforeSend: function () {
-            },
+            url: options.url,
             success: function (data) {
+            	// Callbacks passed through options
                 if (options.hasOwnProperty('success')) {
                     options.success();
                 }
                 
-                var inner_container = $('<div></div>');
-                inner_container.html(data);
-                container.append(inner_container);
-                
-                container.fadeIn(300);
+                var inner_container = $('<div>'+data+'</div>');
+                container.append(inner_container).fadeIn(300);
                 var thought_containers = container.find('> div > div.thought');
                 if (thought_containers.length > 0) {
                     setupThoughtwordLinks(thought_containers);
                 }
                 
-                /* Opening a popup for /random should function the same as
-                 * opening a popup for whatever word /random picks. */
-                var displayed_url = url;
-                if (url == '/random') {
-                    var thoughtword = inner_container
-                        .find('h1')
-                        .first()
-                        .html()
-                        .trim()
-                        .toLowerCase();
-                    displayed_url = '/t/'+thoughtword;
-                }
+                var displayed_url = popup.getDisplayedUrl(options.url);
                 
                 if (options.push_history_state) {
                     pushHistoryState(displayed_url);
@@ -384,25 +399,50 @@ function overlayContent(options) {
                  * so it can be found later via history navigation. */
                 inner_container.attr('data-popup-url', displayed_url);
             },
-            error: function () {
-            },
             complete: function () {
                 bg.removeClass('loading');
             }
         });
-    };
-    if (popupIsOpen()) {
-        container.fadeOut(300, function () {
-            container.children('div').hide();
-            async_load(options.url, bg, container);
+    },
+    
+    isOpen: function () {
+    	return $('#overlaid > div:visible').length > 0;
+    },
+    
+    close: function (push_history_state) {
+        if (typeof push_history_state == 'undefined') {
+            push_history_state = true;
+        }
+        
+        $('#overlaid').fadeOut(600, function () {
+            $('#overlaid_bg').fadeOut(1000, function () {
+                if (push_history_state) {
+                    var origin_url = $('#overlaid').data('originUrl');
+                    pushHistoryState(origin_url);
+                }
+                $('#overlaid > div').hide();
+                var scrollTop = $('#content_outer').scrollTop();
+                $('body.popup_active').removeClass('popup_active');
+                $(window).scrollTop(scrollTop);
+            });
         });
-    } else {
-    	$('#content_outer').scrollTop(scrollTop);
-        bg.fadeIn(300, function () {
-            async_load(options.url, bg, container);
-        });
+    },
+    
+    getDisplayedUrl: function (url) {
+    	/* Opening a popup for /random should push a URL 
+         * specific to the result to the browser's history */
+    	if (url == '/random') {
+    		var thoughtword = $('#overlaid')
+                .find('h1')
+                .first()
+                .html()
+                .trim()
+                .toLowerCase();
+    		return '/t/'+thoughtword;
+    	}
+    	return url;
     }
-}
+};
 
 function pushHistoryState(url) {
     // Don't push state if the URL isn't actually changing
@@ -419,51 +459,15 @@ function pushHistoryState(url) {
     );
 }
 
-function setupOverlayCloser() {
-    $('#overlaid_bg').click(function (event) {
-        closePopup();
-    });
-    $('html').keydown(function (event) {
-        // Close when esc key is pressed
-        if (event.which == 27) {
-            closePopup();
-        }
-    });
-    
-}
-
-function closePopup(push_history_state) {
-    if (typeof push_history_state == 'undefined') {
-        push_history_state = true;
-    }
-    
-    $('#overlaid').fadeOut(600, function () {
-        $('#overlaid_bg').fadeOut(1000, function () {
-            if (push_history_state) {
-                var origin_url = $('#overlaid').data('originUrl');
-                pushHistoryState(origin_url);
-            }
-            $('#overlaid > div').hide();
-            var scrollTop = $('#content_outer').scrollTop();
-            $('body.popup_active').removeClass('popup_active');
-            $(window).scrollTop(scrollTop);
-        });
-    });
-}
-
-function popupIsOpen() {
-    return $('#overlaid > div:visible').length > 0;
-}
-
 function setupOnPopState() {
     window.onpopstate = function (event) {
         if (event.state) { 
-            overlayContent({
+            popup.open({
                 url: event.state.url,
                 push_history_state: false
             });
         } else {
-            closePopup(false);
+            popup.close(false);
         }
     };
 }
@@ -471,7 +475,7 @@ function setupOnPopState() {
 function setupHeaderLinks() {
     $('#random_link, #login_link, #register_link').click(function (event) {
         event.preventDefault();
-        overlayContent({
+        popup.open({
             url: $(this).attr('href')
         });
     });
@@ -491,7 +495,7 @@ var thoughtwordIndex = {
         $('#alphabetical_words').find('a.thoughtword').click(function (event) {
             event.preventDefault();
             var top_offset = $(this).parents('section').children('h2').offset().top;
-            overlayContent({
+            popup.open({
                 url: $(this).attr('href')
             });
         });
