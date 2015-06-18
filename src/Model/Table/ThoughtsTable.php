@@ -390,6 +390,22 @@ class ThoughtsTable extends Table
         return $formattedText;
     }
 
+    public function addWordBreaks($input)
+    {
+        $whitespaceAndTagsPattern = "/( |\n|\r|<i>|<\/i>|<b>|<\/b>)/";
+        $output = '';
+        $textBroken = preg_split($whitespaceAndTagsPattern, $input, -1, PREG_SPLIT_DELIM_CAPTURE);
+        foreach ($textBroken as $n => $textChunk) {
+            if (strlen($textChunk) > $this->maxThoughtwordLength) {
+                $output .= chunk_split($textChunk, $this->maxThoughtwordLength, "<wbr />");
+            } else {
+                $output .= $textChunk;
+            }
+        }
+
+        return $output;
+    }
+
     public function afterSave($event, $entity, $options = [])
     {
         $eventName = $entity->isNew() ? 'Model.Thought.created' : 'Model.Thought.updated';
