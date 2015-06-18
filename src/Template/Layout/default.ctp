@@ -63,6 +63,7 @@
         <?php if ($this->fetch('buffered_js')): ?>
             <script>
                 $(document).ready(function () {
+                    scroll.init();
                     <?php echo $this->fetch('buffered_js'); ?>
                 });
             </script>
