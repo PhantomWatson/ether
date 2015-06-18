@@ -52,9 +52,8 @@
         <script>window.jQuery || document.write('<script src="/js/jquery-1.9.1.min.js"><\/script>')</script>
 
         <?php
-            $scriptFile = $debug ? 'script' : 'script.min.js';
+            $scriptFile = $debug ? 'script.concat.js' : 'script.concat.min.js';
             echo $this->Html->script($scriptFile);
-            echo $this->Html->script('../bootstrap/dist/js/bootstrap.min.js');
             echo $this->fetch('script');
             //$this->Js->buffer("setupOnPopState();");
             //echo $this->Js->writeBuffer();
