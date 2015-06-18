@@ -301,9 +301,16 @@ class ThoughtsTable extends Table
 
     public function formatThought($input)
     {
-        $output = $this->linkThoughtwords($input);
+        $output = $this->stripTags($input);
+        $output = $this->linkThoughtwords($output);
         $output = $this->addWordBreaks($output);
         return $output;
+    }
+
+    public function stripTags($input)
+    {
+        $allowedTags = '<i><b>';
+        return strip_tags($input, $allowedTags);
     }
 
     /**
@@ -314,9 +321,7 @@ class ThoughtsTable extends Table
     public function linkThoughtwords($input)
     {
         $thoughtwords = $this->getWords();
-        $allowedTags = '<i><b>'; //<center><ul><ol><li><sup><sub> removed in Ether v2
         $input = stripslashes($input); // Unnecessary after slashes are stripped out of the database
-        $input = strip_tags($input, $allowedTags);
         $trimPattern = "/(^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$)/"; // Pattern used to isolate leading/trailing non-alphanumeric characters
         $nonalphanumericPattern = '/[^a-zA-Z0-9]/';
         $whitespaceAndTagsPattern = "/( |\n|\r|<i>|<\/i>|<b>|<\/b>)/";
