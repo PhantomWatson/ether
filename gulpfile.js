@@ -11,6 +11,8 @@ var stylish = require('jshint-stylish');
 var phpcs = require('gulp-phpcs');
 var phpunit = require('gulp-phpunit');
 var _ = require('lodash');
+var concat = require('gulp-concat');
+var runSequence = require('run-sequence');
 
 gulp.task('default', ['less', 'js', 'phpcs', 'phpunit', 'watch']);
 
@@ -20,18 +22,6 @@ gulp.task('less', function () {
 		.pipe(less({plugins: [cleanCSSPlugin]}))
         .pipe(gulp.dest('webroot/css'))
         .pipe(notify('LESS compiled'));
-});
-
-gulp.task('js', function() {
-	gulp.src('webroot/js/script.js')
-		.pipe(jshint())
-	    .pipe(jshint.reporter(stylish))
-		.pipe(uglify())
-		.pipe(rename({
-			extname: '.min.js'
-		}))
-		.pipe(gulp.dest('webroot/js'))
-		.pipe(notify('JS linted and minified'));
 });
 
 gulp.task('phpcs', function() {
@@ -69,6 +59,47 @@ gulp.task('watch', function() {
     	.pipe(less({plugins: [cleanCSSPlugin]}))
         .pipe(gulp.dest('webroot/css'))
         .pipe(notify('LESS compiled'));
-	gulp.watch('webroot/js/script.js', ['js']);
+	gulp.watch(jsFiles, ['js']);
 	gulp.watch('src/**/*.php', ['phpcs', 'phpunit']);
+});
+
+var jsFiles = [
+    'vendor/flesler/jquery.scrollto/jquery.scrollTo.js', 
+    'webroot/bootstrap/dist/js/bootstrap.js', 
+    'webroot/script.js'
+];
+var jsMinFiles = [
+    'vendor/flesler/jquery.scrollto/jquery.scrollTo.min.js', 
+    'webroot/bootstrap/dist/js/bootstrap.min.js', 
+    'webroot/script.min.js'
+];
+
+gulp.task('js', function(callback) {
+	return runSequence('js_lint', 'js_minify', 'js_concat', callback);
+});
+
+gulp.task('js_lint', function () {
+	return gulp.src('webroot/js/script.js')
+    	.pipe(jshint())
+        .pipe(jshint.reporter(stylish))
+        .pipe(notify('JS linted'));
+});
+
+gulp.task('js_minify', function () {
+	return gulp.src('webroot/js/script.js')
+    	.pipe(uglify())
+    	.pipe(rename({
+    		extname: '.min.js'
+    	}))
+    	.pipe(gulp.dest('webroot/js'))
+    	.pipe(notify('JS minified'));
+});
+
+gulp.task('js_concat', function () {
+	gulp.src(jsFiles)
+		.pipe(concat('script.concat.js'))
+		.pipe(gulp.dest('webroot/js/'));
+	gulp.src(jsMinFiles)
+		.pipe(concat('script.concat.min.js'))
+		.pipe(gulp.dest('webroot/js/'));
 });
