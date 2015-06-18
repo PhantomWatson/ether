@@ -400,4 +400,9 @@ class ThoughtsTable extends Table
     {
         return $this->find('all')->count();
     }
+
+    public function getPopulation($word)
+    {
+        return $this->find('all')->where(['word' => $word])->count();
+    }
 }
