@@ -64,12 +64,12 @@ gulp.task('php_unit', function() {
 var jsFiles = [
     'vendor/flesler/jquery.scrollto/jquery.scrollTo.js', 
     'webroot/bootstrap/dist/js/bootstrap.js', 
-    'webroot/script.js'
+    'webroot/js/script.js'
 ];
 var jsMinFiles = [
     'vendor/flesler/jquery.scrollto/jquery.scrollTo.min.js', 
     'webroot/bootstrap/dist/js/bootstrap.min.js', 
-    'webroot/script.min.js'
+    'webroot/js/script.min.js'
 ];
 
 gulp.task('js', function(callback) {
@@ -96,10 +96,12 @@ gulp.task('js_minify', function () {
 gulp.task('js_concat', function () {
 	gulp.src(jsFiles)
 		.pipe(concat('script.concat.js'))
-		.pipe(gulp.dest('webroot/js/'));
+		.pipe(gulp.dest('webroot/js/'))
+		.pipe(notify('JS concatenated'));
 	gulp.src(jsMinFiles)
 		.pipe(concat('script.concat.min.js'))
-		.pipe(gulp.dest('webroot/js/'));
+		.pipe(gulp.dest('webroot/js/'))
+		.pipe(notify('Minified JS concatenated'));
 });
 
 
