@@ -10,6 +10,7 @@ use Cake\Collection\Collection;
 use Cake\Network\Exception\BadRequestException;
 use Cake\Routing\Router;
 use Cake\Event\Event;
+use Cake\Cache\Cache;
 
 /**
  * Thoughts Model
