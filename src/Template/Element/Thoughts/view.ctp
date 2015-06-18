@@ -42,10 +42,10 @@
     <?php if ($thought['comments_enabled']): ?>
         <div class="comments">
             <?php foreach ($thought['comments'] as $comment): ?>
-                <a name="c<?php echo $comment['id']; ?>"></a>
                 <?= $this->element('comments/view', [
                     'comment' => $comment['comment'],
                     'color' => $comment['user']['color'],
+                    'commentId' => $comment['id']
                 ]) ?>
             <?php endforeach; ?>
             <div id="newcomment<?php echo $thought['id']; ?>view"></div>
