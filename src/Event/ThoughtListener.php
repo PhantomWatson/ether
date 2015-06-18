@@ -18,6 +18,9 @@ class ThoughtListener implements EventListenerInterface
             'Model.Thought.updated' => [
                 ['callable' => 'updatePopulatedThoughtwords'],
                 ['callable' => 'parseThought']
+            ],
+            'Model.Thought.deleted' => [
+                ['callable' => 'updatePopulatedThoughtwords']
             ]
         ];
     }
