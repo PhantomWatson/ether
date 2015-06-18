@@ -97,7 +97,7 @@ class ThoughtsTable extends Table
                 ->order(['word' => 'ASC'])
                 ->extract('word')
                 ->toArray();
-            $populatedThoughtwordHash = md5($populatedThoughtwords);
+            $populatedThoughtwordHash = md5(serialize($populatedThoughtwords));
             Cache::write('populatedThoughtwords', $populatedThoughtwords);
             Cache::write('populatedThoughtwordHash', $populatedThoughtwordHash);
         }
