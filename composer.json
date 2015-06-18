@@ -14,7 +14,8 @@
 		"phantomwatson/cakephp-autologin": "dev-master",
 		"phpunit/phpunit": "*",
 		"cakephp/cakephp-codesniffer": "*",
-		"oyejorge/less.php": "~1.5"
+		"oyejorge/less.php": "~1.5",
+		"flesler/jquery.scrollto": "*"
 	},
 	"require-dev" : {
 		"psy/psysh" : "@stable",
