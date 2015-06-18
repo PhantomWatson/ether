@@ -389,6 +389,12 @@ class ThoughtsTable extends Table
         $this->eventManager()->dispatch($event);
     }
 
+    public function afterDelete($event, $entity, $options = [])
+    {
+        $event = new Event('Model.Thought.deleted', $this, compact('entity', 'options'));
+        $this->eventManager()->dispatch($event);
+    }
+
     public function getAuthorId($thoughtId)
     {
         return $this->get($thoughtId, [
