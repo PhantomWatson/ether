@@ -299,6 +299,13 @@ class ThoughtsTable extends Table
             ->toArray();
     }
 
+    public function formatThought($input)
+    {
+        $output = $this->linkThoughtwords($input);
+        $output = $this->addWordBreaks($output);
+        return $output;
+    }
+
     /**
      * Returns $input with links around every thoughtword
      * @param string $input
@@ -320,12 +327,6 @@ class ThoughtsTable extends Table
             // Chunk is a delimiter
             if (preg_match($whitespaceAndTagsPattern, $textChunk)) {
                 $formattedText .= $textChunk;
-                continue;
-            }
-
-            // Chunk is too long
-            if (strlen($textChunk) > $this->maxThoughtwordLength) {
-                $formattedText .= chunk_split($textChunk, $this->maxThoughtwordLength, "<wbr>");
                 continue;
             }
 
@@ -392,11 +393,15 @@ class ThoughtsTable extends Table
 
     public function addWordBreaks($input)
     {
-        $whitespaceAndTagsPattern = "/( |\n|\r|<i>|<\/i>|<b>|<\/b>)/";
+        $whitespaceAndTagsPattern = "/( |\n|\r|<[^>]*>)/";
         $output = '';
         $textBroken = preg_split($whitespaceAndTagsPattern, $input, -1, PREG_SPLIT_DELIM_CAPTURE);
         foreach ($textBroken as $n => $textChunk) {
-            if (strlen($textChunk) > $this->maxThoughtwordLength) {
+            if ($textChunk == '') {
+                continue;
+            } elseif ($textChunk[0] == '<') {
+                $output .= $textChunk;
+            } elseif (strlen($textChunk) > $this->maxThoughtwordLength) {
                 $output .= chunk_split($textChunk, $this->maxThoughtwordLength, "<wbr />");
             } else {
                 $output .= $textChunk;
