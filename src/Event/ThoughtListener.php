@@ -52,7 +52,7 @@ class ThoughtListener implements EventListenerInterface
 
         $thoughts = TableRegistry::get('Thoughts');
         $parsedThought = $thoughts->linkThoughtwords($entity->get('thought'));
-        $entity->set('parsedTextCache', $parsedThought);
+        $entity->set('formatted_thought', $parsedThought);
         $entity->set('parsed', Time::now());
         $thoughts->save($entity);
     }

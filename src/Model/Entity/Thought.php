@@ -23,7 +23,7 @@ class Thought extends Entity
         'time' => true,
         'edited' => true,
         'comments_enabled' => true,
-        'parsedTextCache' => true,
+        'formatted_thought' => true,
         'cacheTimestamp' => true,
         'anonymous' => true,
         'user' => true,
@@ -32,16 +32,16 @@ class Thought extends Entity
     ];
     public $max_thoughtword_length = 30;
 
-    public function _getParsedTextCache($parsedTextCache)
+    public function _getFormattedThought($formattedThought)
     {
-        if ($parsedTextCache == '') {
+        if ($formattedThought == '') {
             $thoughts = TableRegistry::get('Thoughts');
-            $parsedTextCache = $thoughts->linkThoughtwords($this->_properties['thought']);
+            $formattedThought = $thoughts->linkThoughtwords($this->_properties['thought']);
             $thought = $thoughts->find('all')->where(['id' => $this->_properties['id']])->first();
-            $thought->parsedTextCache = $parsedTextCache;
+            $thought->formatted_thought = $formattedThought;
             $thought->parsed = date('Y-m-d H:i:s');
             $thoughts->save($thought);
         }
-        return $parsedTextCache;
+        return $formattedThought;
     }
 }
