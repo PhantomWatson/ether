@@ -32,6 +32,13 @@ class Thought extends Entity
     ];
     public $max_thoughtword_length = 30;
 
+    /**
+     * Automatically formats thought if it has not been formatted,
+     * or reformats thought if its formatting is out of date
+     *
+     * @param string $formattedThought
+     * @return string
+     */
     public function _getFormattedThought($formattedThought)
     {
         $thought = $thoughts->find('all')->where(['id' => $this->_properties['id']])->first();
@@ -49,8 +56,8 @@ class Thought extends Entity
      * Returns TRUE if the thought has never been formatted, or if its formatting
      * key (hash of list of populated thoughtwords) is out of date.
      *
-     * @param $formattedThought string
-     * @param $thought Entity
+     * @param string $formattedThought
+     * @param Entity $thought
      * @return boolean
      */
     private function needsReformatting($formattedThought, $thought)
