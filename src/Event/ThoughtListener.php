@@ -29,9 +29,18 @@ class ThoughtListener implements EventListenerInterface
             return;
         }
 
-        // Check to see if the count of thoughts with this word is 1
-        // If so, it's a new addition to the list of populated thoughtwords
-        // and the cached list should be cleared and rewritten here (so the slight delay is experienced by the poster, not the next viewer)
+        // Exit if this is a new thought on an already-populated thoughtword
+        $thoughts = TableRegistry::get('Thoughts');
+        if ($entity->isNew() && $thoughts->getPopulation($entity->word) > 1) {
+            return;
+        }
+
+        // Thought is either a new thought on a newly-populated thoughtword or a thought
+        // with an edited thoughtword that might be changing the list of all populated thoughtwords
+
+        // Get and cache new list now, so the slight delay is experienced by the poster, not the next viewer
+        Cache::delete('populatedThoughtwords');
+        $thoughts->getWords();
     }
 
     public function parseThought($event, $entity, $options)
