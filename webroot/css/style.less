@@ -14,8 +14,7 @@
 html, body {
 	background-attachment: fixed;
 	background-color: #222;
-	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgb(10,10,10)), color-stop(0.1, rgb(32,32,32)), color-stop(0.11, rgb(34,34,34)), color-stop(0.9, rgb(34,34,34)), color-stop(0.95, rgb(34,34,34)), color-stop(0.98, rgb(34,34,34)));
-    background-image: -moz-linear-gradient(center bottom, rgb(10,10,10) 0%, rgb(32,32,32) 10%, rgb(34,34,34) 11%, rgb(34,34,34) 90%, rgb(34,34,34) 95%, rgb(34,34,34) 98%);
+    background-image: linear-gradient(to top, rgb(10,10,10) 0%, rgb(32,32,32) 10%, rgb(34,34,34) 11%, rgb(34,34,34) 90%, rgb(34,34,34) 95%, rgb(34,34,34) 98%);
 	color: #fff;
 	font-family: Verdana, Helvetica, Arial;
 	height: 100%;
@@ -720,7 +719,6 @@ body.popup_active {
 		}
 		&.selected {
 			transition: border-color 1s, opacity 1s;
-			-webkit-transition: border-color 1s, opacity 1s;
 		}
 		&.loading {
 			background-image: url('/img/loading_small.gif');
@@ -996,7 +994,6 @@ body.popup_active {
 .users_index {
 	line-height: 32px;
 	transition: line-height 3s;
-	-webkit-transition: line-height 3s;
 
 	&.resized {
 		line-height: 100px;
@@ -1007,7 +1004,6 @@ body.popup_active {
 		height: 30px;
 		margin: 1px;
 		transition: border-color 0.3s, box-shadow 0.3s, height 3s, width 3s;
-		-webkit-transition: border-color 0.3s, box-shadow 0.3s, height 3s, width 3s;
 		width: 30px;
 		vertical-align: middle;
 
