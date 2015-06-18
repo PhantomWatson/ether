@@ -34,14 +34,36 @@ class Thought extends Entity
 
     public function _getFormattedThought($formattedThought)
     {
-        if ($formattedThought == '') {
+        $thought = $thoughts->find('all')->where(['id' => $this->_properties['id']])->first();
+        if ($this->needsReformatting($formattedThought, $thought)) {
             $thoughts = TableRegistry::get('Thoughts');
-            $formattedThought = $thoughts->linkThoughtwords($this->_properties['thought']);
-            $thought = $thoughts->find('all')->where(['id' => $this->_properties['id']])->first();
+            $formattedThought = $thoughts->formatThought($this->_properties['thought']);
             $thought->formatted_thought = $formattedThought;
-            $thought->parsed = date('Y-m-d H:i:s');
+            $thought->formatting_key = Cache::read('populatedThoughtwordHash');
             $thoughts->save($thought);
         }
         return $formattedThought;
+    }
+
+    /**
+     * Returns TRUE if the thought has never been formatted, or if its formatting
+     * key (hash of list of populated thoughtwords) is out of date.
+     *
+     * @param $formattedThought string
+     * @param $thought Entity
+     * @return boolean
+     */
+    private function needsReformatting($formattedThought, $thought)
+    {
+        if ($formattedThought === '' || $formattedThought === null) {
+            return true;
+        }
+
+        $currentFormattingKey = Cache::read('populatedThoughtwordHash');
+        if ($currentFormattingKey && $thought->formatting_key != $currentFormattingKey) {
+            return true;
+        }
+
+        return false;
     }
 }
