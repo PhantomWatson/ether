@@ -81,18 +81,25 @@ class ThoughtsTable extends Table
     }
 
     /**
-     * Returns an alphabetized list of all unique thoughtwords
+     * Returns an alphabetized list of all unique populated thoughtwords
      * @return array
      */
     public function getWords()
     {
-        return $this
-            ->find('all')
-            ->select(['word'])
-            ->distinct(['word'])
-            ->order(['word' => 'ASC'])
-            ->extract('word')
-            ->toArray();
+        $populatedThoughtwords = Cache::read('populatedThoughtwords');
+
+        if ($populatedThoughtwords === false) {
+            $populatedThoughtwords = $this
+                ->find('all')
+                ->select(['word'])
+                ->distinct(['word'])
+                ->order(['word' => 'ASC'])
+                ->extract('word')
+                ->toArray();
+            Cache::write('populatedThoughtwords', $populatedThoughtwords);
+        }
+
+        return $populatedThoughtwords;
     }
 
     /**
