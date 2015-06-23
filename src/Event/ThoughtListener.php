@@ -13,11 +13,11 @@ class ThoughtListener implements EventListenerInterface
         return [
             'Model.Thought.created' => [
                 ['callable' => 'updatePopulatedThoughtwords'],
-                ['callable' => 'parseThought']
+                ['callable' => 'formatThought']
             ],
             'Model.Thought.updated' => [
                 ['callable' => 'updatePopulatedThoughtwords'],
-                ['callable' => 'parseThought']
+                ['callable' => 'formatThought']
             ],
             'Model.Thought.deleted' => [
                 ['callable' => 'updatePopulatedThoughtwords']
@@ -46,17 +46,17 @@ class ThoughtListener implements EventListenerInterface
         $thoughts->getWords();
     }
 
-    public function parseThought($event, $entity, $options)
+    public function formatThought($event, $entity, $options)
     {
-        // Don't bother re-parsing thought if it hasn't changed
+        // Don't bother reformatting thought if it hasn't changed
         if (! $entity->isNew() && ! $entity->dirty('thought')) {
             return;
         }
 
-        $thoughts = TableRegistry::get('Thoughts');
-        $parsedThought = $thoughts->linkThoughtwords($entity->get('thought'));
+        $thoughtsTable = TableRegistry::get('Thoughts');
+        $formattedThought = $thoughtsTable->formatThought($entity->get('thought'));
         $entity->set('formatted_thought', $parsedThought);
-        $entity->set('parsed', Time::now());
+        $entity->set('formatted', Time::now());
         $thoughts->save($entity);
     }
 }
