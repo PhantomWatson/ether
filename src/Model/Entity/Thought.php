@@ -42,14 +42,17 @@ class Thought extends Entity
      */
     public function _getFormattedThought($formattedThought)
     {
-        $thoughts = TableRegistry::get('Thoughts');
-        $thought = $thoughts->find('all')->where(['id' => $this->_properties['id']])->first();
+        $thoughtsTable = TableRegistry::get('Thoughts');
+        $thought = $thoughtsTable->get($this->_properties['id']);
         if ($this->needsReformatting($formattedThought, $thought)) {
-            $formattedThought = $thoughts->formatThought($this->_properties['thought']);
-            $thought->formatted_thought = $formattedThought;
-            $thought->formatting_key = Cache::read('populatedThoughtwordHash');
-            $thoughts->save($thought);
+            return $thoughtsTable->formatThought($this->_properties['thought']);
         }
+        return $formattedThought;
+    }
+
+    public function _setFormattedThought($formattedThought)
+    {
+        $this->set('formatting_key', Cache::read('populatedThoughtwordHash'));
         return $formattedThought;
     }
 
