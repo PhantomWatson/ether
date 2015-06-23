@@ -4,6 +4,7 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use Cake\Cache\Cache;
+use Cake\Log\Log;
 
 /**
  * Thought Entity.
@@ -45,6 +46,7 @@ class Thought extends Entity
         $thoughtsTable = TableRegistry::get('Thoughts');
         $thought = $thoughtsTable->get($this->_properties['id']);
         if ($this->needsReformatting($formattedThought, $thought)) {
+            Log::write('info', 'Thought '.$this->_properties['id'].'\'s formatting is out-of-date');
             return $thoughtsTable->formatThought($this->_properties['thought']);
         }
         return $formattedThought;
