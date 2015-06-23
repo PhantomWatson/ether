@@ -55,8 +55,8 @@ class ThoughtListener implements EventListenerInterface
 
         $thoughtsTable = TableRegistry::get('Thoughts');
         $formattedThought = $thoughtsTable->formatThought($entity->get('thought'));
-        $entity->set('formatted_thought', $parsedThought);
+        $entity->set('formatted_thought', $formattedThought);
         $entity->set('formatted', Time::now());
-        $thoughts->save($entity);
+        $thoughtsTable->save($entity);
     }
 }
