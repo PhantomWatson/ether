@@ -12,6 +12,7 @@ use Cake\Network\Exception\InternalErrorException;
 use Cake\Routing\Router;
 use Cake\Event\Event;
 use Cake\Cache\Cache;
+use Cake\Log\Log;
 
 /**
  * Thoughts Model
@@ -487,7 +488,28 @@ class ThoughtsTable extends Table
                 ]
             ])
             ->limit($limit)
-            ->order(['created' => 'DESC'])
-            ->toArray();
+            ->order(['created' => 'DESC']);
+    }
+
+    /**
+     * Collects a batch of $limit thoughts with out-of-date formatting
+     * and updates them.
+     *
+     * @param int|null $limit
+     */
+    public function reformatStaleThoughts($limit = null)
+    {
+        $query = $this->getThoughtsForReformatting($limit);
+        if ($query->count() === 0) {
+            Log::write('info', 'No stale thoughts found.');
+            return;
+        }
+
+        foreach ($query as $thought) {
+            $thought->formatted_thought = $this->formatThought($thought->thought);
+            // Thoughts.formatting_key automatically set by Thought::_setFormattedThought()
+            $this->save($thought);
+            Log::write('info', 'Refreshed formatting for thought '.$thought->id);
+        }
     }
 }
