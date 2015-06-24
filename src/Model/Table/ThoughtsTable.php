@@ -8,6 +8,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 use Cake\Collection\Collection;
 use Cake\Network\Exception\BadRequestException;
+use Cake\Network\Exception\InternalErrorException;
 use Cake\Routing\Router;
 use Cake\Event\Event;
 use Cake\Cache\Cache;
@@ -103,6 +104,22 @@ class ThoughtsTable extends Table
         }
 
         return $populatedThoughtwords;
+    }
+
+    public function getPopulatedThoughtwordHash()
+    {
+        $populatedThoughtwordHash = Cache::read('populatedThoughtwordHash');
+
+        if (! $populatedThoughtwordHash) {
+            $this->getWords();
+            $populatedThoughtwordHash = Cache::read('populatedThoughtwordHash');
+
+            if (! $populatedThoughtwordHash) {
+                throw new InternalErrorException('populatedThoughtwordHash could not be generated');
+            }
+        }
+
+        return $populatedThoughtwordHash;
     }
 
     /**

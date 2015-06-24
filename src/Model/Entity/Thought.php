@@ -54,7 +54,9 @@ class Thought extends Entity
 
     public function _setFormattedThought($formattedThought)
     {
-        $this->set('formatting_key', Cache::read('populatedThoughtwordHash'));
+        $thoughtsTable = TableRegistry::get('Thoughts');
+        $hash = $thoughtsTable->getPopulatedThoughtwordHash();
+        $this->set('formatting_key', $hash);
         return $formattedThought;
     }
 
