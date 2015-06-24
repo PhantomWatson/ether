@@ -464,4 +464,30 @@ class ThoughtsTable extends Table
     {
         return $this->find('all')->where(['word' => $word])->count();
     }
+
+    /**
+     * Finds a batch of thoughts with out-of-date formatting
+     * (e.g. because of newly-populated thoughtwords)
+     *
+     * @param int $limit
+     * @return array
+     */
+    public function getThoughtsForReformatting($limit = null)
+    {
+        $populatedThoughtwordHash = $this->getPopulatedThoughtwordHash();
+        return $this
+            ->find('all')
+            ->select(['id', 'thought'])
+            ->where([
+                'OR' => [
+                    function ($exp, $q) {
+                        return $exp->isNull('formatting_key');
+                    },
+                    'formatting_key IS NOT' => $populatedThoughtwordHash
+                ]
+            ])
+            ->limit($limit)
+            ->order(['created' => 'DESC'])
+            ->toArray();
+    }
 }
