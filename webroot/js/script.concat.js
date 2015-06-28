@@ -2616,7 +2616,7 @@ var thought = {
 			var thoughtId = $(this).data('thoughtId');
 			comment.cancel(thoughtId);
 		});
-		//this.refreshFormatting(params.formattingKey);
+		this.refreshFormatting(params.formattingKey);
 	},
 	
     add: function () {
@@ -2668,7 +2668,6 @@ var thought = {
     			success: function (data) {
     				if (data.success && data.update) {
     					thought.children('.body').html(data.formattedThought);
-    					console.log('Updated formatting for thought '+thought.data('thought-id'));
     				}
     			}
     		});
