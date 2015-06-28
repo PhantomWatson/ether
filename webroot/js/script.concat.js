@@ -2605,7 +2605,7 @@ var comment = {
 };
 
 var thought = {
-	init: function () {
+	init: function (params) {
 		$('a.add_comment').click(function (event) {
 			event.preventDefault();
 			var thoughtId = $(this).data('thoughtId');
@@ -2616,6 +2616,7 @@ var thought = {
 			var thoughtId = $(this).data('thoughtId');
 			comment.cancel(thoughtId);
 		});
+		//this.refreshFormatting(params.formattingKey);
 	},
 	
     add: function () {
@@ -2649,6 +2650,29 @@ var thought = {
         $('#wannathink_choices').slideUp(500, function () {
             $('#wannathink_rejection').slideDown(500);
         });
+    },
+    
+    refreshFormatting: function (formattingKey) {
+    	if (formattingKey === '') {
+    		return;
+    	}
+    	$('div.thought').each(function () {
+    		var thought = $(this);
+    		if (thought.data('formatting-key') == formattingKey) {
+    			return;
+    		}
+    		
+    		$.ajax({
+    			url: '/thoughts/refreshFormatting/'+thought.data('thought-id'),
+    			dataType: 'json',
+    			success: function (data) {
+    				if (data.success && data.update) {
+    					thought.children('.body').html(data.formattedThought);
+    					console.log('Updated formatting for thought '+thought.data('thought-id'));
+    				}
+    			}
+    		});
+    	});
     }
 };
 

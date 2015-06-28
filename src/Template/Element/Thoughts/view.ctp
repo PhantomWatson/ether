@@ -1,5 +1,5 @@
 <a name="t<?php echo $thought['id']; ?>"></a>
-<div class="thought">
+<div class="thought" data-formatting-key="<?= $thought['formatting_key'] ?>" data-thought-id="<?= $thought['id'] ?>">
     <?php echo $this->element('colorbox', [
         'color' => $thought['user']['color'],
         'anonymous' => $thought['anonymous']

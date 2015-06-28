@@ -83,6 +83,8 @@
     <?php endforeach; ?>
 
     <?php $this->append('buffered_js'); ?>
-       thought.init();
+       thought.init({
+           formattingKey: '<?= $formattingKey ?>'
+       });
     <?php $this->end(); ?>
 <?php endif; ?>
