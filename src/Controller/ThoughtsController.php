@@ -163,7 +163,8 @@ class ThoughtsController extends AppController
         $this->set([
             'title_for_layout' => ucwords($word),
             'thoughts' => $thoughts,
-            'word' => $word
+            'word' => $word,
+            'formattingKey' => $this->Thoughts->getPopulatedThoughtwordHash()
         ]);
     }
 
@@ -209,7 +210,7 @@ class ThoughtsController extends AppController
             'result' => [
                 'success' => true,
                 'update' => true,
-                'formatted_thought' => $formattedThought
+                'formattedThought' => $formattedThought
             ]
         ]);
     }
