@@ -34,24 +34,6 @@ class Thought extends Entity
     ];
     public $max_thoughtword_length = 30;
 
-    /**
-     * Automatically formats thought if it has not been formatted,
-     * or reformats thought if its formatting is out of date
-     *
-     * @param string $formattedThought
-     * @return string
-     */
-    public function _getFormattedThought($formattedThought)
-    {
-        $thoughtsTable = TableRegistry::get('Thoughts');
-        $thought = $thoughtsTable->get($this->_properties['id']);
-        if ($this->needsReformatting($formattedThought, $thought)) {
-            Log::write('info', 'Thought '.$this->_properties['id'].'\'s formatting is out-of-date');
-            return $thoughtsTable->formatThought($this->_properties['thought']);
-        }
-        return $formattedThought;
-    }
-
     public function _setFormattedThought($formattedThought)
     {
         $thoughtsTable = TableRegistry::get('Thoughts');
