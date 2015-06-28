@@ -41,26 +41,4 @@ class Thought extends Entity
         $this->set('formatting_key', $hash);
         return $formattedThought;
     }
-
-    /**
-     * Returns TRUE if the thought has never been formatted, or if its formatting
-     * key (hash of list of populated thoughtwords) is out of date.
-     *
-     * @param string $formattedThought
-     * @param Entity $thought
-     * @return boolean
-     */
-    private function needsReformatting($formattedThought, $thought)
-    {
-        if ($formattedThought === '' || $formattedThought === null) {
-            return true;
-        }
-
-        $currentFormattingKey = Cache::read('populatedThoughtwordHash');
-        if ($currentFormattingKey && $thought->formatting_key != $currentFormattingKey) {
-            return true;
-        }
-
-        return false;
-    }
 }
