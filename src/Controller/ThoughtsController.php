@@ -4,7 +4,6 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Network\Exception\BadRequestException;
 use Cake\Routing\Router;
-use Cake\Cache\Cache;
 
 /**
  * Thoughts Controller
