@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Network\Exception\BadRequestException;
 use Cake\Routing\Router;
+use Cake\Cache\Cache;
 
 /**
  * Thoughts Controller
@@ -16,7 +17,7 @@ class ThoughtsController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['recent', 'word', 'index']);
+        $this->Auth->allow(['recent', 'word', 'index', 'refreshFormatting']);
     }
 
     public function isAuthorized($user = null)
@@ -171,5 +172,46 @@ class ThoughtsController extends AppController
     {
         $word = $this->Thoughts->getRandomPopulatedThoughtWord();
         $this->redirect(['action' => 'word', $word]);
+    }
+
+    public function refreshFormatting($thoughtId)
+    {
+        $this->layout = 'json';
+
+        try {
+            $thought = $this->Thoughts->get($thoughtId);
+        } catch (RecordNotFoundException $e) {
+            $this->set([
+                'result' => [
+                    'success' => false,
+                    'update' => false
+                ]
+            ]);
+            return;
+        }
+
+        $formattingKey = $this->Thoughts->getPopulatedThoughtwordHash();
+        if ($formattingKey == $thought->formatting_key) {
+            $this->set([
+                'result' => [
+                    'success' => true,
+                    'update' => false
+                ]
+            ]);
+            return;
+        }
+
+        $formattedThought = $this->Thoughts->formatThought($thought->thought);
+        $thought->formatted_thought = $formattedThought;
+        $thought->formatting_key = $formattingKey;
+        $this->Thoughts->save($thought);
+
+        $this->set([
+            'result' => [
+                'success' => true,
+                'update' => true,
+                'formatted_thought' => $formattedThought
+            ]
+        ]);
     }
 }
