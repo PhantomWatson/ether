@@ -112,11 +112,12 @@ class ThoughtsTable extends Table
         $populatedThoughtwordHash = Cache::read('populatedThoughtwordHash');
 
         if (! $populatedThoughtwordHash) {
-            $this->getWords();
+            $populatedThoughtwords = $this->getWords();
             $populatedThoughtwordHash = Cache::read('populatedThoughtwordHash');
 
             if (! $populatedThoughtwordHash) {
-                throw new InternalErrorException('populatedThoughtwordHash could not be generated');
+                Log::write('error', 'populatedThoughtwordHash could not be read from cache');
+                return md5(serialize($populatedThoughtwords));
             }
         }
 
