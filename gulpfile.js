@@ -63,12 +63,12 @@ gulp.task('php_unit', function() {
 
 var jsFiles = [
     'vendor/flesler/jquery.scrollto/jquery.scrollTo.js', 
-    'webroot/bootstrap/dist/js/bootstrap.js', 
+    'vendor/twbs/bootstrap/dist/js/bootstrap.js', 
     'webroot/js/script.js'
 ];
 var jsMinFiles = [
     'vendor/flesler/jquery.scrollto/jquery.scrollTo.min.js', 
-    'webroot/bootstrap/dist/js/bootstrap.min.js', 
+    'vendor/twbs/bootstrap/dist/js/bootstrap.min.js', 
     'webroot/js/script.min.js'
 ];
 
