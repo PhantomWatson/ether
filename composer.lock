@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5258bb1fd6492d970f480757e9bd7994",
+    "hash": "3e0995c13b29a0a98b911fed39592ae6",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -179,16 +179,16 @@
         },
         {
             "name": "cakephp/cakephp",
-            "version": "3.0.7",
+            "version": "3.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "ed3fbee900a6a2086e0a94a301bb32e0013fb87e"
+                "reference": "29ca3d120c25d554ad5143adffdab0f76bc6c9b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/ed3fbee900a6a2086e0a94a301bb32e0013fb87e",
-                "reference": "ed3fbee900a6a2086e0a94a301bb32e0013fb87e",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/29ca3d120c25d554ad5143adffdab0f76bc6c9b9",
+                "reference": "29ca3d120c25d554ad5143adffdab0f76bc6c9b9",
                 "shasum": ""
             },
             "require": {
@@ -250,7 +250,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-06-15 01:39:19"
+            "time": "2015-06-28 17:00:48"
         },
         {
             "name": "cakephp/cakephp-codesniffer",
@@ -1717,16 +1717,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "2.3.2",
+            "version": "2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "e96d8579fbed0c95ecf2a0501ec4f307a4aa6404"
+                "reference": "c1a26c729508f73560c1a4f767f60b8ab6b4a666"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/e96d8579fbed0c95ecf2a0501ec4f307a4aa6404",
-                "reference": "e96d8579fbed0c95ecf2a0501ec4f307a4aa6404",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/c1a26c729508f73560c1a4f767f60b8ab6b4a666",
+                "reference": "c1a26c729508f73560c1a4f767f60b8ab6b4a666",
                 "shasum": ""
             },
             "require": {
@@ -1787,7 +1787,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2015-04-28 23:28:20"
+            "time": "2015-06-24 03:16:23"
         },
         {
             "name": "symfony/config",
@@ -1993,21 +1993,72 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2015-06-10 15:30:22"
+        },
+        {
+            "name": "twbs/bootstrap",
+            "version": "v3.3.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "16b48259a62f576e52c903c476bd42b90ab22482"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/16b48259a62f576e52c903c476bd42b90ab22482",
+                "reference": "16b48259a62f576e52c903c476bd42b90ab22482",
+                "shasum": ""
+            },
+            "replace": {
+                "twitter/bootstrap": "self.version"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jacob Thornton",
+                    "email": "jacobthornton@gmail.com"
+                },
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
+                }
+            ],
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+            "homepage": "http://getbootstrap.com",
+            "keywords": [
+                "JS",
+                "css",
+                "framework",
+                "front-end",
+                "less",
+                "mobile-first",
+                "responsive",
+                "web"
+            ],
+            "time": "2015-06-16 16:13:22"
         }
     ],
     "packages-dev": [
         {
             "name": "cakephp/bake",
-            "version": "1.0.9",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/bake.git",
-                "reference": "da683a06847d695748a6d86f3699733d806d1e9e"
+                "reference": "dc76b9c768ed1003ecea4d4c53f392da3464868c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/bake/zipball/da683a06847d695748a6d86f3699733d806d1e9e",
-                "reference": "da683a06847d695748a6d86f3699733d806d1e9e",
+                "url": "https://api.github.com/repos/cakephp/bake/zipball/dc76b9c768ed1003ecea4d4c53f392da3464868c",
+                "reference": "dc76b9c768ed1003ecea4d4c53f392da3464868c",
                 "shasum": ""
             },
             "require": {
@@ -2040,20 +2091,20 @@
                 "bake",
                 "cakephp"
             ],
-            "time": "2015-06-01 18:53:03"
+            "time": "2015-06-25 15:52:35"
         },
         {
             "name": "cakephp/debug_kit",
-            "version": "3.1.5",
+            "version": "3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/debug_kit.git",
-                "reference": "d638baa2c6883692737a6e53ccbe38978e3bec1e"
+                "reference": "a3110884953ba830d34a9aa9527d9f119582e4ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/d638baa2c6883692737a6e53ccbe38978e3bec1e",
-                "reference": "d638baa2c6883692737a6e53ccbe38978e3bec1e",
+                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/a3110884953ba830d34a9aa9527d9f119582e4ee",
+                "reference": "a3110884953ba830d34a9aa9527d9f119582e4ee",
                 "shasum": ""
             },
             "require": {
@@ -2100,7 +2151,7 @@
                 "debug",
                 "kit"
             ],
-            "time": "2015-06-07 15:17:16"
+            "time": "2015-06-26 01:29:55"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

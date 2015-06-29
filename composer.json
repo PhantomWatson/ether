@@ -15,7 +15,8 @@
 		"phpunit/phpunit": "*",
 		"cakephp/cakephp-codesniffer": "*",
 		"oyejorge/less.php": "~1.5",
-		"flesler/jquery.scrollto": "*"
+		"flesler/jquery.scrollto": "*",
+		"twbs/bootstrap": "~3.0"
 	},
 	"require-dev" : {
 		"psy/psysh" : "@stable",
