@@ -293,4 +293,22 @@ class UsersTable extends Table
     {
         return $this->Thoughts->find('all')->select(['user_id'])->distinct(['user_id'])->count();
     }
+
+    /**
+     * Removs slashes that were a leftover of the anti-injection-attack strategy of the olllllld Ether
+     */
+    public function overhaulStripSlashes()
+    {
+        $users = $this->find('all')
+            ->select(['id', 'profile'])
+            ->where(['profile LIKE' => '%\\\\%'])
+            ->order(['id' => 'ASC']);
+        foreach ($users as $user) {
+            echo $user->profile;
+            $fixed = stripslashes($user->profile);
+            $user->profile = $fixed;
+            $this->save($user);
+            echo " => $fixed<br />";
+        }
+    }
 }

@@ -530,4 +530,22 @@ class ThoughtsTable extends Table
             }
         }
     }
+
+    /**
+     * Removs slashes that were a leftover of the anti-injection-attack strategy of the olllllld Ether
+     */
+    public function overhaulStripSlashes()
+    {
+        $thoughts = $this->find('all')
+            ->select(['id', 'thought'])
+            ->where(['thought LIKE' => '%\\\\%'])
+            ->order(['id' => 'ASC']);
+        foreach ($thoughts as $thought) {
+            echo $thought->thought;
+            $fixed = stripslashes($thought->thought);
+            $thought->thought = $fixed;
+            $this->save($thought);
+            echo " => $fixed<br />";
+        }
+    }
 }

@@ -199,4 +199,22 @@ class MessagesTable extends Table
             ])
             ->count();
     }
+
+    /**
+     * Removs slashes that were a leftover of the anti-injection-attack strategy of the olllllld Ether
+     */
+    public function overhaulStripSlashes()
+    {
+        $messages = $this->find('all')
+            ->select(['id', 'message'])
+            ->where(['message LIKE' => '%\\\\%'])
+            ->order(['id' => 'ASC']);
+        foreach ($messages as $message) {
+            echo $message->message;
+            $fixed = stripslashes($message->message);
+            $message->message = $fixed;
+            $this->save($message);
+            echo " => $fixed<br />";
+        }
+    }
 }

@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Utility\Hash;
 
 /**
  * Comments Model
@@ -67,5 +68,23 @@ class CommentsTable extends Table
         $rules->add($rules->existsIn(['thought_id'], 'Thoughts'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
+    }
+
+    /**
+     * Removs slashes that were a leftover of the anti-injection-attack strategy of the olllllld Ether
+     */
+    public function overhaulStripSlashes()
+    {
+        $comments = $this->find('all')
+            ->select(['id', 'comment'])
+            ->where(['comment LIKE' => '%\\\\\'%'])
+            ->order(['id' => 'ASC']);
+        foreach ($comments as $comment) {
+            echo $comment->comment;
+            $fixed = stripslashes($comment->comment);
+            $comment->comment = $fixed;
+            $this->save($comment);
+            echo " => $fixed<br />";
+        }
     }
 }
