@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <?php echo $this->Html->charset(); ?>
+        <?= $this->Html->charset() ?>
         <title>
             <?php
                 $title = 'Ether - Thought Repository';
@@ -12,12 +12,12 @@
             ?>
         </title>
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
-        <?php echo $this->Html->css('style'); ?>
         <?php
+            echo $this->Html->css('style');
             echo $this->Html->meta('icon');
             echo $this->fetch('meta');
         ?>
-        <meta name="title" content="<?php echo $title; ?>" />
+        <meta name="title" content="<?= $title ?>" />
         <meta name="description" content="Ether: An experimental freeform thought repository. What's on YOUR mind?" />
         <meta name="author" content="Phantom Watson" />
         <meta name="language" content="en" />
@@ -27,13 +27,12 @@
         <?php
             echo $this->element('flash_messages');
             echo $this->element('header');
+            echo $this->fetch('overlay');
         ?>
-
-        <?php echo $this->fetch('overlay'); ?>
 
         <div id="content_outer">
             <div id="content">
-                <?php echo $this->fetch('content'); ?>
+                <?= $this->fetch('content') ?>
             </div>
         </div>
 
@@ -56,7 +55,7 @@
             <script>
                 $(document).ready(function () {
                     scroll.init();
-                    <?php echo $this->fetch('buffered_js'); ?>
+                    <?= $this->fetch('buffered_js') ?>
                 });
             </script>
         <?php endif; ?>
@@ -64,7 +63,7 @@
         <div id="footer">
             <div class="copyright">
                 <strong>ETHER</strong> is an experimental thought repository which has collected <?= number_format($thoughtCount) ?> thoughts from <?= number_format($thinkerCount) ?> thinkers since 2006.
-                &copy; <?php echo date('Y'); ?> <a href="mailto:graham@phantomwatson.com">Phantom Watson</a>
+                &copy; <?= date('Y') ?> <a href="mailto:graham@phantomwatson.com">Phantom Watson</a>
             </div>
         </div>
     </body>
