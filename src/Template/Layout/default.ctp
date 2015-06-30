@@ -12,15 +12,7 @@
             ?>
         </title>
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
-
-        <?php if ($debug): ?>
-            <link rel="stylesheet/less" type="text/css" href="/css/style.less" />
-            <script type="text/javascript">less = { env: 'development' };</script>
-            <?php echo $this->Html->script('less.min'); ?>
-        <?php else: ?>
-            <?php echo $this->Html->css('style'); ?>
-        <?php endif; ?>
-
+        <?php echo $this->Html->css('style'); ?>
         <?php
             echo $this->Html->meta('icon');
             echo $this->fetch('meta');
