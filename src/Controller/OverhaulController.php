@@ -29,10 +29,6 @@ class OverhaulController extends AppController
         $this->Comments->overhaulStripSlashes();
         $this->Messages->overhaulStripSlashes();
         $this->Users->overhaulStripSlashes();
-        $this->set(array(
-            'recentActivity' => [],
-            'topCloud' => []
-        ));
-        $this->render('/Pages/home');
+        $this->render('/Pages/blank');
     }
 }
