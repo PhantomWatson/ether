@@ -6,6 +6,7 @@
 /logs/*
 /webroot/coverage/*
 /node_modules/*
+TestController.php
 
 # Eclipse
 *.pydevproject
