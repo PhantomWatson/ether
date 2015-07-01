@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5b386bc0f4dad4b610da84489b0dd8fa",
+    "hash": "54353f4d587ce4cadb282daf5f1bf31b",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -476,6 +476,45 @@
                 "instantiate"
             ],
             "time": "2015-06-14 21:17:01"
+        },
+        {
+            "name": "erusev/parsedown",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/erusev/parsedown.git",
+                "reference": "438874e9a884da7b2cfefbbfecdff6c9646d894d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/erusev/parsedown/zipball/438874e9a884da7b2cfefbbfecdff6c9646d894d",
+                "reference": "438874e9a884da7b2cfefbbfecdff6c9646d894d",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Parsedown": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emanuil Rusev",
+                    "email": "hello@erusev.com",
+                    "homepage": "http://erusev.com"
+                }
+            ],
+            "description": "Parser for Markdown.",
+            "homepage": "http://parsedown.org",
+            "keywords": [
+                "markdown",
+                "parser"
+            ],
+            "time": "2015-06-24 22:05:05"
         },
         {
             "name": "flesler/jquery.scrollto",
@@ -2442,6 +2481,7 @@
         "cakephp/plugin-installer": 20,
         "cake17/cakephp-recaptcha": 20,
         "phantomwatson/cakephp-autologin": 20,
+        "erusev/parsedown": 20,
         "psy/psysh": 0,
         "nickcernis/html-to-markdown": 20
     },
