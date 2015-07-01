@@ -14,6 +14,7 @@ use Cake\Event\Event;
 use Cake\Cache\Cache;
 use Cake\Log\Log;
 use HTML_To_Markdown;
+use Parsedown;
 
 /**
  * Thoughts Model
@@ -323,10 +324,18 @@ class ThoughtsTable extends Table
 
     public function formatThought($input)
     {
-        $output = $this->stripTags($input);
-        $output = $this->linkThoughtwords($output);
+        $output = $this->linkThoughtwords($input);
+        $output = $this->parseMarkdown($output);
+        $output = $this->stripTags($output);
         $output = $this->addWordBreaks($output);
         return $output;
+    }
+
+    public function parseMarkdown($input)
+    {
+        $Parsedown = new Parsedown();
+        $Parsedown->setBreaksEnabled(true);
+        return $Parsedown->text($input);
     }
 
     public function stripTags($input)
