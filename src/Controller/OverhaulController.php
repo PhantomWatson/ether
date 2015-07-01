@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
+use HTML_To_Markdown;
 
 /**
  * Static content controller
@@ -29,6 +30,19 @@ class OverhaulController extends AppController
         $this->Comments->overhaulStripSlashes();
         $this->Messages->overhaulStripSlashes();
         $this->Users->overhaulStripSlashes();
+        $this->render('/Pages/blank');
+    }
+
+    public function convertToMarkdown()
+    {
+        $this->loadModel('Thoughts');
+        $this->loadModel('Comments');
+        $this->loadModel('Messages');
+        $this->loadModel('Users');
+        $this->Thoughts->overhaulToMarkdown();
+        $this->Comments->overhaulToMarkdown();
+        $this->Messages->overhaulToMarkdown();
+        $this->Users->overhaulToMarkdown();
         $this->render('/Pages/blank');
     }
 }
