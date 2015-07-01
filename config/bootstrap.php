@@ -182,6 +182,7 @@ Request::addDetector('tablet', function ($request) {
 Plugin::load('Migrations');
 Plugin::load('Recaptcha', ['routes' => true, 'bootstrap' => true]);
 Plugin::load('AutoLogin');
+Plugin::load('Gourmet/CommonMark');
 
 // Only try to load DebugKit in development mode
 // Debug Kit should not be installed on a production system

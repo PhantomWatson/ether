@@ -17,7 +17,7 @@
 		"oyejorge/less.php": "~1.5",
 		"flesler/jquery.scrollto": "*",
 		"twbs/bootstrap": "~3.0",
-		"erusev/parsedown": "dev-master"
+		"gourmet/common-mark": "~1.0"
 	},
 	"require-dev" : {
 		"psy/psysh" : "@stable",
@@ -32,8 +32,7 @@
 	"autoload" : {
 		"psr-4" : {
 			"App\\" : "src",
-			"AutoLogin\\" : "./vendor/phantomwatson/cakephp-autologin/src",
-			"Parsedown\\" : "./vendor/erusev/parsedown"
+			"AutoLogin\\" : "./vendor/phantomwatson/cakephp-autologin/src"
 		}
 	},
 	"autoload-dev" : {

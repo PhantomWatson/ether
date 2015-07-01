@@ -14,7 +14,6 @@ use Cake\Event\Event;
 use Cake\Cache\Cache;
 use Cake\Log\Log;
 use HTML_To_Markdown;
-use Parsedown;
 
 /**
  * Thoughts Model
@@ -42,6 +41,7 @@ class ThoughtsTable extends Table
         $this->hasMany('Comments', [
             'foreignKey' => 'thought_id'
         ]);
+        $this->addBehavior('Gourmet/CommonMark.CommonMark');
     }
 
     /**
@@ -324,7 +324,8 @@ class ThoughtsTable extends Table
 
     public function formatThought($input)
     {
-        $output = $this->linkThoughtwords($input);
+        $output = nl2br($input);
+        $output = $this->linkThoughtwords($output);
         $output = $this->parseMarkdown($output);
         $output = $this->stripTags($output);
         $output = $this->addWordBreaks($output);
@@ -333,9 +334,7 @@ class ThoughtsTable extends Table
 
     public function parseMarkdown($input)
     {
-        $Parsedown = new Parsedown();
-        $Parsedown->setBreaksEnabled(true);
-        return $Parsedown->text($input);
+        return $this->convertToHtml($input);
     }
 
     public function stripTags($input)

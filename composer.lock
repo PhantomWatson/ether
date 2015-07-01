@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "54353f4d587ce4cadb282daf5f1bf31b",
+    "hash": "b171f259f47f593a04cf7572fac6767c",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -478,45 +478,6 @@
             "time": "2015-06-14 21:17:01"
         },
         {
-            "name": "erusev/parsedown",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/erusev/parsedown.git",
-                "reference": "438874e9a884da7b2cfefbbfecdff6c9646d894d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/erusev/parsedown/zipball/438874e9a884da7b2cfefbbfecdff6c9646d894d",
-                "reference": "438874e9a884da7b2cfefbbfecdff6c9646d894d",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Parsedown": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Emanuil Rusev",
-                    "email": "hello@erusev.com",
-                    "homepage": "http://erusev.com"
-                }
-            ],
-            "description": "Parser for Markdown.",
-            "homepage": "http://parsedown.org",
-            "keywords": [
-                "markdown",
-                "parser"
-            ],
-            "time": "2015-06-24 22:05:05"
-        },
-        {
             "name": "flesler/jquery.scrollto",
             "version": "2.1.1",
             "source": {
@@ -565,6 +526,58 @@
             "time": "2015-03-30 14:17:50"
         },
         {
+            "name": "gourmet/common-mark",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gourmet/common-mark.git",
+                "reference": "ef4a9ebc78bd58a021326c6eaf0b274792052ddc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gourmet/common-mark/zipball/ef4a9ebc78bd58a021326c6eaf0b274792052ddc",
+                "reference": "ef4a9ebc78bd58a021326c6eaf0b274792052ddc",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "~3.0",
+                "league/commonmark": "~0.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "cakephp-plugin",
+            "autoload": {
+                "psr-4": {
+                    "Gourmet\\CommonMark\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jad Bitar",
+                    "homepage": "http://jadb.io",
+                    "role": "Author"
+                },
+                {
+                    "name": "Others",
+                    "homepage": "https://github.com/gourmet/common-mark/graphs/contributors"
+                }
+            ],
+            "description": "Adds CommonMark support to CakePHP 3",
+            "homepage": "https://github.com/gourmet/common-mark",
+            "keywords": [
+                "cakephp",
+                "commonmark",
+                "gourmet",
+                "markdown"
+            ],
+            "time": "2015-06-18 22:30:55"
+        },
+        {
             "name": "ircmaxell/password-compat",
             "version": "v1.0.4",
             "source": {
@@ -605,6 +618,67 @@
                 "password"
             ],
             "time": "2014-11-20 16:49:30"
+        },
+        {
+            "name": "league/commonmark",
+            "version": "0.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/commonmark.git",
+                "reference": "8b681a57233f00578195573d7d251c2f143c1a5d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/8b681a57233f00578195573d7d251c2f143c1a5d",
+                "reference": "8b681a57233f00578195573d7d251c2f143c1a5d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": ">=5.4.8"
+            },
+            "replace": {
+                "colinodell/commonmark-php": "*"
+            },
+            "require-dev": {
+                "erusev/parsedown": "~1.0",
+                "jgm/commonmark": "0.20",
+                "michelf/php-markdown": "~1.4",
+                "phpunit/phpunit": "~4.3",
+                "phpunit/phpunit-mock-objects": "2.3.0",
+                "symfony/finder": "~2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\CommonMark\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Colin O'Dell",
+                    "email": "colinodell@gmail.com",
+                    "homepage": "http://www.colinodell.com",
+                    "role": "Lead Developer"
+                }
+            ],
+            "description": "Markdown parser for PHP based on the CommonMark spec",
+            "homepage": "https://github.com/thephpleague/commonmark",
+            "keywords": [
+                "commonmark",
+                "markdown",
+                "parser"
+            ],
+            "time": "2015-06-19 00:39:51"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
@@ -2481,7 +2555,6 @@
         "cakephp/plugin-installer": 20,
         "cake17/cakephp-recaptcha": 20,
         "phantomwatson/cakephp-autologin": 20,
-        "erusev/parsedown": 20,
         "psy/psysh": 0,
         "nickcernis/html-to-markdown": 20
     },
