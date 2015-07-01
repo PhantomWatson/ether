@@ -8,6 +8,7 @@ use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
 use Cake\Collection\Collection;
 use Cake\Network\Exception\InternalErrorException;
+use HTML_To_Markdown;
 
 /**
  * Users Model
@@ -309,6 +310,33 @@ class UsersTable extends Table
             $user->profile = $fixed;
             $this->save($user);
             echo " => $fixed<br />";
+        }
+    }
+
+    public function overhaulToMarkdown()
+    {
+        $field = 'profile';
+        $results = $this->find('all')
+            ->select(['id', $field])
+            ->where([
+                "$field LIKE" => '%<%',
+                'markdown' => false
+            ])
+            ->order(['id' => 'ASC']);
+        if ($results->count() == 0) {
+            echo "No {$field}s to convert";
+        }
+        foreach ($results as $result) {
+            $markdown = new HTML_To_Markdown($result->$field, [
+                'strip_tags' => false
+            ]);
+            $result->$field = $markdown;
+            $result->markdown = true;
+            if ($this->save($result)) {
+                echo "Converted $field #$result->id<br />";
+            } else {
+                echo "ERROR converting $field #$result->id<br />";
+            }
         }
     }
 }
