@@ -49,8 +49,8 @@
 <?php else: ?>
     <div id="newthoughtadd" style="display: none;">
         <div>
-            <div id="newthoughtadd_form">
-                <?php //echo $this->element('thoughts/add', compact('word')); ?>
+            <div class="content_box" id="newthoughtadd_form">
+                <?php echo $this->element('Thoughts/form', compact('thought')); ?>
             </div>
             <div class="newthoughtbutton">
                 <a href="#" id="cancel_thought">
