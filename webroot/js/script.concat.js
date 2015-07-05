@@ -2694,13 +2694,6 @@ var thought = {
         $('#newthoughtbutton').show();
     },
     
-    insert: function () {
-        $('#newthoughtview').prepend($('#thought_just_added'));
-        $('#thought_just_added').attr('id', '');
-        $('#newthoughtadd_form').find('textarea').html('');
-        this.cancel();
-    },
-    
     dontWannaThink: function () {
         $('#wannathink_choices').slideUp(500, function () {
             $('#wannathink_rejection').slideDown(500);

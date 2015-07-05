@@ -49,7 +49,7 @@
 <?php else: ?>
     <div id="newthoughtadd" style="display: none;">
         <div>
-            <div class="content_box" id="newthoughtadd_form">
+            <div class="content_box">
                 <?php echo $this->element('Thoughts/form', compact('thought')); ?>
             </div>
             <div class="newthoughtbutton">
