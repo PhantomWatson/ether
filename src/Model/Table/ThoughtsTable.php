@@ -322,15 +322,21 @@ class ThoughtsTable extends Table
             ->toArray();
     }
 
-    public function formatThought($input)
+    /**
+     * Convert the user-entered contents of a thought to what will
+     * be displayed (with Markdown to HTML, thoughtwords linked, etc.)
+     * @param string $thought
+     * @return string
+     */
+    public function formatThought($thought)
     {
-        $output = htmlentities($input);
-        $output = nl2br($output);
-        $output = $this->linkThoughtwords($output);
-        $output = $this->parseMarkdown($output);
-        $output = $this->stripTags($output);
-        $output = $this->addWordBreaks($output);
-        return $output;
+        $thought = htmlentities($thought);
+        $thought = nl2br($thought);
+        $thought = $this->linkThoughtwords($thought);
+        $thought = $this->parseMarkdown($thought);
+        $thought = $this->stripTags($thought);
+        $thought = $this->addWordBreaks($thought);
+        return $thought;
     }
 
     public function parseMarkdown($input)
