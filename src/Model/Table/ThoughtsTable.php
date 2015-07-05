@@ -324,7 +324,8 @@ class ThoughtsTable extends Table
 
     public function formatThought($input)
     {
-        $output = nl2br($input);
+        $output = htmlentities($input);
+        $output = nl2br($output);
         $output = $this->linkThoughtwords($output);
         $output = $this->parseMarkdown($output);
         $output = $this->stripTags($output);
