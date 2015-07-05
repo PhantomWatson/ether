@@ -339,7 +339,7 @@ class ThoughtsTable extends Table
 
     public function stripTags($input)
     {
-        $allowedTags = '<i><b><em><strong><ul><ol><li><a><p><br>';
+        $allowedTags = '<i><b><em><strong><ul><ol><li><a><p><br><wbr>';
         return strip_tags($input, $allowedTags);
     }
 
