@@ -84,6 +84,18 @@ var thought = {
 			var thoughtId = $(this).data('thoughtId');
 			comment.cancel(thoughtId);
 		});
+		$('#add_thought').click(function (event) {
+			event.preventDefault();
+			thought.add();
+		});
+		$('#cancel_thought').click(function (event) {
+			event.preventDefault();
+			thought.cancel();
+		});
+		$('#dontwannathink').click(function (event) {
+            event.preventDefault();
+            thought.dontWannaThink();
+        });
 		this.refreshFormatting(params.formattingKey);
 	},
 	

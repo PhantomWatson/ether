@@ -46,12 +46,6 @@
         </div>
     </div>
     <div id="newthoughtview"></div>
-    <?php $this->append('buffered_js'); ?>
-        $('#dontwannathink').click(function (event) {
-            event.preventDefault();
-            thought.dontWannaThink();
-        });
-    <?php $this->end(); ?>
 <?php else: ?>
     <div id="newthoughtadd" style="display: none;">
         <div>
@@ -59,7 +53,7 @@
                 <?php //echo $this->element('thoughts/add', compact('word')); ?>
             </div>
             <div class="newthoughtbutton">
-                <a href="#" onclick="return cancel_thought()">
+                <a href="#" id="cancel_thought">
                     Cancel
                 </a>
             </div>
@@ -67,7 +61,7 @@
     </div>
     <div id="newthoughtbutton" class="newthoughtbutton">
         <?php if ($this->request->session()->check('Auth.User.id')): ?>
-            <a href="#" onclick="return add_thought()">
+            <a href="#" id="add_thought">
                 Add a Thought
             </a>
         <?php else: ?>
