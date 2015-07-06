@@ -12,6 +12,7 @@
             ?>
         </title>
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <?php
             echo $this->Html->css('style');
             echo $this->Html->meta('icon');

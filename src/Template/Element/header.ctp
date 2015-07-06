@@ -84,7 +84,7 @@
 			<?php endif; ?>
 			<li>
 				<a href="http://www.facebook.com/EtherThoughtRepository">
-					<i class="icon-facebook-sign" title="Facebook"></i>
+					<i class="fa fa-facebook-official" title="Facebook"></i>
 				</a>
 			</li>
 		</ul>
