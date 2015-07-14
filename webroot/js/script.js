@@ -763,7 +763,7 @@ var scroll = {
 		}
 		$(window).scrollTo(target, 1000, {
 			interrupt: true,
-			offset: -120,
+			offset: -100,
 		});
 	}
 };
