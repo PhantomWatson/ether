@@ -1,31 +1,5 @@
 <a name="t<?php echo $thought['id']; ?>"></a>
 <div class="thought" data-formatting-key="<?= $thought['formatting_key'] ?>" data-thought-id="<?= $thought['id'] ?>">
-    <?php echo $this->element('colorbox', [
-        'color' => $thought['user']['color'],
-        'anonymous' => $thought['anonymous']
-    ]); ?>
-    <?php if ($userId == $thought['user']['id']): ?>
-        <div class="controls">
-            <?php echo $this->Html->link(
-                'Edit',
-                ['controller' => 'Thoughts', 'action' => 'edit', $thought['id']]
-            ); ?>
-            |
-            <?php echo $this->Form->postLink(
-                'Delete',
-                ['controller' => 'Thoughts', 'action' => 'delete', $thought['id']],
-                ['confirm' => 'Are you sure that you want to remove this thought?']
-            ); ?>
-        </div>
-    <?php endif; ?>
-    <div class="info">
-        <?php echo $this->Time->abbreviatedTimeAgoInWords($thought['created']); ?>
-        |
-        <?php echo $this->Html->link(
-            'Link',
-            ['controller' => 'Thoughts', 'action' => 'word', $word, '#' => 't'.$thought['id']]
-        ); ?>
-    </div>
     <div class="body">
         <?php
             echo $thought['formatted_thought'];
