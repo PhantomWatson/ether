@@ -1200,16 +1200,25 @@ pre.cake-error {
         text-align: center;
     }
     .overview {
+        margin-bottom: 30px;
         position: relative;
         z-index: 1;
     }
     .meta {
         font-size: 80%;
+        margin-bottom: 15px;
         
         .colorbox {
             height: 30px;
             line-height: 30px;
             width: 30px;
+        }
+    }
+}
+@media (max-width: @screen-sm-min) {
+    .tw_thoughts {
+        .overview {
+            padding: 0;
         }
     }
 }
