@@ -82,34 +82,39 @@
                 <div id="newthoughtview"></div>
                 <div class="row">
                     <?php foreach ($thoughts as $thought): ?>
-                        <div class="col-sm-9">
-                            <?php echo $this->element('Thoughts/view', compact('thought')); ?>
-                        </div>
-                        <div class="col-sm-3 meta">
-                            <?= $this->element('colorbox', [
-                                'color' => $thought['user']['color'],
-                                'anonymous' => $thought['anonymous']
-                            ]) ?>
-                            <br />
-                            <?= $this->Time->abbreviatedTimeAgoInWords($thought['created']) ?>
-                            <br />
-                            <?= $this->Html->link(
-                                'Link',
-                                ['controller' => 'Thoughts', 'action' => 'word', $word, '#' => 't'.$thought['id']]
-                            ) ?>
-                            <?php if ($userId == $thought['user']['id']): ?>
-                                <br />
-                                <?= $this->Html->link(
-                                    'Edit',
-                                    ['controller' => 'Thoughts', 'action' => 'edit', $thought['id']]
-                                ) ?>
-                                <br />
-                                <?= $this->Form->postLink(
-                                    'Delete',
-                                    ['controller' => 'Thoughts', 'action' => 'delete', $thought['id']],
-                                    ['confirm' => 'Are you sure that you want to remove this thought?']
-                                ) ?>
-                            <?php endif; ?>
+                        <div class="row">
+                            <div class="col-sm-3 meta">
+                                <div class="visible-xs-inline-block visible-sm visible-md visible-lg">
+                                    <?= $this->element('colorbox', [
+                                        'color' => $thought['user']['color'],
+                                        'anonymous' => $thought['anonymous']
+                                    ]) ?>
+                                </div>
+                                <div class="visible-xs-inline-block visible-sm visible-md visible-lg">
+                                    <?= $this->Time->abbreviatedTimeAgoInWords($thought['created']) ?>
+                                    <br />
+                                    <?= $this->Html->link(
+                                        'Link',
+                                        ['controller' => 'Thoughts', 'action' => 'word', $word, '#' => 't'.$thought['id']]
+                                    ) ?>
+                                    <?php if ($userId == $thought['user']['id']): ?>
+                                        <br />
+                                        <?= $this->Html->link(
+                                            'Edit',
+                                            ['controller' => 'Thoughts', 'action' => 'edit', $thought['id']]
+                                        ) ?>
+                                        <br />
+                                        <?= $this->Form->postLink(
+                                            'Delete',
+                                            ['controller' => 'Thoughts', 'action' => 'delete', $thought['id']],
+                                            ['confirm' => 'Are you sure that you want to remove this thought?']
+                                        ) ?>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="col-sm-9">
+                                <?php echo $this->element('Thoughts/view', compact('thought')); ?>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
