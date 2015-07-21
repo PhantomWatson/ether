@@ -12,9 +12,6 @@
 			<h1>
 				Ether
 			</h1>
-			<span class="subtitle">
-				Thought Repository
-			</span>
 		</a>
 	</div>
 
@@ -76,16 +73,18 @@
 					); ?>
 				</li>
 			<?php endif; ?>
+			<li>
+			    <?php
+                    use Cake\Routing\Router;
+                    $goto_url = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
+                ?>
+                <form class="navbar-form navbar-left" role="search" action="<?php echo $goto_url; ?>" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Go to thoughtword..." required="required" name="data[Thought][word]" />
+                    </div>
+                </form>
+		    </li>
 		</ul>
-		<?php
-			use Cake\Routing\Router;
-			$goto_url = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
-		?>
-		<form class="navbar-form navbar-left" role="search" action="<?php echo $goto_url; ?>" method="post">
-			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Go to thoughtword..." required="required" name="data[Thought][word]" />
-			</div>
-		</form>
 	</div>
 </nav>
 <?php //$this->Js->buffer("setupHeaderLinks();"); ?>
