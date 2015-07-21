@@ -36,9 +36,15 @@
 <hr />
 
 <div id="recent">
+    <h2>
+        Recent
+    </h2>
 	<?php echo $this->element('Thoughts'.DS.'recent'); ?>
 </div>
 <div class="cloud">
+    <h2>
+        Top Thoughtwords
+    </h2>
     <?php if (empty($topCloud)): ?>
         <p>
             Sorry, we couldn't find any thoughts in the database.

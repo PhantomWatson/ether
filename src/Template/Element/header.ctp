@@ -19,44 +19,69 @@
 		<ul class="nav navbar-nav">
 			<li>
 				<?php echo $this->Html->link(
-					'Thoughts',
-					['controller' => 'Thoughts', 'action' => 'index']
+					'Thoughts <span class="caret"></span>',
+					['controller' => 'Thoughts', 'action' => 'index'],
+					[
+					   'aria-haspopup' => 'true',
+					   'aria-expanded' => 'false',
+					   'class' => 'dropdown-toggle',
+					   'data-toggle' => 'dropdown',
+					   'escape' => false,
+					   'role' => 'button'
+				   ]
 				); ?>
-			</li>
-			<li>
-				<?php echo $this->Html->link(
-					'Random',
-					['controller' => 'Thoughts', 'action' => 'random'],
-					['id' => 'random_link']
-				); ?>
+				<ul class="dropdown-menu">
+				    <li>
+				        <?php echo $this->Html->link(
+                            'All Thoughts',
+                            ['controller' => 'Thoughts', 'action' => 'index']
+                        ); ?>
+                    </li>
+                    <li>
+				        <?php echo $this->Html->link(
+                            'Random',
+                            ['controller' => 'Thoughts', 'action' => 'random'],
+                            ['id' => 'random_link']
+                        ); ?>
+			        </li>
+			        <li>
+                        <?php echo $this->Html->link(
+                            'Add a Thought',
+                            ['controller' => 'Thoughts', 'action' => 'add']
+                        ); ?>
+                    </li>
+			    </ul>
 			</li>
 
 			<?php if (isset($loggedIn) && $loggedIn): ?>
+
 				<li>
-					<?php echo $this->Html->link(
-						'Think',
-						['controller' => 'Thoughts', 'action' => 'add']
-					); ?>
-				</li>
-				<li>
-					<?php echo $this->Html->link(
-						'Messages',
-						['controller' => 'Messages', 'action' => 'index'],
-						['class' => $hasNewMessages ? 'new_messages' : '']
-					); ?>
-				</li>
-				<li>
-					<?php echo $this->Html->link(
-						'Account',
-						['controller' => 'Users', 'action' => 'account']
-					); ?>
-				</li>
-				<li>
-					<?php echo $this->Html->link(
-						'Logout',
-						['controller' => 'Users', 'action' => 'logout']
-					); ?>
-				</li>
+                    <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Logged in
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <?php echo $this->Html->link(
+                                'Account',
+                                ['controller' => 'Users', 'action' => 'account']
+                            ); ?>
+                        </li>
+                        <li>
+                            <?php echo $this->Html->link(
+                                'Messages',
+                                ['controller' => 'Messages', 'action' => 'index'],
+                                ['class' => $hasNewMessages ? 'new_messages' : '']
+                            ); ?>
+                        </li>
+                        <li>
+                            <?php echo $this->Html->link(
+                                'Logout',
+                                ['controller' => 'Users', 'action' => 'logout']
+                            ); ?>
+                        </li>
+                    </ul>
+                </li>
 			<?php else: ?>
 				<li>
 					<?php echo $this->Html->link(
