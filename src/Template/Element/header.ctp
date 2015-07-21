@@ -33,12 +33,6 @@
 					['id' => 'random_link']
 				); ?>
 			</li>
-			<li>
-				<?php echo $this->Html->link(
-					'About',
-					['controller' => 'Pages', 'action' => 'about']
-				); ?>
-			</li>
 
 			<?php if (isset($loggedIn) && $loggedIn): ?>
 				<li>
@@ -82,11 +76,6 @@
 					); ?>
 				</li>
 			<?php endif; ?>
-			<li>
-				<a href="http://www.facebook.com/EtherThoughtRepository">
-					<i class="fa fa-facebook-official" title="Facebook"></i>
-				</a>
-			</li>
 		</ul>
 		<?php
 			use Cake\Routing\Router;
