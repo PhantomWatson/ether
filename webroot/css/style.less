@@ -3,7 +3,7 @@
 @import "../bootswatch/slate/bootswatch.less";
 
 @ContentWidth: 500px;
-@FooterHeight: 50px;
+@FooterHeight: 100px;
 @grid-float-breakpoint: 850px;
 @FontColorError: #D00;
 @FontColorSuccess: #0D0;
@@ -92,22 +92,31 @@ input {
 #footer {
 	clear: both;
 	color: #888;
-	font-size: 70%;
+	font-size: 80%;
 	height: @FooterHeight;
 	margin-top: (@FooterHeight * -1);
 	padding-bottom: 15px;
+	padding-top: 50px;
 	position: relative;
-	text-align: center;
 
 	a {
 		color: #888;
-		text-decoration: underline;
+		text-decoration: none;
 
 		&:hover {
 			color: #888;
 		}
 	}
 }
+@media (min-width: @screen-sm-min) {
+    footer {
+        .col-sm-2 {
+            bottom: 0;
+            position: absolute;
+        }
+    }
+}
+
 #site_title {
 	color: #DDD;
 	text-decoration: none;

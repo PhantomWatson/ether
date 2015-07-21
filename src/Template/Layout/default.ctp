@@ -61,11 +61,67 @@
             </script>
         <?php endif; ?>
 
-        <div id="footer">
-            <div class="copyright">
-                <strong>ETHER</strong> is an experimental thought repository which has collected <?= number_format($thoughtCount) ?> thoughts from <?= number_format($thinkerCount) ?> thinkers since 2006.
-                &copy; <?= date('Y') ?> <a href="mailto:graham@phantomwatson.com">Phantom Watson</a>
+        <footer id="footer" class="row">
+            <div class="col-sm-2 col-sm-offset-3">
+                <ul class="list-unstyled">
+                    <li>
+                        <?php echo $this->Html->link(
+                            'About',
+                            ['controller' => 'Pages', 'action' => 'about']
+                        ); ?>
+                    </li>
+                    <li>
+                        <?php echo $this->Html->link(
+                            'Contact',
+                            ['controller' => 'Pages', 'action' => 'contact']
+                        ); ?>
+                    </li>
+                    <li>
+                        <?php echo $this->Html->link(
+                            'Stats',
+                            ['controller' => 'Pages', 'action' => 'stats']
+                        ); ?>
+                    </li>
+                </ul>
             </div>
-        </div>
+            <div class="col-sm-2 col-sm-offset-5">
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="http://www.facebook.com/EtherThoughtRepository">
+                            Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/PhantomWatson/ether3">
+                            GitHub
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://PhantomWatson.com">
+                            Phantom Watson
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-2 col-sm-offset-7">
+                <ul class="list-unstyled">
+                    <li>
+                        <?php echo $this->Html->link(
+                            'Terms of Use',
+                            ['controller' => 'Pages', 'action' => 'terms']
+                        ); ?>
+                    </li>
+                    <li>
+                        <?php echo $this->Html->link(
+                            'Privacy Policy',
+                            ['controller' => 'Pages', 'action' => 'terms']
+                        ); ?>
+                    </li>
+                    <li>
+                        &copy; <?= date('Y') ?> <a href="mailto:graham@phantomwatson.com">Phantom Watson</a>
+                    </li>
+                </ul>
+            </div>
+        </footer>
     </body>
 </html>
