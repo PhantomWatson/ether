@@ -4,9 +4,7 @@
             Welcome to Ether, an experimental thought repository.
         </h3>
         <p>
-            Here, each Thought is found under a single word that it relates to, and each Thinker is identified by only a unique color. <span class="aside">*</span>
-        </p>
-        <p>
+            Here, each Thought is found under a single word that it relates to, and each Thinker is identified by only a unique color.
             Ether has collected <?= number_format($thoughtCount) ?> Thoughts from <?= number_format($thinkerCount) ?> Thinkers since 2006.
         </p>
         <p>
@@ -31,9 +29,6 @@
             <a href="https://github.com/PhantomWatson/ether3" class="btn btn-link social_icon">
                 <i class="fa  fa-github" title="GitHub"></i>
             </a>
-        </p>
-        <p>
-            <span class="aside">* Would we sound pretentious if we used the word "chromonymous"?</span>
         </p>
     </div>
 </div>
