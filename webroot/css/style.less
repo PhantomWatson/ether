@@ -1208,11 +1208,6 @@ pre.cake-error {
     h1 {
         text-align: center;
     }
-    .overview {
-        margin-bottom: 30px;
-        position: relative;
-        z-index: 1;
-    }
     .meta {
         font-size: 80%;
         margin-bottom: 15px;
@@ -1224,20 +1219,6 @@ pre.cake-error {
         }
     }
 }
-@media (max-width: @screen-sm-min) {
-    .tw_thoughts {
-        .overview {
-            padding: 0;
-        }
-    }
-}
-@media (min-width: @screen-sm-min) {
-    .tw_thoughts {
-        .meta {
-            .pull-right;
-        }
-    }
-}
 .word_heading {
     color: #DDD;
     font-family: Century Gothic, Arial Narrow, Arial;
@@ -1245,7 +1226,21 @@ pre.cake-error {
     font-weight: normal;
     letter-spacing: 5px;
     margin-bottom: 30px;
+    margin-top: 0;
     text-shadow: -2px -2px #000000;
+}
+.word_summary {
+    margin-bottom: 30px;
+    text-align: center;
+    
+    li {
+        display: inline-block;
+        margin-right: 15px;
+        
+        &:last-child {
+            margin-right: 0;
+        }
+    }
 }
 .aside {
     font-size: 70%;
