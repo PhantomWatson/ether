@@ -61,7 +61,7 @@
             </script>
         <?php endif; ?>
 
-        <footer id="footer" class="row">
+        <footer id="footer">
             <div class="col-sm-2 col-sm-offset-3">
                 <ul class="list-unstyled">
                     <li>
