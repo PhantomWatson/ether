@@ -29,7 +29,8 @@
             'class' => 'control-label',
             'text' => 'Thought'
         ],
-        'type' => 'textarea'
+        'type' => 'textarea',
+        'placeholder' => 'Write a thought...'
     ]
 ) ?>
 <div class="footnote">Allowable HTML: &lt;b&gt; &lt;i&gt;</div>

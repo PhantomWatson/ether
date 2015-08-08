@@ -7,7 +7,8 @@
     'comment',
     [
        'label' => false,
-       'type' => 'textarea'
+       'type' => 'textarea',
+       'placeholder' => 'Write a comment...'
    ]
 ) ?>
 
