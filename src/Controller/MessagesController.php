@@ -145,12 +145,13 @@ class MessagesController extends AppController
         $this->loadModel('Users');
         $penpalId = $this->Users->getIdFromColor($penpalColor);
         $penpal = $this->Users->get($penpalId);
-        $this->set(array(
+        $this->set([
+            'titleForLayout' => 'Messages with Thinker #'.$penpalColor,
             'messages' => $this->Messages->getConversation($userId, $penpalId),
             'penpalId' => $penpalId,
             'penpalColor' => $penpal->color,
             'penpalAcceptsMessages' => $this->Users->acceptsMessages($penpalId),
             'messageEntity' => $this->Messages->newEntity()
-        ));
+        ]);
     }
 }
