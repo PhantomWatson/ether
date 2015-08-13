@@ -11,27 +11,27 @@
     <div class="col-sm-2">
         <ul class="list-unstyled">
             <li>
-                <?php echo $this->Html->link(
+                <?= $this->Html->link(
                     'Add a Thought',
                     ['controller' => 'Thoughts', 'action' => 'add'],
                     ['class' => 'btn btn-default btn-block']
-                ); ?>
+                ) ?>
             </li>
             <li>
                 <?php if (! $userId): ?>
-                    <?php echo $this->Html->link(
+                    <?= $this->Html->link(
                         'Create an Account',
                         ['controller' => 'Users', 'action' => 'register'],
                         ['class' => 'btn btn-default btn-block']
-                    ); ?>
+                    ) ?>
                 <?php endif; ?>
             </li>
             <li>
-                <?php echo $this->Html->link(
+                <?= $this->Html->link(
                     'About Ether',
                     ['controller' => 'Pages', 'action' => 'about'],
                     ['class' => 'btn btn-link']
-                ); ?>
+                ) ?>
                 <a href="http://www.facebook.com/EtherThoughtRepository" class="btn btn-link social_icon">
                     <i class="fa fa-facebook-official" title="Facebook"></i>
                 </a>
@@ -49,7 +49,7 @@
     <h2>
         Recent
     </h2>
-	<?php echo $this->element('Thoughts'.DS.'recent'); ?>
+	<?= $this->element('Thoughts'.DS.'recent') ?>
 </div>
 <div class="cloud">
     <h2>
