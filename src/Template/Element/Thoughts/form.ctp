@@ -61,7 +61,7 @@
             <div class="col-md-2">
                 <?= $this->Form->submit(
                     'Think',
-                    ['class' => 'btn btn-default']
+                    ['class' => 'btn btn-default btn-block']
                 ) ?>
                 <?= $this->Form->end(); ?>
             </div>
