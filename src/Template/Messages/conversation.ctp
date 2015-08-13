@@ -1,72 +1,83 @@
+<div id="content_title">
+    <h1>
+        <?php echo $titleForLayout; ?>
+    </h1>
+</div>
+<p>
+    <?= $this->Html->link(
+        '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to conversations',
+        ['action' => 'index'],
+        ['escape' => false]
+    ) ?>
+</p>
+
 <div id="conversation">
     <?php if (empty($messages)): ?>
         <p>
 
         </p>
     <?php else: ?>
-        <ul>
-            <?php foreach ($messages as $message): ?>
-                <li class="<?php echo $message['sender_id'] == $penpalId ? 'received' : 'sent'; ?>">
+        <?php foreach ($messages as $message): ?>
+            <div class="row">
+                <div class="col-sm-offset-2 col-sm-1 sender">
+                    <?= $this->element('colorbox', [
+                        'color' => $message['sender']['color']
+                    ]) ?>
+                </div>
+                <div class="col-sm-6">
+                    <?php
+                        $formattedMessage = $message['message'];
+                        $formattedMessage = stripslashes($formattedMessage);
+                        $formattedMessage = $this->Text->autoLink($formattedMessage);
+                        $formattedMessage = nl2br($formattedMessage);
+                        echo $formattedMessage;
+                    ?>
                     <div class="message_info">
-                        <?php if ($message['sender_id'] == $penpalId): ?>
-                            <?= $this->element('colorbox', [
-                                'color' => $message['sender']['color']
-                            ]) ?>
-                        <?php else: ?>
-                            you
-                        <?php endif; ?>
-
-                        said
-
+                        <?= ($message['sender_id'] == $penpalId) ? 'received' : 'sent' ?>
                         <?= $this->Time->abbreviatedTimeAgoInWords($message['created']) ?>
                     </div>
-                    <p>
-                        <?php
-                            $formattedMessage = $message['message'];
-                            $formattedMessage = stripslashes($formattedMessage);
-                            $formattedMessage = $this->Text->autoLink($formattedMessage);
-                            echo nl2br($formattedMessage);
-                        ?>
-                    </p>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+                </div>
+            </div>
+        <?php endforeach; ?>
     <?php endif; ?>
 </div>
-<div id="send_message">
+
+<div id="send_message" class="row">
     <?php if ($penpalAcceptsMessages): ?>
-        <?php
-            echo $this->Form->create(
-                $messageEntity,
-                [
-                    'url' => ['controller' => 'Messages', 'action' => 'send']
-                ]
-            );
-            echo $this->Form->input(
-                'message',
-                [
-                    'class' => 'form-control',
-                    'div' => ['class' => 'form-group'],
-                    'label' => false,
-                    'placeholder' => 'Send a message'
-                ]
-            );
-            echo $this->Form->input(
-                'recipient',
-                [
-                    'type' => 'hidden',
-                    'value' => $penpalColor
-                ]
-            );
-            echo $this->Form->submit(
-                'Send',
-                ['class' => 'btn btn-default']
-            );
-            echo $this->Form->end();
-        ?>
+        <div class="col-sm-offset-3 col-sm-6">
+            <?php
+                echo $this->Form->create(
+                    $messageEntity,
+                    [
+                        'url' => ['controller' => 'Messages', 'action' => 'send']
+                    ]
+                );
+                echo $this->Form->input(
+                    'message',
+                    [
+                        'class' => 'form-control',
+                        'div' => ['class' => 'form-group'],
+                        'label' => false,
+                        'placeholder' => 'Send a message'
+                    ]
+                );
+                echo $this->Form->input(
+                    'recipient',
+                    [
+                        'type' => 'hidden',
+                        'value' => $penpalColor
+                    ]
+                );
+                echo $this->Form->submit(
+                    'Send',
+                    ['class' => 'btn btn-default']
+                );
+                echo $this->Form->end();
+            ?>
+        </div>
     <?php else: ?>
-        <p>
+        <div class="col-sm-offset-2 col-sm-8">
             This user has opted out of receiving messages.
-        </p>
+        </div>
     <?php endif; ?>
 </div>

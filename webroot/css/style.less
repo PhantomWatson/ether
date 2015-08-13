@@ -689,27 +689,13 @@ body.popup_active {
 @MessageSendButtonHeight: 33px;
 @MessageFormHeight: @MessageFieldHeight + @MessageSendButtonHeight + @MessagesPagePadding;
 #conversations {
-	bottom: @FooterHeight;
-	left: 50%;
-	margin-left: @ContentWidth / -2;
-	position: absolute;
-	top: 0;
-	width: @ContentWidth;
-
 	.no_messages {
 		text-align: center;
 	}
 }
 #conversations_index {
-	float: left;
-	font-size: 80%;
-	height: 100%;
-	overflow: auto;
-	position: relative;
-	width: 198px;
-
 	ul {
-		margin: 0 @MessagesPagePadding 0 0;
+		margin: 0;
 		padding: 0;
 	}
 	li {
@@ -752,76 +738,27 @@ body.popup_active {
 		display: block;
 	}
 }
-#selected_conversation_wrapper {
-	float: right;
-	height: 100%;
-	padding-bottom: @MessageFormHeight + @MessagesPagePadding;
-	width: @ContentWidth - 198px - (@MessagesPagePadding * 2) - 2px; /* width of #conversations_index, .content_box padding * 2, and border width * 2 */
-
-	ul {
-		margin: 0;
-		padding: 0;
-	}
-	li {
-		list-style-type: none;
-		margin: 0 0 30px 0;
-		padding: 0;
-
-		p {
-			background-color: @MessagesLighterBgColor;
-			font-size: 80%;
-			padding: @MessagesPagePadding;
-		}
-		&.sent {
-			margin-left: 15px;
-
-			p {
-				border-top-left-radius: @MessagesPagePadding;
-				border-bottom-left-radius: @MessagesPagePadding;
-			}
-			.message_info {
-				padding-right: @MessagesPagePadding;
-				text-align: right;
-			}
-		}
-		&.received {
-			margin-right: 15px;
-
-			p {
-				border-top-right-radius: @MessagesPagePadding;
-				border-bottom-right-radius: @MessagesPagePadding;
-			}
-			.message_info {
-				padding-left: @MessagesPagePadding;
-			}
-		}
-	}
-	.message_info {
-		color: #aaa;
-		font-size: 70%;
-		margin-bottom: 2px;
-
-		.colorbox {
-			vertical-align: middle;
-		}
-	}
-	.select_prompt {
-		margin-left: @MessagesPagePadding;
-	}
-}
 #conversation {
-	height: 100%;
-	margin-bottom: @MessageFormHeight;
-	overflow: auto;
+    .row {
+        margin-bottom: 30px;
+    }
+    .sender {
+        text-align: right;
+    }
+    .message_info {
+        color: #aaa;
+        font-size: 70%;
+        margin-bottom: 2px;
+        text-align: right;
+
+        .colorbox {
+            vertical-align: middle;
+        }
+    }
 }
 #send_message {
-	height: @MessageFormHeight;
-	margin-left: @MessagesPagePadding;
-	margin-top: @MessageFormHeight * -1 + @MessagesPagePadding;
-
 	textarea {
 		height: @MessageFieldHeight;
-		width: 100%;
 	}
 	.submit {
 		height: @MessageSendButtonHeight;

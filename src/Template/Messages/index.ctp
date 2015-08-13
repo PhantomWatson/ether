@@ -1,14 +1,29 @@
-<div id="conversations" class="content_box">
+<?php
+    use Cake\Routing\Router;
+?>
+<div id="content_title">
+    <h1>
+        <?php echo $title_for_layout; ?>
+    </h1>
+</div>
+
+<div id="conversations" class="row">
 	<?php if (empty($conversations)): ?>
 		<p class="no_messages">
 			No messages sent or received. :(
 		</p>
 	<?php else: ?>
-		<div id="conversations_index">
+		<div id="conversations_index" class="col-sm-offset-2 col-sm-8">
+		    <h2>
+		        Select a Conversation
+	        </h2>
 			<ul>
 				<?php foreach ($conversations as $other_user_id => $conversation): ?>
 					<li>
-						<a href="#" data-color="<?= $conversation['color'] ?>">
+						<?php
+                            $url = Router::url(['action' => 'conversation', $conversation['color']]);
+						?>
+						<a href="<?= $url ?>" data-color="<?= $conversation['color'] ?>">
 							<span class="penpal">
 								<span class="colorbox" style="background-color: #<?= $conversation['color'] ?>"></span>
 								#<?= $conversation['color'] ?>
@@ -21,22 +36,6 @@
 				<?php endforeach; ?>
 			</ul>
 		</div>
-		<div id="selected_conversation_wrapper">
-			<p class="select_prompt">
-				Select a conversation on the left.
-			</p>
-		</div>
-
-		<?php $this->append('buffered_js'); ?>
-
-			messages.init();
-
-			<?php if ($penpalColor): ?>
-				messages.selectConversation(<?= $penpalColor ?>, true);
-			<?php endif; ?>
-
-		<?php $this->end(); ?>
-
 	<?php endif; ?>
 </div>
 
