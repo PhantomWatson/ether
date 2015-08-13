@@ -57,7 +57,13 @@
 
 				<li>
                     <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        Logged in
+                        <?php if ($hasNewMessages): ?>
+                            <span class="new_messages">
+                                New Messages
+                            </span>
+                        <?php else: ?>
+                            Logged in
+                        <?php endif; ?>
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
