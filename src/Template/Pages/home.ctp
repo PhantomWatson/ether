@@ -18,11 +18,13 @@
                 ); ?>
             </li>
             <li>
-                <?php echo $this->Html->link(
-                    'Create an Account',
-                    ['controller' => 'Users', 'action' => 'register'],
-                    ['class' => 'btn btn-default btn-block']
-                ); ?>
+                <?php if (! $userId): ?>
+                    <?php echo $this->Html->link(
+                        'Create an Account',
+                        ['controller' => 'Users', 'action' => 'register'],
+                        ['class' => 'btn btn-default btn-block']
+                    ); ?>
+                <?php endif; ?>
             </li>
             <li>
                 <?php echo $this->Html->link(
