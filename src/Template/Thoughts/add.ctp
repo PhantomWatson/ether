@@ -4,6 +4,4 @@
 	</h1>
 </div>
 
-<div class="content_box">
-	<?php echo $this->element('Thoughts/form', compact('thought')); ?>
-</div>
+<?php echo $this->element('Thoughts/form', compact('thought')); ?>
