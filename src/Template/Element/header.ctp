@@ -110,9 +110,7 @@
                     $goto_url = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
                 ?>
                 <form class="navbar-form navbar-left" role="search" action="<?php echo $goto_url; ?>" method="post">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Go to thoughtword..." required="required" name="data[Thought][word]" />
-                    </div>
+                    <input type="text" class="form-control" placeholder="Go to thoughtword..." required="required" name="data[Thought][word]" />
                 </form>
 		    </li>
 		</ul>
