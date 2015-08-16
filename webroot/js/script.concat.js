@@ -2710,12 +2710,18 @@ var thought = {
     			return;
     		}
     		
+    		var body = thought.children('.body');
     		$.ajax({
     			url: '/thoughts/refreshFormatting/'+thought.data('thought-id'),
     			dataType: 'json',
+    			beforeSend: function () {
+    			    if (body.html().trim() == '') {
+    			        body.html('<img src="/img/loading_small.gif" alt="Loading..." />');
+    			    }
+    			},
     			success: function (data) {
     				if (data.success && data.update) {
-    					thought.children('.body').html(data.formattedThought);
+    					body.html(data.formattedThought);
     				}
     			}
     		});
