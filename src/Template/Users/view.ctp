@@ -58,7 +58,7 @@
                     "View $messagesCount message".($messagesCount == 1 ? '' : 's')." between you and this Thinker.",
                     [
                         'controller' => 'Messages',
-                        'action' => 'index',
+                        'action' => 'conversation',
                         $user['color']
                     ]
                 ) ?>
