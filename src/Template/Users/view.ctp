@@ -105,7 +105,3 @@
         </div>
     <?php endif; ?>
 </div>
-
-<?php $this->append('buffered_js'); ?>
-    setupThoughtwordLinks($('.thoughtwords'));
-<?php $this->end(); ?>
