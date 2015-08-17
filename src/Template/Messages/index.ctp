@@ -40,5 +40,5 @@
 </div>
 
 <?php $this->append('buffered_js'); ?>
-	$('#header .new_messages').removeClass('new_messages');
+	$('#header .new_messages').removeClass('new_messages').html('Logged in');
 <?php $this->end(); ?>
