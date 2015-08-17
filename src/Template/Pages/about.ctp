@@ -201,6 +201,17 @@
     	</div>
 
     	<h3>
+            <a href="#">
+                Why are some colored boxes blank with broken borders?
+            </a>
+        </h3>
+        <div class="answer">
+            <div>
+                Those boxes represent Thinkers who are posting anonymously.
+            </div>
+        </div>
+
+    	<h3>
     		<a href="#">
     			Can multiple people use a single account/color, or a single person use multiple accounts/colors?
     		</a>
