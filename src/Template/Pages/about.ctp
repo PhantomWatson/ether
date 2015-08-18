@@ -41,6 +41,15 @@
     		        </p>
         		</dd>
 
+        		<dt>
+                    <a href="#">
+                        Who made this?
+                    </a>
+                </dt>
+                <dd>
+                    <a href="mailto:graham@phantomwatson.com">Graham "Phantom" Watson</a>
+                </dd>
+
                 <dt>
             		<a href="#">
             			Is there a glossary of Ether terms?
@@ -161,9 +170,7 @@
                     </a>
                 </dt>
                 <dd>
-                    I don't reveal any Thinker's identity (or even know it in the first place, most of the time), nor will I confirm or deny any speculation.
-                    I suppose I could hypothetically be legally compelled to reveal information to law enforcement, so please don't post any crazy shit that
-                    might lead to the FBI knocking on my door.
+                    The identity of Thinkers won't be revealed, nor speculation confirmed or denied, unless legally compelled.
                 </dd>
             </dl>
         </section>
@@ -289,7 +296,7 @@
             		</a>
             	</dt>
             	<dd>
-        			Just shoot me an email: <a href="mailto:graham@phantomwatson.com">graham@phantomwatson.com</a>.
+        			Just <a href="mailto:graham@phantomwatson.com">shoot an email to Phantom</a>.
             	</dd>
         	</dl>
     	</section>
