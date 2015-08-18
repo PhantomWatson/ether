@@ -132,4 +132,5 @@ gulp.task('watch', function() {
         .pipe(notify('LESS compiled'));
 	gulp.watch(jsFiles, ['js']);
 	gulp.watch('src/**/*.php', ['php_cs', 'php_unit']);
+	gulp.watch('src/**/*.ctp', ['php_unit']);
 });
