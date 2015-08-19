@@ -96,7 +96,7 @@
                 <dd>
                     Each person with an account on Ether is represented by their own color.
                     Think of each color as being someone's name. To help differentiate between similar colors,
-                    each color's hexadecimal value(e.g. #123abc) is also shown in various places. You can usually click on a
+                    each color's hexadecimal value (e.g. #123abc) is also shown in various places. You can usually click on a
                     Thinker's color to go to his or her profile page.
                 </dd>
 
