@@ -281,6 +281,38 @@
                 <dd>
                     Thoughtwords must consist of only letters from the standard English alphabet and numbers, and must be 30 characters long or less.
                 </dd>
+
+                <dt>
+                    <a href="#">
+                        Can Thoughtwords have punctuation in them?
+                    </a>
+                </dt>
+                <dd>
+                    <p>
+                        Yes and no. Any punctuation in a Thoughtword gets stripped out (e.g. "can't" becomes "cant"), but punctuation is ignored when Thoughtwords
+                        are automatically linked in the body of a Thought (e.g. "can't" gets linked to Thoughts under "cant").
+                    </p>
+                    <p>
+                        Confusing? Basically, enter whatever contraction or hyphenated word you want for a Thoughtword and it will probably work how you expect it to.
+                    </p>
+                </dd>
+
+                <dt>
+                    <a href="#">
+                        Can we have multi-word Thoughtwords?
+                    </a>
+                </dt>
+                <dd>
+                    <p>
+                        No and yes. The system for automatically generating links to Thoughtwords depends on each of them only being a single word.
+                        Otherwise, it would be ambiguous whether to link individual words or entire phrases, and common phrases (e.g. "why not") would
+                        steal links from common words (e.g. "why" and "not").
+                    </p>
+                    <p>
+                        You can use a Thoughtword like "whynot", but since that word is unlikely to be in the body of any Thought, it wouldn't benefit from the
+                        automatic Thoughtword linking system.
+                    </p>
+                </dd>
             </dl>
         </section>
 
