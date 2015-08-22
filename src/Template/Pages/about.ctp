@@ -1,3 +1,9 @@
+<div id="content_title">
+    <h1>
+        <?php echo $title_for_layout; ?>
+    </h1>
+</div>
+
 <div class="row" id="faq">
     <div class="col-sm-offset-2 col-sm-8">
         <section>

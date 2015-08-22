@@ -59,6 +59,7 @@ class PagesController extends AppController
         $this->loadModel('Thoughts');
         $this->loadModel('Users');
         $this->set([
+            'title_for_layout' => 'About Ether',
             'thoughtCount' => $this->Thoughts->getCount(),
             'thinkerCount' => $this->Users->getActiveThinkerCount()
         ]);
