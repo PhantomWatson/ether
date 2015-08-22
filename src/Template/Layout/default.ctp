@@ -12,10 +12,10 @@
             ?>
         </title>
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
+        <link rel="icon" type="image/png" href="/img/favicon.png" />
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
         <?php
             echo $this->Html->css('style');
-            echo $this->Html->meta('icon');
             echo $this->fetch('meta');
         ?>
         <meta name="title" content="<?= $title ?>" />
