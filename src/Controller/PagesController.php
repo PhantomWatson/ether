@@ -56,6 +56,12 @@ class PagesController extends AppController
 
     public function about()
     {
+        $this->loadModel('Thoughts');
+        $this->loadModel('Users');
+        $this->set([
+            'thoughtCount' => $this->Thoughts->getCount(),
+            'thinkerCount' => $this->Users->getActiveThinkerCount()
+        ]);
         $this->set(array(
             'title_for_layout' => 'About',
         ));

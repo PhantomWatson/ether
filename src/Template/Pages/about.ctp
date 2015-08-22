@@ -1,6 +1,13 @@
 <div class="row" id="faq">
     <div class="col-sm-offset-2 col-sm-8">
         <section>
+            <p>
+                Here, people share Thoughts. Each Thought is located under a single word that it relates to, and each Thinker is identified by only a unique color.
+                Ether has collected <?= number_format($thoughtCount) ?> Thoughts from <?= number_format($thinkerCount) ?> Thinkers since 2006.
+            </p>
+        </section>
+
+        <section>
         	<h2>
         		Ether
         	</h2>
