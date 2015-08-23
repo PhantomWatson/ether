@@ -4,7 +4,7 @@
         <?php
             echo $thought['formatted_thought'];
             /*
-            echo $this->element('thoughts/formatted_thought', array(
+            echo $this->element('Thoughts/formatted_thought', array(
                 'input' => $thought,
                 'id' => $thought['id'],
                 'type' => 'thought',
@@ -16,7 +16,7 @@
     <?php if ($thought['comments_enabled']): ?>
         <div class="comments">
             <?php foreach ($thought['comments'] as $comment): ?>
-                <?= $this->element('comments/view', [
+                <?= $this->element('Comments/view', [
                     'comment' => $comment['comment'],
                     'color' => $comment['user']['color'],
                     'commentId' => $comment['id']
@@ -24,7 +24,7 @@
             <?php endforeach; ?>
             <div id="newcomment<?php echo $thought['id']; ?>view"></div>
             <div id="newcomment<?php echo $thought['id']; ?>add" style="display: none;" class="add_comment">
-                <?= $this->element('comments/add', ['thoughtId' => $thought['id']]) ?>
+                <?= $this->element('Comments/add', ['thoughtId' => $thought['id']]) ?>
             </div>
             <div class="post" id="newcomment<?php echo $thought['id']; ?>button">
                 <?php if ($this->request->session()->check('Auth.User.id')): ?>
