@@ -73,15 +73,12 @@
 	<?= $this->element('Thoughts'.DS.'recent') ?>
 </div>
 <div class="cloud">
-    <h2>
-        Top Thoughtwords
-    </h2>
-    <?php if (empty($topCloud)): ?>
+    <?php if (empty($cloud)): ?>
         <p>
             Sorry, we couldn't find any thoughts in the database.
             <br />That's probably a bad sign. :(
         </p>
     <?php else: ?>
-	   <?= $this->element('cloud', ['words' => $topCloud]) ?>
+	   <?= $this->element('cloud', ['words' => $cloud]) ?>
 	<?php endif; ?>
 </div>

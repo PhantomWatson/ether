@@ -60,7 +60,7 @@ class PagesController extends AppController
         $randomThought->formatted_thought = trim($randomThought->formatted_thought);
         $this->set(array(
             'recentActivity' => $this->paginate($this->Thoughts),
-            'topCloud' => $this->Thoughts->getTopCloud(),
+            'cloud' => $this->Thoughts->getCloud(),
             'randomThought' => $randomThought
         ));
     }
