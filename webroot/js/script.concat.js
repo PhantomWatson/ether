@@ -3101,13 +3101,6 @@ var thoughtwordIndex = {
                 scrollTop: $(this.hash).offset().top
             }, 1000);
         });
-        $('#alphabetical_words').find('a.thoughtword').click(function (event) {
-            event.preventDefault();
-            var top_offset = $(this).parents('section').children('h2').offset().top;
-            popup.open({
-                url: $(this).attr('href')
-            });
-        });
     }
 };
 
