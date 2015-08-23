@@ -18,6 +18,7 @@ use Cake\Core\Configure;
 use Cake\Network\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
 use Cake\ORM\TableRegistry;
+use Cake\Utility\Text;
 
 /**
  * Static content controller
@@ -48,9 +49,19 @@ class PagesController extends AppController
     public function home()
     {
         $this->loadModel('Thoughts');
+        $randomThought = $this->Thoughts->getRandomThought();
+        $randomThought->formatted_thought = str_replace(['<p>', '</p>'], '', $randomThought->formatted_thought);
+        $randomThought->formatted_thought = str_replace(['<br />', '<br>'], ' ', $randomThought->formatted_thought);
+        $randomThought->formatted_thought = Text::stripLinks($randomThought->formatted_thought);
+        $randomThought->formatted_thought = Text::truncate($randomThought->formatted_thought, 300, [
+            'html' => true,
+            'exact' => false
+        ]);
+        $randomThought->formatted_thought = trim($randomThought->formatted_thought);
         $this->set(array(
             'recentActivity' => $this->paginate($this->Thoughts),
-            'topCloud' => $this->Thoughts->getTopCloud()
+            'topCloud' => $this->Thoughts->getTopCloud(),
+            'randomThought' => $randomThought
         ));
     }
 

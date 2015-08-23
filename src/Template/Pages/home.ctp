@@ -1,47 +1,68 @@
 <div class="row" id="welcome">
-    <div class="col-sm-4 col-sm-offset-3">
+    <div class="col-sm-2 col-sm-offset-3">
+        <h2>
+            Ether
+        </h2>
         <h3>
-            Welcome to Ether, an experimental thought repository.
+            Thought Repository
         </h3>
-        <p>
-            Here, each Thought is found under a single word that it relates to, and each Thinker is identified by only a unique color.
-            Ether has collected <?= number_format($thoughtCount) ?> Thoughts from <?= number_format($thinkerCount) ?> Thinkers since 2006.
-        </p>
     </div>
-    <div class="col-sm-2">
-        <ul class="list-unstyled">
-            <li>
-                <?= $this->Html->link(
-                    'Add a Thought',
-                    ['controller' => 'Thoughts', 'action' => 'add'],
-                    ['class' => 'btn btn-default btn-block']
-                ) ?>
-            </li>
-            <li>
-                <?php if (! $userId): ?>
-                    <?= $this->Html->link(
-                        'Create an Account',
-                        ['controller' => 'Users', 'action' => 'register'],
-                        ['class' => 'btn btn-default btn-block']
-                    ) ?>
-                <?php endif; ?>
-            </li>
-            <li>
-                <?= $this->Html->link(
-                    'About Ether',
-                    ['controller' => 'Pages', 'action' => 'about'],
-                    ['class' => 'btn btn-link']
-                ) ?>
-                <a href="http://www.facebook.com/EtherThoughtRepository" class="btn btn-link social_icon">
-                    <i class="fa fa-facebook-official" title="Facebook"></i>
-                </a>
-                <a href="https://github.com/PhantomWatson/ether3" class="btn btn-link social_icon">
-                    <i class="fa  fa-github" title="GitHub"></i>
-                </a>
-            </li>
-        </ul>
+    <div class="col-sm-4">
+        <?= $this->Html->link(
+            'Add a Thought',
+            ['controller' => 'Thoughts', 'action' => 'add'],
+            ['class' => 'btn btn-default']
+        ) ?>
+        <?= $this->Html->link(
+            'About Ether',
+            ['controller' => 'Pages', 'action' => 'about'],
+            ['class' => 'btn btn-link']
+        ) ?>
+        <a href="http://www.facebook.com/EtherThoughtRepository" class="btn btn-link social_icon">
+            <i class="fa fa-facebook-official" title="Facebook"></i>
+        </a>
+        <a href="https://github.com/PhantomWatson/ether3" class="btn btn-link social_icon">
+            <i class="fa  fa-github" title="GitHub"></i>
+        </a>
     </div>
 </div>
+
+<?php if ($randomThought): ?>
+    <hr />
+
+    <div class="row" id="frontpage_random_thought">
+        <div class="col-sm-6 col-sm-offset-3">
+            <h3>
+                Random Thought:
+            </h3>
+            <span class="word">
+                <?= $this->Html->link(
+                    $randomThought->word,
+                    [
+                        'controller' => 'Thoughts',
+                        'action' => 'word',
+                        $randomThought->word,
+                        '#' => 't'.$randomThought['id']
+                    ]
+                ) ?>
+            </span>
+            <br />
+            <span class="thought_excerpt"><?= $randomThought->formatted_thought ?></span>
+            <span class="byline">
+                <?php if ($randomThought->anonymous): ?>
+                    thought anonymously
+                <?php else: ?>
+                    thought by
+                    <?= $this->element('colorbox', [
+                        'color' => $randomThought->user['color'],
+                        'anonymous' => $randomThought->anonymous
+                    ]) ?>
+                <?php endif; ?>
+            </span>
+
+        </div>
+    </div>
+<?php endif; ?>
 
 <hr />
 

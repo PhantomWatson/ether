@@ -1175,8 +1175,13 @@ pre.cake-error {
     font-size: 150%;
 }
 #welcome {
+    h2 {
+        margin: 0;
+        font-size: 300%;
+    }
     h3 {
-        margin-top: 0;
+        font-size: 130%;
+        margin: 0;
     }
     ul {
         padding: 0;
@@ -1184,4 +1189,31 @@ pre.cake-error {
     li:last-child {
         text-align: center;
     }
+}
+#frontpage_random_thought {
+    .word {
+        font-size: 120%;
+        text-transform: capitalize;
+    }
+    .byline {
+        color: #bbb;
+        font-size: 80%;
+    }
+    .colorbox {
+        height: 15px;
+        width: 15px;
+        vertical-align: text-bottom;
+    }
+    h3 {
+        display: inline;
+    }
+}
+.thought_excerpt {
+    &:before {
+        content: open-quote;
+    }
+    &:after {
+        content: close-quote;
+    }
+    
 }
