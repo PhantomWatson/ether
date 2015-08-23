@@ -187,6 +187,31 @@ class ThoughtsTable extends Table
     }
 
     /**
+     * Returns a random thought
+     * @return Entity
+     */
+    public function getRandomThought()
+    {
+        $thought = $this->find('all')
+            ->select(['id', 'word', 'thought', 'formatted_thought', 'anonymous', 'formatting_key'])
+            ->contain([
+                'Users' => function ($q) {
+                    return $q->select(['id', 'color']);
+                }
+            ])
+            ->order('RAND()')
+            ->first();
+
+        // Generate or refresh formatted_thought if necessary and save result
+        if (empty($thought->formatted_thought) || empty($thought->formatting_key) || $thought->formatting_key != $this->getPopulatedThoughtwordHash()) {
+            $thought->formatted_thought = $this->formatThought($thought->thought);
+            $this->save($thought);
+        }
+
+        return $thought;
+    }
+
+    /**
      * Returns an array of ['first letter' => [words beginning with that letter], ...]
      * @return array
      */
