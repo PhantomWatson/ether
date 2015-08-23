@@ -556,23 +556,6 @@ class ThoughtsTable extends Table
     }
 
     /**
-     * Checks the entities (Thoughts or Comments) for stale formatting and
-     * updates formatting as necessary.
-     * @param array $thoughts
-     * @return array
-     */
-    public function freshenFormatting($thoughts)
-    {
-        foreach ($thoughts as $thought) {
-            if ($thought->needsReformatting($thought->formatted_thought, $thought)) {
-                $thought->formatted_thought = $this->formatThought($thought->formatted_thought);
-                $this->save($thought);
-                Log::write('info', 'Refreshed formatting for thought '.$thought->id);
-            }
-        }
-    }
-
-    /**
      * Removs slashes that were a leftover of the anti-injection-attack strategy of the olllllld Ether
      */
     public function overhaulStripSlashes()
