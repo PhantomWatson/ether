@@ -142,6 +142,11 @@ class ThoughtsTable extends Table
      */
     public function getCloud($limit = false)
     {
+        $cached = Cache::read('thoughtwordCloud');
+        if ($cached) {
+            return $cached;
+        }
+
         $query = $this->find('list', [
                 'keyField' => 'word',
                 'valueField' => 'count'
@@ -157,6 +162,8 @@ class ThoughtsTable extends Table
         }
         $result = $query->toArray();
         ksort($result);
+
+        Cache::write('thoughtwordCloud', $result, 'long');
         return $result;
     }
 
