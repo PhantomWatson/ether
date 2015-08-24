@@ -4,6 +4,7 @@ namespace App\Event;
 use Cake\Event\EventListenerInterface;
 use Cake\ORM\TableRegistry;
 use Cake\I18n\Time;
+use Cake\Cache\Cache;
 
 class ThoughtListener implements EventListenerInterface
 {
