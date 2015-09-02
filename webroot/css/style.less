@@ -46,8 +46,8 @@ a {
 		text-decoration: underline;
 	}
 }
-h1, 
-h2, 
+h1,
+h2,
 h3 {
     font-family: Century Gothic, Arial Narrow, Arial;
 }
@@ -85,7 +85,7 @@ input {
 
 	form {
 		margin: 0;
-		
+
 		.glyphicon {
 		    color: @navbar-inverse-color;
 		    position: relative;
@@ -292,7 +292,7 @@ body.popup_active {
 	}
 }
 
-.comments {	
+.comments {
 	border-top: 1px solid rgba(255, 255, 255, 0.1);
 	line-height: 100%;
 
@@ -799,9 +799,48 @@ body.popup_active {
 		}
 	}
 }
-.frontpage_cloud {
+#frontpage_cloud {
+	&.animate {
+		a {
+			opacity: 1;
+		}
+	}
     a {
         opacity: 0;
+        transition-duration: 1s;
+        transition-property: opacity;
+        transition-timing-function: ease-out;
+
+        &.anim1 {
+        	transition-delay: 0.2s;
+    	}
+    	&.anim2 {
+        	transition-delay: 0.4s;
+    	}
+    	&.anim3 {
+        	transition-delay: 0.6s;
+    	}
+    	&.anim4 {
+        	transition-delay: 0.8s;
+    	}
+    	&.anim5 {
+        	transition-delay: 1s;
+    	}
+    	&.anim6 {
+        	transition-delay: 1.2s;
+    	}
+    	&.anim7 {
+        	transition-delay: 1.4s;
+    	}
+    	&.anim8 {
+        	transition-delay: 1.6s;
+    	}
+    	&.anim9 {
+        	transition-delay: 1.8s;
+    	}
+    	&.anim10 {
+        	transition-delay: 2s;
+    	}
     }
 }
 #cloud_elaborator {
@@ -1138,7 +1177,7 @@ pre.cake-error {
     .meta {
         font-size: 80%;
         margin-bottom: 15px;
-        
+
         .colorbox {
             height: 30px;
             line-height: 30px;
@@ -1159,14 +1198,14 @@ pre.cake-error {
 .word_summary {
     margin-bottom: 30px;
     text-align: center;
-    
+
     ul {
         padding-left: 0;
     }
     li {
         display: inline-block;
         margin-right: 15px;
-        
+
         &:last-child {
             margin-right: 0;
         }
@@ -1223,5 +1262,5 @@ pre.cake-error {
     &:after {
         content: close-quote;
     }
-    
+
 }

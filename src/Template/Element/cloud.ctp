@@ -28,6 +28,12 @@
 		}
 		$color .= $color.$color;
 
+        if (isset($animate)) {
+            $animationClass = ' anim'.rand(1, 10);
+        } else {
+            $animationClass = '';
+        }
+
 		echo $this->Html->link(
 			$word,
 			array(
@@ -37,7 +43,7 @@
 			),
 			array(
 				'style' => "font-size: $size%; color: #$color;",
-				'class' => 'thoughtword'
+				'class' => 'thoughtword'.$animationClass
 			)
 		);
 		echo ' ';

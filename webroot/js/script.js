@@ -766,15 +766,3 @@ var scroll = {
 		});
 	}
 };
-
-var frontCloud = {
-    init: function () {
-        var links = $('.cloud a');
-        links.each(function () {
-            var link = $(this);
-            setTimeout(function () {
-                link.animate({'opacity': 1}, 1000);
-            }, Math.floor(Math.random() * 3000));
-        });
-    }
-};

@@ -72,16 +72,17 @@
     </h2>
 	<?= $this->element('Thoughts'.DS.'recent') ?>
 </div>
-<div class="cloud frontpage_cloud">
+<div class="cloud" id="frontpage_cloud">
     <?php if (empty($cloud)): ?>
         <p>
             Sorry, we couldn't find any thoughts in the database.
             <br />That's probably a bad sign. :(
         </p>
     <?php else: ?>
-        <?= $this->element('cloud', ['words' => $cloud]) ?>
-        <?php $this->append('buffered_js'); ?>
-            frontCloud.init();
-        <?php $this->end(); ?>
+        <?= $this->element('cloud', ['words' => $cloud, 'animate' => true]) ?>
+        <script>
+            var cloud = document.getElementById('frontpage_cloud');
+            cloud.className = cloud.className + ' animate';
+        </script>
 	<?php endif; ?>
 </div>
