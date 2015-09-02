@@ -619,8 +619,6 @@ class ThoughtsTable extends Table
         $result = $this->find('list')
             ->select(['id'])
             ->toArray();
-
-
         Cache::write('allThoughtIds', $result, 'long');
         return $result;
     }
