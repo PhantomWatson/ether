@@ -606,4 +606,19 @@ class ThoughtsTable extends Table
             }
         }
     }
+
+    public function getAllIds()
+    {
+        $cached = Cache::read('maxThoughtId');
+        if ($cached) {
+            return $cached;
+        }
+        $result = $this->find('list')
+            ->select(['id'])
+            ->toArray();
+
+
+        Cache::write('allThoughtIds', $result, 'long');
+        return $result;
+    }
 }
