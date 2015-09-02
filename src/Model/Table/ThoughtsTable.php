@@ -609,7 +609,7 @@ class ThoughtsTable extends Table
 
     public function getAllIds()
     {
-        $cached = Cache::read('maxThoughtId');
+        $cached = Cache::read('allThoughtIds');
         if ($cached) {
             return $cached;
         }
