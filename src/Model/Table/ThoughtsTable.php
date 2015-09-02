@@ -199,14 +199,17 @@ class ThoughtsTable extends Table
      */
     public function getRandomThought()
     {
+        $allThoughtIds = $this->getAllIds();
+        $key = array_rand($allThoughtIds);
+        $thoughtId = $allThoughtIds[$key];
         $thought = $this->find('all')
             ->select(['id', 'word', 'thought', 'formatted_thought', 'anonymous', 'formatting_key'])
+            ->where(['Thoughts.id' => $thoughtId])
             ->contain([
                 'Users' => function ($q) {
                     return $q->select(['id', 'color']);
                 }
             ])
-            ->order('RAND()')
             ->first();
 
         // Generate or refresh formatted_thought if necessary and save result
