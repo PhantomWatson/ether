@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-sm-offset-2 col-sm-8">
         <p>
-        	Each of these colorboxes represents a Thinker. Click on one to view the Thinker's profile.
+        	Each of these colors represents a Thinker. Click to view profile.
         </p>
 
         <p>
