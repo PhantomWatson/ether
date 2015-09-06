@@ -2849,36 +2849,20 @@ var registration = {
 var flashMessage = {
     fadeDuration: 300,
     init: function () {
-        if ($('#flash_messages ul li').length > 0) {
-            this.show();
-        }
-        $('#close_flash_msg').click(function(event) {
+        $('#flash_messages li').fadeIn(this.fadeDuration);
+        $('#flash_messages a.close').click(function(event) {
             event.preventDefault();
-            flashMessage.hide();
+            $(this).parents('li').fadeOut(this.fadeDuration);
         });
     },
-    show: function () {
-        var container = $('#flash_messages');
-        if (! container.is(':visible')) {
-            container.fadeIn(this.fadeDuration);
-        }
-    },
-    hide: function () {
-        var container = $('#flash_messages');
-        if (container.is(':visible')) {
-            container.fadeOut(this.fadeDuration, function() {
-                $('#flash_messages ul').empty();
-            });
-        }
-    },
     insert: function (message, classname) {
-        var msgLi = $('<li class="'+classname+'">'+message+'</li>')
-            .hide()
-            .fadeIn(this.fadeDuration);
+        var msgLi = $('<li class="'+classname+'"><a href="#" class="close">close</a>'+message+'</li>').hide();
         $('#flash_messages ul').append(msgLi);
-        if (! $('#flash_messages').is(':visible')) {
-            this.show();
-        }
+        msgLi.fadeIn(this.fadeDuration);
+        li.children('a.close').click(function(event) {
+            event.preventDefault();
+            $(this).parents('li').fadeOut(this.fadeDuration);
+        });
     }
 };
 

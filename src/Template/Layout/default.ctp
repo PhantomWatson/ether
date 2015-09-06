@@ -26,13 +26,13 @@
     </head>
     <body>
         <?php
-            echo $this->element('flash_messages');
             echo $this->element('header');
             echo $this->fetch('overlay');
         ?>
 
         <div id="content_outer">
             <div id="content">
+                <?= $this->element('flash_messages') ?>
                 <?= $this->fetch('content') ?>
             </div>
         </div>

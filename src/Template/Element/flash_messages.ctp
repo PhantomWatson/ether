@@ -9,19 +9,13 @@
 	flashMessage.init();
 <?php $this->end(); ?>
 
-<div id="flash_messages" style="display: none;">
-	<div class="close">
-		<a href="#" id="close_flash_msg">
-			Close
-		</a>
-	</div>
-	<div class="messages_wrapper">
-		<ul>
-			<?php foreach ($flashMessages as $msg): ?>
-				<li class="<?php echo $msg['class']; ?>">
-					<?php echo $msg['message']; ?>
-				</li>
-			<?php endforeach; ?>
-		</ul>
-	</div>
-</div>
+<ul id="flash_messages" class="row">
+	<?php foreach ($flashMessages as $msg): ?>
+		<li class="<?= $msg['class'] ?> col-sm-offset-2 col-sm-8" style="display: none;">
+            <a href="#" class="close">
+                close
+            </a>
+			<?= $msg['message'] ?>
+		</li>
+	<?php endforeach; ?>
+</ul>
