@@ -84,18 +84,26 @@ class FlashComponent extends Component
         if ($authError) {
             $storedMessages[] = [
                 'message' => $authError['message'],
-                'class' => 'error'
+                'class' => 'danger'
             ];
             $this->request->session()->delete('Message.auth');
         }
 
-        // Process variable dumping
+        // Process variable dumping and convert classes to Bootstrap alert class suffixes
         foreach ($storedMessages as &$message) {
-            if ($message['class'] == 'dump') {
-                $message = [
-                    'message' => '<pre>'.print_r($message['message'], true).'</pre>',
-                    'class' => 'notification'
-                ];
+            switch ($message['class']) {
+                case 'dump':
+                    $message = [
+                        'message' => '<pre>'.print_r($message['message'], true).'</pre>',
+                        'class' => 'info'
+                    ];
+                    break;
+                case 'notification':
+                    $message['class'] = 'info';
+                    break;
+                case 'error':
+                    $message['class'] = 'danger';
+                    break;
             }
         }
 

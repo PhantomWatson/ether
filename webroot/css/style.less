@@ -1099,10 +1099,6 @@ body.popup_active {
 	padding: 0;
 
 	li {
-		.alert;
-		.alert-info;
-
-		/* Default "notification" mode, overridden by .error and .success */
 	    list-style-type: none;
 	    margin-bottom: 5px;
 	    padding: 5px 15px;
@@ -1117,25 +1113,13 @@ body.popup_active {
 		&:first-child {
 			border-top-width: 1px;
 		}
-		&.error {
-			.alert-danger;
-		}
-		&.success {
-			.alert-success;
-		}
 		img {
 			margin-right: 10px;
 			vertical-align: text-top;
 		}
 	}
 	.close {
-		background-color: #fff;
-		border: 1px solid #999;
-		border-radius: 5px;
-		float: right;
-		font-size: 80%;
-		margin: 0 20px 3px 0;
-		padding: 0 3px;
+		margin-right: 15px;
 	}
 	p,
 	pre {

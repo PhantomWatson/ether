@@ -11,10 +11,8 @@
 
 <ul id="flash_messages" class="row">
 	<?php foreach ($flashMessages as $msg): ?>
-		<li class="<?= $msg['class'] ?> col-sm-offset-2 col-sm-8" style="display: none;">
-            <a href="#" class="close">
-                close
-            </a>
+		<li class="col-sm-offset-2 col-sm-8 alert alert-<?= $msg['class'] ?> alert-dismissible" role="alert" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			<?= $msg['message'] ?>
 		</li>
 	<?php endforeach; ?>
