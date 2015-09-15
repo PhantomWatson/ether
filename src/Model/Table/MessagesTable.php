@@ -4,8 +4,9 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
+use Cake\Utility\Text;
+use Cake\Validation\Validator;
 use HTML_To_Markdown;
 
 /**
@@ -105,11 +106,11 @@ class MessagesTable extends Table
         $query = $this->find('all');
         $results = $query
             ->select([
-                'sender_id',
-                'recipient_id',
+                'Messages.sender_id',
+                'Messages.recipient_id',
                 'created' => $query->func()->max('Messages.created')
             ])
-            ->distinct(['sender_id', 'recipient_id'])
+            ->distinct(['Messages.sender_id', 'Messages.recipient_id'])
             ->contain([
                 'Senders' => function ($q) {
                     return $q->select(['id', 'color']);
@@ -120,8 +121,8 @@ class MessagesTable extends Table
             ])
             ->where([
                 'OR' => [
-                    'sender_id' => $userId,
-                    'recipient_id' => $userId
+                    'Messages.sender_id' => $userId,
+                    'Messages.recipient_id' => $userId
                 ]
             ])
             ->order(['created' => 'DESC'])
@@ -131,12 +132,27 @@ class MessagesTable extends Table
         foreach ($results as $result) {
             $otherUser = ($result['sender']['id'] == $userId) ? 'recipient' : 'sender';
             $otherUserId = $result[$otherUser]['id'];
-            if (isset($conversations[$otherUserId])) {
+
+            if (isset($conversations[$otherUserId]) && $result['created'] < $conversations[$otherUserId]['time']) {
                 continue;
             }
+
+            $message = $this->find('all')
+                ->select(['message'])
+                ->where([
+                    'sender_id' => $result['sender']['id'],
+                    'recipient_id' => $result['recipient']['id'],
+                    'created' => $result['created']
+                ])
+                ->order(['created' => 'DESC'])
+                ->first()
+                ->message;
+
             $conversations[$otherUserId] = [
                 'color' => $result[$otherUser]['color'],
-                'time' => $result['created']
+                'time' => $result['created'],
+                'message' => Text::truncate($message, 100, ['exact' => false]),
+                'verb' => ($result['sender']['id'] == $userId) ? 'sent' : 'received'
             ];
         }
         return $conversations;
