@@ -192,6 +192,19 @@ class MessagesTable extends Table
             ->toArray();
     }
 
+    public function getNewMessagesCount($userId)
+    {
+        return $this->find('all')
+            ->select(['id'])
+            ->where([
+                'OR' => [
+                    'sender_id' => $userId,
+                    'recipient_id' => $userId
+                ]
+            ])
+            ->count();
+    }
+
     public function setConversationAsRead($userId, $anotherUserId)
     {
         $messages = $this->find('all')
