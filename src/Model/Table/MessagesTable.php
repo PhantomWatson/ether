@@ -138,21 +138,21 @@ class MessagesTable extends Table
             }
 
             $message = $this->find('all')
-                ->select(['message'])
+                ->select(['message', 'received'])
                 ->where([
                     'sender_id' => $result['sender']['id'],
                     'recipient_id' => $result['recipient']['id'],
-                    'created' => $result['created']
+                    'created' => $result['created'],
                 ])
                 ->order(['created' => 'DESC'])
-                ->first()
-                ->message;
+                ->first();
 
             $conversations[$otherUserId] = [
                 'color' => $result[$otherUser]['color'],
                 'time' => $result['created'],
-                'message' => Text::truncate($message, 100, ['exact' => false]),
-                'verb' => ($result['sender']['id'] == $userId) ? 'sent' : 'received'
+                'message' => Text::truncate($message->message, 100, ['exact' => false]),
+                'verb' => ($result['sender']['id'] == $userId) ? 'sent' : 'received',
+                'unread' => $message->recieved == 0
             ];
         }
         return $conversations;

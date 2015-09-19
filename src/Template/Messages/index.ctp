@@ -39,6 +39,11 @@
                             </span>
                             <span class="col-sm-10">
                                 <span class="excerpt_meta">
+                                    <?php if ($conversation['unread']): ?>
+                                        <span class="new_messages">
+                                            New
+                                        </span>
+                                    <?php endif; ?>
                                     <?= ucwords($conversation['verb']) ?>
                                     <?= $this->Time->abbreviatedTimeAgoInWords($conversation['time']) ?>:
                                 </span>
