@@ -177,6 +177,7 @@ class MessagesTable extends Table
                 'id',
                 'sender_id',
                 'recipient_id',
+                'received',
                 'created',
                 'message'
             ])

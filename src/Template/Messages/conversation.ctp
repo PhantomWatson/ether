@@ -33,6 +33,11 @@
                         echo $formattedMessage;
                     ?>
                     <div class="message_info">
+                        <?php if ($message['received'] == 0): ?>
+                            <span class="new">
+                                New
+                            </span>
+                        <?php endif; ?>
                         <?= ($message['sender_id'] == $penpalId) ? 'received' : 'sent' ?>
                         <?= $this->Time->abbreviatedTimeAgoInWords($message['created']) ?>
                     </div>

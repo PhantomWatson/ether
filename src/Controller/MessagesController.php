@@ -144,7 +144,6 @@ class MessagesController extends AppController
         $this->loadModel('Users');
         $penpalId = $this->Users->getIdFromColor($penpalColor);
         $penpal = $this->Users->get($penpalId);
-        $this->Messages->setConversationAsRead($userId, $penpalId);
         $this->set([
             'titleForLayout' => 'Messages with Thinker #'.$penpalColor,
             'messages' => $this->Messages->getConversation($userId, $penpalId),
@@ -153,5 +152,6 @@ class MessagesController extends AppController
             'penpalAcceptsMessages' => $this->Users->acceptsMessages($penpalId),
             'messageEntity' => $this->Messages->newEntity()
         ]);
+        $this->Messages->setConversationAsRead($userId, $penpalId);
     }
 }
