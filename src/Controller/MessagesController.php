@@ -22,11 +22,11 @@ class MessagesController extends AppController
     {
         $userId = $this->Auth->user('id');
         $this->loadModel('Users');
-        $this->set(array(
+        $this->set([
             'title_for_layout' => 'Messages',
             'conversations' => $this->Messages->getConversationsIndex($userId),
             'penpalColor' => $penpalColor
-        ));
+        ]);
     }
 
     /**
