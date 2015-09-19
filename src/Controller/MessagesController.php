@@ -22,8 +22,6 @@ class MessagesController extends AppController
     {
         $userId = $this->Auth->user('id');
         $this->loadModel('Users');
-        $this->Users->setMessagesRead($userId);
-        $this->setNewMessagesAlert(false);
         $this->set(array(
             'title_for_layout' => 'Messages',
             'conversations' => $this->Messages->getConversationsIndex($userId),
