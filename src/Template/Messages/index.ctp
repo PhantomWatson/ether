@@ -53,8 +53,3 @@
         </div>
     <?php endif; ?>
 </div>
-
-<?php $this->append('buffered_js'); ?>
-    $('#header .dropdown-toggle > .new_messages').removeClass('new_messages').html('Logged in');
-    $('#header .new_messages').removeClass('new_messages');
-<?php $this->end(); ?>
