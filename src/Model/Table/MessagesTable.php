@@ -152,7 +152,7 @@ class MessagesTable extends Table
                 'time' => $result['created'],
                 'message' => Text::truncate($message->message, 100, ['exact' => false]),
                 'verb' => ($result['sender']['id'] == $userId) ? 'sent' : 'received',
-                'unread' => $message->recieved == 0
+                'unread' => $message->received == 0
             ];
         }
         return $conversations;
