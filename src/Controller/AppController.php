@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
+use Cake\ORM\TableRegistry;
 
 class AppController extends Controller
 {
@@ -69,12 +70,12 @@ class AppController extends Controller
     public function beforeRender(\Cake\Event\Event $event)
     {
         $userId = $this->Auth->user('id');
+        $messagesTable = TableRegistry::get('Messages');
         $this->set(array(
             'userId' => $userId,
-            'loggedIn' => $userId !== null
+            'loggedIn' => $userId !== null,
+            'newMessages' => $userId ? $messagesTable->getNewMessagesCount($userId) : 0
         ));
-
-        $this->__setNewMessagesAlert();
     }
 
     /**
