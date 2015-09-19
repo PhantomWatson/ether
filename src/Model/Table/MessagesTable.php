@@ -192,6 +192,32 @@ class MessagesTable extends Table
             ->toArray();
     }
 
+    public function setConversationAsRead($userId, $anotherUserId)
+    {
+        $messages = $this->find('all')
+            ->select(['id'])
+            ->where([
+                'received' => 0,
+                'OR' => [
+                    [
+                        'sender_id' => $userId,
+                        'recipient_id' => $anotherUserId
+                    ],
+                    [
+                        'sender_id' => $anotherUserId,
+                        'recipient_id' => $userId
+                    ]
+                ]
+            ]);
+        if (empty($messages)) {
+            return;
+        }
+        foreach ($messages as $message) {
+            $message->received = 1;
+            $this->save($message);
+        }
+    }
+
     /**
      * Returns the number of messages exchanged between two users
      *
