@@ -200,7 +200,8 @@ class MessagesTable extends Table
                 'OR' => [
                     'sender_id' => $userId,
                     'recipient_id' => $userId
-                ]
+                ],
+                'received' => 0
             ])
             ->count();
     }
