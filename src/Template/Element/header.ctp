@@ -57,9 +57,9 @@
 
 				<li>
                     <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <?php if ($hasNewMessages): ?>
+                        <?php if ($newMessages): ?>
                             <span class="new_messages">
-                                New Messages
+                                <?= $newMessages ?> New Messages
                             </span>
                         <?php else: ?>
                             Logged in
@@ -77,7 +77,7 @@
                             <?php echo $this->Html->link(
                                 'Messages',
                                 ['controller' => 'Messages', 'action' => 'index'],
-                                ['class' => $hasNewMessages ? 'new_messages' : '']
+                                ['class' => $newMessages ? 'new_messages' : '']
                             ); ?>
                         </li>
                         <li>
