@@ -2715,7 +2715,7 @@ var thought = {
     			url: '/thoughts/refreshFormatting/'+thought.data('thought-id'),
     			dataType: 'json',
     			beforeSend: function () {
-    			    if (body.html().trim() == '') {
+    			    if (body.html().trim() === '') {
     			        body.html('<img src="/img/loading_small.gif" alt="Loading..." />');
     			    }
     			},
