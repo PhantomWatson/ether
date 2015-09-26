@@ -33,7 +33,7 @@
 				<ul class="dropdown-menu">
 				    <li>
 				        <?php echo $this->Html->link(
-                            'All Thoughts',
+                            'Browse',
                             ['controller' => 'Thoughts', 'action' => 'index']
                         ); ?>
                     </li>
