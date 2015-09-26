@@ -875,19 +875,25 @@ body.popup_active {
 	vertical-align: text-top;
 }
 #alphabetical_words {
-	margin-bottom: 600px;
-	margin-top: 100px;
-
-	h2 {
+	.header {
 		border-bottom: 1px solid #555;
-		font-size: 200%;
 		margin: 26px 10px;
+	}
+	.shortcuts {
+		a {
+			margin-right: 10px;
+			text-transform: uppercase;
+		}
+	}
+	h2 {
+		display: inline;
+		font-size: 250%;
 		text-transform: uppercase;
 	}
 	section {
-		margin-top: -140px;
-		padding-bottom: 150px;
-		padding-top: 140px;
+		margin-top: -70px;
+		padding-bottom: 100px;
+		padding-top: 70px;
 
 		&:first-child {
 			h2 {
@@ -913,9 +919,6 @@ body.popup_active {
 		&:hover {
 			overflow: visible;
 		}
-	}
-	a[id^="abc_thoughts_"] {
-
 	}
 }
 #abc_thoughts_shortcuts {

@@ -3073,11 +3073,8 @@ function setupHeaderLinks() {
 
 var thoughtwordIndex = {
     init: function () {
-        $('body').scrollspy({
-            target: '#abc_thoughts_shortcuts',
-            offset: 140
-        });
-        $('#abc_thoughts_shortcuts a').click(function (event) {
+        $('.shortcuts a').click(function (event) {
+            event.preventDefault();
             $('html,body').animate({
                 scrollTop: $(this.hash).offset().top
             }, 1000);
