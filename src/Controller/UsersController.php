@@ -47,7 +47,8 @@ class UsersController extends AppController
         $this->loadModel('Messages');
         $this->set([
             'title_for_layout' => "Thinker #$color",
-            'user' => $user
+            'user' => $user,
+            'colors' => $this->Users->getColorsWithThoughts()
         ]);
 
         $userId = $this->Auth->user('id');

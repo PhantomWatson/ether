@@ -1039,6 +1039,22 @@ body.popup_active {
 		}
 	}
 }
+.minimized_users_index {
+	.users_index {
+		line-height: inherit;
+	}
+	.colorbox {
+		height: 10px;
+		transition: border-color 0.3s, box-shadow 0.3s, height 0.75s, width 0.75s;
+		width: 10px;
+	}
+	&:hover {
+		.colorbox {
+			height: 30px;
+			width: 30px;
+		}
+	}
+}
 #reg_color_input {
 	label {
 		display: inline;
