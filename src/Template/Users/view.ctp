@@ -14,9 +14,11 @@
         </p>
     </div>
 
-    <div class="row minimized_users_index">
-        <div class="col-sm-offset-2 col-sm-8 users_index">
-            <?= $this->element('Users'.DS.'index') ?>
+    <div class="row">
+        <div class="minimized_users_index">
+            <div class="col-sm-offset-2 col-sm-8 users_index">
+                <?= $this->element('Users'.DS.'index') ?>
+            </div>
         </div>
     </div>
 
