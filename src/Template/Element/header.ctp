@@ -50,6 +50,12 @@
                             ['controller' => 'Thoughts', 'action' => 'add']
                         ); ?>
                     </li>
+                    <li>
+                        <?php echo $this->Html->link(
+                            'Thinkers',
+                            ['controller' => 'Users', 'action' => 'index']
+                        ); ?>
+                    </li>
 			    </ul>
 			</li>
 
