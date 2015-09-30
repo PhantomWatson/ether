@@ -1,9 +1,9 @@
 {
-	"name" : "cakephp/app",
-	"description" : "CakePHP skeleton app",
-	"homepage" : "http://cakephp.org",
+	"name" : "phantomwatson/ether",
+	"description" : "The Ether - Thought Repository",
+	"homepage" : "http://theether.com",
 	"type" : "project",
-	"license" : "MIT",
+	"license" : "proprietary",
 	"require" : {
 		"php" : ">=5.4.16",
 		"cakephp/cakephp" : "~3.0",
