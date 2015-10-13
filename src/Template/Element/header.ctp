@@ -117,7 +117,7 @@
                 ?>
                 <form class="navbar-form navbar-left" role="search" action="<?php echo $goto_url; ?>" method="post">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    <input type="text" class="form-control" placeholder="Go to thoughtword..." required="required" name="data[Thought][word]" />
+                    <input type="search" class="form-control" placeholder="Go to thoughtword..." required="required" name="data[Thought][word]" />
                 </form>
 		    </li>
 		</ul>
