@@ -115,7 +115,7 @@
                     use Cake\Routing\Router;
                     $goto_url = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
                 ?>
-                <form class="navbar-form navbar-left" role="search" action="<?php echo $goto_url; ?>" method="post">
+                <form class="navbar-form navbar-left" role="search" action="<?php echo $goto_url; ?>" method="post" id="header-search">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                     <input type="search" class="form-control" placeholder="Go to thoughtword..." required="required" name="data[Thought][word]" />
                 </form>
@@ -123,4 +123,3 @@
 		</ul>
 	</div>
 </nav>
-<?php //$this->Js->buffer("setupHeaderLinks();"); ?>
