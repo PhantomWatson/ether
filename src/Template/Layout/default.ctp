@@ -37,30 +37,6 @@
             </div>
         </div>
 
-        <?php //echo $this->element('footer'); ?>
-
-        <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="/js/jquery-1.9.1.min.js"><\/script>')</script>
-
-        <?php
-            $scriptFile = $debug ? 'script.concat.js' : 'script.concat.min.js';
-            echo $this->Html->script($scriptFile);
-            echo $this->fetch('script');
-            //$this->Js->buffer("setupOnPopState();");
-            //echo $this->Js->writeBuffer();
-            //echo $this->element('analytics');
-        ?>
-
-        <?php if ($this->fetch('buffered_js')): ?>
-            <script>
-                $(document).ready(function () {
-                    scroll.init();
-                    <?= $this->fetch('buffered_js') ?>
-                });
-            </script>
-        <?php endif; ?>
-
         <footer id="footer">
             <div class="col-sm-2 col-sm-offset-3">
                 <ul class="list-unstyled">
@@ -123,5 +99,29 @@
                 </ul>
             </div>
         </footer>
+
+        <?php //echo $this->element('footer'); ?>
+
+        <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/js/jquery-1.9.1.min.js"><\/script>')</script>
+
+        <?php
+            $scriptFile = $debug ? 'script.concat.js' : 'script.concat.min.js';
+            echo $this->Html->script($scriptFile);
+            echo $this->fetch('script');
+            //$this->Js->buffer("setupOnPopState();");
+            //echo $this->Js->writeBuffer();
+            //echo $this->element('analytics');
+        ?>
+
+        <?php if ($this->fetch('buffered_js')): ?>
+            <script>
+                $(document).ready(function () {
+                    scroll.init();
+                    <?= $this->fetch('buffered_js') ?>
+                });
+            </script>
+        <?php endif; ?>
     </body>
 </html>
