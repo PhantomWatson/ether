@@ -31,6 +31,7 @@ class AppController extends Controller
 
     public function initialize()
     {
+        $this->loadComponent('Cookie');
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
             'loginAction' => [
@@ -48,11 +49,11 @@ class AppController extends Controller
                         'className' => 'Fallback',
                         'hashers' => ['Default', 'Legacy']
                     ]
-                ]
+                ],
+                'Xety/Cake3CookieAuth.Cookie'
             ],
             'authorize' => ['Controller']
         ]);
-        $this->loadComponent('AutoLogin.AutoLogin');
         $this->set('debug', Configure::read('debug'));
     }
 
@@ -65,16 +66,26 @@ class AppController extends Controller
     {
         $authError = $this->Auth->user('id') ? 'Sorry, you do not have access to that location.' : 'Please <a href="/login">log in</a> before you try that.';
         $this->Auth->config('authError', $authError);
+
+        // Automaticaly login
+        if (! $this->Auth->user() && $this->Cookie->read('CookieAuth')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+            } else {
+                $this->Cookie->delete('CookieAuth');
+            }
+        }
     }
 
     public function beforeRender(\Cake\Event\Event $event)
     {
         $userId = $this->Auth->user('id');
         $messagesTable = TableRegistry::get('Messages');
-        $this->set(array(
+        $this->set([
             'userId' => $userId,
             'loggedIn' => $userId !== null,
             'newMessages' => $userId ? $messagesTable->getNewMessagesCount($userId) : 0
-        ));
+        ]);
     }
 }

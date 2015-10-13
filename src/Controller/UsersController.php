@@ -28,10 +28,10 @@ class UsersController extends AppController
      */
     public function index()
     {
-        $this->set(array(
+        $this->set([
             'title_for_layout' => 'Thinkers',
             'colors' => $this->Users->getColorsWithThoughts(),
-        ));
+        ]);
     }
 
     /**
@@ -168,20 +168,29 @@ class UsersController extends AppController
                     $user->password_version = 3;
                     $this->Users->save($user);
                 }
-                $this->AutoLogin->setCookie();
+
+                // Remember login in cookie
+                $this->Cookie->configKey('CookieAuth', [
+                    'expires' => '+1 year',
+                    'httpOnly' => true
+                ]);
+                $this->Cookie->write('CookieAuth', [
+                    'email' => $this->request->data('email'),
+                    'password' => $this->request->data('password')
+                ]);
+
                 return $this->redirect($this->Auth->redirectUrl());
             } else {
                 $this->Flash->error('Email or password is incorrect');
             }
         }
-        $this->set(array(
+        $this->set([
             'title_for_layout' => 'Log in'
-        ));
+        ]);
     }
 
     public function logout()
     {
-        $this->AutoLogin->destroyCookie();
         return $this->redirect($this->Auth->logout());
     }
 
@@ -219,10 +228,15 @@ class UsersController extends AppController
             $user->password = $this->request->data['new_password'];
             $user->password_version = 3;
             if ($this->Users->save($user)) {
-                // Reset AutoLogin cookie with new password
-                $this->request->data['email'] = $user->email;
-                $this->request->data['password'] = $this->request->data['new_password'];
-                $this->AutoLogin->setCookie();
+                // Remember new credentials in cookie
+                $this->Cookie->configKey('CookieAuth', [
+                    'expires' => '+1 year',
+                    'httpOnly' => true
+                ]);
+                $this->Cookie->write('CookieAuth', [
+                    'email' => $user->email,
+                    'password' => $this->request->data['new_password']
+                ]);
 
                 $this->Flash->success('Your password has been changed.');
             } else {
