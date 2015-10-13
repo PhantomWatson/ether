@@ -12,6 +12,7 @@ use Cake\Network\Exception\InternalErrorException;
 use Cake\Routing\Router;
 use Cake\Event\Event;
 use Cake\Cache\Cache;
+use Cake\Utility\Text;
 use Cake\Log\Log;
 use HTML_To_Markdown;
 
@@ -217,6 +218,35 @@ class ThoughtsTable extends Table
             $thought->formatted_thought = $this->formatThought($thought->thought);
             $this->save($thought);
         }
+
+        return $thought;
+    }
+
+    /**
+     * Returns the beginning 300 characters of a thought for the front
+     * page "random thought", with all tags but bold and italics removed.
+     *
+     * @param Entity $thought
+     * @return Entity $thought
+     */
+    public function excerpt($thought)
+    {
+        $t = $thought->formatted_thought;
+
+        // Replace breaks with spaces to avoid "First line.Second line."
+        $t = str_replace(['<p>', '</p>'], '', $t);
+        $t = str_replace(['<br />', '<br>'], ' ', $t);
+
+        $allowedTags = '<i><b><em><strong>';
+        $t = strip_tags($t, $allowedTags);
+
+        $t = Text::truncate($t, 300, [
+            'html' => true,
+            'exact' => false
+        ]);
+        $t = trim($t);
+
+        $thought->formatted_thought = $t;
 
         return $thought;
     }
