@@ -744,3 +744,16 @@ var scroll = {
 		});
 	}
 };
+
+var search = {
+    init: function () {
+        $('#header-search input').on('input', function () {
+            var input = $(this);
+            var original = input.val();
+            var spaceless = original.replace(' ', '');
+            if (original != spaceless) {
+                input.val(spaceless);
+            }
+        });
+    }
+};

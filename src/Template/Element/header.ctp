@@ -123,3 +123,6 @@
 		</ul>
 	</div>
 </nav>
+<?php $this->append('buffered_js'); ?>
+    search.init();
+<?php $this->end(); ?>
