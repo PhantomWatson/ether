@@ -1,17 +1,7 @@
 <a name="t<?php echo $thought['id']; ?>"></a>
 <div class="thought" data-formatting-key="<?= $thought['formatting_key'] ?>" data-thought-id="<?= $thought['id'] ?>">
     <div class="body">
-        <?php
-            echo $thought['formatted_thought'];
-            /*
-            echo $this->element('Thoughts/formatted_thought', array(
-                'input' => $thought,
-                'id' => $thought['id'],
-                'type' => 'thought',
-                'thoughtwords' => $thoughtwords
-            ));
-            */
-        ?>
+        <?= $thought['formatted_thought'] ?>
     </div>
     <?php if ($thought['comments_enabled']): ?>
         <div class="comments">
