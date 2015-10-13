@@ -178,7 +178,7 @@ class UsersTable extends Table
         $tolerance = 40;
         $hex_codes = [];
         $colors_categorized = [];
-        $sorted_groups = array(
+        $sorted_groups = [
             'red' => [],
             'yellow' => [],
             'green' => [],
@@ -186,7 +186,7 @@ class UsersTable extends Table
             'blue' => [],
             'purple' => [],
             'gray' => []
-        );
+        ];
 
         foreach ($colors as $color => $count) {
             $color_split = str_split($color, 2);

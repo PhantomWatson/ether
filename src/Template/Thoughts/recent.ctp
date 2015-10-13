@@ -1,1 +1,1 @@
-<?php echo $this->element('Thoughts'.DS.'recent'); ?>
+<?= $this->element('Thoughts'.DS.'recent') ?>

@@ -41,25 +41,25 @@
                         <div>
                             <?php if ($loggedIn): ?>
                                 <p>
-                                    No one has yet thought about <strong><?php echo $word; ?></strong>.<br />
+                                    No one has yet thought about <strong><?= $word ?></strong>.<br />
                                     Would you like to?
                                 </p>
                                 <p>
-                                    <?php echo $this->Html->link(
+                                    <?= $this->Html->link(
                                         'Yes',
                                         ['controller' => 'Thoughts', 'action' => 'add', $word]
-                                    ); ?>
+                                    ) ?>
                                     <br />
                                     <a href="#" id="dontwannathink">No</a>
                                 </p>
                             <?php else: ?>
                                 <p>
-                                    No one has yet thought about <strong><?php echo $word; ?></strong>.<br />
+                                    No one has yet thought about <strong><?= $word ?></strong>.<br />
                                     If you were
-                                    <?php echo $this->Html->link(
+                                    <?= $this->Html->link(
                                         'logged in',
                                         ['controller' => 'Users', 'action' => 'login']
-                                    ); ?>, you could be the first.
+                                    ) ?>, you could be the first.
                                 </p>
                             <?php endif; ?>
                         </div>
@@ -78,7 +78,7 @@
             <div id="newthoughtadd" class="col-sm-12" style="display: none;">
                 <div>
                     <div class="content_box">
-                        <?php echo $this->element('Thoughts/form', compact('thought')); ?>
+                        <?= $this->element('Thoughts/form', compact('thought')) ?>
                     </div>
                     <div class="newthoughtbutton">
                         <a href="#" id="cancel_thought">
@@ -127,7 +127,7 @@
                     </div>
                 </div>
                 <div class="col-sm-8">
-                    <?php echo $this->element('Thoughts/view', compact('thought')); ?>
+                    <?= $this->element('Thoughts/view', compact('thought')) ?>
                 </div>
             </div>
         <?php endforeach; ?>

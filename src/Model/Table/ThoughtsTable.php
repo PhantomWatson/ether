@@ -258,7 +258,7 @@ class ThoughtsTable extends Table
     public function getAlphabeticallyGroupedWords()
     {
         $words = $this->getWords();
-        $categorized = array();
+        $categorized = [];
         foreach ($words as $word) {
             $first_letter = substr($word, 0, 1);
             if (is_numeric($first_letter)) {
@@ -283,7 +283,7 @@ class ThoughtsTable extends Table
         $limit = 10;
         $offset = $query->clause('offset');
         $direction = isset($_GET['direction']) ? strtolower($_GET['direction']) : 'desc';
-        if (! in_array($direction, array('asc', 'desc'))) {
+        if (! in_array($direction, ['asc', 'desc'])) {
             throw new BadRequestException('Invalid sorting direction');
         }
         $combinedQuery->epilog("ORDER BY created $direction LIMIT $limit OFFSET $offset");

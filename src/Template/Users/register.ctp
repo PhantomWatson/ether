@@ -1,6 +1,6 @@
 <div id="content_title">
 	<h1>
-		<?php echo $title_for_layout; ?>
+		<?= $title_for_layout ?>
 	</h1>
 </div>
 
@@ -47,10 +47,10 @@
 			Color
 		</label>
 		<div class="ajax_message"></div>
-		<input type="text" size="7" maxlength="7" name="data[color]" id="color_hex" value="<?php echo $this->request->data['color']; ?>" class="form-control color" />
+		<input type="text" size="7" maxlength="7" name="data[color]" id="color_hex" value="<?= $this->request->data['color'] ?>" class="form-control color" />
 		<div class="error-message">
 			<?php if (false && isset($this->validationErrors['User']['color'])): ?>
-				<?php echo implode('<br />', $this->validationErrors['User']['color']); ?>
+				<?= implode('<br />', $this->validationErrors['User']['color']) ?>
 			<?php endif; ?>
 		</div>
 		<?php if (isset($random_color)): ?>
@@ -64,7 +64,7 @@
 		<label>
 			Human?
 		</label>
-		<?php echo $this->Recaptcha->display(); ?>
+		<?= $this->Recaptcha->display() ?>
 		<?php if (isset($recaptcha_error)): ?>
 			<div class="error-message">
 				Invalid CAPTCHA response. Please try again.

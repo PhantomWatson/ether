@@ -1,6 +1,6 @@
 <div id="content_title">
     <h1>
-        <?php echo $titleForLayout; ?>
+        <?= $titleForLayout ?>
     </h1>
 </div>
 <p>

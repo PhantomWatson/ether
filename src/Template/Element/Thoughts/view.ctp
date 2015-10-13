@@ -1,4 +1,4 @@
-<a name="t<?php echo $thought['id']; ?>"></a>
+<a name="t<?= $thought['id'] ?>"></a>
 <div class="thought" data-formatting-key="<?= $thought['formatting_key'] ?>" data-thought-id="<?= $thought['id'] ?>">
     <div class="body">
         <?= $thought['formatted_thought'] ?>
@@ -12,20 +12,20 @@
                     'commentId' => $comment['id']
                 ]) ?>
             <?php endforeach; ?>
-            <div id="newcomment<?php echo $thought['id']; ?>view"></div>
-            <div id="newcomment<?php echo $thought['id']; ?>add" style="display: none;" class="add_comment">
+            <div id="newcomment<?= $thought['id'] ?>view"></div>
+            <div id="newcomment<?= $thought['id'] ?>add" style="display: none;" class="add_comment">
                 <?= $this->element('Comments/add', ['thoughtId' => $thought['id']]) ?>
             </div>
-            <div class="post" id="newcomment<?php echo $thought['id']; ?>button">
+            <div class="post" id="newcomment<?= $thought['id'] ?>button">
                 <?php if ($this->request->session()->check('Auth.User.id')): ?>
                     <a href="#" class="add_comment" data-thought-id="<?= $thought['id'] ?>">
                         Leave Comment
                     </a>
                 <?php else: ?>
-                    <?php echo $this->Html->link(
+                    <?= $this->Html->link(
                         'Log In to Leave Comment',
                         ['controller' => 'Users', 'action' => 'login']
-                    ); ?>
+                    ) ?>
                 <?php endif; ?>
             </div>
             <br class="clear" />

@@ -36,15 +36,15 @@
 
 		echo $this->Html->link(
 			$word,
-			array(
+			[
 				'controller' => 'Thoughts',
 				'action' => 'word',
 				$word
-			),
-			array(
+			],
+			[
 				'style' => "font-size: $size%; color: #$color;",
 				'class' => 'thoughtword'.$animationClass
-			)
+			]
 		);
 		echo ' ';
 	}

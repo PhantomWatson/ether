@@ -18,7 +18,7 @@
 	<div class="collapse navbar-collapse" id="navbar-collapse">
 		<ul class="nav navbar-nav">
 			<li>
-				<?php echo $this->Html->link(
+				<?= $this->Html->link(
 					'Thoughts <span class="caret"></span>',
 					['controller' => 'Thoughts', 'action' => 'index'],
 					[
@@ -29,32 +29,32 @@
 					   'escape' => false,
 					   'role' => 'button'
 				   ]
-				); ?>
+				) ?>
 				<ul class="dropdown-menu">
 				    <li>
-				        <?php echo $this->Html->link(
+				        <?= $this->Html->link(
                             'Browse',
                             ['controller' => 'Thoughts', 'action' => 'index']
-                        ); ?>
+                        ) ?>
                     </li>
                     <li>
-				        <?php echo $this->Html->link(
+				        <?= $this->Html->link(
                             'Random',
                             ['controller' => 'Thoughts', 'action' => 'random'],
                             ['id' => 'random_link']
-                        ); ?>
+                        ) ?>
 			        </li>
 			        <li>
-                        <?php echo $this->Html->link(
+                        <?= $this->Html->link(
                             'Add a Thought',
                             ['controller' => 'Thoughts', 'action' => 'add']
-                        ); ?>
+                        ) ?>
                     </li>
                     <li>
-                        <?php echo $this->Html->link(
+                        <?= $this->Html->link(
                             'Thinkers',
                             ['controller' => 'Users', 'action' => 'index']
-                        ); ?>
+                        ) ?>
                     </li>
 			    </ul>
 			</li>
@@ -74,40 +74,40 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li>
-                            <?php echo $this->Html->link(
+                            <?= $this->Html->link(
                                 'Account',
                                 ['controller' => 'Users', 'action' => 'account']
-                            ); ?>
+                            ) ?>
                         </li>
                         <li>
-                            <?php echo $this->Html->link(
+                            <?= $this->Html->link(
                                 'Messages',
                                 ['controller' => 'Messages', 'action' => 'index'],
                                 ['class' => $newMessages ? 'new_messages' : '']
-                            ); ?>
+                            ) ?>
                         </li>
                         <li>
-                            <?php echo $this->Html->link(
+                            <?= $this->Html->link(
                                 'Logout',
                                 ['controller' => 'Users', 'action' => 'logout']
-                            ); ?>
+                            ) ?>
                         </li>
                     </ul>
                 </li>
 			<?php else: ?>
 				<li>
-					<?php echo $this->Html->link(
+					<?= $this->Html->link(
 						'Login',
 						['controller' => 'Users', 'action' => 'login'],
 						['id' => 'login_link']
-					); ?>
+					) ?>
 				</li>
 				<li>
-					<?php echo $this->Html->link(
+					<?= $this->Html->link(
 						'Register',
 						['controller' => 'Users', 'action' => 'register'],
 						['id' => 'register_link']
-					); ?>
+					) ?>
 				</li>
 			<?php endif; ?>
 			<li>
@@ -115,7 +115,7 @@
                     use Cake\Routing\Router;
                     $goto_url = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
                 ?>
-                <form class="navbar-form navbar-left" role="search" action="<?php echo $goto_url; ?>" method="post" id="header-search">
+                <form class="navbar-form navbar-left" role="search" action="<?= $goto_url ?>" method="post" id="header-search">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                     <input type="search" class="form-control" placeholder="Go to thoughtword..." required="required" name="data[Thought][word]" />
                 </form>

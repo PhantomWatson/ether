@@ -50,11 +50,11 @@ class PagesController extends AppController
         $this->loadModel('Thoughts');
         $randomThought = $this->Thoughts->getRandomThought();
         $randomThought = $this->Thoughts->excerpt($randomThought);
-        $this->set(array(
+        $this->set([
             'recentActivity' => $this->paginate($this->Thoughts),
             'cloud' => $this->Thoughts->getCloud(),
             'randomThought' => $randomThought
-        ));
+        ]);
     }
 
     public function about()
@@ -66,8 +66,8 @@ class PagesController extends AppController
             'thoughtCount' => $this->Thoughts->getCount(),
             'thinkerCount' => $this->Users->getActiveThinkerCount()
         ]);
-        $this->set(array(
+        $this->set([
             'title_for_layout' => 'About',
-        ));
+        ]);
     }
 }

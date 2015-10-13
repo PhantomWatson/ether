@@ -41,22 +41,22 @@
             <div class="col-sm-2 col-sm-offset-3">
                 <ul class="list-unstyled">
                     <li>
-                        <?php echo $this->Html->link(
+                        <?= $this->Html->link(
                             'About',
                             ['controller' => 'Pages', 'action' => 'about']
-                        ); ?>
+                        ) ?>
                     </li>
                     <li>
-                        <?php echo $this->Html->link(
+                        <?= $this->Html->link(
                             'Contact',
                             ['controller' => 'Pages', 'action' => 'contact']
-                        ); ?>
+                        ) ?>
                     </li>
                     <li>
-                        <?php echo $this->Html->link(
+                        <?= $this->Html->link(
                             'Stats',
                             ['controller' => 'Pages', 'action' => 'stats']
-                        ); ?>
+                        ) ?>
                     </li>
                 </ul>
             </div>
@@ -82,16 +82,16 @@
             <div class="col-sm-2 col-sm-offset-7">
                 <ul class="list-unstyled">
                     <li>
-                        <?php echo $this->Html->link(
+                        <?= $this->Html->link(
                             'Terms of Use',
                             ['controller' => 'Pages', 'action' => 'terms']
-                        ); ?>
+                        ) ?>
                     </li>
                     <li>
-                        <?php echo $this->Html->link(
+                        <?= $this->Html->link(
                             'Privacy Policy',
                             ['controller' => 'Pages', 'action' => 'terms']
-                        ); ?>
+                        ) ?>
                     </li>
                     <li>
                         &copy; <?= date('Y') ?> <a href="mailto:graham@phantomwatson.com">Phantom Watson</a>
