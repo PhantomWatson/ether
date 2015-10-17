@@ -6,6 +6,8 @@
 <?= $this->Form->input(
     'comment',
     [
+       'class' => 'form-control',
+       'id' => false,
        'label' => false,
        'type' => 'textarea',
        'placeholder' => 'Write a comment...'
