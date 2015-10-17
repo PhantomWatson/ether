@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 use Cake\Network\Exception\BadRequestException;
 use Cake\Routing\Router;
 
@@ -69,6 +70,8 @@ class ThoughtsController extends AppController
             if ($thought->errors()) {
                 $this->Flash->error('Please correct the indicated '.__n('error', 'errors', count($thought->errors())).' before continuing.');
             } elseif ($this->Thoughts->save($thought)) {
+                $event = new Event('Model.Thought.created', $this, ['entity' => $thought]);
+                $this->eventManager()->dispatch($event);
                 $this->Flash->success('Your thought has been thunk. Thanks for thinking that thought!');
                 return $this->redirect(['action' => 'word', $thought->word]);
             } else {
@@ -104,6 +107,8 @@ class ThoughtsController extends AppController
             if ($thought->errors()) {
                 $this->Flash->error('Please correct the indicated '.__n('error', 'errors', count($thought->errors())).' before continuing.');
             } elseif ($this->Thoughts->save($thought)) {
+                $event = new Event('Model.Thought.updated', $this, ['entity' => $thought]);
+                $this->eventManager()->dispatch($event);
                 $this->Flash->success('Your thought has been updated.');
                 return $this->redirect(['action' => 'word', $thought->word]);
             } else {

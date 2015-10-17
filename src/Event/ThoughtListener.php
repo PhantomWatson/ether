@@ -26,7 +26,7 @@ class ThoughtListener implements EventListenerInterface
         ];
     }
 
-    public function updatePopulatedThoughtwords($event, $entity, $options)
+    public function updatePopulatedThoughtwords($event, $entity)
     {
         // Exit if entity was updated without changing word
         if (! $entity->isNew() && ! $entity->dirty('word')) {
@@ -47,7 +47,7 @@ class ThoughtListener implements EventListenerInterface
         $thoughts->getWords();
     }
 
-    public function formatThought($event, $entity, $options)
+    public function formatThought($event, $entity)
     {
         // Don't bother reformatting thought if it hasn't changed
         if (! $entity->isNew() && ! $entity->dirty('thought')) {

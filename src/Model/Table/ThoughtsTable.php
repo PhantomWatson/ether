@@ -519,13 +519,6 @@ class ThoughtsTable extends Table
         return $output;
     }
 
-    public function afterSave($event, $entity, $options = [])
-    {
-        $eventName = $entity->isNew() ? 'Model.Thought.created' : 'Model.Thought.updated';
-        $event = new Event($eventName, $this, compact('entity', 'options'));
-        $this->eventManager()->dispatch($event);
-    }
-
     public function afterDelete($event, $entity, $options = [])
     {
         $event = new Event('Model.Thought.deleted', $this, compact('entity', 'options'));
