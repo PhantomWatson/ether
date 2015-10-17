@@ -381,7 +381,8 @@ class ThoughtsTable extends Table
                             'Users' => function ($q) {
                                 return $q->select(['id', 'color']);
                             }
-                        ]);
+                        ])
+                        ->order(['Comments.created' => 'ASC']);
                 },
             ])
             ->toArray();
