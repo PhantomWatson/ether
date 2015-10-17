@@ -396,8 +396,6 @@ class ThoughtsTable extends Table
      */
     public function formatThought($thought)
     {
-        $thought = htmlentities($thought);
-        $thought = nl2br($thought);
         $thought = $this->linkThoughtwords($thought);
         $thought = $this->parseMarkdown($thought);
         $thought = $this->stripTags($thought);
@@ -412,7 +410,7 @@ class ThoughtsTable extends Table
 
     public function stripTags($input)
     {
-        $allowedTags = '<i><b><em><strong><ul><ol><li><a><p><br><wbr>';
+        $allowedTags = '<i><b><em><strong><ul><ol><li><a><p><br><wbr><blockquote>';
         return strip_tags($input, $allowedTags);
     }
 
