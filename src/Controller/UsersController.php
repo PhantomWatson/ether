@@ -48,7 +48,8 @@ class UsersController extends AppController
         $this->set([
             'title_for_layout' => "Thinker #$color",
             'user' => $user,
-            'colors' => $this->Users->getColorsWithThoughts()
+            'colors' => $this->Users->getColorsWithThoughts(),
+            'selectedColor' => $color
         ]);
 
         $userId = $this->Auth->user('id');

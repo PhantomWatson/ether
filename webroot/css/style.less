@@ -1034,8 +1034,9 @@ body.popup_active {
 		width: 30px;
 		vertical-align: middle;
 
-		&:hover {
-			border-color: rgba(255, 255, 255, 0.5);
+		&:hover,
+		&.selected {
+			border-color: rgba(255, 255, 255, 0.8);
 			box-shadow: 2px 2px 2px rgba(0, 0, 0, .6);
 			opacity: 1;
 		}

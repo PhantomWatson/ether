@@ -9,7 +9,6 @@ foreach ($colors as $group => $thinker) {
         }
     }
 }
-
 foreach ($colors as $group => $thinker) {
     foreach ($thinker as $color => $thoughtCount) {
         $resizePercent = round(($thoughtCount / $maxCount) * 100);
@@ -20,7 +19,7 @@ foreach ($colors as $group => $thinker) {
             [
                 'escape' => false,
                 'title' => 'View profile',
-                'class' => 'colorbox',
+                'class' => 'colorbox'.($selectedColor == $color ? ' selected' : ''),
                 'data-resize' => $resizePercent,
                 'style' => 'background-color: #'.$color.';'
             ]
