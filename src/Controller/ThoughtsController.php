@@ -146,8 +146,9 @@ class ThoughtsController extends AppController
 
     public function word($word = null)
     {
-        if (isset($this->request->data['Thought']['word'])) {
-            $word = $this->request->data['Thought']['word'];
+        if (isset($this->request->data['word'])) {
+            $word = $this->request->data['word'];
+            $this->redirect(['word' => $word]);
         }
         $word = $this->Thoughts->formatThoughtword($word);
         if ($word === '') {
