@@ -49,11 +49,6 @@ class ThoughtListener implements EventListenerInterface
 
     public function formatThought($event, $entity)
     {
-        // Don't bother reformatting thought if it hasn't changed
-        if (! $entity->isNew() && ! $entity->dirty('thought')) {
-            return;
-        }
-
         $thoughtsTable = TableRegistry::get('Thoughts');
         $formattedThought = $thoughtsTable->formatThought($entity->get('thought'));
         $entity->set('formatted_thought', $formattedThought);
