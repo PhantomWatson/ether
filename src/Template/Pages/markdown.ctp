@@ -12,7 +12,7 @@
 <?php
     $markdownHelper = $this->loadHelper('Gourmet/CommonMark.CommonMark');
     $examples = [
-        'Italics and Bold' => "This is *bold*. \nSo is _this_.\nAnd both **this** and __this__ is bold.\n\nIf you want to mix bold and italics, *you can do it __like this__*.",
+        'Italics and Bold' => "This is *italics*. \nSo is _this_.\nAnd both **this** and __this__ is bold.\n\nIf you want to mix bold and italics, *you can do it __like this__*.",
         'Line Breaks' => "Single line breaks\nare normally ignored.\n\nBut double line breaks aren't.\n\nIf you need a single line break, (two spaces go here -->)  \nend a line with two spaces before hitting return.",
         'Blockquotes' => "Need a blockquote? Well, as Mahatma Gandhi famously said,\n> Do it\n> like this, \n> ya dinglefuck.",
         'Unordered Lists' => "- Start lines\n- With dashes\n- For simple lists\n\nOh, you need line breaks inside of list items?\n- Make sure  \n  Them shits  \n  Is indented  \n  As fuck.\n- And remember the thing about ending a line with two spaces if you want a single line break after it.",
