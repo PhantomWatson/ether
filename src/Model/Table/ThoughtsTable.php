@@ -396,9 +396,14 @@ class ThoughtsTable extends Table
      */
     public function formatThought($thought)
     {
-        $thought = $this->linkThoughtwords($thought);
+        // Remove all HTML added by the user
+        $thought = $this->stripTags($thought, true);
+
+        // Convert Markdown to HTML, then strip all tags not whitelisted
         $thought = $this->parseMarkdown($thought);
         $thought = $this->stripTags($thought);
+
+        $thought = $this->linkThoughtwords($thought);
         $thought = $this->addWordBreaks($thought);
         return $thought;
     }
@@ -408,9 +413,12 @@ class ThoughtsTable extends Table
         return $this->convertToHtml($input);
     }
 
-    public function stripTags($input)
+    public function stripTags($input, $allTags = false)
     {
-        $allowedTags = '<i><b><em><strong><ul><ol><li><a><p><br><wbr><blockquote>';
+        $allowedTags = '<i><b><em><strong><ul><ol><li><p><br><wbr><blockquote>';
+        if ($allTags) {
+            return strip_tags($input);
+        }
         return strip_tags($input, $allowedTags);
     }
 
