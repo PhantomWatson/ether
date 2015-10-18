@@ -20,8 +20,18 @@
     ];
 ?>
 
+<ul>
+    <?php foreach ($examples as $header => $example): ?>
+        <li>
+            <a href="#section-<?= strtolower(str_replace(' ', '-', $header)) ?>">
+                <?= $header ?>
+            </a>
+        </li>
+    <?php endforeach; ?>
+</ul>
+
 <?php foreach ($examples as $header => $example): ?>
-    <section class="markdown-example row">
+    <section class="markdown-example row" id="section-<?= strtolower(str_replace(' ', '-', $header)) ?>">
         <div class="col-sm-offset-2 col-sm-8">
             <h2>
                 <?= $header ?>
