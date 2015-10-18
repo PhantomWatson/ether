@@ -4,16 +4,20 @@
 
 @ContentWidth: 500px;
 @FooterHeight: 70px;
+@generalTextColor: #ccc;
 @grid-float-breakpoint: 850px;
 @FontColorError: #D00;
 @FontColorSuccess: #0D0;
 @linkColor: #B4A7BF;
+@table-bg: transparent;
+@pre-color: @generalTextColor;
+@blockquote-font-size: 100%;
 
 html, body {
 	background-attachment: fixed;
 	background-color: #222;
     background-image: linear-gradient(to top, rgb(10,10,10) 0%, rgb(32,32,32) 10%, rgb(34,34,34) 11%, rgb(34,34,34) 90%, rgb(34,34,34) 95%, rgb(34,34,34) 98%);
-	color: #ccc;
+	color: @generalTextColor;
 	font-family: Verdana, Helvetica, Arial;
 	height: 100%;
 	margin: 0;
@@ -1272,4 +1276,20 @@ pre.cake-error {
         content: close-quote;
     }
 
+}
+
+.markdown-example {
+	margin-bottom: 30px;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+	div > div,
+	pre {
+		background: rgba(0, 0, 0, 0.2);
+		border: 1px solid #555;
+		border-radius: 5px;
+		margin: 10px 0;
+		padding: 5px;
+	}
 }

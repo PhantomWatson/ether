@@ -44,6 +44,7 @@ Router::defaultRouteClass('Route');
 Router::scope('/', function ($routes) {
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'home']);
 	$routes->connect('/about', ['controller' => 'Pages', 'action' => 'about']);
+    $routes->connect('/markdown', ['controller' => 'Pages', 'action' => 'markdown']);
 
 	$routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
 	$routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);

@@ -70,4 +70,12 @@ class PagesController extends AppController
             'title_for_layout' => 'About',
         ]);
     }
+
+    public function markdown()
+    {
+
+        $this->set([
+            'title_for_layout' => 'Markdown'
+        ]);
+    }
 }
