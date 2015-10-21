@@ -32,7 +32,7 @@
                     'text' => 'Thought'
                 ],
                 'type' => 'textarea',
-                'placeholder' => 'Write a thought...'
+                'placeholder' => 'What\'s on your mind?'
             ]
         ) ?>
         <div class="footnote">Allowable HTML: &lt;b&gt; &lt;i&gt;</div>
