@@ -92,9 +92,7 @@ class ThoughtsTable extends Table
      */
     public function getWords()
     {
-        $populatedThoughtwords = Cache::read('populatedThoughtwords');
-
-        if ($populatedThoughtwords === false) {
+        return Cache::remember('populatedThoughtwords', function () {
             $populatedThoughtwords = $this
                 ->find('all')
                 ->select(['word'])
@@ -103,28 +101,17 @@ class ThoughtsTable extends Table
                 ->extract('word')
                 ->toArray();
             $populatedThoughtwordHash = md5(serialize($populatedThoughtwords));
-            Cache::write('populatedThoughtwords', $populatedThoughtwords);
             Cache::write('populatedThoughtwordHash', $populatedThoughtwordHash);
-        }
-
-        return $populatedThoughtwords;
+            return $populatedThoughtwords;
+        });
     }
 
     public function getPopulatedThoughtwordHash()
     {
-        $populatedThoughtwordHash = Cache::read('populatedThoughtwordHash');
-
-        if (! $populatedThoughtwordHash) {
+        return Cache::remember('populatedThoughtwordHash', function () {
             $populatedThoughtwords = $this->getWords();
-            $populatedThoughtwordHash = Cache::read('populatedThoughtwordHash');
-
-            if (! $populatedThoughtwordHash) {
-                Log::write('error', 'populatedThoughtwordHash could not be read from cache');
-                return md5(serialize($populatedThoughtwords));
-            }
-        }
-
-        return $populatedThoughtwordHash;
+            return md5(serialize($populatedThoughtwords));
+        });
     }
 
     /**
@@ -143,29 +130,24 @@ class ThoughtsTable extends Table
      */
     public function getCloud($limit = false)
     {
-        $cached = Cache::read('thoughtwordCloud');
-        if ($cached) {
-            return $cached;
-        }
-
-        $query = $this->find('list', [
-                'keyField' => 'word',
-                'valueField' => 'count'
-            ])
-            ->select([
-                'word',
-                'count' => $this->find()->func()->count('*')
-            ])
-            ->group('word')
-            ->order(['count' => 'DESC']);
-        if ($limit) {
-            $query->limit($limit);
-        }
-        $result = $query->toArray();
-        ksort($result);
-
-        Cache::write('thoughtwordCloud', $result, 'long');
-        return $result;
+        return Cache::remember('thoughtwordCloud', function () {
+            $query = $this->find('list', [
+                    'keyField' => 'word',
+                    'valueField' => 'count'
+                ])
+                ->select([
+                    'word',
+                    'count' => $this->find()->func()->count('*')
+                ])
+                ->group('word')
+                ->order(['count' => 'DESC']);
+            if ($limit) {
+                $query->limit($limit);
+            }
+            $result = $query->toArray();
+            ksort($result);
+            return $result;
+        }, 'long');
     }
 
     /**
@@ -642,14 +624,10 @@ class ThoughtsTable extends Table
 
     public function getAllIds()
     {
-        $cached = Cache::read('allThoughtIds');
-        if ($cached) {
-            return $cached;
-        }
-        $result = $this->find('list')
-            ->select(['id'])
-            ->toArray();
-        Cache::write('allThoughtIds', $result, 'long');
-        return $result;
+        return Cache::remember('allThoughtIds', function () {
+            return $this->find('list')
+                ->select(['id'])
+                ->toArray();
+        }, 'long');
     }
 }
