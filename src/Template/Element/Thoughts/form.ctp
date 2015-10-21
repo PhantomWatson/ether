@@ -35,7 +35,6 @@
                 'placeholder' => 'What\'s on your mind?'
             ]
         ) ?>
-        <div class="footnote">Allowable HTML: &lt;b&gt; &lt;i&gt;</div>
 
         <div class="options row">
             <div class="form-group col-md-5">
@@ -66,5 +65,16 @@
                 <?= $this->Form->end(); ?>
             </div>
         </div>
+
+        <p>
+            Styles like *<em>italics</em>* and **<strong>bold</strong>** can be applied with Markdown. For a full list of supported styles, consult the
+            <?= $this->Html->link('Markdown styling guide',
+                [
+                    'controller' => 'Pages',
+                    'action' => 'markdown'
+                ],
+                ['target' => '_blank']
+            ) ?>
+        </p>
     </div>
 </div>
