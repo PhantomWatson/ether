@@ -73,9 +73,6 @@ class PagesController extends AppController
 
     public function markdown()
     {
-
-        $this->set([
-            'title_for_layout' => 'Markdown'
-        ]);
+        $this->set(['title_for_layout' => 'Markdown']);
     }
 }
