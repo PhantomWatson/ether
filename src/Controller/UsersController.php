@@ -77,10 +77,11 @@ class UsersController extends AppController
                 $cleanColor = preg_replace("/[^a-z0-9]/", '', $cleanColor);
 
                 $user->set([
-                    'password' => $this->request->data['User']['password'],
+                    'password' => $this->request->data['new_password'],
                     'email' => $cleanEmail,
                     'color' => $cleanColor,
-                    'password_version' => 3
+                    'password_version' => 3,
+                    'is_admin' => 0
                 ]);
 
                 if ($this->Users->save($user)) {
@@ -106,11 +107,12 @@ class UsersController extends AppController
 
         /* So the password fields aren't filled out automatically when the user
          * is bounced back to the page by a validation error */
-        $this->request->data['User']['new_password'] = null;
-        $this->request->data['User']['confirm_password'] = null;
+        $this->request->data['new_password'] = null;
+        $this->request->data['confirm_password'] = null;
 
         $this->set([
             'title_for_layout' => 'Register Account',
+            'user' => $user
         ]);
     }
 
