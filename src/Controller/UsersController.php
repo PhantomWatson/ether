@@ -102,7 +102,7 @@ class UsersController extends AppController
                 }
                 $isTaken = $this->Users->colorIsTaken($this->request->data['color']);
             } while ($isTaken);
-            $this->set('random_color', true);
+            $this->set('randomColor', true);
         }
 
         /* So the password fields aren't filled out automatically when the user
@@ -111,7 +111,7 @@ class UsersController extends AppController
         $this->request->data['confirm_password'] = null;
 
         $this->set([
-            'title_for_layout' => 'Register Account',
+            'titleForLayout' => 'Register Account',
             'user' => $user
         ]);
     }
