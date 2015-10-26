@@ -79,10 +79,12 @@
             <br />That's probably a bad sign. :(
         </p>
     <?php else: ?>
-        <?= $this->element('cloud', ['words' => $cloud, 'animate' => true]) ?>
-        <script>
-            var cloud = document.getElementById('frontpage_cloud');
-            cloud.className = cloud.className + ' animate';
-        </script>
+        <?= $this->element('cloud', ['words' => $cloud, 'animate' => isset($_GET['animate'])]) ?>
+        <?php if (isset($_GET['animate'])): ?>
+            <script>
+                var cloud = document.getElementById('frontpage_cloud');
+                cloud.className = cloud.className + ' animate';
+            </script>
+        <?php endif; ?>
 	<?php endif; ?>
 </div>
