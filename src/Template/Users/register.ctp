@@ -1,12 +1,12 @@
 <div id="content_title">
 	<h1>
-		<?= $title_for_layout ?>
+		<?= $titleForLayout ?>
 	</h1>
 </div>
 
 <div class="content_box">
 	<?php
-		echo $this->Form->create('User');
+		echo $this->Form->create($user);
 		echo $this->Form->input(
 			'email',
 			[
@@ -47,13 +47,8 @@
 			Color
 		</label>
 		<div class="ajax_message"></div>
-		<input type="text" size="7" maxlength="7" name="data[color]" id="color_hex" value="<?= $this->request->data['color'] ?>" class="form-control color" />
-		<div class="error-message">
-			<?php if (false && isset($this->validationErrors['User']['color'])): ?>
-				<?= implode('<br />', $this->validationErrors['User']['color']) ?>
-			<?php endif; ?>
-		</div>
-		<?php if (isset($random_color)): ?>
+		<input type="text" size="7" maxlength="7" name="color" id="color_hex" value="<?= $this->request->data['color'] ?>" class="form-control color" />
+		<?php if (isset($randomColor)): ?>
 			<div class="footnote">
 				We've pre-selected a random color for you, but feel free to change it.
 			</div>
@@ -65,7 +60,7 @@
 			Human?
 		</label>
 		<?= $this->Recaptcha->display() ?>
-		<?php if (isset($recaptcha_error)): ?>
+		<?php if (isset($recaptchaError)): ?>
 			<div class="error-message">
 				Invalid CAPTCHA response. Please try again.
 			</div>
