@@ -91,7 +91,7 @@ class UsersController extends AppController
                     $this->Flash->error('There was an error registering your account. Please try again.');
                 }
             } else {
-                $this->Flash->error('Invalid CAPTCHA response');
+                $this->set('recaptchaError', true);
             }
         } else {
             // Select a random available color
