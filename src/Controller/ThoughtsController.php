@@ -215,7 +215,6 @@ class ThoughtsController extends AppController
 
         $formattedThought = $this->Thoughts->formatThought($thought->thought);
         $thought->formatted_thought = $formattedThought;
-        $thought->formatting_key = $formattingKey;
         $this->Thoughts->save($thought);
 
         $this->set([
