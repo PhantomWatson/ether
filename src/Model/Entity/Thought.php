@@ -4,6 +4,7 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use Cake\Cache\Cache;
+use Cake\I18n\Time;
 use Cake\Log\Log;
 
 /**
@@ -47,6 +48,7 @@ class Thought extends Entity
         $thoughtsTable = TableRegistry::get('Thoughts');
         $hash = $thoughtsTable->getPopulatedThoughtwordHash();
         $this->set('formatting_key', $hash);
+        $this->set('formatted', Time::now());
         return $formattedThought;
     }
 
