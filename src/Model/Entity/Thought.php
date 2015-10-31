@@ -34,6 +34,14 @@ class Thought extends Entity
     ];
     public $max_thoughtword_length = 30;
 
+    public function _setThought($thought)
+    {
+        $thoughtsTable = TableRegistry::get('Thoughts');
+        $formattedThought = $thoughtsTable->formatThought($thought);
+        $this->set('formatted_thought', $formattedThought);
+        return $thought;
+    }
+
     public function _setFormattedThought($formattedThought)
     {
         $thoughtsTable = TableRegistry::get('Thoughts');
