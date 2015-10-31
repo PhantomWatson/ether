@@ -129,28 +129,31 @@ var thought = {
     	if (formattingKey === '') {
     		return;
     	}
-    	$('div.thought').each(function () {
-    		var thought = $(this);
-    		if (thought.data('formatting-key') == formattingKey) {
-    			return;
-    		}
-    		
-    		var body = thought.children('.body');
-    		$.ajax({
-    			url: '/thoughts/refreshFormatting/'+thought.data('thought-id'),
-    			dataType: 'json',
-    			beforeSend: function () {
-    			    if (body.html().trim() === '') {
-    			        body.html('<img src="/img/loading_small.gif" alt="Loading..." />');
-    			    }
-    			},
-    			success: function (data) {
-    				if (data.success && data.update) {
-    					body.html(data.formattedThought);
-    				}
-    			}
-    		});
-    	});
+    	var refresh = function (model, formattingKey) { 
+        	$('div.'+model).each(function () {
+        		var post = $(this);
+        		if (post.data('formatting-key') == formattingKey) {
+        			return;
+        		}
+        		var body = post.children('.body');
+        		$.ajax({
+        			url: '/'+model+'s/refreshFormatting/'+post.data(model+'-id'),
+        			dataType: 'json',
+        			beforeSend: function () {
+        			    if (body.html().trim() === '') {
+        			        body.html('<img src="/img/loading_small.gif" alt="Loading..." />');
+        			    }
+        			},
+        			success: function (data) {
+        				if (data.success && data.update) {
+        					body.html(data.formattedThought);
+        				}
+        			}
+        		});
+        	});
+    	};
+    	refresh('thought', formattingKey);
+    	refresh('comment', formattingKey);
     }
 };
 

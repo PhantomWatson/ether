@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Comments Controller
@@ -104,5 +105,47 @@ class CommentsController extends AppController
             $this->Flash->error('The comment could not be deleted. Please, try again.');
         }
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function refreshFormatting($commentId)
+    {
+        $this->layout = 'json';
+        $thoughtsTable = TableRegistry::get('Thoughts');
+
+        try {
+            $comment = $this->Comments->get($commentId);
+        } catch (RecordNotFoundException $e) {
+            $this->set([
+                'result' => [
+                    'success' => false,
+                    'update' => false
+                ]
+            ]);
+            return;
+        }
+
+        $formattingKey = $thoughtsTable->getPopulatedThoughtwordHash();
+        if ($formattingKey == $comment->formatting_key) {
+            $this->set([
+                'result' => [
+                    'success' => true,
+                    'update' => false
+                ]
+            ]);
+            return;
+        }
+
+        $formattedComment = $thoughtsTable->formatThought($comment->comment);
+        $comment->formatted_comment = $formattedComment;
+        $this->Comments->save($comment);
+
+        $this->set([
+            'result' => [
+                'success' => true,
+                'update' => true,
+                'formattedThought' => $formattedComment
+            ]
+        ]);
+        return $this->render('/Thoughts/refresh_formatting');
     }
 }
