@@ -13,12 +13,10 @@ class ThoughtListener implements EventListenerInterface
     {
         return [
             'Model.Thought.created' => [
-                ['callable' => 'updatePopulatedThoughtwords'],
-                ['callable' => 'formatThought']
+                ['callable' => 'updatePopulatedThoughtwords']
             ],
             'Model.Thought.updated' => [
-                ['callable' => 'updatePopulatedThoughtwords'],
-                ['callable' => 'formatThought']
+                ['callable' => 'updatePopulatedThoughtwords']
             ],
             'Model.Thought.deleted' => [
                 ['callable' => 'updatePopulatedThoughtwords']
@@ -45,14 +43,5 @@ class ThoughtListener implements EventListenerInterface
         // Get and cache new list now, so the slight delay is experienced by the poster, not the next viewer
         Cache::delete('populatedThoughtwords');
         $thoughts->getWords();
-    }
-
-    public function formatThought($event, $entity)
-    {
-        $thoughtsTable = TableRegistry::get('Thoughts');
-        $formattedThought = $thoughtsTable->formatThought($entity->get('thought'));
-        $entity->set('formatted_thought', $formattedThought);
-        $entity->set('formatted', Time::now());
-        $thoughtsTable->save($entity);
     }
 }
