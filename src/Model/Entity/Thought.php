@@ -41,4 +41,10 @@ class Thought extends Entity
         $this->set('formatting_key', $hash);
         return $formattedThought;
     }
+
+    public function _setWord($word)
+    {
+        $thoughtsTable = TableRegistry::get('Thoughts');
+        return $thoughtsTable->formatThoughtword($word);
+    }
 }
