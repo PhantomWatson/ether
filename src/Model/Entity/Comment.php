@@ -19,13 +19,7 @@ class Comment extends Entity
     protected $_accessible = [
         'thought_id' => true,
         'user_id' => true,
-        'color' => true,
-        'comment' => true,
-        'time' => true,
-        'parsedTextCache' => true,
-        'cacheTimestamp' => true,
-        'thought' => true,
-        'user' => true,
+        'comment' => true
     ];
 
     public function _setComment($comment)
