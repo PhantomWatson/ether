@@ -6,11 +6,7 @@
     <?php if ($thought['comments_enabled']): ?>
         <div class="comments">
             <?php foreach ($thought['comments'] as $comment): ?>
-                <?= $this->element('Comments/view', [
-                    'comment' => $comment['comment'],
-                    'color' => $comment['user']['color'],
-                    'commentId' => $comment['id']
-                ]) ?>
+                <?= $this->element('Comments/view', compact('comment')) ?>
             <?php endforeach; ?>
             <div id="newcomment<?= $thought['id'] ?>view"></div>
             <div id="newcomment<?= $thought['id'] ?>add" style="display: none;" class="add_comment">
