@@ -828,13 +828,17 @@ body.popup_active {
 	}
 }
 #frontpage_cloud {
-	&.animate {
+	&.animate_hide {
+		a {
+			opacity: 0;
+		}
+	}
+	&.animate_show {
 		a {
 			opacity: 1;
 		}
 	}
     a {
-        opacity: 0;
         transition-duration: 1s;
         transition-property: opacity;
         transition-timing-function: ease-out;

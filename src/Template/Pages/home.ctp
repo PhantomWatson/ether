@@ -72,7 +72,7 @@
     </h2>
 	<?= $this->element('Thoughts'.DS.'recent') ?>
 </div>
-<div class="cloud" id="frontpage_cloud">
+<div class="cloud <?= isset($_GET['animate']) ? 'animate_hide' : '' ?>" id="frontpage_cloud">
     <?php if (empty($cloud)): ?>
         <p>
             Sorry, we couldn't find any thoughts in the database.
@@ -83,7 +83,7 @@
         <?php if (isset($_GET['animate'])): ?>
             <script>
                 var cloud = document.getElementById('frontpage_cloud');
-                cloud.className = cloud.className + ' animate';
+                cloud.className = 'cloud animate_show';
             </script>
         <?php endif; ?>
 	<?php endif; ?>
