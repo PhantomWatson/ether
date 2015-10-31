@@ -16,6 +16,9 @@ class AddFormattedCommentToComments extends AbstractMigration
             'after' => 'comment',
             'null' => true,
             'limit' => 32
+        ])->addColumn('formatted', 'datetime', [
+            'default' => null,
+            'null' => true
         ])->update();
     }
 }
