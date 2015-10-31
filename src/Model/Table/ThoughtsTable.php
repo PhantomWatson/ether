@@ -130,7 +130,7 @@ class ThoughtsTable extends Table
      */
     public function getCloud($limit = false)
     {
-        return Cache::remember('thoughtwordCloud', function () {
+        return Cache::remember('thoughtwordCloud', function () use ($limit) {
             $query = $this->find('list', [
                     'keyField' => 'word',
                     'valueField' => 'count'
