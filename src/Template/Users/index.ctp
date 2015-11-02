@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-sm-offset-2 col-sm-8">
         <p>
-        	Each of these colors represents a Thinker. Click to view profiles.
+        	Each of these colors represents a Thinker who has contributed thoughts to Ether. Click a color to view that Thinker's profile.
         </p>
 
         <p>
