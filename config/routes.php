@@ -49,6 +49,7 @@ Router::scope('/', function ($routes) {
 	$routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
 	$routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
 	$routes->connect('/register', ['controller' => 'Users', 'action' => 'register']);
+    $routes->connect('/settings', ['controller' => 'Users', 'action' => 'settings']);
     $routes->connect('/thinkers', ['controller' => 'Users', 'action' => 'index']);
 	$routes->connect('/thinker/:color', ['controller' => 'Users', 'action' => 'view'], ['pass' => ['color']]);
 

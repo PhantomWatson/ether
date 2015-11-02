@@ -81,8 +81,8 @@
                         </li>
                         <li>
                             <?= $this->Html->link(
-                                'Account',
-                                ['controller' => 'Users', 'action' => 'account']
+                                'Settings',
+                                ['controller' => 'Users', 'action' => 'settings']
                             ) ?>
                         </li>
                         <li>

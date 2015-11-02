@@ -203,12 +203,12 @@ class UsersController extends AppController
         $this->set('available', ! $this->Users->colorIsTaken($color));
     }
 
-    public function account()
+    public function settings()
     {
         $userId = $this->Auth->user('id');
         $user = $this->Users->get($userId);
         $this->set([
-            'title_for_layout' => 'Account',
+            'title_for_layout' => 'Settings',
             'user' => $user
         ]);
 
