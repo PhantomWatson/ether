@@ -158,6 +158,12 @@ class MessagesTable extends Table
         return $conversations;
     }
 
+    /**
+     * Returns a group of messages exchanged between two users
+     * @param int $userId
+     * @param int $anotherUserId
+     * @return array
+     */
     public function getConversation($userId, $anotherUserId)
     {
         return $this->find('all')
