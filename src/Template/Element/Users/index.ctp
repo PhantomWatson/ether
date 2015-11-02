@@ -1,4 +1,5 @@
 <?php
+$selectedColor = isset($selectedColor) ? $selectedColor : null;
 
 // Surely there's a less awkward way to do this
 $maxCount = 0;
