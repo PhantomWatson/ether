@@ -14,7 +14,7 @@
 <div id="conversation">
     <?php if (empty($messages)): ?>
         <p>
-
+            You have not exchanged any messages with this Thinker yet.
         </p>
     <?php else: ?>
         <?php foreach ($messages as $message): ?>
