@@ -11,11 +11,18 @@ use Cake\Utility\Hash;
  */
 class MessagesController extends AppController
 {
+    public $paginate = [
+        'limit' => 10,
+        'order' => [
+            'Messages.created' => 'DESC'
+        ]
+    ];
 
     public function initialize()
     {
         parent::initialize();
         $this->loadComponent('RequestHandler');
+        $this->loadComponent('Paginator');
     }
 
     public function index($penpalColor = null)
@@ -144,9 +151,16 @@ class MessagesController extends AppController
         $this->loadModel('Users');
         $penpalId = $this->Users->getIdFromColor($penpalColor);
         $penpal = $this->Users->get($penpalId);
+        $query = $this->Messages->getConversation($userId, $penpalId);
+        if (isset($_GET['full'])) {
+            $messages = $query->toArray();
+        } else {
+            $messages = $this->paginate($query)->toArray();
+            $messages = array_reverse($messages);
+        }
         $this->set([
             'titleForLayout' => 'Messages with Thinker #'.$penpalColor,
-            'messages' => $this->Messages->getConversation($userId, $penpalId),
+            'messages' => $messages,
             'penpalId' => $penpalId,
             'penpalColor' => $penpal->color,
             'penpalAcceptsMessages' => $this->Users->acceptsMessages($penpalId),

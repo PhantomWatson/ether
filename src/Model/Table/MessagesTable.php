@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\Network\Exception\InternalErrorException;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -161,20 +162,20 @@ class MessagesTable extends Table
     /**
      * Returns a group of messages exchanged between two users
      * @param int $userId
-     * @param int $anotherUserId
-     * @return array
+     * @param int $penpalId
+     * @return Query
      */
-    public function getConversation($userId, $anotherUserId)
+    public function getConversation($userId, $penpalId)
     {
         return $this->find('all')
             ->where([
                 'OR' => [
                     [
                         'sender_id' => $userId,
-                        'recipient_id' => $anotherUserId
+                        'recipient_id' => $penpalId
                     ],
                     [
-                        'sender_id' => $anotherUserId,
+                        'sender_id' => $penpalId,
                         'recipient_id' => $userId
                     ]
                 ]
@@ -195,8 +196,7 @@ class MessagesTable extends Table
                     return $q->select(['id', 'color']);
                 }
             ])
-            ->order(['Messages.created' => 'ASC'])
-            ->toArray();
+            ->order(['Messages.created' => 'ASC']);
     }
 
     public function getNewMessagesCount($userId)
