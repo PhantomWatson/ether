@@ -213,7 +213,7 @@ class MessagesTable extends Table
             ->count();
     }
 
-    public function setConversationAsRead($userId, $anotherUserId)
+    public function setConversationAsRead($userId, $penpalId)
     {
         $messages = $this->find('all')
             ->select(['id'])
@@ -222,10 +222,10 @@ class MessagesTable extends Table
                 'OR' => [
                     [
                         'sender_id' => $userId,
-                        'recipient_id' => $anotherUserId
+                        'recipient_id' => $penpalId
                     ],
                     [
-                        'sender_id' => $anotherUserId,
+                        'sender_id' => $penpalId,
                         'recipient_id' => $userId
                     ]
                 ]
@@ -243,20 +243,20 @@ class MessagesTable extends Table
      * Returns the number of messages exchanged between two users
      *
      * @param int $userId
-     * @param int $anotherUserId
+     * @param int $penpalId
      * @return int
      */
-    public function getConversationCount($userId, $anotherUserId)
+    public function getConversationCount($userId, $penpalId)
     {
         return $this->find('all')
             ->where([
                 'OR' => [
                     [
                         'sender_id' => $userId,
-                        'recipient_id' => $anotherUserId
+                        'recipient_id' => $penpalId
                     ],
                     [
-                        'sender_id' => $anotherUserId,
+                        'sender_id' => $penpalId,
                         'recipient_id' => $userId
                     ]
                 ]
