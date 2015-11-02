@@ -46,6 +46,9 @@
                 'message' => $message
             ]) ?>
         <?php endforeach; ?>
+        <?php $this->append('buffered_js'); ?>
+            messages.scrollToLastMsg();
+        <?php $this->end(); ?>
     <?php endif; ?>
 </div>
 

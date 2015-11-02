@@ -3124,6 +3124,16 @@ var messages = {
             messages.selectConversation(color);
         });
     },
+    scrollToLastMsg: function () {
+        var lastMsg = $('#conversation div.row:last-child');
+        if (lastMsg.length === 0) {
+            return;
+        }
+        $(window).scrollTo(lastMsg, 1000, {
+            interrupt: true,
+            offset: -100,
+        });
+    },
     cancelCurrentRequest: function () {
         if (this.currentRequest) {
             this.currentRequest.abort();
