@@ -86,6 +86,7 @@ class AppController extends Controller
         $messagesTable = TableRegistry::get('Messages');
         $this->set([
             'userId' => $userId,
+            'userColor' => $this->Auth->user('color'),
             'loggedIn' => $userId !== null,
             'newMessages' => $userId ? $messagesTable->getNewMessagesCount($userId) : 0
         ]);

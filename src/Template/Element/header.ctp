@@ -75,6 +75,12 @@
                     <ul class="dropdown-menu">
                         <li>
                             <?= $this->Html->link(
+                                'My Profile',
+                                ['controller' => 'Users', 'action' => 'view', $userColor]
+                            ) ?>
+                        </li>
+                        <li>
+                            <?= $this->Html->link(
                                 'Account',
                                 ['controller' => 'Users', 'action' => 'account']
                             ) ?>
