@@ -10,9 +10,20 @@
 <div id="conversations">
     <?php if (empty($conversations)): ?>
         <div class="row">
-            <div class="col-sm-offset-2 col-sm-8">
-                <p class="no_messages">
+            <div class="col-sm-offset-2 col-sm-8 no_messages">
+                <p>
                     No messages sent or received. :(
+                </p>
+                <p>
+                    Start a conversation with another Thinker today by visiting
+                    <?= $this->Html->link(
+                        'a profile page',
+                        [
+                            'controller' => 'Users',
+                            'action' => 'index'
+                        ]
+                    ) ?>
+                    and sending them a message. (Note that some people opt out of receiving messages.)
                 </p>
             </div>
         </div>
