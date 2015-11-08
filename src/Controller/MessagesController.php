@@ -12,7 +12,7 @@ use Cake\Utility\Hash;
 class MessagesController extends AppController
 {
     public $paginate = [
-        'limit' => 10,
+        'limit' => 5,
         'order' => [
             'Messages.created' => 'DESC'
         ]
@@ -162,6 +162,7 @@ class MessagesController extends AppController
 
         $this->set([
             'messages' => $messages,
+            'penpalId' => $penpalId
         ]);
 
         if ($this->request->is('ajax')) {
@@ -169,7 +170,6 @@ class MessagesController extends AppController
         } else {
             $this->set([
                 'titleForLayout' => 'Messages with Thinker #'.$penpalColor,
-                'penpalId' => $penpalId,
                 'penpalColor' => $penpal->color,
                 'penpalAcceptsMessages' => $this->Users->acceptsMessages($penpalId),
                 'messageEntity' => $this->Messages->newEntity()
