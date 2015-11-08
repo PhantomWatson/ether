@@ -158,14 +158,22 @@ class MessagesController extends AppController
             $messages = $this->paginate($query)->toArray();
             $messages = array_reverse($messages);
         }
-        $this->set([
-            'titleForLayout' => 'Messages with Thinker #'.$penpalColor,
-            'messages' => $messages,
-            'penpalId' => $penpalId,
-            'penpalColor' => $penpal->color,
-            'penpalAcceptsMessages' => $this->Users->acceptsMessages($penpalId),
-            'messageEntity' => $this->Messages->newEntity()
-        ]);
         $this->Messages->setConversationAsRead($userId, $penpalId);
+
+        $this->set([
+            'messages' => $messages,
+        ]);
+
+        if ($this->request->is('ajax')) {
+            return $this->render('conversation_page');
+        } else {
+            $this->set([
+                'titleForLayout' => 'Messages with Thinker #'.$penpalColor,
+                'penpalId' => $penpalId,
+                'penpalColor' => $penpal->color,
+                'penpalAcceptsMessages' => $this->Users->acceptsMessages($penpalId),
+                'messageEntity' => $this->Messages->newEntity()
+            ]);
+        }
     }
 }
