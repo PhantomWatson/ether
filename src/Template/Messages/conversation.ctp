@@ -16,37 +16,7 @@
         You have not exchanged any messages with this Thinker yet.
     </p>
 <?php else: ?>
-    <?php
-        $pagingUsed = $this->Paginator->hasNext() || ($this->Paginator->hasPrev() && ! $this->request->is('ajax'));
-        $this->Paginator->templates([
-            'nextActive' => '<a href="{{url}}" class="prev">{{text}}</a>',
-            'prevActive' => '<a href="{{url}}" class="next">{{text}}</a>'
-        ]);
-        if ($pagingUsed) {
-            echo '<p class="paging">';
-            $current = $this->Paginator->counter('{{current}}');
-            $count = $this->Paginator->counter('{{count}}');
-            echo 'Showing <span id="totalMsgShown">'.number_format($current).'</span> ';
-            echo 'of '.number_format($count).' messages. ';
-            if ($this->Paginator->hasNext()) {
-                echo $this->Paginator->next('Show older messages');
-            }
-            if ($this->Paginator->hasPrev() && ! $this->request->is('ajax')) {
-                $label = 'show newer messages';
-                $label = $this->Paginator->hasNext() ? ", $label," : ucfirst($label);
-                echo $this->Paginator->prev($label);
-            }
-            echo ' or <a href="?full">show full conversation</a>.';
-            echo '</p>';
-        }
-    ?>
-    <div id="conversation">
-        <?php foreach ($messages as $message): ?>
-            <?= $this->element('Messages/message', [
-                'message' => $message
-            ]) ?>
-        <?php endforeach; ?>
-    </div>
+    <?= $this->element('Messages'.DS.'conversation') ?>
     <?php $this->append('buffered_js'); ?>
         messages.scrollToLastMsg();
     <?php $this->end(); ?>
