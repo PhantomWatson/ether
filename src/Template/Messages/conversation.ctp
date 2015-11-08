@@ -16,7 +16,13 @@
         You have not exchanged any messages with this Thinker yet.
     </p>
 <?php else: ?>
-    <?= $this->element('Messages'.DS.'conversation') ?>
+    <?php
+        $pagingUsed = $this->Paginator->hasNext() || ($this->Paginator->hasPrev() && ! $this->request->is('ajax'));
+        if ($pagingUsed) {
+            echo '<p class="paging"><a href="?full">Show full conversation</a></p>';
+        }
+        echo $this->element('Messages'.DS.'conversation');
+    ?>
     <?php $this->append('buffered_js'); ?>
         messages.scrollToLastMsg();
         messages.setupPagination();

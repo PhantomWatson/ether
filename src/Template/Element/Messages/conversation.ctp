@@ -1,12 +1,8 @@
 <?php
-    $pagingUsed = $this->Paginator->hasNext() || ($this->Paginator->hasPrev() && ! $this->request->is('ajax'));
     $this->Paginator->templates([
         'nextActive' => '<a href="{{url}}" class="prev">{{text}}</a>',
         'prevActive' => '<a href="{{url}}" class="next">{{text}}</a>'
     ]);
-    if ($pagingUsed) {
-        echo '<p class="paging"><a href="?full">Show full conversation</a></p>';
-    }
 ?>
 <div id="conversation">
     <?php if ($this->Paginator->hasNext()): ?>
