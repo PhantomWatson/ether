@@ -3227,6 +3227,39 @@ var messages = {
     			button.siblings('img.loading').remove();
     		}
     	});
+    },
+    setupPagination: function () {
+        var links = $('.convo_pagination a.next, .convo_pagination a.prev');
+        var loadingIndicator = $('<img src="/img/loading_small.gif" class="loading" />');
+        loadingIndicator.hide();
+        links.append(loadingIndicator);
+        links.click(function (event) {
+            event.preventDefault();
+            var link = $(this);
+            var url = link.attr('href').split('?');
+            $.ajax({
+                data: url[1],
+                beforeSend: function () {
+                    var loading = link.children('.loading');
+                    if (loading.is(':visible')) {
+                        return false;
+                    }
+                    loading.show();
+                },
+                success: function (data) {
+                    var row = link.parents('.row');
+                    row.after(data);
+                    row.remove();
+                    messages.setupPagination();
+                },
+                error: function () {
+                    alert('There was an error loading more messages.');
+                },
+                complete: function () {
+                    link.children('.loading').hide();
+                }
+            });
+        });
     }
 };
 

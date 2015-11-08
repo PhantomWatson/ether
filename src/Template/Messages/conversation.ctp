@@ -19,6 +19,7 @@
     <?= $this->element('Messages'.DS.'conversation') ?>
     <?php $this->append('buffered_js'); ?>
         messages.scrollToLastMsg();
+        messages.setupPagination();
     <?php $this->end(); ?>
 <?php endif; ?>
 
