@@ -1,12 +1,16 @@
 <?php
-    $linkTemplate = '<div class="row convo_pagination"><div class="col-sm-offset-2 col-sm-7"><a href="{{url}}">{{text}}</a></div></div>';
     $this->Paginator->templates([
-        'nextActive' => $linkTemplate,
-        'prevActive' => $linkTemplate
+        'nextActive' => '<div class="row convo_pagination"><div class="col-sm-offset-2 col-sm-7"><a href="{{url}}&dir=next">{{text}}</a></div></div>',
+        'prevActive' => '<div class="row convo_pagination"><div class="col-sm-offset-2 col-sm-7"><a href="{{url}}&dir=prev">{{text}}</a></div></div>'
     ]);
+
+    /* If this is loaded via AJAX, the result of loading 'next'
+     * should only include another link to 'next', and not a link to 'prev' (and vice-versa) */
+    $hasNext = $this->Paginator->hasNext() && ! ($this->request->is('ajax') && $_GET['dir'] == 'prev');
+    $hasPrev = $this->Paginator->hasPrev() && ! ($this->request->is('ajax') && $_GET['dir'] == 'next');
 ?>
 <div id="conversation">
-    <?php if ($this->Paginator->hasNext()): ?>
+    <?php if ($hasNext): ?>
         <?= $this->Paginator->next('Show older messages') ?>
     <?php endif; ?>
 
@@ -16,7 +20,7 @@
         ]) ?>
     <?php endforeach; ?>
 
-    <?php if ($this->Paginator->hasPrev()): ?>
+    <?php if ($hasPrev): ?>
         <?= $this->Paginator->prev('Show newer messages') ?>
     <?php endif; ?>
 </div>
