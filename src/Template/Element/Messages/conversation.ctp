@@ -1,16 +1,13 @@
 <?php
+    $linkTemplate = '<div class="row convo_pagination"><div class="col-sm-offset-2 col-sm-7"><a href="{{url}}">{{text}}</a></div></div>';
     $this->Paginator->templates([
-        'nextActive' => '<a href="{{url}}" class="prev">{{text}}</a>',
-        'prevActive' => '<a href="{{url}}" class="next">{{text}}</a>'
+        'nextActive' => $linkTemplate,
+        'prevActive' => $linkTemplate
     ]);
 ?>
 <div id="conversation">
     <?php if ($this->Paginator->hasNext()): ?>
-        <div class="row convo_pagination">
-            <div class="col-sm-offset-2 col-sm-7">
-                <?= $this->Paginator->next('Show older messages') ?>
-            </div>
-        </div>
+        <?= $this->Paginator->next('Show older messages') ?>
     <?php endif; ?>
 
     <?php foreach ($messages as $message): ?>
@@ -20,10 +17,6 @@
     <?php endforeach; ?>
 
     <?php if ($this->Paginator->hasPrev()): ?>
-        <div class="row convo_pagination">
-            <div class="col-sm-offset-2 col-sm-7">
-                <?= $this->Paginator->prev('Show newer messages') ?>
-            </div>
-        </div>
+        <?= $this->Paginator->prev('Show newer messages') ?>
     <?php endif; ?>
 </div>

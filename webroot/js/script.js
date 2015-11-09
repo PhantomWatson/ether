@@ -654,7 +654,7 @@ var messages = {
     	});
     },
     setupPagination: function () {
-        var links = $('.convo_pagination a.next, .convo_pagination a.prev');
+        var links = $('.convo_pagination a');
         var loadingIndicator = $('<img src="/img/loading_small.gif" class="loading" />');
         loadingIndicator.hide();
         links.append(loadingIndicator);
