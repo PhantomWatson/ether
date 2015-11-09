@@ -12,7 +12,7 @@ use Cake\Utility\Hash;
 class MessagesController extends AppController
 {
     public $paginate = [
-        'limit' => 5,
+        'limit' => 10,
         'order' => [
             'Messages.created' => 'DESC'
         ]
