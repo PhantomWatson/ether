@@ -9,6 +9,15 @@
         ['action' => 'index'],
         ['escape' => false]
     ) ?>
+    <br />
+    <?= $this->Html->link(
+        'View Thinker\'s profile',
+        [
+            'controller' => 'Users',
+            'action' => 'view',
+            $penpalColor
+        ]
+    ) ?>
 </p>
 
 <?php if (empty($messages)): ?>
