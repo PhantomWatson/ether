@@ -75,4 +75,9 @@ class PagesController extends AppController
     {
         $this->set(['title_for_layout' => 'Markdown']);
     }
+
+    public function terms()
+    {
+        $this->set(['titleForLayout' => 'Terms of Use']);
+    }
 }
