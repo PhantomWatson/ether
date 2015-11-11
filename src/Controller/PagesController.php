@@ -80,4 +80,9 @@ class PagesController extends AppController
     {
         $this->set(['titleForLayout' => 'Terms of Use']);
     }
+
+    public function privacy()
+    {
+        $this->set(['titleForLayout' => 'Privacy Policy']);
+    }
 }
