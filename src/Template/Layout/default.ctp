@@ -90,7 +90,7 @@
                     <li>
                         <?= $this->Html->link(
                             'Privacy Policy',
-                            ['controller' => 'Pages', 'action' => 'terms']
+                            ['controller' => 'Pages', 'action' => 'privacy']
                         ) ?>
                     </li>
                     <li>
