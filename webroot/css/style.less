@@ -122,9 +122,9 @@ input {
 	color: #888;
 	font-size: 80%;
 	height: @FooterHeight;
-	margin-top: (@FooterHeight * -1) + 30px;
+	margin-top: 0px - @FooterHeight;
 	padding-bottom: 15px;
-	padding-top: 30px;
+	padding-top: 0;
 	position: relative;
 
 	a {
@@ -236,6 +236,7 @@ input {
 }
 #content_outer {
 	min-height: 100%;
+	padding-bottom: 30px;
 	position: relative;
 }
 body.popup_active {
