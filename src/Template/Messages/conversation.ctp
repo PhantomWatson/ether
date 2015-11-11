@@ -19,7 +19,7 @@
     <?php
         $pagingUsed = $this->Paginator->hasNext() || ($this->Paginator->hasPrev() && ! $this->request->is('ajax'));
         if ($pagingUsed) {
-            echo '<p class="paging"><a href="?full">Show full conversation</a></p>';
+            echo '<p><a href="?full">Show full conversation</a></p>';
         }
         echo $this->element('Messages'.DS.'conversation');
     ?>
