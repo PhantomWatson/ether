@@ -3,35 +3,40 @@
         <?= $titleForLayout ?>
     </h1>
 </div>
-<p>
-    <?= $this->Html->link(
-        '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to conversations',
-        ['action' => 'index'],
-        ['escape' => false]
-    ) ?>
-    <br />
-    <?= $this->Html->link(
-        'View Thinker\'s profile',
-        [
-            'controller' => 'Users',
-            'action' => 'view',
-            $penpalColor
-        ]
-    ) ?>
-</p>
+<ul class="list-unstyled">
+    <li>
+        <?= $this->Html->link(
+            '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to conversations',
+            ['action' => 'index'],
+            ['escape' => false]
+        ) ?>
+    </li>
+    <li>
+        <?= $this->Html->link(
+            'View Thinker\'s profile',
+            [
+                'controller' => 'Users',
+                'action' => 'view',
+                $penpalColor
+            ]
+        ) ?>
+    </li>
+    <?php $pagingUsed = $this->Paginator->hasNext() || ($this->Paginator->hasPrev() && ! $this->request->is('ajax')); ?>
+    <?php if ($pagingUsed): ?>
+        <li>
+            <a href="?full">
+                Show full conversation
+            </a>
+        </li>
+    <?php endif; ?>
+</ul>
 
 <?php if (empty($messages)): ?>
     <p>
         You have not exchanged any messages with this Thinker yet.
     </p>
 <?php else: ?>
-    <?php
-        $pagingUsed = $this->Paginator->hasNext() || ($this->Paginator->hasPrev() && ! $this->request->is('ajax'));
-        if ($pagingUsed) {
-            echo '<p><a href="?full">Show full conversation</a></p>';
-        }
-        echo $this->element('Messages'.DS.'conversation');
-    ?>
+    <?= $this->element('Messages'.DS.'conversation') ?>
     <?php $this->append('buffered_js'); ?>
         messages.scrollToLastMsg();
         messages.setupPagination();
