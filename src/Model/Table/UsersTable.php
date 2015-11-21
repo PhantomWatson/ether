@@ -61,6 +61,12 @@ class UsersTable extends Table
             ->add('timestamp', 'valid', ['rule' => 'numeric'])
             ->requirePresence('color', 'create')
             ->notEmpty('color')
+            ->add('color', 'validColor', [
+                'rule' => function ($value, $context) {
+                    return (boolean) preg_match('/^[a-fA-F0-9]{6}$/', $value);
+                },
+                'message' => 'That does not appear to be a valid hexadecimal color'
+            ])
             ->add('messageNotification', 'valid', ['rule' => 'boolean'])
             ->add('acceptMessages', 'valid', ['rule' => 'boolean'])
             ->add('emailUpdates', 'valid', ['rule' => 'boolean'])
