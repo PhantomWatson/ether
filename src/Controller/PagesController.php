@@ -85,4 +85,9 @@ class PagesController extends AppController
     {
         $this->set(['titleForLayout' => 'Privacy Policy']);
     }
+
+    public function contact()
+    {
+        $this->set(['titleForLayout' => 'Contact']);
+    }
 }
