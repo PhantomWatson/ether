@@ -16,8 +16,9 @@ namespace App\Controller;
 
 use Cake\Core\Configure;
 use Cake\Network\Exception\NotFoundException;
-use Cake\View\Exception\MissingTemplateException;
 use Cake\ORM\TableRegistry;
+use Cake\Routing\Router;
+use Cake\View\Exception\MissingTemplateException;
 
 /**
  * Static content controller
@@ -89,5 +90,46 @@ class PagesController extends AppController
     public function contact()
     {
         $this->set(['titleForLayout' => 'Contact']);
+    }
+
+    public function stats()
+    {
+        $thoughtsTable = TableRegistry::get('Thoughts');
+        $totalThoughts = $thoughtsTable->find('all')->count();
+        $stats['Thoughts'] = number_format($totalThoughts);
+        $stats['First thought posted'] = $thoughtsTable->find('all')
+            ->select(['created'])
+            ->order(['created' => 'ASC'])
+            ->first()
+            ->created
+            ->format('M d, Y');
+        $thoughtsCommentsEnabled = $thoughtsTable->find('all')
+            ->where(['comments_enabled' => 1])
+            ->count();
+        $stats['Thoughts with comments enabled'] = round(($thoughtsCommentsEnabled / $totalThoughts) * 100, 2).'%';
+        $mostPopularWord = $thoughtsTable->find('all')
+            ->select([
+                'word',
+                'count' => $thoughtsTable->find()->func()->count('*')
+            ])
+            ->group('word')
+            ->order(['count' => 'DESC'])
+            ->first();
+        $url = Router::url(['controller' => 'thoughts', 'action' => 'word', $mostPopularWord->word]);
+        $stats['Most thought-about thoughtword'] = '<a href="'.$url.'">'.$mostPopularWord->word.'</a> ('.number_format($mostPopularWord->count).' thoughts)';
+
+        $usersTable = TableRegistry::get('Users');
+        $totalThinkers = $usersTable->find('all')->count();
+        $stats['Thinkers'] = $totalThinkers;
+        $stats['Thinkers who have posted thoughts'] = round(($usersTable->getActiveThinkerCount() / $totalThinkers) * 100, 2).'%';
+        $usersMessagesEnabled = $usersTable->find('all')
+            ->where(['acceptMessages' => 1])
+            ->count();
+        $stats['Thinkers who accept messages'] = round(($usersMessagesEnabled / $totalThinkers) * 100, 2).'%';
+
+        $this->set([
+            'stats' => $stats,
+            'titleForLayout' => 'Statistics'
+        ]);
     }
 }
