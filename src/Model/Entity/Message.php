@@ -15,19 +15,11 @@ class Message extends Entity
      * @var array
      */
     protected $_accessible = [
-        'recipient' => true,
         'recipient_id' => true,
-        'availableToRecipient' => true,
-        'sender' => true,
         'sender_id' => true,
-        'availableToSender' => true,
-        'status' => true,
-        'timeSent' => true,
         'message' => true,
-        'parsedTextCache' => true,
-        'cacheTimestamp' => true,
         'received' => true,
         'recipient' => true,
-        'sender' => true,
+        'sender' => true
     ];
 }
