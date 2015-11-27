@@ -1,2 +1,2 @@
-<?php 
-	echo $available ? 1 : 0;
+<?php
+    echo $available ? 1 : 0;

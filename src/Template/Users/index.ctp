@@ -1,20 +1,20 @@
 <div id="content_title">
-	<h1>
-		Thinkers
-	</h1>
+    <h1>
+        Thinkers
+    </h1>
 </div>
 
 <div class="row">
     <div class="col-sm-offset-2 col-sm-8">
         <p>
-        	Each of these colors represents a Thinker who has contributed thoughts to Ether. Click a color to view that Thinker's profile.
+            Each of these colors represents a Thinker who has contributed thoughts to Ether. Click a color to view that Thinker's profile.
         </p>
 
         <p>
-        	Curious about who's most active?
-        	<a href="#" id="resize">
-        		Resize colorboxes according to number of thoughts thunk.
-        	</a>
+            Curious about who's most active?
+            <a href="#" id="resize">
+                Resize colorboxes according to number of thoughts thunk.
+            </a>
         </p>
 
         <div class="users_index">
@@ -24,5 +24,5 @@
 </div>
 
 <?php $this->append('buffered_js'); ?>
-	userIndex.init();
+    userIndex.init();
 <?php $this->end(); ?>

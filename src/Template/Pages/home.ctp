@@ -70,7 +70,7 @@
     <h2>
         Recent
     </h2>
-	<?= $this->element('Thoughts'.DS.'recent') ?>
+    <?= $this->element('Thoughts'.DS.'recent') ?>
 </div>
 <div class="cloud <?= isset($_GET['animate']) ? 'animate_hide' : '' ?>" id="frontpage_cloud">
     <?php if (empty($cloud)): ?>
@@ -86,5 +86,5 @@
                 cloud.className = 'cloud animate_show';
             </script>
         <?php endif; ?>
-	<?php endif; ?>
+    <?php endif; ?>
 </div>

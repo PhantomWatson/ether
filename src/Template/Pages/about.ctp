@@ -39,47 +39,47 @@
         </section>
 
         <section>
-        	<h2>
-        		Ether
-        	</h2>
+            <h2>
+                Ether
+            </h2>
 
             <dl>
                 <dt>
-            		<a href="#">
-            			What is this?
-            		</a>
-        		</dt>
-        		<dd>
-    				<strong>
-    				    Answer A:
-    			    </strong>
-        			<p>
-        				Ether is an experimental website to read and post thoughts in anonymity. The "subject" of each post is a single word.
-        			</p>
+                    <a href="#">
+                        What is this?
+                    </a>
+                </dt>
+                <dd>
+                    <strong>
+                        Answer A:
+                    </strong>
+                    <p>
+                        Ether is an experimental website to read and post thoughts in anonymity. The "subject" of each post is a single word.
+                    </p>
 
-        			<strong>
-        				Answer B:
-        			</strong>
-        			<p>
-        				Ether is an abstract dimension of space populated by Thoughts. The location of a Thought is determined by alphanumeric coordinates, which spell out Thoughtwords. Inside Ether, you are navigating around the collective minds of all of its contributors.
-        			</p>
+                    <strong>
+                        Answer B:
+                    </strong>
+                    <p>
+                        Ether is an abstract dimension of space populated by Thoughts. The location of a Thought is determined by alphanumeric coordinates, which spell out Thoughtwords. Inside Ether, you are navigating around the collective minds of all of its contributors.
+                    </p>
 
-        			<strong>
-        				Answer C:
-        			</strong>
-        			<p>
-        				If the social forces that pressure us to tailor our expression to a critical audience are removed, what will happen to our expression? Would we unlearn superficiality and re-learn sincerity? Would we discover things about our true selves after giving up on constantly reinventing false selves? If this were a collaborative experiment, would our mutual sincere experimental expression show us something about the nature of humanity?
-        			</p>
+                    <strong>
+                        Answer C:
+                    </strong>
+                    <p>
+                        If the social forces that pressure us to tailor our expression to a critical audience are removed, what will happen to our expression? Would we unlearn superficiality and re-learn sincerity? Would we discover things about our true selves after giving up on constantly reinventing false selves? If this were a collaborative experiment, would our mutual sincere experimental expression show us something about the nature of humanity?
+                    </p>
 
-        			<strong>
-        			    Answer D:
-    			    </strong>
-    			    <p>
+                    <strong>
+                        Answer D:
+                    </strong>
+                    <p>
                         *shrug*
-    		        </p>
-        		</dd>
+                    </p>
+                </dd>
 
-        		<dt>
+                <dt>
                     <a href="#">
                         Who made this?
                     </a>
@@ -89,35 +89,35 @@
                 </dd>
 
                 <dt>
-            		<a href="#">
-            			Is there a glossary of Ether terms?
-            		</a>
-        	   </dt>
-    	       <dd>
-        			We do seem to throw around our own invented terms for the sake of creating atmosphere.
-        			So let's go with these definitions and capitalizations for now:
-        			<ul>
-        				<li>
-        					<strong>'Ether' or 'the Ether'</strong> - The abstract, web-based medium that contains Thoughts.
-        				</li>
-        				<li>
-        					<strong>'Thought'</strong> - A posting made to Ether
-        				</li>
-        				<li>
-        					<strong>'Thoughtword'</strong> - A 'location' in Ether described by a word
-        				</li>
-        				<li>
-        					<strong>'populated Thoughtword'</strong> - A Thoughtword where Thoughts can be found
-        				</li>
-        				<li>
-        					<strong>'unpopulated Thoughtword'</strong> - A Thoughtword with no Thoughts
-        				</li>
-        				<li>
-        					<strong>'Thinker' or 'color'</strong> - A source of Thoughts (which could be a single person or a group)
-        				</li>
-        			</ul>
-    		  </dd>
-    	   </dt>
+                    <a href="#">
+                        Is there a glossary of Ether terms?
+                    </a>
+               </dt>
+               <dd>
+                    We do seem to throw around our own invented terms for the sake of creating atmosphere.
+                    So let's go with these definitions and capitalizations for now:
+                    <ul>
+                        <li>
+                            <strong>'Ether' or 'the Ether'</strong> - The abstract, web-based medium that contains Thoughts.
+                        </li>
+                        <li>
+                            <strong>'Thought'</strong> - A posting made to Ether
+                        </li>
+                        <li>
+                            <strong>'Thoughtword'</strong> - A 'location' in Ether described by a word
+                        </li>
+                        <li>
+                            <strong>'populated Thoughtword'</strong> - A Thoughtword where Thoughts can be found
+                        </li>
+                        <li>
+                            <strong>'unpopulated Thoughtword'</strong> - A Thoughtword with no Thoughts
+                        </li>
+                        <li>
+                            <strong>'Thinker' or 'color'</strong> - A source of Thoughts (which could be a single person or a group)
+                        </li>
+                    </ul>
+              </dd>
+           </dt>
         </section>
 
         <section>
@@ -214,94 +214,94 @@
         </section>
 
         <section>
-        	<h2>
-        		Thoughts
-        	</h2>
+            <h2>
+                Thoughts
+            </h2>
 
             <dl>
-            	<dt>
-            		<a href="#">
-            			What are the rules about posting Thoughts?
-            		</a>
-            	</dt>
-            	<dd>
-        			Naturally, Ether shuns rules. But here's what's encouraged:
-        			<ul>
-        				<li>
-        					Significant thoughts
-        				</li>
-        				<li>
-        					Introspective musing
-        				</li>
-        				<li>
-        					Poetry
-        				</li>
-        				<li>
-        					Personal anecdotes
-        				</li>
-        				<li>
-        					Philosophy
-        				</li>
-        				<li>
-        					Heartfelt confessions
-        				</li>
-        				<li>
-        					Spilling your soul
-        				</li>
-        				<li>
-        					A direct transcription of your thoughts associated with a word
-        				</li>
-        			</ul>
-        			What's discouraged:
-        			<ul>
-        				<li>
-        					Writing that is unrelated to its Thoughtword
-        				</li>
-        				<li>
-        					Gratuitous profanity or gratuitous graphic depictions of sex or violence
-        				</li>
-        				<li>
-        				    Quoting other writers without attribution
-    				    </li>
-        				<li>
-        					Posting copyrighted material without permission
-        				</li>
-        				<li>
-        					Making reference to other Thoughts or Thinkers in Ether (comments and messages are better for this)
-        				</li>
-        				<li>
-        					Libellous remarks about actual, identified people
-        				</li>
-        				<li>
-        					Advertising
-        				</li>
-        				<li>
-        					Antagonizing
-        				</li>
-        				<li>
-        					Terrible spelling, grammar, punctuation, etc.
-        				</li>
-        			</ul>
-        			Also, Ether is currently an English-language-only website.
-    			</dd>
+                <dt>
+                    <a href="#">
+                        What are the rules about posting Thoughts?
+                    </a>
+                </dt>
+                <dd>
+                    Naturally, Ether shuns rules. But here's what's encouraged:
+                    <ul>
+                        <li>
+                            Significant thoughts
+                        </li>
+                        <li>
+                            Introspective musing
+                        </li>
+                        <li>
+                            Poetry
+                        </li>
+                        <li>
+                            Personal anecdotes
+                        </li>
+                        <li>
+                            Philosophy
+                        </li>
+                        <li>
+                            Heartfelt confessions
+                        </li>
+                        <li>
+                            Spilling your soul
+                        </li>
+                        <li>
+                            A direct transcription of your thoughts associated with a word
+                        </li>
+                    </ul>
+                    What's discouraged:
+                    <ul>
+                        <li>
+                            Writing that is unrelated to its Thoughtword
+                        </li>
+                        <li>
+                            Gratuitous profanity or gratuitous graphic depictions of sex or violence
+                        </li>
+                        <li>
+                            Quoting other writers without attribution
+                        </li>
+                        <li>
+                            Posting copyrighted material without permission
+                        </li>
+                        <li>
+                            Making reference to other Thoughts or Thinkers in Ether (comments and messages are better for this)
+                        </li>
+                        <li>
+                            Libellous remarks about actual, identified people
+                        </li>
+                        <li>
+                            Advertising
+                        </li>
+                        <li>
+                            Antagonizing
+                        </li>
+                        <li>
+                            Terrible spelling, grammar, punctuation, etc.
+                        </li>
+                    </ul>
+                    Also, Ether is currently an English-language-only website.
+                </dd>
 
-            	<dt>
-            		<a href="#">
-            			What HTML tags are allowed?
-            		</a>
-            	</dt>
-            	<dd>
-            			&lt;i&gt; and &lt;b&gt;
-            	</dd>
+                <dt>
+                    <a href="#">
+                        What HTML tags are allowed?
+                    </a>
+                </dt>
+                <dd>
+                        &lt;i&gt; and &lt;b&gt;
+                </dd>
 
-            	<dt>
-            		<a href="#">
-            			Why can't I comment on some thoughts?
-            		</a>
-            	</dt>
-            	<dd>
+                <dt>
+                    <a href="#">
+                        Why can't I comment on some thoughts?
+                    </a>
+                </dt>
+                <dd>
                     The author of each thought can choose whether or not to enable comments.
-    	       </dd>
+               </dd>
             </dl>
         </section>
 
@@ -355,27 +355,27 @@
         </section>
 
         <section>
-        	<h2>
-        		Other
-        	</h2>
+            <h2>
+                Other
+            </h2>
 
             <dl>
-            	<dt>
-            		<a href="#">
-            			What if I have more unanswered questions?
-            		</a>
-            	</dt>
-            	<dd>
-        			Just <a href="mailto:graham@phantomwatson.com">shoot an email to Phantom</a>.
-            	</dd>
-        	</dl>
-    	</section>
-	</div>
+                <dt>
+                    <a href="#">
+                        What if I have more unanswered questions?
+                    </a>
+                </dt>
+                <dd>
+                    Just <a href="mailto:graham@phantomwatson.com">shoot an email to Phantom</a>.
+                </dd>
+            </dl>
+        </section>
+    </div>
 </div>
 
 <?php $this->append('buffered_js'); ?>
-	$('#faq dt a').click(function (event) {
-	    event.preventDefault();
-	    $(this).parents('dt').next('dd').slideToggle(200);
+    $('#faq dt a').click(function (event) {
+        event.preventDefault();
+        $(this).parents('dt').next('dd').slideToggle(200);
     });
 <?php $this->end(); ?>

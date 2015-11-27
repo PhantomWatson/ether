@@ -1,50 +1,50 @@
 <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation" id="header">
-	<div class="navbar-header">
-		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
-			<span class="sr-only">
-				Toggle navigation
-			</span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		</button>
-		<a href="/" id="site_title">
-			<h1>
-				Ether
-			</h1>
-		</a>
-	</div>
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">
+                Toggle navigation
+            </span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="/" id="site_title">
+            <h1>
+                Ether
+            </h1>
+        </a>
+    </div>
 
-	<div class="collapse navbar-collapse" id="navbar-collapse">
-		<ul class="nav navbar-nav">
-			<li>
-				<?= $this->Html->link(
-					'Thoughts <span class="caret"></span>',
-					['controller' => 'Thoughts', 'action' => 'index'],
-					[
-					   'aria-haspopup' => 'true',
-					   'aria-expanded' => 'false',
-					   'class' => 'dropdown-toggle',
-					   'data-toggle' => 'dropdown',
-					   'escape' => false,
-					   'role' => 'button'
-				   ]
-				) ?>
-				<ul class="dropdown-menu">
-				    <li>
-				        <?= $this->Html->link(
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li>
+                <?= $this->Html->link(
+                    'Thoughts <span class="caret"></span>',
+                    ['controller' => 'Thoughts', 'action' => 'index'],
+                    [
+                       'aria-haspopup' => 'true',
+                       'aria-expanded' => 'false',
+                       'class' => 'dropdown-toggle',
+                       'data-toggle' => 'dropdown',
+                       'escape' => false,
+                       'role' => 'button'
+                   ]
+                ) ?>
+                <ul class="dropdown-menu">
+                    <li>
+                        <?= $this->Html->link(
                             'Browse',
                             ['controller' => 'Thoughts', 'action' => 'index']
                         ) ?>
                     </li>
                     <li>
-				        <?= $this->Html->link(
+                        <?= $this->Html->link(
                             'Random',
                             ['controller' => 'Thoughts', 'action' => 'random'],
                             ['id' => 'random_link']
                         ) ?>
-			        </li>
-			        <li>
+                    </li>
+                    <li>
                         <?= $this->Html->link(
                             'Add a Thought',
                             ['controller' => 'Thoughts', 'action' => 'add']
@@ -56,12 +56,12 @@
                             ['controller' => 'Users', 'action' => 'index']
                         ) ?>
                     </li>
-			    </ul>
-			</li>
+                </ul>
+            </li>
 
-			<?php if (isset($loggedIn) && $loggedIn): ?>
+            <?php if (isset($loggedIn) && $loggedIn): ?>
 
-				<li>
+                <li>
                     <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <?php if ($newMessages): ?>
                             <span class="new_messages">
@@ -100,30 +100,30 @@
                         </li>
                     </ul>
                 </li>
-			<?php else: ?>
-				<li>
-					<?= $this->Html->link(
-						'Login',
-						['controller' => 'Users', 'action' => 'login'],
-						['id' => 'login_link']
-					) ?>
-				</li>
-				<li>
-					<?= $this->Html->link(
-						'Register',
-						['controller' => 'Users', 'action' => 'register'],
-						['id' => 'register_link']
-					) ?>
-				</li>
-			<?php endif; ?>
-			<li>
+            <?php else: ?>
+                <li>
+                    <?= $this->Html->link(
+                        'Login',
+                        ['controller' => 'Users', 'action' => 'login'],
+                        ['id' => 'login_link']
+                    ) ?>
+                </li>
+                <li>
+                    <?= $this->Html->link(
+                        'Register',
+                        ['controller' => 'Users', 'action' => 'register'],
+                        ['id' => 'register_link']
+                    ) ?>
+                </li>
+            <?php endif; ?>
+            <li>
                 <?= $this->Html->link(
                     'About',
                     ['controller' => 'Pages', 'action' => 'about']
                 ) ?>
             </li>
-			<li>
-			    <?php
+            <li>
+                <?php
                     use Cake\Routing\Router;
                     $goto_url = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
                 ?>
@@ -131,9 +131,9 @@
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                     <input type="search" class="form-control" placeholder="Go to thoughtword..." required="required" name="word" />
                 </form>
-		    </li>
-		</ul>
-	</div>
+            </li>
+        </ul>
+    </div>
 </nav>
 <?php $this->append('buffered_js'); ?>
     search.init();
