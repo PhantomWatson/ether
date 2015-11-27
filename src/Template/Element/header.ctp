@@ -117,6 +117,12 @@
 				</li>
 			<?php endif; ?>
 			<li>
+                <?= $this->Html->link(
+                    'About',
+                    ['controller' => 'Pages', 'action' => 'about']
+                ) ?>
+            </li>
+			<li>
 			    <?php
                     use Cake\Routing\Router;
                     $goto_url = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
