@@ -1,5 +1,5 @@
 <div class="row" id="welcome">
-    <div class="col-sm-2 col-sm-offset-3">
+    <div class="col-sm-2 col-sm-offset-2">
         <h2>
             Ether
         </h2>
@@ -7,31 +7,8 @@
             Thought Repository
         </h3>
     </div>
-    <div class="col-sm-4">
-        <?= $this->Html->link(
-            'Add a Thought',
-            ['controller' => 'Thoughts', 'action' => 'add'],
-            ['class' => 'btn btn-default']
-        ) ?>
-        <?= $this->Html->link(
-            'About Ether',
-            ['controller' => 'Pages', 'action' => 'about'],
-            ['class' => 'btn btn-link']
-        ) ?>
-        <a href="http://www.facebook.com/EtherThoughtRepository" class="btn btn-link social_icon">
-            <i class="fa fa-facebook-official" title="Facebook"></i>
-        </a>
-        <a href="https://github.com/PhantomWatson/ether3" class="btn btn-link social_icon">
-            <i class="fa  fa-github" title="GitHub"></i>
-        </a>
-    </div>
-</div>
-
-<?php if ($randomThought): ?>
-    <hr />
-
-    <div class="row" id="frontpage_random_thought">
-        <div class="col-sm-6 col-sm-offset-3">
+    <div class="col-sm-6" id="frontpage_random_thought">
+        <?php if ($randomThought): ?>
             <h3>
                 Random Thought:
             </h3>
@@ -59,10 +36,9 @@
                     ]) ?>
                 <?php endif; ?>
             </span>
-
-        </div>
+        <?php endif; ?>
     </div>
-<?php endif; ?>
+</div>
 
 <hr />
 
