@@ -3,7 +3,6 @@ namespace App\Controller;
 
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
-use HTML_To_Markdown;
 
 /**
  * Static content controller

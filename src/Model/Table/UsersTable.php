@@ -8,7 +8,7 @@ use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
 use Cake\Collection\Collection;
 use Cake\Network\Exception\InternalErrorException;
-use HTML_To_Markdown;
+use League\HTMLToMarkdown\HtmlConverter;
 
 /**
  * Users Model
@@ -295,9 +295,8 @@ class UsersTable extends Table
             echo "No {$field}s to convert";
         }
         foreach ($results as $result) {
-            $markdown = new HTML_To_Markdown($result->$field, [
-                'strip_tags' => false
-            ]);
+            $converter = new HtmlConverter(['strip_tags' => false]);
+            $markdown = $converter->convert($result->$field);
             $result->$field = $markdown;
             $result->markdown = true;
             if ($this->save($result)) {

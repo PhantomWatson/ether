@@ -6,7 +6,7 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\Utility\Hash;
-use HTML_To_Markdown;
+use League\HTMLToMarkdown\HtmlConverter;
 
 /**
  * Comments Model
@@ -103,9 +103,8 @@ class CommentsTable extends Table
             echo "No {$field}s to convert";
         }
         foreach ($results as $result) {
-            $markdown = new HTML_To_Markdown($result->$field, [
-                'strip_tags' => false
-            ]);
+            $converter = new HtmlConverter(['strip_tags' => false]);
+            $markdown = $converter->convert($result->$field);
             $result->$field = $markdown;
             $result->markdown = true;
             if ($this->save($result)) {

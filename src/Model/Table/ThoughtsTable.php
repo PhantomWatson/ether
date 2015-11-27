@@ -14,7 +14,7 @@ use Cake\Event\Event;
 use Cake\Cache\Cache;
 use Cake\Utility\Text;
 use Cake\Log\Log;
-use HTML_To_Markdown;
+use League\HTMLToMarkdown\HtmlConverter;
 
 /**
  * Thoughts Model
@@ -392,7 +392,8 @@ class ThoughtsTable extends Table
 
     public function parseMarkdown($input)
     {
-        return $this->convertToHtml($input);
+        $converter = new HtmlConverter();
+        return $converter->convert($input);
     }
 
     public function stripTags($input, $allTags = false)
@@ -609,9 +610,8 @@ class ThoughtsTable extends Table
             echo "No {$field}s to convert";
         }
         foreach ($results as $result) {
-            $markdown = new HTML_To_Markdown($result->$field, [
-                'strip_tags' => false
-            ]);
+            $converter = new HtmlConverter(['strip_tags' => false]);
+            $markdown = $converter->convert($result->$field);
             $result->$field = $markdown;
             $result->markdown = true;
             if ($this->save($result)) {
