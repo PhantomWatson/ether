@@ -84,6 +84,10 @@ class PagesController extends AppController
         $url = Router::url(['controller' => 'thoughts', 'action' => 'word', $mostPopularWord->word]);
         $stats['Most thought-about thoughtword'] = '<a href="'.$url.'">'.$mostPopularWord->word.'</a> ('.number_format($mostPopularWord->count).' thoughts)';
 
+        $commentsTable = TableRegistry::get('Comments');
+        $totalComments = $commentsTable->find('all')->count();
+        $stats['Comments'] = number_format($totalComments);
+
         $usersTable = TableRegistry::get('Users');
         $totalThinkers = $usersTable->find('all')->count();
         $stats['Thinkers'] = $totalThinkers;
