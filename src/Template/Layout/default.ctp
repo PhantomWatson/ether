@@ -38,7 +38,7 @@
         </div>
 
         <footer id="footer">
-            <div class="col-sm-2 col-sm-offset-3">
+            <div class="col-sm-2 col-sm-offset-2">
                 <ul class="list-unstyled">
                     <li>
                         <?= $this->Html->link(
@@ -52,15 +52,9 @@
                             ['controller' => 'Pages', 'action' => 'contact']
                         ) ?>
                     </li>
-                    <li>
-                        <?= $this->Html->link(
-                            'Stats',
-                            ['controller' => 'Pages', 'action' => 'stats']
-                        ) ?>
-                    </li>
                 </ul>
             </div>
-            <div class="col-sm-2 col-sm-offset-5">
+            <div class="col-sm-2 col-sm-offset-4">
                 <ul class="list-unstyled">
                     <li>
                         <a href="http://www.facebook.com/EtherThoughtRepository">
@@ -72,14 +66,9 @@
                             GitHub
                         </a>
                     </li>
-                    <li>
-                        <a href="https://PhantomWatson.com">
-                            Phantom Watson
-                        </a>
-                    </li>
                 </ul>
             </div>
-            <div class="col-sm-2 col-sm-offset-7">
+            <div class="col-sm-2 col-sm-offset-6">
                 <ul class="list-unstyled">
                     <li>
                         <?= $this->Html->link(
@@ -92,6 +81,15 @@
                             'Privacy Policy',
                             ['controller' => 'Pages', 'action' => 'privacy']
                         ) ?>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-2 col-sm-offset-8">
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="https://PhantomWatson.com">
+                            Phantom Watson
+                        </a>
                     </li>
                     <li>
                         &copy; <?= date('Y') ?> <a href="mailto:graham@phantomwatson.com">Phantom Watson</a>

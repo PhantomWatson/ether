@@ -60,40 +60,6 @@ class PagesController extends AppController
 
     public function about()
     {
-        $this->loadModel('Thoughts');
-        $this->loadModel('Users');
-        $this->set([
-            'title_for_layout' => 'About Ether',
-            'thoughtCount' => $this->Thoughts->getCount(),
-            'thinkerCount' => $this->Users->getActiveThinkerCount()
-        ]);
-        $this->set([
-            'title_for_layout' => 'About',
-        ]);
-    }
-
-    public function markdown()
-    {
-        $this->set(['title_for_layout' => 'Markdown']);
-    }
-
-    public function terms()
-    {
-        $this->set(['titleForLayout' => 'Terms of Use']);
-    }
-
-    public function privacy()
-    {
-        $this->set(['titleForLayout' => 'Privacy Policy']);
-    }
-
-    public function contact()
-    {
-        $this->set(['titleForLayout' => 'Contact']);
-    }
-
-    public function stats()
-    {
         $thoughtsTable = TableRegistry::get('Thoughts');
         $totalThoughts = $thoughtsTable->find('all')->count();
         $stats['Thoughts'] = number_format($totalThoughts);
@@ -128,8 +94,30 @@ class PagesController extends AppController
         $stats['Thinkers who accept messages'] = round(($usersMessagesEnabled / $totalThinkers) * 100, 2).'%';
 
         $this->set([
-            'stats' => $stats,
-            'titleForLayout' => 'Statistics'
+            'title_for_layout' => 'About Ether',
+            'thoughtCount' => $totalThoughts,
+            'thinkerCount' => $usersTable->getActiveThinkerCount(),
+            'stats' => $stats
         ]);
+    }
+
+    public function markdown()
+    {
+        $this->set(['title_for_layout' => 'Markdown']);
+    }
+
+    public function terms()
+    {
+        $this->set(['titleForLayout' => 'Terms of Use']);
+    }
+
+    public function privacy()
+    {
+        $this->set(['titleForLayout' => 'Privacy Policy']);
+    }
+
+    public function contact()
+    {
+        $this->set(['titleForLayout' => 'Contact']);
     }
 }
