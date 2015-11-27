@@ -25,7 +25,6 @@ class User extends Entity
         'profile' => true,
         'acceptMessages' => true,
         'emailUpdates' => true,
-        'newMessages' => true,
         'comments' => true,
         'thoughts' => true,
         'new_password' => true,

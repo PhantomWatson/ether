@@ -68,7 +68,6 @@ class UsersTable extends Table
             ->add('messageNotification', 'valid', ['rule' => 'boolean'])
             ->add('acceptMessages', 'valid', ['rule' => 'boolean'])
             ->add('emailUpdates', 'valid', ['rule' => 'boolean'])
-            ->add('newMessages', 'valid', ['rule' => 'boolean'])
             ->notEmpty('new_password')
             ->add('confirm_password', 'compareWith', [
                 'rule' => ['compareWith', 'new_password'],

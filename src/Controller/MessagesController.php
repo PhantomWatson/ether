@@ -75,9 +75,6 @@ class MessagesController extends AppController
                 $errorMsg = implode('<br />', $errors);
             } elseif ($this->Messages->save($message)) {
                 $msgSent = true;
-                $recipient = $this->Messages->Recipients->get($recipientId);
-                $recipient->newMessages = true;
-                $this->Messages->Recipients->save($recipient);
             } else {
                 $errorMsg = 'There was an error sending that message. Please try again.';
             }
