@@ -93,7 +93,7 @@
 
 
         <?php foreach ($thoughts as $thought): ?>
-            <div class="row">
+            <div class="row thoughtrow" id="t<?= $thought['id'] ?>">
                 <div class="col-sm-1 col-sm-offset-1 meta">
                     <div class="visible-xs-inline-block visible-sm visible-md visible-lg">
                         <?= $this->element('colorbox', [

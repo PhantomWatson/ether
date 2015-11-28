@@ -1,4 +1,3 @@
-<a name="t<?= $thought['id'] ?>"></a>
 <div class="thought" data-formatting-key="<?= $thought['formatting_key'] ?>" data-thought-id="<?= $thought['id'] ?>">
     <div class="body">
         <?= $thought['formatted_thought'] ?>
