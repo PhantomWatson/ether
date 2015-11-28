@@ -287,11 +287,18 @@
 
                 <dt>
                     <a href="#">
-                        What HTML tags are allowed?
+                        How do I style my thoughts with Markdown?
                     </a>
                 </dt>
                 <dd>
-                        &lt;i&gt; and &lt;b&gt;
+                        A list of all the supported styled (bold, italics, lists, etc.) can be found on the
+                        <?= $this->Html->link(
+                            'Markdown guide',
+                            [
+                                'controller' => 'Pages',
+                                'action' => 'markdown'
+                            ]
+                        ) ?>. Markdown is also supported in comments, messages, and "introspection" profile text.
                 </dd>
 
                 <dt>
