@@ -66,8 +66,11 @@ class UsersTable extends Table
                 'message' => 'That does not appear to be a valid hexadecimal color'
             ])
             ->add('messageNotification', 'valid', ['rule' => 'boolean'])
+            ->allowEmpty('messageNotification')
             ->add('acceptMessages', 'valid', ['rule' => 'boolean'])
+            ->allowEmpty('acceptMessages')
             ->add('emailUpdates', 'valid', ['rule' => 'boolean'])
+            ->allowEmpty('emailUpdates')
             ->notEmpty('new_password')
             ->add('confirm_password', 'compareWith', [
                 'rule' => ['compareWith', 'new_password'],
