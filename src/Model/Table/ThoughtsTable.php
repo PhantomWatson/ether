@@ -14,6 +14,7 @@ use Cake\Event\Event;
 use Cake\Cache\Cache;
 use Cake\Utility\Text;
 use Cake\Log\Log;
+use League\CommonMark\CommonMarkConverter;
 use League\HTMLToMarkdown\HtmlConverter;
 
 /**
@@ -392,8 +393,8 @@ class ThoughtsTable extends Table
 
     public function parseMarkdown($input)
     {
-        $converter = new HtmlConverter();
-        return $converter->convert($input);
+        $converter = new CommonMarkConverter();
+        return $converter->convertToHtml($input);
     }
 
     public function stripTags($input, $allTags = false)
