@@ -127,6 +127,7 @@ class UsersTable extends Table
                 'Thoughts' => function ($q) {
                     return $q
                         ->select(['id', 'word', 'user_id'])
+                        ->where(['anonymous' => false])
                         ->order([
                             'word' => 'ASC',
                             'created' => 'DESC'
