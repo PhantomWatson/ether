@@ -3,6 +3,9 @@
      * flash messages and displayed via a javascript animation if there are
      * messages to display. Regardless, the container is put onto the page
      * so that asyncronous activity can load messages into it as needed. */
+     if (! isset($flashMessages)) {
+         $flashMessages = [];
+     }
 ?>
 
 <?php $this->append('buffered_js'); ?>
