@@ -659,4 +659,22 @@ class ThoughtsTable extends Table
         $results = $chain->generate($wordLength);
         return $this->parseMarkdown($results);
     }
+
+    public function generateFromAll($limit, $blockSize, $wordLength)
+    {
+        $ids = $this->find('list')
+            ->select(['id'])
+            ->order('rand()')
+            ->limit($limit)
+            ->toArray();
+        $thoughts = $this->find('all')
+            ->select(['thought'])
+            ->where(function ($exp, $q) use ($ids) {
+                return $exp->in('id', $ids);
+            })
+            ->toArray();
+        $thoughts = Hash::extract($thoughts, '{n}.thought');
+        $sample = implode(' ', $thoughts);
+        return $this->generate($sample, $blockSize, $wordLength);
+    }
 }
