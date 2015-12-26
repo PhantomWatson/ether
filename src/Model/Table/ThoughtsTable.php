@@ -636,7 +636,6 @@ class ThoughtsTable extends Table
 
     public function generateFromUser($userId, $blockSize, $wordLength)
     {
-        $sample = '';
         $ids = $this->find('list')
             ->select(['id'])
             ->where(['user_id' => 1])
