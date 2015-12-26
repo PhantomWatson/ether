@@ -18,7 +18,8 @@
 		"flesler/jquery.scrollto": "*",
 		"twbs/bootstrap": "~3.0",
 		"gourmet/common-mark": "~1.0",
-		"xety/cake3-cookieauth": "1.*"
+		"xety/cake3-cookieauth": "1.*",
+		"heidilabs/markov-php": "~0.2"
 	},
 	"require-dev" : {
 		"psy/psysh" : "@stable",
