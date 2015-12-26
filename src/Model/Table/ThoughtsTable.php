@@ -1,21 +1,23 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\Cache\Cache;
+use Cake\Collection\Collection;
+use Cake\Event\Event;
+use Cake\Log\Log;
+use Cake\Network\Exception\BadRequestException;
+use Cake\Network\Exception\InternalErrorException;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
-use Cake\Validation\Validator;
-use Cake\Collection\Collection;
-use Cake\Network\Exception\BadRequestException;
-use Cake\Network\Exception\InternalErrorException;
 use Cake\Routing\Router;
-use Cake\Event\Event;
-use Cake\Cache\Cache;
+use Cake\Utility\Hash;
 use Cake\Utility\Text;
-use Cake\Log\Log;
+use Cake\Validation\Validator;
 use League\CommonMark\CommonMarkConverter;
 use League\HTMLToMarkdown\HtmlConverter;
+use MarkovPHP;
 
 /**
  * Thoughts Model
@@ -630,5 +632,32 @@ class ThoughtsTable extends Table
                 ->select(['id'])
                 ->toArray();
         }, 'long');
+    }
+
+    public function generateFromUser($userId, $blockSize, $wordLength)
+    {
+        $sample = '';
+        $ids = $this->find('list')
+            ->select(['id'])
+            ->where(['user_id' => 1])
+            ->order('rand()')
+            ->toArray();
+        $thoughts = $this->find('all')
+            ->select(['thought'])
+            ->where(function ($exp, $q) use ($ids) {
+                return $exp->in('id', $ids);
+            })
+            ->toArray();
+        $thoughts = Hash::extract($thoughts, '{n}.thought');
+        $sample = implode(' ', $thoughts);
+        return $this->generate($sample, $blockSize, $wordLength);
+    }
+
+    public function generate($sample, $blockSize, $wordLength)
+    {
+        $chain = new MarkovPHP\WordChain($sample, $blockSize);
+        $wordLength = round($wordLength / $blockSize);
+        $results = $chain->generate($wordLength);
+        return $this->parseMarkdown($results);
     }
 }
