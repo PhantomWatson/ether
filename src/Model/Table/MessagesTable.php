@@ -1,11 +1,13 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\Mailer\Email;
 use Cake\Network\Exception\InternalErrorException;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
+use Cake\Routing\Router;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use League\HTMLToMarkdown\HtmlConverter;
@@ -302,5 +304,28 @@ class MessagesTable extends Table
                 echo "ERROR converting $field #$result->id<br />";
             }
         }
+    }
+
+    public function sendNotificationEmail($senderId, $recipientId, $message)
+    {
+        $usersTable = TableRegistry::get('Users');
+        $recipient = $usersTable->get($recipientId);
+        $sender = $usersTable->get($senderId);
+
+        $email = new Email('new_message');
+        $email->to($recipient->email);
+        $email->subject('Ether: Message from #'.$sender->color);
+        $email->viewVars([
+            'senderId' => $senderId,
+            'senderColor' => $sender->color,
+            'message' => $message,
+            'loginUrl' => Router::url(['controller' => 'Users', 'action' => 'login'], true),
+            'messageUrl' => Router::url(['controller' => 'Messages', 'action' => 'index', $sender->color], true),
+            'accountUrl' => Router::url(['controller' => 'Users', 'action' => 'account'], true),
+            'siteUrl' => Router::url('/', true)
+        ]);
+        $email->template('new_message', 'default');
+        $email->emailFormat('both');
+        return $email->send();
     }
 }
