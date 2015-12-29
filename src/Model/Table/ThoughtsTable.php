@@ -17,7 +17,7 @@ use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use League\CommonMark\CommonMarkConverter;
 use League\HTMLToMarkdown\HtmlConverter;
-use MarkovPHP;
+use EtherMarkov\EtherMarkovChain;
 
 /**
  * Thoughts Model
@@ -634,7 +634,7 @@ class ThoughtsTable extends Table
         }, 'long');
     }
 
-    public function generateFromUser($userId, $blockSize, $wordLength)
+    public function generateFromUser($userId, $blockSize, $chainLength)
     {
         $ids = $this->find('list')
             ->select(['id'])
@@ -649,18 +649,19 @@ class ThoughtsTable extends Table
             ->toArray();
         $thoughts = Hash::extract($thoughts, '{n}.thought');
         $sample = implode(' ', $thoughts);
-        return $this->generate($sample, $blockSize, $wordLength);
+        return $this->generate($sample, $blockSize, $chainLength);
     }
 
-    public function generate($sample, $blockSize, $wordLength)
+    public function generate($sample, $blockSize, $chainLength)
     {
-        $chain = new MarkovPHP\WordChain($sample, $blockSize);
-        $wordLength = round($wordLength / $blockSize);
-        $results = $chain->generate($wordLength);
-        return $this->parseMarkdown($results);
+        $chain = new EtherMarkovChain($sample, $blockSize);
+        $chainLength = round($chainLength / $blockSize);
+        $results = $chain->generate($chainLength);
+        $results = $this->parseMarkdown($results);
+        return strip_tags($results);
     }
 
-    public function generateFromAll($limit, $blockSize, $wordLength)
+    public function generateFromAll($limit, $blockSize, $chainLength)
     {
         $ids = $this->find('list')
             ->select(['id'])
@@ -675,6 +676,6 @@ class ThoughtsTable extends Table
             ->toArray();
         $thoughts = Hash::extract($thoughts, '{n}.thought');
         $sample = implode(' ', $thoughts);
-        return $this->generate($sample, $blockSize, $wordLength);
+        return $this->generate($sample, $blockSize, $chainLength);
     }
 }
