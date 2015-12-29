@@ -17,6 +17,7 @@ class GeneratorController extends AppController
     {
         $thoughtsTable = TableRegistry::get('Thoughts');
         $result = $thoughtsTable->generateFromAll(1000, 2, 200);
+        $result = EtherMarkovChain::trimToNaturalEnding($result);
         $this->set([
             'titleForLayout' => 'Generate a Thought',
             'result' => $result
