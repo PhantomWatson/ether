@@ -3,7 +3,7 @@ namespace App\Controller;
 
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
-use MarkovPHP;
+use EtherMarkov\EtherMarkovChain;
 
 class GeneratorController extends AppController
 {
