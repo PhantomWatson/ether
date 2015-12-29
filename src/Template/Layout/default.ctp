@@ -87,7 +87,7 @@
             <div class="col-sm-2 col-sm-offset-8">
                 <ul class="list-unstyled">
                     <li>
-                        <a href="https://PhantomWatson.com">
+                        <a href="http://PhantomWatson.com">
                             Phantom Watson
                         </a>
                     </li>
