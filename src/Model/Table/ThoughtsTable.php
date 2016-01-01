@@ -638,7 +638,10 @@ class ThoughtsTable extends Table
     {
         $ids = $this->find('list')
             ->select(['id'])
-            ->where(['user_id' => 1])
+            ->where([
+                'user_id' => 1,
+                'anonymous' => false
+            ])
             ->order('rand()')
             ->toArray();
         $thoughts = $this->find('all')
