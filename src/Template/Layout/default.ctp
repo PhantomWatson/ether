@@ -108,9 +108,7 @@
             $scriptFile = $debug ? 'script.concat.js' : 'script.concat.min.js';
             echo $this->Html->script($scriptFile);
             echo $this->fetch('script');
-            //$this->Js->buffer("setupOnPopState();");
-            //echo $this->Js->writeBuffer();
-            //echo $this->element('analytics');
+            echo $this->element('analytics');
         ?>
 
         <?php if ($this->fetch('buffered_js')): ?>

@@ -15,10 +15,12 @@
 ?>
 <?= $this->fetch('content') ?>
 
-<?php if ($this->fetch('buffered_js')): ?>
-    <script>
-        $(document).ready(function () {
-            <?= $this->fetch('buffered_js') ?>
+<script>
+    $(document).ready(function () {
+        <?= $this->fetch('buffered_js') ?>
+        ga('send', 'pageview', {
+            'page': '<?= $this->request->here ?>',
+            'title': '<?= (isset($titleForLayout) ? $titleForLayout : "''") ?>'
         });
-    </script>
-<?php endif; ?>
+    });
+</script>
