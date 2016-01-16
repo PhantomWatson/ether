@@ -91,6 +91,7 @@ var EtherMarkov = {
             this.stop();
             this.blockCount = 0;
         }
+        this.updateDisplayedEntropyScore();
     },
     
     displayInResults: function (text) {
@@ -145,7 +146,7 @@ var EtherMarkov = {
         }
         if (wordCandidates.length > 0) {
             if (wordCandidates.length > 1) {
-                this.incrementEntropyScore();
+                this.entropyScore++;
             }
             var key = Math.floor(Math.random() * wordCandidates.length);
             this.processingContainer.find('li:nth-child('+(key + 1)+')').css('font-weight', 'bold');
@@ -170,10 +171,9 @@ var EtherMarkov = {
         }
     },
     
-    incrementEntropyScore: function () {
-        this.entropyScore++;
+    updateDisplayedEntropyScore: function () {
         var percent = Math.round((this.entropyScore / this.blockCount) * 100);
-        var output = this.entropyScore + ' (' + percent + '%)';
+        var output = percent + '% (' + this.entropyScore + '/' + this.blockCount + ')';
         this.entropyScoreContainer.html(output);
     }
 };
