@@ -47,10 +47,10 @@ class GeneratorController extends AppController
         $thoughtsTable = TableRegistry::get('Thoughts');
         $thoughts = $thoughtsTable->find('all')
             ->select(['thought'])
+            ->where(['thought LIKE' => '%"%'])
             ->toArray();
         $thoughts = Hash::extract($thoughts, '{n}.thought');
         $thoughts = implode(' ', $thoughts);
-        $thoughts = str_replace('"', '\"', $thoughts);
         $thoughts = str_replace(["\n", "\r"], " ", $thoughts);
         $thoughts = str_replace('  ', ' ', $thoughts);
         $thoughts = str_replace('  ', ' ', $thoughts);
