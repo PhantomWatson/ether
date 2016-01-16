@@ -14,56 +14,64 @@
     <em>Love, Phantom</em>
 </p>
 
-<h2>
-    Controls
-</h2>
-<div class="well">
-    <div class="form-group row">
-        <div class="col-sm-2">
-            Words per second:
+<div class="row">
+    <section class="col-sm-4">
+        <h2>
+            Controls
+        </h2>
+        <div class="well">
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    Words per second:
+                </div>
+                <div class="col-sm-6">
+                    <select id="speed" class="form-control">
+                        <option value="0.5">
+                            0.5
+                        </option>
+                        <?php for ($n = 1; $n <= 10; $n++): ?>
+                            <option value="<?= $n ?>" <?= $n == 2 ? 'selected' : '' ?>>
+                                <?= $n ?>
+                            </option>
+                        <?php endfor; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    Block length:
+                </div>
+                <div class="col-sm-6">
+                    <select id="blockLength" class="form-control">
+                        <?php for ($n = 1; $n <= 5; $n++): ?>
+                            <option value="<?= $n ?>" <?= $n == 2 ? 'selected' : '' ?>>
+                                <?= $n ?>
+                            </option>
+                        <?php endfor; ?>
+                    </select>
+                </div>
+            </div>
+            <br />
+            <button id="stop" class="btn btn-default">Stop</button>
+            <button id="start" class="btn btn-default">Start</button>
         </div>
-        <div class="col-sm-1">
-            <select id="speed" class="form-control">
-                <option value="0.5">
-                    0.5
-                </option>
-                <?php for ($n = 1; $n <= 10; $n++): ?>
-                    <option value="<?= $n ?>" <?= $n == 2 ? 'selected' : '' ?>>
-                        <?= $n ?>
-                    </option>
-                <?php endfor; ?>
-            </select>
+    </section>
+
+    <section class="col-sm-4 col-sm-offset-1">
+        <h2>Thinkin':</h2>
+        <div class="well">
+            <p>
+                Entropy score: <span id="entropyScore">0</span>
+            </p>
+            <div id="markovOptions"></div>
         </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-2">
-            Block length:
-        </div>
-        <div class="col-sm-1">
-            <select id="blockLength" class="form-control">
-                <?php for ($n = 1; $n <= 5; $n++): ?>
-                    <option value="<?= $n ?>" <?= $n == 2 ? 'selected' : '' ?>>
-                        <?= $n ?>
-                    </option>
-                <?php endfor; ?>
-            </select>
-        </div>
-    </div>
-    <br />
-    <button id="stop" class="btn btn-default">Stop</button>
-    <button id="start" class="btn btn-default">Start</button>
+    </section>
 </div>
 
-<h2>Results:</h2>
-<p id="markovResults" class="well"></p>
-
-<h2>Thinkin':</h2>
-<div class="well">
-    <p>
-        Entropy score: <span id="entropyScore">0</span>
-    </p>
-    <div id="markovOptions"></div>
-</div>
+<section>
+    <h2>Results:</h2>
+    <p id="markovResults" class="well"></p>
+</section>
 
 <?php $this->Html->script('ether-markov', ['block' => 'script']); ?>
 <?php $this->append('buffered_js'); ?>
