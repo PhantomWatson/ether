@@ -2,21 +2,21 @@
  * A Markov-chain text generator developed for theEther.com 
  */
 var EtherMarkov = {
-    seed: null,
-    interval: null,
+    blockCount: 0,
     blockLength: null,
     currentBlock: null,
-    blockCount: 0,
+    entropyScore: 0,
+    interval: null,
     loop: null,
-    resultsContainer: null,
     processingContainer: null,
+    resultsContainer: null,
+    seed: null,
     
     init: function () {
         this.blockLength = $('#blockLength').val();
         this.interval = 1000 / $('#speed').val();
         this.resultsContainer = $('#markovResults');
         this.processingContainer = $('#markovOptions');
-        this.entropyScore = 0;
         this.entropyScoreContainer = $('#entropyScore');
         
         $('#start').click(function () {
@@ -107,7 +107,6 @@ var EtherMarkov = {
         //$('#blockLength').prop('disabled', false);
         $('#speed').prop('disabled', false);
         clearInterval(this.loop);
-        this.blockCount = 0;
     },
     
     getNextWord: function () {
@@ -173,6 +172,8 @@ var EtherMarkov = {
     
     incrementEntropyScore: function () {
         this.entropyScore++;
-        this.entropyScoreContainer.html(this.entropyScore);
+        var percent = Math.round((this.entropyScore / this.blockCount) * 100);
+        var output = this.entropyScore + ' (' + percent + '%)';
+        this.entropyScoreContainer.html(output);
     }
 };
