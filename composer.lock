@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c9daf7532e395ab5283c7e5c9b4a5358",
-    "content-hash": "fa5b549a930aa872ec695b9ac590b0ea",
+    "hash": "503b2ef9c759fcdcd949704734f0fe64",
+    "content-hash": "3af066fe8d5f21141cf322f570b36add",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -180,16 +180,16 @@
         },
         {
             "name": "cakephp/cakephp",
-            "version": "3.1.5",
+            "version": "3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "bfc9cfbb8508e1014e183f35aff082fd584c00d7"
+                "reference": "22e7a7bb345e38ad5ffe2bb9c64364da822713e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/bfc9cfbb8508e1014e183f35aff082fd584c00d7",
-                "reference": "bfc9cfbb8508e1014e183f35aff082fd584c00d7",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/22e7a7bb345e38ad5ffe2bb9c64364da822713e9",
+                "reference": "22e7a7bb345e38ad5ffe2bb9c64364da822713e9",
                 "shasum": ""
             },
             "require": {
@@ -246,7 +246,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-11-30 03:10:23"
+            "time": "2015-12-23 16:07:38"
         },
         {
             "name": "cakephp/cakephp-codesniffer",
@@ -289,16 +289,16 @@
         },
         {
             "name": "cakephp/migrations",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/migrations.git",
-                "reference": "800d4f783987954627f45201eb09686b0318cbce"
+                "reference": "27d65766312b51be8228365f2b75e2541017723f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/migrations/zipball/800d4f783987954627f45201eb09686b0318cbce",
-                "reference": "800d4f783987954627f45201eb09686b0318cbce",
+                "url": "https://api.github.com/repos/cakephp/migrations/zipball/27d65766312b51be8228365f2b75e2541017723f",
+                "reference": "27d65766312b51be8228365f2b75e2541017723f",
                 "shasum": ""
             },
             "require": {
@@ -335,7 +335,7 @@
                 "cakephp",
                 "migrations"
             ],
-            "time": "2015-12-01 20:29:21"
+            "time": "2015-12-25 11:58:59"
         },
         {
             "name": "cakephp/plugin-installer",
@@ -574,43 +574,6 @@
             "time": "2015-07-08 01:05:34"
         },
         {
-            "name": "heidilabs/markov-php",
-            "version": "0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/heidilabs/markov-php.git",
-                "reference": "288d5722b0e333fc1acd77df98c7e085b0acb7ac"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/heidilabs/markov-php/zipball/288d5722b0e333fc1acd77df98c7e085b0acb7ac",
-                "reference": "288d5722b0e333fc1acd77df98c7e085b0acb7ac",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Erika Heidi",
-                    "email": "erika@erikaheidi.com"
-                }
-            ],
-            "description": "A simple markov chain experiment",
-            "homepage": "https://github.com/heidilabs/markov-php",
-            "keywords": [
-                "markov"
-            ],
-            "time": "2015-06-04 11:47:54"
-        },
-        {
             "name": "ircmaxell/password-compat",
             "version": "v1.0.4",
             "source": {
@@ -720,16 +683,16 @@
         },
         {
             "name": "mobiledetect/mobiledetectlib",
-            "version": "2.8.17",
+            "version": "2.8.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/serbanghita/Mobile-Detect.git",
-                "reference": "b87da5f63a76e9615a0c74fcf168657b1ea7e41d"
+                "reference": "99e1c21c32104af2d035ff5d2fd8aff8cb29e27c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/b87da5f63a76e9615a0c74fcf168657b1ea7e41d",
-                "reference": "b87da5f63a76e9615a0c74fcf168657b1ea7e41d",
+                "url": "https://api.github.com/repos/serbanghita/Mobile-Detect/zipball/99e1c21c32104af2d035ff5d2fd8aff8cb29e27c",
+                "reference": "99e1c21c32104af2d035ff5d2fd8aff8cb29e27c",
                 "shasum": ""
             },
             "require": {
@@ -770,7 +733,7 @@
                 "mobile detector",
                 "php mobile detect"
             ],
-            "time": "2015-09-17 14:45:21"
+            "time": "2015-12-24 16:37:50"
         },
         {
             "name": "nesbot/carbon",
@@ -922,6 +885,45 @@
                 "cakephp"
             ],
             "time": "2015-12-16 21:01:17"
+        },
+        {
+            "name": "phantomwatson/ether-markov",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PhantomWatson/ether-markov.git",
+                "reference": "215f16508156204689cb910a8693494195aba4e6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PhantomWatson/ether-markov/zipball/215f16508156204689cb910a8693494195aba4e6",
+                "reference": "215f16508156204689cb910a8693494195aba4e6",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "EtherMarkov\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Watson",
+                    "homepage": "http://phantomwatson.com",
+                    "role": "Author"
+                }
+            ],
+            "description": "Ether Markov Chain Text Generator",
+            "homepage": "https://github.com/PhantomWatson/ether-markov",
+            "keywords": [
+                "markov",
+                "php"
+            ],
+            "time": "2015-12-26 22:38:55"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -1950,16 +1952,16 @@
         },
         {
             "name": "symfony/config",
-            "version": "v2.8.0",
+            "version": "v2.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "f21c97aec1b5302d2dc0d17047ea8f4e4ff93aae"
+                "reference": "17d4b2e64ce1c6ba7caa040f14469b3c44d7f7d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/f21c97aec1b5302d2dc0d17047ea8f4e4ff93aae",
-                "reference": "f21c97aec1b5302d2dc0d17047ea8f4e4ff93aae",
+                "url": "https://api.github.com/repos/symfony/config/zipball/17d4b2e64ce1c6ba7caa040f14469b3c44d7f7d2",
+                "reference": "17d4b2e64ce1c6ba7caa040f14469b3c44d7f7d2",
                 "shasum": ""
             },
             "require": {
@@ -1996,20 +1998,20 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2015-11-23 20:38:01"
+            "time": "2015-12-26 13:37:56"
         },
         {
             "name": "symfony/console",
-            "version": "v2.8.0",
+            "version": "v2.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "d232bfc100dfd32b18ccbcab4bcc8f28697b7e41"
+                "reference": "2e06a5ccb19dcf9b89f1c6a677a39a8df773635a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/d232bfc100dfd32b18ccbcab4bcc8f28697b7e41",
-                "reference": "d232bfc100dfd32b18ccbcab4bcc8f28697b7e41",
+                "url": "https://api.github.com/repos/symfony/console/zipball/2e06a5ccb19dcf9b89f1c6a677a39a8df773635a",
+                "reference": "2e06a5ccb19dcf9b89f1c6a677a39a8df773635a",
                 "shasum": ""
             },
             "require": {
@@ -2056,20 +2058,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-11-30 12:35:10"
+            "time": "2015-12-22 10:25:57"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.8.0",
+            "version": "v2.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "3e661a0d521ac67496515fa6e6704bd61bcfff60"
+                "reference": "a7ad724530a764d70c168d321ac226ba3d2f10fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/3e661a0d521ac67496515fa6e6704bd61bcfff60",
-                "reference": "3e661a0d521ac67496515fa6e6704bd61bcfff60",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/a7ad724530a764d70c168d321ac226ba3d2f10fc",
+                "reference": "a7ad724530a764d70c168d321ac226ba3d2f10fc",
                 "shasum": ""
             },
             "require": {
@@ -2105,24 +2107,27 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2015-11-23 10:19:46"
+            "time": "2015-12-22 10:25:57"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "0b6a8940385311a24e060ec1fe35680e17c74497"
+                "reference": "49ff736bd5d41f45240cec77b44967d76e0c3d25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/0b6a8940385311a24e060ec1fe35680e17c74497",
-                "reference": "0b6a8940385311a24e060ec1fe35680e17c74497",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/49ff736bd5d41f45240cec77b44967d76e0c3d25",
+                "reference": "49ff736bd5d41f45240cec77b44967d76e0c3d25",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-mbstring": "For best performance"
             },
             "type": "library",
             "extra": {
@@ -2161,20 +2166,20 @@
                 "portable",
                 "shim"
             ],
-            "time": "2015-11-04 20:28:58"
+            "time": "2015-11-20 09:19:13"
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.0",
+            "version": "v2.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "f79824187de95064a2f5038904c4d7f0227fedb5"
+                "reference": "ac84cbb98b68a6abbc9f5149eb96ccc7b07b8966"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/f79824187de95064a2f5038904c4d7f0227fedb5",
-                "reference": "f79824187de95064a2f5038904c4d7f0227fedb5",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/ac84cbb98b68a6abbc9f5149eb96ccc7b07b8966",
+                "reference": "ac84cbb98b68a6abbc9f5149eb96ccc7b07b8966",
                 "shasum": ""
             },
             "require": {
@@ -2210,7 +2215,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-11-30 12:35:10"
+            "time": "2015-12-26 13:37:56"
         },
         {
             "name": "twbs/bootstrap",
@@ -2777,16 +2782,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v2.8.0",
+            "version": "v2.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "e6f3855005f2bfad7d7e72431d374a6478893fe3"
+                "reference": "f943f29ae69c42511a2d85adee9d13d835b5c803"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/e6f3855005f2bfad7d7e72431d374a6478893fe3",
-                "reference": "e6f3855005f2bfad7d7e72431d374a6478893fe3",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/f943f29ae69c42511a2d85adee9d13d835b5c803",
+                "reference": "f943f29ae69c42511a2d85adee9d13d835b5c803",
                 "shasum": ""
             },
             "require": {
@@ -2836,7 +2841,7 @@
                 "debug",
                 "dump"
             ],
-            "time": "2015-11-18 13:45:00"
+            "time": "2015-12-05 11:09:21"
         }
     ],
     "aliases": [],

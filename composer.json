@@ -12,14 +12,14 @@
 		"cakephp/plugin-installer" : "dev-master",
 		"cake17/cakephp-recaptcha" : "dev-master",
 		"phantomwatson/cakephp-autologin": "dev-master",
+		"phantomwatson/ether-markov": "*",
 		"phpunit/phpunit": "*",
 		"cakephp/cakephp-codesniffer": "*",
 		"oyejorge/less.php": "~1.5",
 		"flesler/jquery.scrollto": "*",
 		"twbs/bootstrap": "~3.0",
 		"gourmet/common-mark": "~1.0",
-		"xety/cake3-cookieauth": "1.*",
-		"heidilabs/markov-php": "~0.2"
+		"xety/cake3-cookieauth": "1.*"
 	},
 	"require-dev" : {
 		"psy/psysh" : "@stable",
