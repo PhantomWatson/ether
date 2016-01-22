@@ -140,7 +140,7 @@
 
                 <dt>
                     <a href="#">
-                        Why are some colored boxes blank with broken borders?
+                        Why are some colored boxes blank with dashed borders?
                     </a>
                 </dt>
                 <dd>
