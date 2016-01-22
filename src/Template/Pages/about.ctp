@@ -291,7 +291,7 @@
                     </a>
                 </dt>
                 <dd>
-                        A list of all the supported styled (bold, italics, lists, etc.) can be found on the
+                        A list of all the supported styles (bold, italics, lists, etc.) can be found on the
                         <?= $this->Html->link(
                             'Markdown guide',
                             [
