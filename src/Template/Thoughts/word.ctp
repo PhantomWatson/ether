@@ -34,41 +34,34 @@
     </div>
 
     <?php if (empty($thoughts)): ?>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="content_box">
-                    <div id="wannathink_choices">
-                        <div>
-                            <?php if ($loggedIn): ?>
-                                <p>
-                                    No one has yet thought about <strong><?= $word ?></strong>.<br />
-                                </p>
-                                <p>
-                                    <?= $this->Html->link(
-                                        'Would you like to be the first?',
-                                        [
-                                            'controller' => 'Thoughts',
-                                            'action' => 'add',
-                                            '?' => [
-                                                'word' => $word
-                                            ]
-                                        ]
-                                    ) ?>
-                                </p>
-                            <?php else: ?>
-                                <p>
-                                    No one has yet thought about <strong><?= $word ?></strong>.<br />
-                                    If you were
-                                    <?= $this->Html->link(
-                                        'logged in',
-                                        ['controller' => 'Users', 'action' => 'login']
-                                    ) ?>, you could be the first.
-                                </p>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-                <div id="newthoughtview"></div>
+        <div id="unpopulated-thoughtword">
+            <div class="col-sm-offset-1 col-sm-10">
+                <?php if ($loggedIn): ?>
+                    <p>
+                        No one has yet thought about <strong><?= $word ?></strong>.<br />
+                    </p>
+                    <p>
+                        <?= $this->Html->link(
+                            'Would you like to be the first?',
+                            [
+                                'controller' => 'Thoughts',
+                                'action' => 'add',
+                                '?' => [
+                                    'word' => $word
+                                ]
+                            ]
+                        ) ?>
+                    </p>
+                <?php else: ?>
+                    <p>
+                        No one has yet thought about <strong><?= $word ?></strong>.<br />
+                        If you were
+                        <?= $this->Html->link(
+                            'logged in',
+                            ['controller' => 'Users', 'action' => 'login']
+                        ) ?>, you could be the first.
+                    </p>
+                <?php endif; ?>
             </div>
         </div>
     <?php else: ?>
