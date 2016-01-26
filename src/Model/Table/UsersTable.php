@@ -1,13 +1,16 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\Collection\Collection;
+use Cake\Mailer\Email;
+use Cake\Network\Exception\InternalErrorException;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
-use Cake\Collection\Collection;
-use Cake\Network\Exception\InternalErrorException;
+use Cake\Routing\Router;
+use Cake\Utility\Security;
+use Cake\Validation\Validator;
 use League\HTMLToMarkdown\HtmlConverter;
 
 /**
@@ -306,5 +309,62 @@ class UsersTable extends Table
                 echo "ERROR converting $field #$result->id<br />";
             }
         }
+    }
+
+    /**
+     * @param string $email
+     * @return int|null
+     */
+    public function getIdWithEmail($email)
+    {
+        $user = $this->find('all')
+            ->select(['id'])
+            ->where(['email' => $email])
+            ->limit(1);
+        if ($user->isEmpty()) {
+            return null;
+        }
+        return $user->first()->id;
+    }
+
+    /**
+     * Sends an email with a link that can be used in the next
+     * 24 hours to give the user access to /users/resetPassword
+     *
+     * @param int $userId
+     * @return boolean
+     */
+    public function sendPasswordResetEmail($userId)
+    {
+        $timestamp = time();
+        $hash = $this->getPasswordResetHash($userId, $timestamp);
+        $resetUrl = Router::url([
+            'controller' => 'Users',
+            'action' => 'resetPassword',
+            $userId,
+            $timestamp,
+            $hash
+        ], true);
+        $siteUrl = Router::url('/', true);
+        $email = new Email('reset_password');
+        $user = $this->get($userId);
+        $email->to($user->email);
+        $email->viewVars(compact(
+            'resetUrl',
+            'siteUrl'
+        ));
+        return $email->send();
+    }
+
+    /**
+     * Returns a hash for use in the emailed link to /reset-password
+     *
+     * @param int $userId
+     * @param int $timestamp
+     * @return string
+     */
+    public function getPasswordResetHash($userId, $timestamp)
+    {
+        return Security::hash($userId.$timestamp, 'sha1', true);
     }
 }

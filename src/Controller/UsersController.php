@@ -14,7 +14,15 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['index', 'register', 'login', 'view', 'checkColorAvailability']);
+        $this->Auth->allow([
+            'checkColorAvailability',
+            'forgotPassword',
+            'index',
+            'login',
+            'register',
+            'resetPassword',
+            'view'
+        ]);
 
         if ($this->request->action === 'register') {
             $this->loadComponent('Recaptcha.Recaptcha');
@@ -262,5 +270,71 @@ class UsersController extends AppController
                 $this->Flash->error('There was an error updating your account settings.');
             }
         }
+    }
+
+    /**
+     * Allows the user to enter their email address and get a link to reset their password
+     */
+    public function forgotPassword()
+    {
+        $user = $this->Users->newEntity();
+        if ($this->request->is('post')) {
+            $email = $this->request->data('email');
+            $email = strtolower(trim($email));
+            if (empty($email)) {
+                $this->Flash->error('Please enter the email address you registered with to have your password reset.');
+            } else {
+                $userId = $this->Users->getIdWithEmail($email);
+                if ($userId) {
+                    if ($this->Users->sendPasswordResetEmail($userId)) {
+                        $this->Flash->success('You did it! The email goblins should be delivering a link to reset your password forthwith.');
+                        $this->request->data = [];
+                    } else {
+                        $msg = 'There was an error sending your password-resetting email. I swear this never happens. :(';
+                        $this->Flash->error($msg);
+                    }
+                } else {
+                    $msg = 'I couldn\'t find an account registered with the email address <strong>'.$email.'</strong>. ';
+                    $msg .= 'Please make sure you spelled it correctly.';
+                    $this->Flash->error($msg);
+                }
+            }
+        }
+        $this->set([
+            'titleForLayout' => 'Forgot Password',
+            'user' => $user
+        ]);
+    }
+
+    public function resetPassword($userId = null, $timestamp = null, $hash = null)
+    {
+        if (! $userId || ! $timestamp && ! $hash) {
+            throw new NotFoundException('Incomplete URL for password-resetting. Did you leave out part of the URL when you copied and pasted it?');
+        }
+
+        if (time() - $timestamp > 60 * 60 * 24) {
+            throw new ForbiddenException('Sorry, that link has expired.');
+        }
+
+        $expectedHash = $this->Users->getPasswordResetHash($userId, $timestamp);
+        if ($hash != $expectedHash) {
+            throw new ForbiddenException('Invalid security key');
+        }
+
+        if ($this->request->is(['post', 'put'])) {
+            $this->request->data['password'] = $this->request->data('new_password');
+            $user = $this->Users->get($userId);
+            $user = $this->Users->patchEntity($user, $this->request->data());
+            if ($this->Users->save($user)) {
+                $this->Flash->success('Your password has been updated.');
+                return $this->redirect(['action' => 'login']);
+            }
+        }
+        $this->request->data = [];
+
+        $this->set([
+            'titleForLayout' => 'Reset Password',
+            'user' => $this->Users->newEntity()
+        ]);
     }
 }

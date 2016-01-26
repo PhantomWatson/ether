@@ -34,12 +34,15 @@
             ]
         );
         echo $this->Form->end();
-        echo $this->Html->link(
-            'Forgot password?',
-            [
-                'controller' => 'users',
-                'action' => 'forgot_password'
-            ]
-        );
     ?>
+
+    <p>
+        <?= $this->Html->link(
+            'I forgot my password',
+            [
+                'controller' => 'Users',
+                'action' => 'forgotPassword'
+            ]
+        ) ?>
+    </p>
 </div>
