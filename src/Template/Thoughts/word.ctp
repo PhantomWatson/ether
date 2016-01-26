@@ -42,15 +42,18 @@
                             <?php if ($loggedIn): ?>
                                 <p>
                                     No one has yet thought about <strong><?= $word ?></strong>.<br />
-                                    Would you like to?
                                 </p>
                                 <p>
                                     <?= $this->Html->link(
-                                        'Yes',
-                                        ['controller' => 'Thoughts', 'action' => 'add', $word]
+                                        'Would you like to be the first?',
+                                        [
+                                            'controller' => 'Thoughts',
+                                            'action' => 'add',
+                                            '?' => [
+                                                'word' => $word
+                                            ]
+                                        ]
                                     ) ?>
-                                    <br />
-                                    <a href="#" id="dontwannathink">No</a>
                                 </p>
                             <?php else: ?>
                                 <p>
@@ -62,11 +65,6 @@
                                     ) ?>, you could be the first.
                                 </p>
                             <?php endif; ?>
-                        </div>
-                    </div>
-                    <div id="wannathink_rejection" style="display: none;">
-                        <div>
-                            Well, fine. Be that way.
                         </div>
                     </div>
                 </div>
