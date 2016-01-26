@@ -6,7 +6,7 @@
 
 <p>
     Please enter your new password below. Afterward, you will be able to log in
-    using this password and the email address <strong><?= $user->email ?></strong>.
+    using this password and the email address <strong><?= $email ?></strong>.
 </p>
 
 <?php
