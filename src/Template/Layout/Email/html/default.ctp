@@ -1,23 +1,41 @@
-<?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
-<head>
-</head>
-<body style="font-family: Verdana, Helvetica, Arial;">
-    <?= $this->fetch('content') ?>
-</body>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <body>
+        <table cellspacing="0" cellpadding="0" border="0" width="100%" style="font-family: Verdana, Helvetica, Arial;">
+            <tr>
+                <td bgcolor="#FFFFFF" align="center">
+                    <table width="650px" cellspacing="0" cellpadding="3">
+                        <tr>
+                            <td style="color: #777777; font-size: 130%; padding-bottom: 20px;">
+                                A message from Ether, your friendly neighborhood thought repository...
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <?= $this->fetch('content') ?>
+
+                                <p style="margin-top: 50px;">
+                                    <span style="font-size: 100%;">
+                                        Love,
+                                    </span>
+                                    <br />
+                                    <span style="font-size: 160%; font-weight: bold;">
+                                        Ether
+                                    </span>
+                                    <br />
+                                    <a href="http://theEther.com/" style="font-size: 80%;">
+                                        http://theEther.com/
+                                    </a>
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
 </html>

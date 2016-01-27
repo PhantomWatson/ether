@@ -7,11 +7,3 @@
         <?= $resetUrl ?>
     </a>
 </p>
-
-<p>
-    Love,
-    <br />
-    Ether
-    <br />
-    <?= $this->Html->link($siteUrl, $siteUrl) ?>
-</p>

@@ -2,8 +2,3 @@ Word has it you need to reset your password. If you visit the following URL in t
 
 <?= $resetUrl ?>
 
-
-
-Love,
-Ether
-<?= $siteUrl ?>

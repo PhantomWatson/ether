@@ -27,11 +27,3 @@
     If you'd rather not receive notifications when someone sends you a message on Ether, you can disable them by changing your
     <?= $this->Html->link('account settings', $accountUrl) ?>.
 </p>
-
-<p>
-    Love,
-    <br />
-    Ether
-    <br />
-    <?= $this->Html->link($siteUrl, $siteUrl) ?>
-</p>
