@@ -16,7 +16,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
 <html>
 <head>
-    <title><?= $this->fetch('title') ?></title>
 </head>
 <body style="font-family: Verdana, Helvetica, Arial;">
     <?= $this->fetch('content') ?>
