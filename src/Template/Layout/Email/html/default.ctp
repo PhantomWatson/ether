@@ -18,7 +18,7 @@
 <head>
     <title><?= $this->fetch('title') ?></title>
 </head>
-<body>
+<body style="font-family: Verdana, Helvetica, Arial;">
     <?= $this->fetch('content') ?>
 </body>
 </html>
