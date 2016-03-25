@@ -6,7 +6,7 @@
 
 <p>
     This is a work in progress. This generates text based on thoughts that have been shared on Ether. Set the speed and the block length
-    (smaller for more variation, larger for less variation) and let'r rip. The <em>Thinkin'</em> section at the bottom shows you how the
+    (smaller for more variation, larger for less variation) and let'r rip. The <em>Thinkin'</em> section shows you how the
     process takes a block of N words and searches for a random word that someone, somewhere once wrote <em>after</em> that. The
     <em>Entropy Score</em> shows you how many times your text encountered a fork in the road where it could switch from one source
     thought to another.
