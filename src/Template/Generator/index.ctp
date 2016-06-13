@@ -51,6 +51,30 @@
                     </select>
                 </div>
             </div>
+            <div class="form-group row">
+                <div class="col-sm-4">
+                    Limit:
+                </div>
+                <div class="col-sm-6">
+                    <select id="limit" class="form-control">
+                        <option value="">
+                            None
+                        </option>
+                        <option value="100">
+                            100 words
+                        </option>
+                        <option value="250">
+                            250 words
+                        </option>
+                        <option value="500">
+                            500 words
+                        </option>
+                        <option value="1000">
+                            1000 words
+                        </option>
+                    </select>
+                </div>
+            </div>
             <br />
             <button id="stop" class="btn btn-default">Stop</button>
             <button id="start" class="btn btn-default">Start</button>

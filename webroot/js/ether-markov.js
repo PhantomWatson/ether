@@ -7,6 +7,7 @@ var EtherMarkov = {
     currentBlock: null,
     entropyScore: 0,
     interval: null,
+    limit: null,
     loop: null,
     processingContainer: null,
     resultsContainer: null,
@@ -15,6 +16,7 @@ var EtherMarkov = {
     init: function () {
         this.blockLength = $('#blockLength').val();
         this.interval = 1000 / $('#speed').val();
+        this.limit = $('#limit').val();
         this.resultsContainer = $('#markovResults');
         this.processingContainer = $('#markovOptions');
         this.entropyScoreContainer = $('#entropyScore');
@@ -30,6 +32,9 @@ var EtherMarkov = {
         });
         $('#speed').change(function () {
             EtherMarkov.interval = 1000 / $(this).val();
+        });
+        $('#limit').change(function () {
+            EtherMarkov.limit = $(this).val();
         });
         
         this.setup();
@@ -73,10 +78,12 @@ var EtherMarkov = {
         $('#stop').show();
         $('#blockLength').prop('disabled', true);
         $('#speed').prop('disabled', true);
+        $('#limit').prop('disabled', true);
         if (this.currentBlock === null) {
             var start = this.getRandomBlock(this.seed, this.blockLength);
             this.currentBlock = start.split(' ');
             this.displayInResults(this.currentBlock.join(' '));
+            this.blockCount += this.blockLength;
         }
         this.loop = setInterval(function () {EtherMarkov.addBlock();}, this.interval);
     },
@@ -87,7 +94,7 @@ var EtherMarkov = {
         this.currentBlock.push(word);
         this.displayInResults(word);
         this.blockCount++;
-        if (this.blockCount > this.wordLimit) {
+        if (this.limit && this.blockCount >= this.limit) {
             this.stop();
             this.blockCount = 0;
         }
@@ -107,6 +114,7 @@ var EtherMarkov = {
         $('#start').show();
         //$('#blockLength').prop('disabled', false);
         $('#speed').prop('disabled', false);
+        $('#limit').prop('disabled', false);
         clearInterval(this.loop);
     },
     
