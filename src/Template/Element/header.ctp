@@ -46,6 +46,12 @@
                     </li>
                     <li>
                         <?= $this->Html->link(
+                            'Generator',
+                            ['controller' => 'Generator', 'action' => 'index']
+                        ) ?>
+                    </li>
+                    <li>
+                        <?= $this->Html->link(
                             'Add a Thought',
                             ['controller' => 'Thoughts', 'action' => 'add']
                         ) ?>
