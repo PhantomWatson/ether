@@ -91,6 +91,7 @@ class ThoughtsTable extends Table
 
     /**
      * Returns an alphabetized list of all unique populated thoughtwords
+     *
      * @return array
      */
     public function getWords()
@@ -119,6 +120,7 @@ class ThoughtsTable extends Table
 
     /**
      * Returns a list of the 300 most-populated thoughtwords and their thought counts
+     *
      * @return array
      */
     public function getTopCloud()
@@ -128,6 +130,7 @@ class ThoughtsTable extends Table
 
     /**
      * Returns a list of all thoughtwords and their thought counts
+     *
      * @param int $limit
      * @return array
      */
@@ -155,6 +158,7 @@ class ThoughtsTable extends Table
 
     /**
      * Returns a count of unique populated thoughtwords
+     *
      * @return int
      */
     public function getWordCount()
@@ -168,6 +172,7 @@ class ThoughtsTable extends Table
 
     /**
      * Returns a random populated thoughtword
+     *
      * @return string
      */
     public function getRandomPopulatedThoughtWord()
@@ -181,6 +186,7 @@ class ThoughtsTable extends Table
 
     /**
      * Returns a random thought
+     *
      * @return Entity
      */
     public function getRandomThought()
@@ -238,6 +244,7 @@ class ThoughtsTable extends Table
 
     /**
      * Returns an array of ['first letter' => [words beginning with that letter], ...]
+     *
      * @return array
      */
     public function getAlphabeticallyGroupedWords()
@@ -258,6 +265,7 @@ class ThoughtsTable extends Table
 
     /**
      * Used to get paginated thoughts and comments combined
+     *
      * @param Query $query
      * @param array $options
      * @return Query
@@ -322,6 +330,7 @@ class ThoughtsTable extends Table
 
     /**
      * Converts $word into a valid thoughtword (alphanumeric, lowercase, no spaces, max length enforced)
+     *
      * @param string $word
      * @return string
      */
@@ -336,6 +345,7 @@ class ThoughtsTable extends Table
 
     /**
      * Checks to see if the thought in $this->request->data is already in the database
+     *
      * @return int|boolean Either the ID of the existing thought or FALSE
      */
     public function isDuplicate($userId, $thought)
@@ -376,6 +386,7 @@ class ThoughtsTable extends Table
     /**
      * Convert the user-entered contents of a thought to what will
      * be displayed (with Markdown to HTML, thoughtwords linked, etc.)
+     *
      * @param string $thought
      * @return string
      */
@@ -410,6 +421,7 @@ class ThoughtsTable extends Table
 
     /**
      * Returns $input with links around every thoughtword
+     *
      * @param string $input
      * @return string
      */
@@ -583,6 +595,8 @@ class ThoughtsTable extends Table
 
     /**
      * Removs slashes that were a leftover of the anti-injection-attack strategy of the olllllld Ether
+     *
+     * @return void
      */
     public function overhaulStripSlashes()
     {
