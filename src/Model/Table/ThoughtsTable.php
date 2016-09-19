@@ -431,7 +431,16 @@ class ThoughtsTable extends Table
         $input = stripslashes($input); // Unnecessary after slashes are stripped out of the database
         $trimPattern = "/(^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$)/"; // Pattern used to isolate leading/trailing non-alphanumeric characters
         $nonalphanumericPattern = '/[^a-zA-Z0-9]/';
-        $whitespaceAndTagsPattern = "/( |\n|\r|<i>|<\/i>|<b>|<\/b>)/";
+        $tags = ['i', 'b', 'em', 'strong', 'p', 'ul', 'ol', 'li', 'br', 'wbr', 'blockquote'];
+        $selfClosingTags = ['br', 'wbr'];
+        $whitespaceAndTagsPattern = '/( |\n|\r';
+        foreach ($tags as $tag) {
+            $whitespaceAndTagsPattern .= '|<' . $tag . '>|<\/' . $tag . '>';
+        }
+        foreach ($selfClosingTags as $tag) {
+            $whitespaceAndTagsPattern .= '|<' . $tag . ' \/>';
+        }
+        $whitespaceAndTagsPattern .= ')/';
         $entirelyNonalphanumericPattern = '/^[^a-zA-Z0-9]+$/';
         $formattedText = '';
         $textBroken = preg_split($whitespaceAndTagsPattern, $input, -1, PREG_SPLIT_DELIM_CAPTURE);
