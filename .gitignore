@@ -39,3 +39,6 @@ local.properties
 
 # Composer
 composer.phar
+
+# PhpStorm
+/.idea/*
