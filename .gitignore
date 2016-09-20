@@ -7,6 +7,7 @@
 /webroot/coverage/*
 /node_modules/*
 TestController.php
+/plugins/*
 
 # Eclipse
 *.pydevproject
