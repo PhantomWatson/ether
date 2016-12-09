@@ -62,7 +62,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="https://github.com/PhantomWatson/ether3">
+                        <a href="https://github.com/PhantomWatson/ether">
                             GitHub
                         </a>
                     </li>
