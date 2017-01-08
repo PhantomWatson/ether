@@ -14,14 +14,19 @@
 @blockquote-font-size: 100%;
 
 html, body {
-	background-attachment: fixed;
 	background-color: #222;
-    background-image: linear-gradient(to top, rgb(10,10,10) 0%, rgb(32,32,32) 10%, rgb(34,34,34) 11%, rgb(34,34,34) 90%, rgb(34,34,34) 95%, rgb(34,34,34) 98%);
 	color: @generalTextColor;
 	font-family: Verdana, Helvetica, Arial;
 	height: 100%;
 	margin: 0;
     padding: 0;
+}
+
+@media (min-width: @screen-sm-min) {
+	html, body {
+		background-attachment: fixed;
+		background-image: linear-gradient(to top, rgb(10,10,10) 0%, rgb(32,32,32) 10%, rgb(34,34,34) 11%, rgb(34,34,34) 90%, rgb(34,34,34) 95%, rgb(34,34,34) 98%);
+	}
 }
 
 body {
