@@ -18,11 +18,15 @@
                 <ul>
                     <?php foreach ($suggestedThoughtwords as $word): ?>
                         <li>
-                            <?= $word ?>
+                            <button><?= $word ?></button>
                         </li>
                     <?php endforeach; ?>
                 </ul>
             </div>
+
+            <?php $this->append('buffered_js'); ?>
+                suggestedWords.init();
+            <?php $this->end(); ?>
         <?php endif; ?>
 
         <?= $this->Form->input(
