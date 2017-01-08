@@ -19,6 +19,7 @@ class ThoughtsController extends AppController
     {
         parent::initialize();
         $this->Auth->allow(['recent', 'word', 'index', 'refreshFormatting', 'random', 'suggested']);
+        $this->loadComponent('RequestHandler');
     }
 
     public function isAuthorized($user = null)

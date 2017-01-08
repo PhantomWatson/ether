@@ -42,6 +42,8 @@ use Cake\Routing\Router;
 Router::defaultRouteClass('DashedRoute');
 
 Router::scope('/', function ($routes) {
+    $routes->extensions(['json']);
+
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'home']);
 	$routes->connect('/about', ['controller' => 'Pages', 'action' => 'about']);
     $routes->connect('/markdown', ['controller' => 'Pages', 'action' => 'markdown']);
