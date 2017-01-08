@@ -811,6 +811,7 @@ var suggestedWords = {
             var word = $(this).html();
             $('#word').val(word);
             $('#suggested-words').slideUp();
+            $('#thought').focus();
         });
     }
 };
