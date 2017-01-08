@@ -11,6 +11,20 @@
             ]
         ) ?>
 
+        <?php if (isset($suggestedThoughtwords)): ?>
+            <div id="suggested-words">
+                Not sure what to write about?
+                Here are some suggestions:
+                <ul>
+                    <?php foreach ($suggestedThoughtwords as $word): ?>
+                        <li>
+                            <?= $word ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+
         <?= $this->Form->input(
             'word',
             [

@@ -84,6 +84,11 @@ class ThoughtsController extends AppController
             }
         }
 
+        if ($thought->word == null) {
+            $suggestedThoughtwords = $this->Thoughts->getSuggestedWords(3);
+            $this->set('suggestedThoughtwords', $suggestedThoughtwords);
+        }
+
         $this->set([
             'title_for_layout' => 'Post a New Thought',
             'thought' => $thought
