@@ -152,7 +152,7 @@ class ThoughtsController extends AppController
     public function recent($page = 1)
     {
         $this->paginate['Thoughts']['finder']['recentActivity'] = [];
-        $this->layout = 'ajax';
+        $this->viewBuilder()->layout('ajax');
         $this->set('recentActivity', $this->paginate('Thoughts'));
     }
 
@@ -171,7 +171,7 @@ class ThoughtsController extends AppController
             $this->response->statusCode(404);
         }
         if ($this->request->is('ajax')) {
-            $this->layout = 'ajax';
+            $this->viewBuilder()->layout('ajax');
         }
 
         // Used by the 'add a thought' form
@@ -195,7 +195,7 @@ class ThoughtsController extends AppController
 
     public function refreshFormatting($thoughtId)
     {
-        $this->layout = 'json';
+        $this->viewBuilder()->layout('json');
 
         try {
             $thought = $this->Thoughts->get($thoughtId);

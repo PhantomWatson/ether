@@ -207,7 +207,7 @@ class UsersController extends AppController
 
     public function checkColorAvailability($color = null)
     {
-        $this->layout = 'ajax';
+        $this->viewBuilder()->layout('ajax');
         $this->set('available', ! $this->Users->colorIsTaken($color));
     }
 

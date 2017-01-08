@@ -42,7 +42,7 @@ class CommentsController extends AppController
 
     public function refreshFormatting($commentId)
     {
-        $this->layout = 'json';
+        $this->viewBuilder()->layout('json');
         $thoughtsTable = TableRegistry::get('Thoughts');
 
         try {
