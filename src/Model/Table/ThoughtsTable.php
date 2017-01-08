@@ -704,4 +704,64 @@ class ThoughtsTable extends Table
         $sample = implode(' ', $thoughts);
         return $this->generate($sample, $blockSize, $chainLength);
     }
+
+    /**
+     * Returns an array of thoughtword-candidates that appear in thoughts but
+     * are not populated thoughtwords
+     *
+     * @return array
+     */
+    public function getUnpopulatedWords()
+    {
+        return Cache::remember('unpopulatedWords', function () {
+            $thoughts = $this->find('all')
+                ->select(['id', 'thought']);
+
+            $allWords = [];
+            foreach ($thoughts as $thought) {
+                $words = preg_split("/\s+/", $thought->thought);
+                foreach ($words as $word) {
+                    $word = preg_replace('/[^a-zA-Z0-9]/', '', $word);
+                    $word = strtolower($word);
+                    if (isset($allWords[$word])) {
+                        $allWords[$word]++;
+                    } else {
+                        $allWords[$word] = 1;
+                    }
+                }
+            }
+
+            $populatedThoughtwords = $this->getWords();
+            foreach ($allWords as $word => $count) {
+                if (in_array($word, $populatedThoughtwords)) {
+                    unset($allWords[$word]);
+                }
+            }
+
+            arsort($allWords);
+
+            return array_keys($allWords);
+        }, 'long');
+    }
+
+    /**
+     * Returns an array of random unpopulated thoughtword-candidates from the
+     * top $searchLimit most-used words
+     *
+     * @param int $count Size of array to return
+     * @param int $searchLimit Word is taken from the top X possible words
+     * @return array
+     * @throws InternalErrorException
+     */
+    public function getSuggestedWords($count = 1, $searchLimit = 100)
+    {
+        if ($count > $searchLimit) {
+            throw new InternalErrorException('Search limit cannot be less than count');
+        }
+
+        $unpopulatedWords = $this->getUnpopulatedWords();
+        $topWords = array_slice($unpopulatedWords, 0, $searchLimit);
+        shuffle($topWords);
+        return array_slice($topWords, 0, $count);
+    }
 }

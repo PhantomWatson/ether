@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use Cake\Event\Event;
 use Cake\Network\Exception\BadRequestException;
 use Cake\Routing\Router;
+use EtherMarkov\EtherMarkovChain;
 
 /**
  * Thoughts Controller
@@ -17,7 +18,7 @@ class ThoughtsController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['recent', 'word', 'index', 'refreshFormatting', 'random']);
+        $this->Auth->allow(['recent', 'word', 'index', 'refreshFormatting', 'random', 'suggested']);
     }
 
     public function isAuthorized($user = null)
@@ -79,9 +80,10 @@ class ThoughtsController extends AppController
             }
         } else {
             if ($this->request->query('word') !== null) {
-                $this->request->data['word'] = $this->request->query('word');
+                $thought->set('word', $this->request->query('word'));
             }
         }
+
         $this->set([
             'title_for_layout' => 'Post a New Thought',
             'thought' => $thought
@@ -224,5 +226,19 @@ class ThoughtsController extends AppController
                 'formattedThought' => $formattedThought
             ]
         ]);
+    }
+
+    /**
+     * Returns a single suggested word from a list of
+     * unpopulated thoughtword-candidates
+     *
+     * @param int $count Number of words returned
+     * @return void
+     */
+    public function suggested($count = 1)
+    {
+        $suggestedWords = $this->Thoughts->getSuggestedWords($count);
+        $this->set('suggestedWords', $suggestedWords);
+        $this->set('_serialize', ['suggestedWords']);
     }
 }
