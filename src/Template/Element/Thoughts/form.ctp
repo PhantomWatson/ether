@@ -14,7 +14,7 @@
         <?php if (isset($suggestedThoughtwords)): ?>
             <div id="suggested-words">
                 Not sure what to write about?
-                Here are some suggestions:
+                How about one of these commonly-used words that no one has written about yet:
                 <ul>
                     <?php foreach ($suggestedThoughtwords as $word): ?>
                         <li>
