@@ -12,14 +12,23 @@ var EtherMarkov = {
     processingContainer: null,
     resultsContainer: null,
     seed: null,
-    
-    init: function () {
+    sourceUrl: null,
+
+    /**
+     * Initialization method
+     *
+     * sourceUrl must return a JSON object that includes {source: '...'}
+     *
+     * @param {string} sourceUrl
+     */
+    init: function (sourceUrl) {
         this.blockLength = $('#blockLength').val();
         this.interval = 1000 / $('#speed').val();
         this.limit = $('#limit').val();
         this.resultsContainer = $('#markovResults');
         this.processingContainer = $('#markovOptions');
         this.entropyScoreContainer = $('#entropyScore');
+        this.sourceUrl = sourceUrl;
         
         $('#start').click(function () {
             EtherMarkov.start();
@@ -55,7 +64,7 @@ var EtherMarkov = {
             alert('AHFUCK SOMETHING WENT WRONG');
         };
         $.ajax({
-            url: '/generator/getSource',
+            url: this.sourceUrl,
             dataType: 'json',
             beforeSend: function () {
             },
@@ -136,7 +145,7 @@ var EtherMarkov = {
             var word = seed.substr(wordStart, wordLength);
             wordCandidates.push(word);
             
-            var safeWord = word.replace('"', '\"');
+            var safeWord = word.replace('"', '\\"');
             var displayedWord = this.processingContainer.find('li[data-word="'+safeWord+'"]');
             if (displayedWord.length == 0) {
                 this.processingContainer.find('ul').append('<li data-word="'+word+'">'+word+'</li>');
