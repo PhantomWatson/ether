@@ -99,5 +99,5 @@
 
 <?php $this->Html->script('ether-markov', ['block' => 'script']); ?>
 <?php $this->append('buffered_js'); ?>
-    EtherMarkov.init();
+    EtherMarkov.init('/generator/getSource');
 <?php $this->end(); ?>
