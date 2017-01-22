@@ -247,11 +247,4 @@ class ThoughtsController extends AppController
         $this->set('suggestedWords', $suggestedWords);
         $this->set('_serialize', ['suggestedWords']);
     }
-
-    public function test()
-    {
-        $words = $this->Thoughts->getWords();
-        shuffle($words);
-        $this->set('words', array_slice($words, 0, 100));
-    }
 }
