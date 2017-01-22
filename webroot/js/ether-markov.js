@@ -145,7 +145,7 @@ var EtherMarkov = {
             var word = seed.substr(wordStart, wordLength);
             wordCandidates.push(word);
             
-            var safeWord = word.replace('"', '\\"');
+            var safeWord = encodeURI(word);
             var displayedWord = this.processingContainer.find('li[data-word="'+safeWord+'"]');
             if (displayedWord.length == 0) {
                 this.processingContainer.find('ul').append('<li data-word="'+word+'">'+word+'</li>');
