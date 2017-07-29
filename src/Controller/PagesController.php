@@ -43,6 +43,7 @@ class PagesController extends AppController
     {
         parent::initialize();
         $this->loadComponent('Paginator');
+        $this->loadComponent('RequestHandler');
         $this->Auth->allow();
     }
 
@@ -123,5 +124,16 @@ class PagesController extends AppController
     public function contact()
     {
         $this->set(['titleForLayout' => 'Contact']);
+    }
+
+    /**
+     * A simple 404 page to render for bot requests
+     *
+     * @return void
+     */
+    public function botCatcher()
+    {
+        $this->viewBuilder()->layout('ajax');
+        $this->response->statusCode(404);
     }
 }
