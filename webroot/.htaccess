@@ -1,10 +1,11 @@
-SecFilterEngine Off
+<IfModule mod_security.c>
+    SecFilterEngine Off
+</IfModule>
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+    RewriteCond %{HTTP_HOST} ^theether\.info$ [OR]
+    RewriteCond %{HTTP_HOST} ^www\.theether\.info$
+    RewriteRule ^(.*)$ "http\:\/\/theether\.com\/$1" [R=301,L]
 </IfModule>
-RewriteCond %{HTTP_HOST} ^theether\.info$ [OR]
-RewriteCond %{HTTP_HOST} ^www\.theether\.info$
-RewriteRule ^(.*)$ "http\:\/\/theether\.com\/$1" [R=301,L]
-
