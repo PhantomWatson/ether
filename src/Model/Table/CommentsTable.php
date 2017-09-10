@@ -4,6 +4,7 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
 use Cake\Utility\Hash;
 use League\HTMLToMarkdown\HtmlConverter;
@@ -48,6 +49,17 @@ class CommentsTable extends Table
             ->add('thought_id', 'valid', ['rule' => 'numeric'])
             ->requirePresence('thought_id', 'create')
             ->notEmpty('thought_id')
+            ->add('thought_id', 'comments_enabled', [
+                'rule' => function ($value, $context) {
+                    $thoughtsTable = TableRegistry::get('Thoughts');
+                    $thought = $thoughtsTable->find()
+                        ->select(['comments_enabled'])
+                        ->where(['id' => $value])
+                        ->first();
+                    return $thought && $thought->comments_enabled;
+                },
+                'message' => 'That thought has comments disabled'
+            ])
             ->add('user_id', 'valid', ['rule' => 'numeric'])
             ->requirePresence('user_id', 'create')
             ->notEmpty('user_id')
