@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
 
+use App\Model\Entity\Thought;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -52,10 +53,12 @@ class CommentsTable extends Table
             ->add('thought_id', 'comments_enabled', [
                 'rule' => function ($value, $context) {
                     $thoughtsTable = TableRegistry::get('Thoughts');
+                    /** @var Thought $thought Thought record */
                     $thought = $thoughtsTable->find()
                         ->select(['comments_enabled'])
                         ->where(['id' => $value])
                         ->first();
+
                     return $thought && $thought->comments_enabled;
                 },
                 'message' => 'That thought has comments disabled'
