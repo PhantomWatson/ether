@@ -764,4 +764,18 @@ class ThoughtsTable extends Table
         shuffle($topWords);
         return array_slice($topWords, 0, $count);
     }
+
+    /**
+     * Selects thoughts with question marks
+     *
+     * @param Query $query
+     * @param array $options
+     * @return Query
+     */
+    public function findWithQuestions(Query $query, array $options)
+    {
+        return $query->where(function ($exp, $q) {
+            return $exp->like('thought', '%?%');
+        });
+    }
 }

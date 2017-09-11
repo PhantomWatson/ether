@@ -269,46 +269,37 @@ class ThoughtsController extends AppController
         $maxLength = 50;
         $questions = [];
         for ($n = 0; $n < $passes; $n++) {
-            $thoughts = $this->Thoughts->find()
+            $thoughts = $this->Thoughts->find('withQuestions')
                 ->select(['id', 'thought', 'anonymous', 'user_id', 'Users.color', 'word'])
-                ->where(function ($exp, $q) {
-                    return $exp->like('thought', '%?%');
-                })
                 ->contain(['Users'])
                 ->limit($limit);
             foreach ($thoughts as $thought) {
-                $sentences = preg_split('/(?<=[.?!])\s+(?=[a-z])/i', $thought->thought);
-                foreach ($sentences as $sentence) {
-                    // Must be a question
-                    if (strpos($sentence, '?') !== strlen($sentence) - 1) {
-                        continue;
-                    }
-
+                foreach ($thought->questions as $question) {
                     // Must have more than one word
-                    if (strpos($sentence, ' ') === false) {
+                    if (strpos($question, ' ') === false) {
                         continue;
                     }
 
                     // Must be the right length
-                    if (strlen($sentence) < $minLength || strlen($sentence) > $maxLength) {
+                    if (strlen($question) < $minLength || strlen($question) > $maxLength) {
                         continue;
                     }
 
                     // Must not start with a conjunction
-                    if (stripos($sentence,'and') === 0 || stripos($sentence,'but') === 0) {
+                    if (stripos($question,'and') === 0 || stripos($question,'but') === 0) {
                         continue;
                     }
 
                     // Strip out common rhetorical questions
                     $rhetoricalEndings = ['shall we?', ', eh?'];
                     foreach ($rhetoricalEndings as $rhetoricalEnding) {
-                        if (stripos($sentence, $rhetoricalEnding) === strlen($sentence) - strlen($rhetoricalEnding)) {
+                        if (stripos($question, $rhetoricalEnding) === strlen($question) - strlen($rhetoricalEnding)) {
                             continue 2;
                         }
                     }
 
                     $questions[] = [
-                        'question' => $sentence,
+                        'question' => $question,
                         'color' => $thought->anonymous ? null : $thought->user->color,
                         'word' => $thought->word,
                         'thoughtId' => $thought->id

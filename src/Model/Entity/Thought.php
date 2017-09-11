@@ -49,4 +49,22 @@ class Thought extends Entity
         $thoughtsTable = TableRegistry::get('Thoughts');
         return $thoughtsTable->formatThoughtword($word);
     }
+
+    /**
+     * Returns all of the sentences that end with question marks in this thought
+     *
+     * @return array
+     */
+    protected function _getQuestions()
+    {
+        $questions = [];
+        $sentences = preg_split('/(?<=[.?!])\s+(?=[a-z])/i', $this->_properties['thought']);
+        foreach ($sentences as $sentence) {
+            if (strpos($sentence, '?') === strlen($sentence) - 1) {
+                $questions[] = $sentence;
+            }
+        }
+
+        return $questions;
+    }
 }
