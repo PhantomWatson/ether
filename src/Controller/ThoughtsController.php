@@ -264,17 +264,28 @@ class ThoughtsController extends AppController
     public function questions()
     {
         $limit = 100;
-        $passes = 10;
         $minLength = 4;
         $maxLength = 50;
         $questions = [];
-        for ($n = 0; $n < $passes; $n++) {
-            $thoughts = $this->Thoughts->find('withQuestions')
+
+        $ids = $this->Thoughts->getIdsWithQuestions();
+        shuffle($ids);
+
+        foreach ($ids as $id) {
+            $thoughts = $this->Thoughts->find()
+                ->where(['Thoughts.id' => $id])
                 ->select(['id', 'thought', 'anonymous', 'user_id', 'Users.color', 'word'])
                 ->contain(['Users'])
                 ->limit($limit);
             foreach ($thoughts as $thought) {
-                foreach ($thought->questions as $question) {
+                $thoughtsQuestions = $thought->questions;
+                shuffle($thoughtsQuestions);
+                foreach ($thoughtsQuestions as $question) {
+                    // One per thought
+                    if (isset($questions[$thought->id])) {
+                        continue;
+                    }
+
                     // Must have more than one word
                     if (strpos($question, ' ') === false) {
                         continue;
@@ -298,7 +309,7 @@ class ThoughtsController extends AppController
                         }
                     }
 
-                    $questions[] = [
+                    $questions[$thought->id] = [
                         'question' => $question,
                         'color' => $thought->anonymous ? null : $thought->user->color,
                         'word' => $thought->word,

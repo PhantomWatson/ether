@@ -778,4 +778,16 @@ class ThoughtsTable extends Table
             return $exp->like('thought', '%?%');
         });
     }
+
+    /**
+     * Returns an array of IDs for thoughts that have questions
+     *
+     * @return array
+     */
+    public function getIdsWithQuestions()
+    {
+        $results = $this->find('withQuestions')->select(['id'])->toArray();
+
+        return Hash::extract($results, '{n}.id');
+    }
 }
