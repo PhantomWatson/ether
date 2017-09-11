@@ -45,17 +45,15 @@
 <div class="row">
     <div class="col-sm-8 col-sm-offset-2">
         <span class="glyphicon glyphicon-info-sign text-info"></span>
-        <strong>Hey, you!</strong>
-        Check out the
-        <?= $this->Html->link(
-            'Thought Generator',
-            ['controller' => 'Generator', 'action' => 'index']
-        ) ?>
-        I'm working on. It uses predictive text generation to
-        conjure up new thoughts based on the writing patterns
-        in existing thoughts. I'm working on adding options and
-        more entropy to the process, but the simple first draft
-        of this is up and ready to play with.
+        <strong>New thing:</strong>
+        Ever wondered what other people are wondering? If so, then I have some
+        <strong>
+            <?= $this->Html->link(
+                'Questions',
+                ['controller' => 'Thoughts', 'action' => 'questions']
+            ) ?>
+        </strong>
+        for you.
         <div class="pull-right">
             <em>Love, Phantom</em>
         </div>
