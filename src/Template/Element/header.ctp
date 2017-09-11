@@ -52,6 +52,12 @@
                     </li>
                     <li>
                         <?= $this->Html->link(
+                            'Questions',
+                            ['controller' => 'Thoughts', 'action' => 'questions']
+                        ) ?>
+                    </li>
+                    <li>
+                        <?= $this->Html->link(
                             'Add a Thought',
                             ['controller' => 'Thoughts', 'action' => 'add']
                         ) ?>
