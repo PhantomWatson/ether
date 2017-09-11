@@ -63,6 +63,7 @@ Router::scope('/', function ($routes) {
 	$routes->connect('/thinker/:color', ['controller' => 'Users', 'action' => 'view'], ['pass' => ['color']]);
 
 	$routes->connect('/t/:word/*', ['controller' => 'Thoughts', 'action' => 'word'], ['pass' => ['word']]);
+    $routes->connect('/questions', ['controller' => 'Thoughts', 'action' => 'questions']);
 
 	$routes->connect('/messages/with/:color', ['controller' => 'Messages', 'action' => 'index'], ['pass' => ['color']]);
 

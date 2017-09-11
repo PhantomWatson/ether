@@ -18,7 +18,15 @@ class ThoughtsController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['recent', 'word', 'index', 'refreshFormatting', 'random', 'suggested']);
+        $this->Auth->allow([
+            'index',
+            'questions',
+            'random',
+            'recent',
+            'refreshFormatting',
+            'suggested',
+            'word'
+        ]);
         $this->loadComponent('RequestHandler');
     }
 
@@ -246,5 +254,74 @@ class ThoughtsController extends AppController
         $suggestedWords = $this->Thoughts->getSuggestedWords($count);
         $this->set('suggestedWords', $suggestedWords);
         $this->set('_serialize', ['suggestedWords']);
+    }
+
+    /**
+     * Collects and displays questions from thoughts
+     *
+     * @return void
+     */
+    public function questions()
+    {
+        $limit = 100;
+        $passes = 10;
+        $minLength = 4;
+        $maxLength = 50;
+        $questions = [];
+        for ($n = 0; $n < $passes; $n++) {
+            $thoughts = $this->Thoughts->find()
+                ->select(['id', 'thought', 'anonymous', 'user_id', 'Users.color', 'word'])
+                ->where(function ($exp, $q) {
+                    return $exp->like('thought', '%?%');
+                })
+                ->contain(['Users'])
+                ->limit($limit);
+            foreach ($thoughts as $thought) {
+                $sentences = preg_split('/(?<=[.?!])\s+(?=[a-z])/i', $thought->thought);
+                foreach ($sentences as $sentence) {
+                    // Must be a question
+                    if (strpos($sentence, '?') !== strlen($sentence) - 1) {
+                        continue;
+                    }
+
+                    // Must have more than one word
+                    if (strpos($sentence, ' ') === false) {
+                        continue;
+                    }
+
+                    // Must be the right length
+                    if (strlen($sentence) < $minLength || strlen($sentence) > $maxLength) {
+                        continue;
+                    }
+
+                    // Must not start with a conjunction
+                    if (stripos($sentence,'and') === 0 || stripos($sentence,'but') === 0) {
+                        continue;
+                    }
+
+                    // Strip out common rhetorical questions
+                    $rhetoricalEndings = ['shall we?', ', eh?'];
+                    foreach ($rhetoricalEndings as $rhetoricalEnding) {
+                        if (stripos($sentence, $rhetoricalEnding) === strlen($sentence) - strlen($rhetoricalEnding)) {
+                            continue 2;
+                        }
+                    }
+
+                    $questions[] = [
+                        'question' => $sentence,
+                        'color' => $thought->anonymous ? null : $thought->user->color,
+                        'word' => $thought->word,
+                        'thoughtId' => $thought->id
+                    ];
+                    if (count($questions) >= $limit) {
+                        break 3;
+                    }
+                }
+            }
+        }
+        $this->set([
+            'title_for_layout' => 'Questions',
+            'questions' => $questions
+        ]);
     }
 }
