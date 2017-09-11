@@ -4,6 +4,10 @@
     </h1>
 </div>
 
+<p>
+    A random selection of questions (or questionlike strings) asked by the Thinkers of Ether.
+</p>
+
 <?php $markdownHelper = $this->loadHelper('Gourmet/CommonMark.CommonMark'); ?>
 
 <ul id="questions">
