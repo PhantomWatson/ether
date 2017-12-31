@@ -52,6 +52,7 @@ Router::scope('/', function ($routes) {
     $routes->connect('/privacy', ['controller' => 'Pages', 'action' => 'privacy']);
     $routes->connect('/contact', ['controller' => 'Pages', 'action' => 'contact']);
     $routes->connect('/stats', ['controller' => 'Pages', 'action' => 'stats']);
+    $routes->connect('/color-names', ['controller' => 'Pages', 'action' => 'colorNames']);
 
 	$routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
 	$routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
