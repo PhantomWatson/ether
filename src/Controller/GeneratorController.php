@@ -38,7 +38,7 @@ class GeneratorController extends AppController
         $thoughts = str_replace('  ', ' ', $thoughts);
         $this->set([
             'thoughtsSeed' => $thoughts,
-            'titleForLayout' => 'Thought Generator'
+            'title_for_layout' => 'Thought Generator'
         ]);
     }
 
