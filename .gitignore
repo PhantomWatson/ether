@@ -42,3 +42,6 @@ composer.phar
 
 # PhpStorm
 /.idea/*
+
+# Front-end libraries
+/webroot/bootstrap/*
