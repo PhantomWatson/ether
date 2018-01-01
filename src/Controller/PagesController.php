@@ -15,12 +15,8 @@
 namespace App\Controller;
 
 use App\Model\Table\UsersTable;
-use Cake\Core\Configure;
-use Cake\Network\Exception\NotFoundException;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
-use Cake\View\Exception\MissingTemplateException;
-use Cake\View\View;
 
 /**
  * Static content controller
@@ -141,21 +137,19 @@ class PagesController extends AppController
 
     public function colorNames()
     {
-        $View = new View();
         /** @var UsersTable $usersTable */
         $usersTable = TableRegistry::get('Users');
         $colors = $usersTable->getColorsWithThoughts();
         $Color = new \App\Color\Color();
-
-        $retval = [];
+        $hexCodes = [];
         foreach ($colors as $section => $sectionColors) {
             foreach ($sectionColors as $color => $count) {
-                $closest = $Color->getClosestXkcdColor($color);
-                $retval[$color] = $closest;
+                $hexCodes[] = $color;
             }
         }
+
         $this->set([
-            'colors' => $retval,
+            'colors' => $Color->getClosestXkcdColors($hexCodes),
             'title_for_layout' => 'Color Names'
         ]);
     }

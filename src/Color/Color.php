@@ -1046,4 +1046,20 @@ class Color
 
         return $closestColor;
     }
+
+    /**
+     * Returns an array of hexcode => name of nearest XKCD color
+     *
+     * @param string[] $colors Array of color hex codes
+     * @return array
+     */
+    public function getClosestXkcdColors($colors)
+    {
+        $retval = [];
+        foreach ($colors as $color) {
+            $retval[$color] = $this->getClosestXkcdColor($color);
+        }
+
+        return $retval;
+    }
 }
