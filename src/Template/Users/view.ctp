@@ -6,6 +6,15 @@
         </h1>
         <p class="subtitle">
             Color: #<?= $user['color'] ?>
+            <?php if ($colorName): ?>
+                <?= $this->Html->link(
+                    '"' . $colorName . '"',
+                    [
+                        'controller' => 'Pages',
+                        'action' => 'colorNames'
+                    ]
+                ) ?>
+            <?php endif; ?>
             <br />
             <?= $this->Html->link(
                 'View all Thinkers',

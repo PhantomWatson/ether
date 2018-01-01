@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Color\Color;
 use App\Controller\AppController;
 
 /**
@@ -57,7 +58,8 @@ class UsersController extends AppController
             'title_for_layout' => "Thinker #$color",
             'user' => $user,
             'colors' => $this->Users->getColorsWithThoughts(),
-            'selectedColor' => $color
+            'selectedColor' => $color,
+            'colorName' => (new Color())->getClosestXkcdColor($color)
         ]);
 
         $userId = $this->Auth->user('id');
