@@ -151,7 +151,7 @@ class PagesController extends AppController
         foreach ($colors as $section => $sectionColors) {
             foreach ($sectionColors as $color => $count) {
                 $closest = $Color->getClosestXkcdColor($color);
-                $retval[$color] = $closest ? $closest['name'] : null;
+                $retval[$color] = $closest;
             }
         }
         $this->set([

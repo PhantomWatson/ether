@@ -996,6 +996,12 @@ class Color
         return $colors;
     }
 
+    /**
+     * Returns the name of the closest XKCD color to the provided color, or null if none are within $this->threshold
+     *
+     * @param string $color Color hex code
+     * @return string|null
+     */
     public function getClosestXkcdColor($color)
     {
         $colorParts = [
@@ -1010,7 +1016,7 @@ class Color
 
             // Exact match
             if ($xkcdColorParts['hex'] == $color) {
-                return $xkcdColors[$xkcdColorName] + ['name' => $xkcdColorName];
+                return $xkcdColorName;
             }
 
             $proximity = 0;
@@ -1031,13 +1037,13 @@ class Color
         }
 
         if (empty($candidates)) {
-            return false;
+            return null;
         }
 
         asort($candidates);
         $candidateNames = array_keys($candidates);
         $closestColor = array_shift($candidateNames);
 
-        return $xkcdColors[$closestColor] + ['name' => $closestColor];
+        return $closestColor;
     }
 }
