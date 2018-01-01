@@ -10,7 +10,7 @@
                 <?= $this->Html->link(
                     '"' . $colorName . '"',
                     [
-                        'controller' => 'Pages',
+                        'controller' => 'Colors',
                         'action' => 'colorNames'
                     ]
                 ) ?>

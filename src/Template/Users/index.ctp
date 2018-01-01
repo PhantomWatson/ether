@@ -21,7 +21,7 @@
             <span class="glyphicon glyphicon-info-sign text-info"></span>
             <strong>New:</strong> Check out
             <?= $this->Html->link('the names of these colors', [
-                'controller' => 'Pages',
+                'controller' => 'Colors',
                 'action' => 'colorNames'
             ]) ?>
         </p>

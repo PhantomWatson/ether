@@ -54,7 +54,6 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/privacy', ['controller' => 'Pages', 'action' => 'privacy']);
     $routes->connect('/contact', ['controller' => 'Pages', 'action' => 'contact']);
     $routes->connect('/stats', ['controller' => 'Pages', 'action' => 'stats']);
-    $routes->connect('/color-names', ['controller' => 'Pages', 'action' => 'colorNames']);
 
     $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
     $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
@@ -69,6 +68,8 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/questions', ['controller' => 'Thoughts', 'action' => 'questions']);
 
     $routes->connect('/messages/with/:color', ['controller' => 'Messages', 'action' => 'index'], ['pass' => ['color']]);
+
+    $routes->connect('/color-names', ['controller' => 'Colors', 'action' => 'colorNames']);
 
     // Bot-catcher
     $botCatcher = ['controller' => 'Pages', 'action' => 'botCatcher'];
