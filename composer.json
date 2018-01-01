@@ -19,7 +19,8 @@
 		"flesler/jquery.scrollto": "*",
 		"twbs/bootstrap": "~3.0",
 		"gourmet/common-mark": "~1.0",
-		"xety/cake3-cookieauth": "1.*"
+		"xety/cake3-cookieauth": "1.*",
+		"josegonzalez/dotenv": "dev-master"
 	},
 	"require-dev" : {
 		"psy/psysh" : "@stable",

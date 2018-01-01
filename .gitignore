@@ -44,3 +44,8 @@ composer.phar
 
 # Front-end libraries
 /webroot/bootstrap/*
+
+# .env files
+/config/.env
+/config/.env.dev
+/config/.env.production
