@@ -1,4 +1,12 @@
 <?php
+// Load variables from .env file
+josegonzalez\Dotenv\Loader::load([
+    'filepath' => __DIR__ . DS . '.env',
+    'toServer' => false,
+    'skipExisting' => ['toServer'],
+    'raiseExceptions' => true
+]);
+
 return [
     /**
      * Debug Level:
@@ -120,7 +128,7 @@ return [
         ],
 
         'long' => [
-            'className' => 'FileEngine',
+            'className' => 'File',
             'duration' => '+1 week',
             'probability' => 100,
             'path' => CACHE . 'long' . DS,
@@ -258,8 +266,8 @@ return [
              */
             //'port' => 'non_standard_port_number',
             'username' => env('DATABASE_USERNAME', null),
-            'password' => env('DATABASE_USERNAME', null),
-            'database' => env('DATABASE_USERNAME', null),
+            'password' => env('DATABASE_PASSWORD', null),
+            'database' => env('DATABASE_NAME', null),
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],
