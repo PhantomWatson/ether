@@ -117,7 +117,7 @@
                         </li>
                     </ul>
               </dd>
-           </dt>
+           </dl>
         </section>
 
         <section>
