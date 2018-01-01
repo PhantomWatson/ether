@@ -76,7 +76,7 @@ return [
      * enable timestamping regardless of debug value.
      */
     'Asset' => [
-        // 'timestamp' => true,
+        'timestamp' => 'force',
     ],
 
     /**
@@ -117,6 +117,13 @@ return [
             'serialize' => true,
             'duration' => '+1 years',
             'url' => env('CACHE_CAKEMODEL_URL', null),
+        ],
+
+        'long' => [
+            'className' => 'FileEngine',
+            'duration' => '+1 week',
+            'probability' => 100,
+            'path' => CACHE . 'long' . DS,
         ],
     ],
 
@@ -183,8 +190,8 @@ return [
             'host' => 'localhost',
             'port' => 25,
             'timeout' => 30,
-            'username' => null,
-            'password' => null,
+            'username' => 'no-reply@theether.com',
+            'password' => env('EMAIL_PASSWORD', null),
             'client' => null,
             'tls' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
@@ -203,10 +210,31 @@ return [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => 'you@localhost',
-            //'charset' => 'utf-8',
-            //'headerCharset' => 'utf-8',
+            'from' => ['no-reply@theether.com' => 'Ether'],
+            'sender' => ['no-reply@theether.com' => 'Ether'],
+            'emailFormat' => 'both',
+            'charset' => 'utf-8',
+            'headerCharset' => 'utf-8',
         ],
+        'new_message' => [
+            'transport' => 'default',
+            'from' => ['no-reply@theether.com' => 'Ether'],
+            'sender' => ['no-reply@theether.com' => 'Ether'],
+            'emailFormat' => 'both',
+            'charset' => 'utf-8',
+            'headerCharset' => 'utf-8',
+            'template' => 'new_message'
+        ],
+        'reset_password' => [
+            'transport' => 'default',
+            'from' => ['no-reply@theether.com' => 'Ether'],
+            'sender' => ['no-reply@theether.com' => 'Ether'],
+            'subject' => 'Ether Account Password Reset',
+            'emailFormat' => 'both',
+            'charset' => 'utf-8',
+            'headerCharset' => 'utf-8',
+            'template' => 'reset_password'
+        ]
     ],
 
     /**
@@ -229,9 +257,9 @@ return [
              * the following line and set the port accordingly
              */
             //'port' => 'non_standard_port_number',
-            'username' => 'my_app',
-            'password' => 'secret',
-            'database' => 'my_app',
+            'username' => env('DATABASE_USERNAME', null),
+            'password' => env('DATABASE_USERNAME', null),
+            'database' => env('DATABASE_USERNAME', null),
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],
@@ -269,8 +297,8 @@ return [
             'persistent' => false,
             'host' => 'localhost',
             //'port' => 'non_standard_port_number',
-            'username' => 'my_app',
-            'password' => 'secret',
+            'username' => 'root',
+            'password' => false,
             'database' => 'test_myapp',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
@@ -310,6 +338,12 @@ return [
             'url' => env('LOG_QUERIES_URL', null),
             'scopes' => ['queriesLog'],
         ],
+        'email' => [
+            'className' => 'Cake\Log\Engine\FileLog',
+            'path' => LOGS,
+            'file' => 'email',
+            'levels' => ['info'],
+        ]
     ],
 
     /**
@@ -353,5 +387,8 @@ return [
      */
     'Session' => [
         'defaults' => 'php',
+        'cookie' => 'ether'
     ],
+
+    'no_reply_email' => 'no-reply@theether.com'
 ];
