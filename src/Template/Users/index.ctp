@@ -17,6 +17,15 @@
             </a>
         </p>
 
+        <p>
+            <span class="glyphicon glyphicon-info-sign text-info"></span>
+            <strong>New:</strong> Check out
+            <?= $this->Html->link('the names of these colors', [
+                'controller' => 'Pages',
+                'action' => 'colorNames'
+            ]) ?>
+        </p>
+
         <div class="users_index">
             <?= $this->element('Users'.DS.'index') ?>
         </div>
