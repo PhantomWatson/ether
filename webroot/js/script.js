@@ -233,23 +233,23 @@ var registration = {
             this.color_avail_request.abort();
         }
         this.color_avail_request = $.ajax({
-            url: '/users/checkColorAvailability/'+color,
+            url: '/users/checkColorAvailability/' + color,
             dataType: 'json',
             beforeSend: function () {
-                var message = 'Checking to see if #'+color+' is available...';
+                var message = 'Checking to see if that color is available...';
                 registration.showColorFeedback(message, null);
             },
             success: function (data) {
                 if (! data.hasOwnProperty('available') || typeof(data.available) !== 'boolean') {
-                    registration.showColorFeedback('There was an error checking the availability of #'+color+'.', null);
+                    registration.showColorFeedback('There was an error checking the availability of that color.', null);
                 } else if (data.available === true) {
-                    registration.showColorFeedback('#'+color+' is available! :)', 'success');
+                    registration.showColorFeedback('This color is available! :)', 'success');
                 } else if (data.available === false) {
-                    registration.showColorFeedback('#'+color+' is already taken. :(', 'error');
+                    registration.showColorFeedback('This color is already taken. :(', 'error');
                 }
             },
             error: function () {
-                registration.showColorFeedback('There was an error checking the availability of #'+color+'.', null);
+                registration.showColorFeedback('There was an error checking the availability of that color.', null);
             },
             complete: function () {
                 registration.color_avail_request = null;
