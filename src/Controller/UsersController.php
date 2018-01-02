@@ -123,7 +123,7 @@ class UsersController extends AppController
         $this->request->data['confirm_password'] = null;
 
         $this->set([
-            'titleForLayout' => 'Register Account',
+            'title_for_layout' => 'Register Account',
             'user' => $user
         ]);
     }

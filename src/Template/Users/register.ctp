@@ -1,6 +1,6 @@
 <div id="content_title">
     <h1>
-        <?= $titleForLayout ?>
+        <?= $title_for_layout ?>
     </h1>
 </div>
 
