@@ -170,7 +170,7 @@ var registration = {
     
     init: function () {
         var myPicker = new jscolor.color(document.getElementById('color_hex'), {
-            hash: true
+            hash: false
         });
 
         $('#color_hex').change(function () {
@@ -192,12 +192,6 @@ var registration = {
     
     validateColor: function () {
         var chosen_color = $('#color_hex').val();
-        
-        // Correct missing hash
-        if (chosen_color.length < 7 && chosen_color.charAt(0) != '#') {
-            chosen_color = '#'+chosen_color;
-            $('#color_hex').val(chosen_color); 
-        }
         
         // Validate color
         var pattern = new RegExp('^#[0-9A-F]{6}$', 'i');

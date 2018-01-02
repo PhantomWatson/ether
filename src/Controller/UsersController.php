@@ -106,7 +106,7 @@ class UsersController extends AppController
         } else {
             // Select a random available color
             do {
-                $this->request->data['color'] = '#';
+                $this->request->data['color'] = '';
                 for ($n = 1; $n <= 3; $n++) {
                     $this->request->data['color'] .= str_pad(dechex(rand(0, 250)), 2, '0', STR_PAD_LEFT);
                 }
