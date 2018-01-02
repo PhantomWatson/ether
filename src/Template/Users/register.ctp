@@ -46,7 +46,7 @@
         <label>
             Color
         </label>
-        <div class="ajax_message"></div>
+        <div class="evaluation_message"></div>
         <input type="text" size="7" maxlength="7" name="color" id="color_hex" value="<?= $this->request->data['color'] ?>" class="form-control color" />
         <?php if (isset($randomColor)): ?>
             <div class="footnote">

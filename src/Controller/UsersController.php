@@ -28,6 +28,8 @@ class UsersController extends AppController
         if ($this->request->action === 'register') {
             $this->loadComponent('Recaptcha.Recaptcha');
         }
+
+        $this->loadComponent('RequestHandler');
     }
 
     /**
@@ -209,8 +211,12 @@ class UsersController extends AppController
 
     public function checkColorAvailability($color = null)
     {
-        $this->viewBuilder()->layout('ajax');
-        $this->set('available', ! $this->Users->colorIsTaken($color));
+        $this->viewBuilder()->setClassName('Json');
+
+        $this->set([
+            'available' => !$this->Users->colorIsTaken($color),
+            '_serialize' => ['available']
+        ]);
     }
 
     public function settings()

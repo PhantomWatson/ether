@@ -2552,15 +2552,13 @@ var registration = {
         });
 
         $('#color_hex').change(function () {
-            if (registrationForm.validateColor()) {
-                registrationForm.checkColorAvailability();
-            } else {
-                registrationForm.showColorAjaxMessage('', null);
+            if (registration.validateColor()) {
+                registration.checkColorAvailability();
             }
         });
 
         $('#UserRegisterForm').submit(function (event) {
-            if (! registrationForm.validateColor()) {
+            if (! registration.validateColor()) {
                 alert('Please select a valid color.');
                 return false;
             }
@@ -2572,72 +2570,61 @@ var registration = {
         var chosen_color = $('#color_hex').val();
         
         // Validate color
-        var pattern = new RegExp('^#[0-9A-F]{6}$', 'i');
+        var pattern = new RegExp('^[0-9A-F]{6}$', 'i');
         if (! pattern.test(chosen_color)) {
-            var error_message = 'Bad news.' + chosen_color + ' is not a valid hexadecimal color.';
-            this.showColorError(error_message);
+            var error_message = 'Bad news. ' + chosen_color + ' is not a valid hexadecimal color.';
+            this.showColorFeedback(error_message, 'error');
             return false;
         }
         
         return true;
     },
     
-    showColorError: function (error_message) {
-        var error_container = $('#reg_color_input .error-message');
-        if (error_message == error_container.html()) {
+    showColorFeedback: function (message, className) {
+        var msgContainer = $('#reg_color_input').find('.evaluation_message');
+        if (message === msgContainer.html()) {
             return;
         }
-        if (error_container.is(':empty')) {
-            error_container.html(error_message);
-            error_container.slideDown(500);
+        if (msgContainer.is(':empty')) {
+            msgContainer.hide();
+            msgContainer.html(message);
+            msgContainer.removeClass('success error');
+            msgContainer.addClass(className);
+            msgContainer.slideDown(500);
         } else {
-            error_container.fadeOut(500, function () {
-                error_container.html(error_message);
-                error_container.fadeIn(500);
-            });
-        }
-    },
-    
-    showColorAjaxMessage: function (message, class_name) {
-        var container = $('#reg_color_input .ajax_message');
-        if (container.is(':empty')) {
-            container.html(message);
-            container.removeClass('success error');
-            container.addClass(class_name);
-            container.fadeIn(500);
-        } else {
-            container.fadeOut(500, function () {
-                container.html(message);
-                container.removeClass('success error');
-                container.addClass(class_name);
-                container.fadeIn(500);
+            msgContainer.fadeOut(100, function () {
+                msgContainer.html(message);
+                msgContainer.removeClass('success error');
+                msgContainer.addClass(className);
+                msgContainer.fadeIn(500);
             });
         }
     },
     
     checkColorAvailability: function () {
         var color = $('#color_hex').val();
-        color = color.replace('#', '');
         if (this.color_avail_request !== null) {
             this.color_avail_request.abort();
         }
         this.color_avail_request = $.ajax({
             url: '/users/checkColorAvailability/'+color,
+            dataType: 'json',
             beforeSend: function () {
                 var message = '<img src="/img/loading_small.gif" /> Checking to see if #'+color+' is available...';
-                registrationForm.showColorAjaxMessage(message, null);
+                registration.showColorFeedback(message, null);
             },
             success: function (data) {
-                if (data === '1') {
-                    registrationForm.showColorAjaxMessage('#'+color+' is available! :)', 'success');
-                } else if (data === '0') {
-                    registrationForm.showColorAjaxMessage('#'+color+' is already taken. :(', 'error');
+                console.log(data);
+                if (data.available === true) {
+                    registration.showColorFeedback('#'+color+' is available! :)', 'success');
+                } else if (data.available === false) {
+                    registration.showColorFeedback('#'+color+' is already taken. :(', 'error');
                 } else {
-                    registrationForm.showColorAjaxMessage('There was an error checking the availability of #'+color+'.', null);
+                    registration.showColorFeedback('There was an error checking the availability of #'+color+'.', null);
                 }
             },
             error: function () {
-                registrationForm.showColorAjaxMessage('There was an error checking the availability of #'+color+'.', null);
+                registration.showColorFeedback('There was an error checking the availability of #'+color+'.', null);
             },
             complete: function () {
                 this.color_avail_request = null;
