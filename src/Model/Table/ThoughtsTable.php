@@ -1,12 +1,14 @@
 <?php
 namespace App\Model\Table;
 
+use App\Model\Entity\Thought;
 use Cake\Cache\Cache;
-use Cake\Collection\Collection;
+use Cake\Database\Expression\QueryExpression;
 use Cake\Event\Event;
 use Cake\Log\Log;
 use Cake\Network\Exception\BadRequestException;
 use Cake\Network\Exception\InternalErrorException;
+use Cake\ORM\Entity;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -21,6 +23,8 @@ use EtherMarkov\EtherMarkovChain;
 
 /**
  * Thoughts Model
+ *
+ * @method Query findByUserIdAndThought($userId, $thought)
  */
 class ThoughtsTable extends Table
 {
@@ -86,6 +90,7 @@ class ThoughtsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
+
         return $rules;
     }
 
@@ -106,6 +111,7 @@ class ThoughtsTable extends Table
                 ->toArray();
             $populatedThoughtwordHash = md5(serialize($populatedThoughtwords));
             Cache::write('populatedThoughtwordHash', $populatedThoughtwordHash);
+
             return $populatedThoughtwords;
         });
     }
@@ -114,6 +120,7 @@ class ThoughtsTable extends Table
     {
         return Cache::remember('populatedThoughtwordHash', function () {
             $populatedThoughtwords = $this->getWords();
+
             return md5(serialize($populatedThoughtwords));
         });
     }
@@ -131,7 +138,7 @@ class ThoughtsTable extends Table
     /**
      * Returns a list of all thoughtwords and their thought counts
      *
-     * @param int $limit
+     * @param int|bool $limit Word limit
      * @return array
      */
     public function getCloud($limit = false)
@@ -152,6 +159,7 @@ class ThoughtsTable extends Table
             }
             $result = $query->toArray();
             ksort($result);
+
             return $result;
         }, 'long');
     }
@@ -177,11 +185,13 @@ class ThoughtsTable extends Table
      */
     public function getRandomPopulatedThoughtWord()
     {
-        return $this->find('all')
+        /** @var Thought $thought */
+        $thought = $this->find('all')
             ->select(['word'])
             ->order('RAND()')
-            ->first()
-            ->word;
+            ->first();
+
+        return $thought->word;
     }
 
     /**
@@ -194,11 +204,15 @@ class ThoughtsTable extends Table
         $allThoughtIds = $this->getAllIds();
         $key = array_rand($allThoughtIds);
         $thoughtId = $allThoughtIds[$key];
+
+        /** @var Thought $thought */
         $thought = $this->find('all')
             ->select(['id', 'word', 'thought', 'formatted_thought', 'anonymous', 'formatting_key'])
             ->where(['Thoughts.id' => $thoughtId])
             ->contain([
                 'Users' => function ($q) {
+                    /** @var Query $q */
+
                     return $q->select(['id', 'color']);
                 }
             ])
@@ -260,6 +274,7 @@ class ThoughtsTable extends Table
             }
         }
         ksort($categorized);
+
         return $categorized;
     }
 
@@ -282,11 +297,18 @@ class ThoughtsTable extends Table
         $combinedQuery->epilog("ORDER BY created $direction LIMIT $limit OFFSET $offset");
         $combinedQuery->counter(function ($query) {
             $comments = TableRegistry::get('Comments');
+
             return $comments->find('all')->count() + $this->find('all')->count();
         });
+
         return $combinedQuery;
     }
 
+    /**
+     * Returns a query the selects thoughts and associated authors and comments
+     *
+     * @return Query
+     */
     public function getThoughtsAndComments()
     {
         $thoughts = TableRegistry::get('Thoughts');
@@ -325,6 +347,7 @@ class ThoughtsTable extends Table
                 'alias' => 'Thoughts',
                 'conditions' => 'Comments.thought_id = Thoughts.id'
             ]);
+
         return $thoughtsQuery->unionAll($commentsQuery);
     }
 
@@ -346,6 +369,8 @@ class ThoughtsTable extends Table
     /**
      * Checks to see if the thought in $this->request->data is already in the database
      *
+     * @param int $userId User ID
+     * @param string $thought Thought text
      * @return int|boolean Either the ID of the existing thought or FALSE
      */
     public function isDuplicate($userId, $thought)
@@ -367,13 +392,19 @@ class ThoughtsTable extends Table
             ->order(['Thoughts.created' => 'DESC'])
             ->contain([
                 'Users' => function ($q) {
+                    /** @var Query $q */
+
                     return $q->select(['id', 'color']);
                 },
                 'Comments' => function ($q) {
+                    /** @var Query $q */
+
                     return $q
                         ->select(['id', 'thought_id', 'user_id', 'comment', 'formatted_comment', 'formatting_key'])
                         ->contain([
                             'Users' => function ($q) {
+                                /** @var Query $q */
+
                                 return $q->select(['id', 'color']);
                             }
                         ])
@@ -560,17 +591,20 @@ class ThoughtsTable extends Table
      * (e.g. because of newly-populated thoughtwords)
      *
      * @param int $limit
-     * @return array
+     * @return Query
      */
     public function getThoughtsForReformatting($limit = null)
     {
         $populatedThoughtwordHash = $this->getPopulatedThoughtwordHash();
+
         return $this
             ->find('all')
             ->select(['id', 'thought'])
             ->where([
                 'OR' => [
                     function ($exp, $q) {
+                        /** @var QueryExpression $exp */
+
                         return $exp->isNull('formatting_key');
                     },
                     'formatting_key IS NOT' => $populatedThoughtwordHash
@@ -670,6 +704,8 @@ class ThoughtsTable extends Table
         $thoughts = $this->find('all')
             ->select(['thought'])
             ->where(function ($exp, $q) use ($ids) {
+                /** @var QueryExpression $exp */
+
                 return $exp->in('id', $ids);
             })
             ->toArray();
@@ -697,6 +733,8 @@ class ThoughtsTable extends Table
         $thoughts = $this->find('all')
             ->select(['thought'])
             ->where(function ($exp, $q) use ($ids) {
+                /** @var QueryExpression $exp */
+
                 return $exp->in('id', $ids);
             })
             ->toArray();
@@ -775,6 +813,8 @@ class ThoughtsTable extends Table
     public function findWithQuestions(Query $query, array $options)
     {
         return $query->where(function ($exp, $q) {
+            /** @var QueryExpression $exp */
+
             return $exp->like('thought', '%?%');
         });
     }

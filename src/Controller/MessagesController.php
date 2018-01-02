@@ -1,13 +1,14 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
+use App\Model\Table\UsersTable;
 use Cake\Utility\Hash;
 
 /**
  * Messages Controller
  *
  * @property \App\Model\Table\MessagesTable $Messages
+ * @property UsersTable $Users
  */
 class MessagesController extends AppController
 {
@@ -18,6 +19,11 @@ class MessagesController extends AppController
         ]
     ];
 
+    /**
+     * Initialize method
+     *
+     * @return void
+     */
     public function initialize()
     {
         parent::initialize();
@@ -25,6 +31,12 @@ class MessagesController extends AppController
         $this->loadComponent('Paginator');
     }
 
+    /**
+     * Renders /messages
+     *
+     * @param string|null $penpalColor Color of other user
+     * @return void
+     */
     public function index($penpalColor = null)
     {
         $userId = $this->Auth->user('id');
@@ -55,6 +67,8 @@ class MessagesController extends AppController
      * The target of message-sending forms. If requested via AJAX, the view
      * will contain a JSON object describing the results. Otherwise, redirects back
      * to the referer with a flash message.
+     *
+     * @return \Cake\Http\Response|null
      */
     public function send()
     {
@@ -72,7 +86,7 @@ class MessagesController extends AppController
             $message = $this->Messages->newEntity();
             $message = $this->Messages->patchEntity($message, $data);
             if ($message->getErrors()) {
-                $errors = Hash::flatten($message->errors());
+                $errors = Hash::flatten($message->getErrors());
                 $errorMsg = implode('<br />', $errors);
             } elseif ($this->Messages->save($message)) {
                 $msgSent = true;
@@ -99,10 +113,17 @@ class MessagesController extends AppController
 
                 return $this->redirect($this->request->referer());
             }
-
         }
+
+        return null;
     }
 
+    /**
+     * Renders /messages/conversation
+     *
+     * @param string|null $penpalColor Color of other user
+     * @return \Cake\Http\Response|null
+     */
     public function conversation($penpalColor = null)
     {
         $userId = $this->Auth->user('id');
@@ -133,5 +154,7 @@ class MessagesController extends AppController
                 'messageEntity' => $this->Messages->newEntity()
             ]);
         }
+
+        return null;
     }
 }

@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
 use App\Model\Table\ThoughtsTable;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\ORM\TableRegistry;
@@ -13,7 +12,11 @@ use Cake\ORM\TableRegistry;
  */
 class CommentsController extends AppController
 {
-
+    /**
+     * Initialize method
+     *
+     * @return void
+     */
     public function initialize()
     {
         parent::initialize();
@@ -42,6 +45,8 @@ class CommentsController extends AppController
                 return  $this->redirect($this->request->referer());
             }
         }
+
+        return null;
     }
 
     /**

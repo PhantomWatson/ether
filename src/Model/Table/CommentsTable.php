@@ -2,16 +2,16 @@
 namespace App\Model\Table;
 
 use App\Model\Entity\Thought;
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Validation\Validator;
-use Cake\Utility\Hash;
 use League\HTMLToMarkdown\HtmlConverter;
 
 /**
  * Comments Model
+ *
+ * @property ThoughtsTable $Thoughts
  */
 class CommentsTable extends Table
 {

@@ -99,6 +99,7 @@ class MessagesTable extends Table
      * Returns an array of metadata about conversations the user has engaged in
      *
      * @param int $userId
+     * @return array
      */
     public function getConversationsIndex($userId)
     {
@@ -112,9 +113,13 @@ class MessagesTable extends Table
             ->distinct(['Messages.sender_id', 'Messages.recipient_id'])
             ->contain([
                 'Senders' => function ($q) {
+                    /** @var Query $q */
+
                     return $q->select(['id', 'color']);
                 },
                 'Recipients' => function ($q) {
+                    /** @var Query $q */
+
                     return $q->select(['id', 'color']);
                 }
             ])
@@ -188,9 +193,13 @@ class MessagesTable extends Table
             ])
             ->contain([
                 'Senders' => function ($q) {
+                    /** @var Query $q */
+
                     return $q->select(['id', 'color']);
                 },
                 'Recipients' => function ($q) {
+                    /** @var Query $q */
+
                     return $q->select(['id', 'color']);
                 }
             ])

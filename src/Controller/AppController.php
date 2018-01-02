@@ -17,6 +17,7 @@ namespace App\Controller;
 use App\Model\Table\MessagesTable;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
+use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
 
 class AppController extends Controller
@@ -65,7 +66,7 @@ class AppController extends Controller
         return true;
     }
 
-    public function beforeFilter(\Cake\Event\Event $event)
+    public function beforeFilter(Event $event)
     {
         $authError = $this->Auth->user('id') ? 'Sorry, you do not have access to that location.' : 'Please <a href="/login">log in</a> before you try that.';
         $this->Auth->setConfig('authError', $authError);
@@ -81,7 +82,7 @@ class AppController extends Controller
         }
     }
 
-    public function beforeRender(\Cake\Event\Event $event)
+    public function beforeRender(Event $event)
     {
         $userId = $this->Auth->user('id');
         /** @var MessagesTable $messagesTable */

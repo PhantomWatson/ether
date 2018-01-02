@@ -2,18 +2,25 @@
 namespace App\Controller;
 
 use App\Color\Color;
-use App\Controller\AppController;
+use App\Model\Table\MessagesTable;
 use Cake\Network\Exception\ForbiddenException;
 use Cake\Network\Exception\NotFoundException;
+use Recaptcha\Controller\Component\RecaptchaComponent;
 
 /**
  * Users Controller
  *
  * @property \App\Model\Table\UsersTable $Users
+ * @property MessagesTable $Messages
+ * @property RecaptchaComponent $Recaptcha
  */
 class UsersController extends AppController
 {
-
+    /**
+     * Initialize method
+     *
+     * @return void
+     */
     public function initialize()
     {
         parent::initialize();
@@ -77,6 +84,11 @@ class UsersController extends AppController
         }
     }
 
+    /**
+     * Renders /users/register
+     *
+     * @return \Cake\Http\Response|null
+     */
     public function register()
     {
         $user = $this->Users->newEntity();
@@ -100,6 +112,7 @@ class UsersController extends AppController
 
                 if ($this->Users->save($user)) {
                     $this->Flash->success('Your account has been registered. You may now log in.');
+
                     return $this->redirect(['action' => 'login']);
                 } else {
                     $this->Flash->error('There was an error registering your account. Please try again.');
@@ -129,6 +142,8 @@ class UsersController extends AppController
             'title_for_layout' => 'Register Account',
             'user' => $user
         ]);
+
+        return null;
     }
 
     /**
@@ -154,13 +169,15 @@ class UsersController extends AppController
             }
         }
         $this->set(compact('user'));
+
+        return null;
     }
 
     /**
      * Delete method
      *
      * @param string|null $id User id
-     * @return void
+     * @return \Cake\Http\Response
      * @throws \Cake\Network\Exception\NotFoundException
      */
     public function delete($id = null)
@@ -172,9 +189,15 @@ class UsersController extends AppController
         } else {
             $this->Flash->error('The user could not be deleted. Please, try again.');
         }
+
         return $this->redirect(['action' => 'index']);
     }
 
+    /**
+     * Renders /users/login
+     *
+     * @return \Cake\Http\Response|null
+     */
     public function login()
     {
         if ($this->request->is('post')) {
@@ -206,13 +229,26 @@ class UsersController extends AppController
         $this->set([
             'title_for_layout' => 'Log in'
         ]);
+
+        return null;
     }
 
+    /**
+     * Renders /users/logout
+     *
+     * @return \Cake\Http\Response|null
+     */
     public function logout()
     {
         return $this->redirect($this->Auth->logout());
     }
 
+    /**
+     * Renders /users/check-color-availability
+     *
+     * @param string|null $color
+     * @return void
+     */
     public function checkColorAvailability($color = null)
     {
         $this->viewBuilder()->setClassName('Json');
@@ -223,6 +259,11 @@ class UsersController extends AppController
         ]);
     }
 
+    /**
+     * Renders /users/settings
+     *
+     * @return void
+     */
     public function settings()
     {
         $userId = $this->Auth->user('id');
@@ -286,6 +327,8 @@ class UsersController extends AppController
 
     /**
      * Allows the user to enter their email address and get a link to reset their password
+     *
+     * @return \Cake\Http\Response|null
      */
     public function forgotPassword()
     {
@@ -317,8 +360,18 @@ class UsersController extends AppController
             'titleForLayout' => 'Forgot Password',
             'user' => $user
         ]);
+
+        return null;
     }
 
+    /**
+     * Renders /users/reset-password
+     *
+     * @param int|null $userId
+     * @param int|null $timestamp
+     * @param string|null $hash
+     * @return \Cake\Http\Response|null
+     */
     public function resetPassword($userId = null, $timestamp = null, $hash = null)
     {
         if (! $userId || ! $timestamp && ! $hash) {
@@ -343,6 +396,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) {
                 $this->Flash->success('Your password has been updated.');
+
                 return $this->redirect(['action' => 'login']);
             }
         }
@@ -354,5 +408,7 @@ class UsersController extends AppController
             'titleForLayout' => 'Reset Password',
             'user' => $this->Users->newEntity()
         ]);
+
+        return null;
     }
 }

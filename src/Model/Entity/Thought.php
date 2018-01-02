@@ -1,14 +1,15 @@
 <?php
 namespace App\Model\Entity;
 
+use App\Model\Table\ThoughtsTable;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
-use Cake\Cache\Cache;
 use Cake\I18n\Time;
-use Cake\Log\Log;
 
 /**
  * Thought Entity.
+ *
+ * @property string $comments_enabled
  */
 class Thought extends Entity
 {
@@ -29,6 +30,7 @@ class Thought extends Entity
 
     public function _setThought($thought)
     {
+        /** @var ThoughtsTable $thoughtsTable */
         $thoughtsTable = TableRegistry::get('Thoughts');
         $formattedThought = $thoughtsTable->formatThought($thought);
         $this->set('formatted_thought', $formattedThought);
@@ -37,6 +39,7 @@ class Thought extends Entity
 
     public function _setFormattedThought($formattedThought)
     {
+        /** @var ThoughtsTable $thoughtsTable */
         $thoughtsTable = TableRegistry::get('Thoughts');
         $hash = $thoughtsTable->getPopulatedThoughtwordHash();
         $this->set('formatting_key', $hash);
@@ -46,6 +49,7 @@ class Thought extends Entity
 
     public function _setWord($word)
     {
+        /** @var ThoughtsTable $thoughtsTable */
         $thoughtsTable = TableRegistry::get('Thoughts');
         return $thoughtsTable->formatThoughtword($word);
     }

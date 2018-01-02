@@ -1,12 +1,9 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Event\Event;
 use Cake\Network\Exception\BadRequestException;
-use Cake\Routing\Router;
-use EtherMarkov\EtherMarkovChain;
 
 /**
  * Thoughts Controller
@@ -16,6 +13,11 @@ use EtherMarkov\EtherMarkovChain;
 class ThoughtsController extends AppController
 {
 
+    /**
+     * Initialize method
+     *
+     * @return void
+     */
     public function initialize()
     {
         parent::initialize();
@@ -31,6 +33,12 @@ class ThoughtsController extends AppController
         $this->loadComponent('RequestHandler');
     }
 
+    /**
+     * isAuthorized() method
+     *
+     * @param array|null $user User array
+     * @return bool
+     */
     public function isAuthorized($user = null)
     {
         // Author-only actions
@@ -44,6 +52,11 @@ class ThoughtsController extends AppController
         return parent::isAuthorized();
     }
 
+    /**
+     * Renders /thoughts
+     *
+     * @return void
+     */
     public function index()
     {
         $this->set([
@@ -55,7 +68,7 @@ class ThoughtsController extends AppController
     /**
      * View method
      *
-     * @param string|null $id Thought id
+     * @param string|null $id Thought ID
      * @return void
      * @throws \Cake\Network\Exception\NotFoundException
      */
@@ -91,7 +104,7 @@ class ThoughtsController extends AppController
                 $this->Flash->error('There was an error posting that thought. Please try again.');
             }
         } else {
-            if ($this->request->query('word') !== null) {
+            if ($this->request->getQuery('word') !== null) {
                 $thought->set('word', $this->request->getQuery('word'));
             }
         }
@@ -105,12 +118,14 @@ class ThoughtsController extends AppController
             'title_for_layout' => 'Post a New Thought',
             'thought' => $thought
         ]);
+
+        return null;
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Thought id
+     * @param string|null $id Thought ID
      * @return \Cake\Http\Response|null
      * @throws \Cake\Network\Exception\NotFoundException
      */
@@ -139,6 +154,8 @@ class ThoughtsController extends AppController
             'thought' => $thought,
             'title_for_layout' => 'Update Thought'
         ]);
+
+        return null;
     }
 
     /**
@@ -157,20 +174,31 @@ class ThoughtsController extends AppController
             $this->Flash->success('The thought has been deleted.');
 
             return $this->redirect(['action' => 'word', $word]);
-        } else {
-            $this->Flash->error('The thought could not be deleted. Please, try again.');
-
-            return $this->redirect($this->request->referer());
         }
+
+        $this->Flash->error('The thought could not be deleted. Please, try again.');
+
+        return $this->redirect($this->request->referer());
     }
 
-    public function recent($page = 1)
+    /**
+     * Renders /thoughts/recent
+     *
+     * @return void
+     */
+    public function recent()
     {
         $this->paginate['Thoughts']['finder']['recentActivity'] = [];
         $this->viewBuilder()->setLayout('ajax');
         $this->set('recentActivity', $this->paginate('Thoughts'));
     }
 
+    /**
+     * Renders /thoughts/word
+     *
+     * @param string|null $word Thoughtword
+     * @return \Cake\Http\Response|null
+     */
     public function word($word = null)
     {
         if ($this->request->getData('word')) {
@@ -201,14 +229,27 @@ class ThoughtsController extends AppController
             'word' => $word,
             'formattingKey' => $this->Thoughts->getPopulatedThoughtwordHash()
         ]);
+
+        return null;
     }
 
+    /**
+     * Renders /thoughts/random
+     *
+     * @return void
+     */
     public function random()
     {
         $word = $this->Thoughts->getRandomPopulatedThoughtWord();
         $this->redirect(['action' => 'word', $word]);
     }
 
+    /**
+     * Renders /thoughts/refresh-formatting
+     *
+     * @param int $thoughtId Thought ID
+     * @return void
+     */
     public function refreshFormatting($thoughtId)
     {
         $this->viewBuilder()->setLayout('json');

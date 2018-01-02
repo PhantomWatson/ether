@@ -2,23 +2,31 @@
 namespace App\Controller\Component;
 
 use Cake\Controller\Component;
-use Cake\Network\Session;
+use Cake\Event\Event;
 
 class FlashComponent extends Component
 {
-    public function beforeRender(\Cake\Event\Event $event)
+    /**
+     * beforeRender method
+     *
+     * @param Event $event Event object
+     * @return void
+     */
+    public function beforeRender(Event $event)
     {
         $this->__prepareFlashMessages();
     }
 
     /**
      * Adds a flash message / variable dump
+     *
      * @param string $message Message (or variable to be dumped)
      * @param string $class success, error, notification (default), or dump
+     * @return void
      */
     public function set($message, $class = 'notification')
     {
-        $storedMessages = $this->request->session()->read('FlashMessage');
+        $storedMessages = $this->getController()->request->getSession()->read('FlashMessage');
 
         // Handle the $options parameter passed by the Authentication component
         if (is_array($class)) {
@@ -30,12 +38,14 @@ class FlashComponent extends Component
         }
 
         $storedMessages[] = compact('message', 'class');
-        $this->request->session()->write('FlashMessage', $storedMessages);
+        $this->getController()->request->getSession()->write('FlashMessage', $storedMessages);
     }
 
     /**
      * Adds a flash message with 'success' class
-     * @param string $message
+     *
+     * @param string $message Message
+     * @return void
      */
     public function success($message)
     {
@@ -44,7 +54,9 @@ class FlashComponent extends Component
 
     /**
      * Adds a flash message with 'error' class
-     * @param string $message
+     *
+     * @param string $message Message
+     * @return void
      */
     public function error($message)
     {
@@ -53,7 +65,9 @@ class FlashComponent extends Component
 
     /**
      * Adds a flash message with 'notification' class
-     * @param string $message
+     *
+     * @param string $message Message
+     * @return void
      */
     public function notification($message)
     {
@@ -62,7 +76,9 @@ class FlashComponent extends Component
 
     /**
      * Adds a variable to be output in a flash message
-     * @param string $variable
+     *
+     * @param string $variable Variable to dump
+     * @return void
      */
     public function dump($variable)
     {
@@ -71,22 +87,23 @@ class FlashComponent extends Component
 
     /**
      * Sets an array to be displayed by the element 'flashMessages'
-     * @return array
+     *
+     * @return void
      */
     private function __prepareFlashMessages()
     {
-        $storedMessages = $this->request->session()->read('FlashMessage');
+        $storedMessages = $this->getController()->request->getSession()->read('FlashMessage');
         $storedMessages = $storedMessages ? $storedMessages : [];
-        $this->request->session()->delete('FlashMessage');
+        $this->getController()->request->getSession()->delete('FlashMessage');
 
         // Add auth error messages
-        $authError = $this->request->session()->read('Message.auth');
+        $authError = $this->getController()->request->getSession()->read('Message.auth');
         if ($authError) {
             $storedMessages[] = [
                 'message' => $authError['message'],
                 'class' => 'danger'
             ];
-            $this->request->session()->delete('Message.auth');
+            $this->getController()->request->getSession()->delete('Message.auth');
         }
 
         // Process variable dumping and convert classes to Bootstrap alert class suffixes
