@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Event\Event;
 use Cake\Network\Exception\BadRequestException;
 use Cake\Routing\Router;
@@ -69,27 +70,29 @@ class ThoughtsController extends AppController
     /**
      * Add method
      *
-     * @return void
+     * @return \Cake\Http\Response|null
      */
     public function add()
     {
         $thought = $this->Thoughts->newEntity();
         if ($this->request->is('post')) {
-            $this->request->data['user_id'] = $this->Auth->user('id');
-            $thought = $this->Thoughts->patchEntity($thought, $this->request->data);
-            if ($thought->errors()) {
-                $this->Flash->error('Please correct the indicated '.__n('error', 'errors', count($thought->errors())).' before continuing.');
+            $data = $this->request->getData();
+            $data['user_id'] = $this->Auth->user('id');
+            $thought = $this->Thoughts->patchEntity($thought, $data);
+            if ($thought->getErrors()) {
+                $this->Flash->error('Please correct the indicated '.__n('error', 'errors', count($thought->getErrors())).' before continuing.');
             } elseif ($this->Thoughts->save($thought)) {
                 $event = new Event('Model.Thought.created', $this, ['entity' => $thought]);
-                $this->eventManager()->dispatch($event);
+                $this->getEventManager()->dispatch($event);
                 $this->Flash->success('Your thought has been thunk. Thanks for thinking that thought!');
+
                 return $this->redirect(['action' => 'word', $thought->word]);
             } else {
                 $this->Flash->error('There was an error posting that thought. Please try again.');
             }
         } else {
             if ($this->request->query('word') !== null) {
-                $thought->set('word', $this->request->query('word'));
+                $thought->set('word', $this->request->getQuery('word'));
             }
         }
 
@@ -108,7 +111,7 @@ class ThoughtsController extends AppController
      * Edit method
      *
      * @param string|null $id Thought id
-     * @return void
+     * @return \Cake\Http\Response|null
      * @throws \Cake\Network\Exception\NotFoundException
      */
     public function edit($id = null)
@@ -117,15 +120,16 @@ class ThoughtsController extends AppController
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $thought = $this->Thoughts->patchEntity($thought, $this->request->data, [
+            $thought = $this->Thoughts->patchEntity($thought, $this->request->getData(), [
                 'fieldList' => ['word', 'thought', 'comments_enabled', 'anonymous']
             ]);
-            if ($thought->errors()) {
-                $this->Flash->error('Please correct the indicated '.__n('error', 'errors', count($thought->errors())).' before continuing.');
+            if ($thought->getErrors()) {
+                $this->Flash->error('Please correct the indicated '.__n('error', 'errors', count($thought->getErrors())).' before continuing.');
             } elseif ($this->Thoughts->save($thought)) {
                 $event = new Event('Model.Thought.updated', $this, ['entity' => $thought]);
-                $this->eventManager()->dispatch($event);
+                $this->getEventManager()->dispatch($event);
                 $this->Flash->success('Your thought has been updated.');
+
                 return $this->redirect(['action' => 'word', $thought->word]);
             } else {
                 $this->Flash->error('There was an error updating that thought. Please try again.');
@@ -141,7 +145,7 @@ class ThoughtsController extends AppController
      * Delete method
      *
      * @param string|null $id Thought id
-     * @return void
+     * @return \Cake\Http\Response|null
      * @throws \Cake\Network\Exception\NotFoundException
      */
     public function delete($id = null)
@@ -151,9 +155,11 @@ class ThoughtsController extends AppController
         $word = $thought->word;
         if ($this->Thoughts->delete($thought)) {
             $this->Flash->success('The thought has been deleted.');
+
             return $this->redirect(['action' => 'word', $word]);
         } else {
             $this->Flash->error('The thought could not be deleted. Please, try again.');
+
             return $this->redirect($this->request->referer());
         }
     }
@@ -161,15 +167,16 @@ class ThoughtsController extends AppController
     public function recent($page = 1)
     {
         $this->paginate['Thoughts']['finder']['recentActivity'] = [];
-        $this->viewBuilder()->layout('ajax');
+        $this->viewBuilder()->setLayout('ajax');
         $this->set('recentActivity', $this->paginate('Thoughts'));
     }
 
     public function word($word = null)
     {
-        if (isset($this->request->data['word'])) {
-            $word = $this->request->data['word'];
-            $this->redirect(['word' => $word]);
+        if ($this->request->getData('word')) {
+            $word = $this->request->getData('word');
+
+            return $this->redirect(['word' => $word]);
         }
         $word = $this->Thoughts->formatThoughtword($word);
         if ($word === '') {
@@ -177,10 +184,10 @@ class ThoughtsController extends AppController
         }
         $thoughts = $this->Thoughts->getFromWord($word);
         if (empty($thoughts)) {
-            $this->response->statusCode(404);
+            $this->response = $this->response->withStatus(404);
         }
         if ($this->request->is('ajax')) {
-            $this->viewBuilder()->layout('ajax');
+            $this->viewBuilder()->setLayout('ajax');
         }
 
         // Used by the 'add a thought' form
@@ -204,7 +211,7 @@ class ThoughtsController extends AppController
 
     public function refreshFormatting($thoughtId)
     {
-        $this->viewBuilder()->layout('json');
+        $this->viewBuilder()->setLayout('json');
 
         try {
             $thought = $this->Thoughts->get($thoughtId);

@@ -14,6 +14,7 @@
  */
 namespace App\Controller;
 
+use App\Model\Table\MessagesTable;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
@@ -67,7 +68,7 @@ class AppController extends Controller
     public function beforeFilter(\Cake\Event\Event $event)
     {
         $authError = $this->Auth->user('id') ? 'Sorry, you do not have access to that location.' : 'Please <a href="/login">log in</a> before you try that.';
-        $this->Auth->config('authError', $authError);
+        $this->Auth->setConfig('authError', $authError);
 
         // Automaticaly login
         if (! $this->Auth->user() && $this->Cookie->read('CookieAuth')) {
@@ -83,6 +84,7 @@ class AppController extends Controller
     public function beforeRender(\Cake\Event\Event $event)
     {
         $userId = $this->Auth->user('id');
+        /** @var MessagesTable $messagesTable */
         $messagesTable = TableRegistry::get('Messages');
         $this->set([
             'userId' => $userId,

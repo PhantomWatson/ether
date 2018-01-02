@@ -24,9 +24,9 @@ class CommentsTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('comments');
-        $this->displayField('id');
-        $this->primaryKey('id');
+        $this->setTable('comments');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->belongsTo('Thoughts', [
             'foreignKey' => 'thought_id'

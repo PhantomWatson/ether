@@ -35,9 +35,9 @@ class ThoughtsTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('thoughts');
-        $this->displayField('id');
-        $this->primaryKey('id');
+        $this->setTable('thoughts');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id'
@@ -535,7 +535,7 @@ class ThoughtsTable extends Table
     public function afterDelete($event, $entity, $options = [])
     {
         $event = new Event('Model.Thought.deleted', $this, compact('entity', 'options'));
-        $this->eventManager()->dispatch($event);
+        $this->getEventManager()->dispatch($event);
     }
 
     public function getAuthorId($thoughtId)

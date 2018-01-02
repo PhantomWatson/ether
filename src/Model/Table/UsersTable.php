@@ -27,9 +27,9 @@ class UsersTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('users');
-        $this->displayField('id');
-        $this->primaryKey('id');
+        $this->setTable('users');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->hasMany('Comments', [
             'foreignKey' => 'user_id'
@@ -153,7 +153,7 @@ class UsersTable extends Table
             ->matching('Thoughts')
             ->group(['Users.id'])
             ->having(['count >' => 0])
-            ->hydrate(false);
+            ->enableHydration(false);
         $collection = new Collection($result);
         $combined = $collection->combine('color', 'count');
         $colors = $combined->toArray();
@@ -331,8 +331,8 @@ class UsersTable extends Table
      * Sends an email with a link that can be used in the next
      * 24 hours to give the user access to /users/resetPassword
      *
-     * @param int $userId
-     * @return boolean
+     * @param int $userId User ID
+     * @return array
      */
     public function sendPasswordResetEmail($userId)
     {
@@ -348,11 +348,12 @@ class UsersTable extends Table
         $siteUrl = Router::url('/', true);
         $email = new Email('reset_password');
         $user = $this->get($userId);
-        $email->to($user->email);
-        $email->viewVars(compact(
+        $email->setTo($user->email);
+        $email->setViewVars(compact(
             'resetUrl',
             'siteUrl'
         ));
+
         return $email->send();
     }
 

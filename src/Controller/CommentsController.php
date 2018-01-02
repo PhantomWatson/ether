@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use App\Model\Table\ThoughtsTable;
+use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\ORM\TableRegistry;
 
 /**
@@ -21,28 +23,35 @@ class CommentsController extends AppController
     /**
      * Add method
      *
-     * @return void
+     * @return \Cake\Http\Response|null
      */
     public function add()
     {
         $comment = $this->Comments->newEntity();
         if ($this->request->is('post')) {
-            $comment = $this->Comments->patchEntity($comment, $this->request->data);
+            $comment = $this->Comments->patchEntity($comment, $this->request->getData());
             $comment->user_id = $this->Auth->user('id');
             if ($this->Comments->save($comment)) {
                 $this->Flash->success('Comment posted.');
-                $word = $this->Comments->Thoughts->get($this->request->data['thought_id'])->word;
+                $word = $this->Comments->Thoughts->get($this->request->getData('thought_id'))->word;
+
                 return $this->redirect(['controller' => 'Thoughts', 'action' => 'word', $word]);
             } else {
                 $this->Flash->error('Your comment could not be posted. Please try again.');
+
                 return  $this->redirect($this->request->referer());
             }
         }
     }
 
+    /**
+     * @param int $commentId Comment ID
+     * @return \Cake\Http\Response|null
+     */
     public function refreshFormatting($commentId)
     {
-        $this->viewBuilder()->layout('json');
+        $this->viewBuilder()->setLayout('json');
+        /** @var ThoughtsTable $thoughtsTable */
         $thoughtsTable = TableRegistry::get('Thoughts');
 
         try {
@@ -54,7 +63,8 @@ class CommentsController extends AppController
                     'update' => false
                 ]
             ]);
-            return;
+
+            return null;
         }
 
         $formattingKey = $thoughtsTable->getPopulatedThoughtwordHash();
@@ -65,7 +75,8 @@ class CommentsController extends AppController
                     'update' => false
                 ]
             ]);
-            return;
+
+            return null;
         }
 
         $formattedComment = $thoughtsTable->formatThought($comment->comment);
@@ -79,6 +90,7 @@ class CommentsController extends AppController
                 'formattedThought' => $formattedComment
             ]
         ]);
+
         return $this->render('/Thoughts/refresh_formatting');
     }
 }

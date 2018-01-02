@@ -14,6 +14,7 @@
  */
 namespace App\Controller;
 
+use App\Color\Color;
 use App\Model\Table\UsersTable;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
@@ -131,8 +132,8 @@ class PagesController extends AppController
      */
     public function botCatcher()
     {
-        $this->viewBuilder()->layout('ajax');
-        $this->response->statusCode(404);
+        $this->viewBuilder()->setLayout('ajax');
+        $this->response = $this->response->withStatus(404);
     }
 
     public function colorNames()
@@ -140,7 +141,7 @@ class PagesController extends AppController
         /** @var UsersTable $usersTable */
         $usersTable = TableRegistry::get('Users');
         $colors = $usersTable->getColorsWithThoughts();
-        $Color = new \App\Color\Color();
+        $Color = new Color();
         $hexCodes = [];
         foreach ($colors as $section => $sectionColors) {
             foreach ($sectionColors as $color => $count) {

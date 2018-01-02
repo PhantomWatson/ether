@@ -26,9 +26,9 @@ class MessagesTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('messages');
-        $this->displayField('id');
-        $this->primaryKey('id');
+        $this->setTable('messages');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
         $this->addBehavior('Timestamp');
         $this->belongsTo('Recipients', [
             'className' => 'Users',
@@ -313,9 +313,9 @@ class MessagesTable extends Table
         $sender = $usersTable->get($senderId);
 
         $email = new Email('new_message');
-        $email->to($recipient->email);
-        $email->subject('Ether: Message from #'.$sender->color);
-        $email->viewVars([
+        $email->setTo($recipient->email);
+        $email->setSubject('Ether: Message from #'.$sender->color);
+        $email->setViewVars([
             'senderId' => $senderId,
             'senderColor' => $sender->color,
             'message' => $message,
@@ -324,8 +324,9 @@ class MessagesTable extends Table
             'accountUrl' => Router::url(['controller' => 'Users', 'action' => 'account'], true),
             'siteUrl' => Router::url('/', true)
         ]);
-        $email->template('new_message', 'default');
-        $email->emailFormat('both');
+        $email->setTemplate('new_message');
+        $email->setLayout('default');
+        $email->setEmailFormat('both');
         return $email->send();
     }
 }

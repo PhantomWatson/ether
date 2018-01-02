@@ -61,16 +61,17 @@ class MessagesController extends AppController
         if ($this->request->is('post')) {
             // Gather data
             $this->loadModel('Users');
-            $recipientId = $this->Users->getIdFromColor($this->request->data['recipient']);
-            $this->request->data['recipient_id'] = $recipientId;
-            $this->request->data['sender_id'] = $this->Auth->user('id');
-            $this->request->data['message'] = trim($this->request->data['message']);
+            $recipientId = $this->Users->getIdFromColor($this->request->getData('recipient'));
+            $data = $this->request->getData();
+            $data['recipient_id'] = $recipientId;
+            $data['sender_id'] = $this->Auth->user('id');
+            $data['message'] = trim($data['message']);
 
             $errorMsg = null;
             $msgSent = false;
             $message = $this->Messages->newEntity();
-            $message = $this->Messages->patchEntity($message, $this->request->data);
-            if ($message->errors()) {
+            $message = $this->Messages->patchEntity($message, $data);
+            if ($message->getErrors()) {
                 $errors = Hash::flatten($message->errors());
                 $errorMsg = implode('<br />', $errors);
             } elseif ($this->Messages->save($message)) {
@@ -95,6 +96,7 @@ class MessagesController extends AppController
                 if ($msgSent) {
                     $this->Flash->success('Message sent');
                 }
+
                 return $this->redirect($this->request->referer());
             }
 

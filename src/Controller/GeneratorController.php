@@ -54,6 +54,6 @@ class GeneratorController extends AppController
         $thoughts = str_replace('  ', ' ', $thoughts);
         $thoughts = str_replace('  ', ' ', $thoughts);
         $this->set('source', $thoughts);
-        $this->viewBuilder()->layout('json');
+        $this->viewBuilder()->setLayout('json');
     }
 }
