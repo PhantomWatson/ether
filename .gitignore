@@ -12,7 +12,6 @@ TestController.php
 *.pydevproject
 .project
 .metadata
-bin/**
 tmp/**
 tmp/**/*
 *.tmp
