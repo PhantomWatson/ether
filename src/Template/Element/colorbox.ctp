@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
 <?php if (isset($anonymous) && $anonymous): ?>
     <div class="colorbox anonymous_colorbox" title="Contributed anonymously"></div>
 <?php elseif ($color == 'phanto'): ?>

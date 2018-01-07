@@ -6,6 +6,21 @@ use Cake\Auth\DefaultPasswordHasher;
 
 /**
  * User Entity.
+ *
+ * @property int $id
+ * @property string $password
+ * @property int $password_version
+ * @property bool $is_admin
+ * @property string $email
+ * @property string $color
+ * @property int $messageNotification
+ * @property string $profile
+ * @property int $acceptMessages
+ * @property int $emailUpdates
+ * @property \Cake\I18n\FrozenTime $created
+ * @property \Cake\I18n\FrozenTime $modified
+ * @property \App\Model\Entity\Comment[] $comments
+ * @property \App\Model\Entity\Thought[] $thoughts
  */
 class User extends Entity
 {

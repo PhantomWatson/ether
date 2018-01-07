@@ -17,6 +17,10 @@ use Cake\View\View;
 
 /**
  * App View class
+ *
+ * @property \App\View\Helper\EtherTimeHelper $Time
+ * @property \App\View\Helper\EtherTimeHelper $EtherTime
+ * @property \Recaptcha\View\Helper\RecaptchaHelper $Recaptcha
  */
 class AppView extends View
 {

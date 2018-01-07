@@ -25,6 +25,17 @@ use EtherMarkov\EtherMarkovChain;
  * Thoughts Model
  *
  * @method Query findByUserIdAndThought($userId, $thought)
+ * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\CommentsTable|\Cake\ORM\Association\HasMany $Comments
+ * @method \App\Model\Entity\Thought get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Thought newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Thought[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Thought|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Thought patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Thought[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Thought findOrCreate($search, callable $callback = null, $options = [])
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @mixin \Gourmet\CommonMark\Model\Behavior\CommonMarkBehavior
  */
 class ThoughtsTable extends Table
 {

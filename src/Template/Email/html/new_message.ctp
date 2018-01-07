@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Message $message
+ */
+?>
 <p>
     You have received a new message from
     <span style="border: 1px solid black; background-color: #<?= $senderColor ?>; display: inline-block; height: 1em; vertical-align: middle; width: 1em;"></span>

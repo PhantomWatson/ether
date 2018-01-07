@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \Gourmet\CommonMark\View\Helper\CommonMarkHelper $markdownHelper
+ * @var \App\View\AppView $this
  */
 ?>
 <div id="content_title">

@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
 <div class="row" id="welcome">
     <div class="col-sm-2 col-sm-offset-2">
         <h2>

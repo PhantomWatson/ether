@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
 <?= $this->Form->create(
     null,
     ['url' => ['controller' => 'Comments', 'action' => 'add']]

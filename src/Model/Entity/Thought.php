@@ -9,7 +9,19 @@ use Cake\I18n\Time;
 /**
  * Thought Entity.
  *
- * @property string $comments_enabled
+ * @property bool $comments_enabled
+ * @property int $id
+ * @property int $user_id
+ * @property string $word
+ * @property string $thought
+ * @property string $formatted_thought
+ * @property string $formatting_key
+ * @property bool $anonymous
+ * @property \Cake\I18n\FrozenTime $created
+ * @property \Cake\I18n\FrozenTime $modified
+ * @property \Cake\I18n\FrozenTime $formatted
+ * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\Comment[] $comments
  */
 class Thought extends Entity
 {

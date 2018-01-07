@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Message $message
+ */
+?>
 You have received a new message from Thinker #<?= $senderColor ?>:
 
 "<?= $this->Text->truncate(

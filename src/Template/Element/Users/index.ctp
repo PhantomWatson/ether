@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var \App\View\AppView $this
+ */
 $selectedColor = isset($selectedColor) ? $selectedColor : null;
 
 // Surely there's a less awkward way to do this

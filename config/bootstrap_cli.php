@@ -36,3 +36,4 @@ try {
 }
 
 Plugin::load('Migrations');
+Plugin::load('IdeHelper');

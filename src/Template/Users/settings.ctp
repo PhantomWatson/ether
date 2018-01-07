@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\User $user
+ */
+?>
 <div id="account">
     <div class="row">
         <div class="col-sm-offset-3 col-sm-6">

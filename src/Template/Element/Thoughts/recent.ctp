@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
 <?php $this->Paginator->options([
     'model' => 'Thought',
     'url' => [

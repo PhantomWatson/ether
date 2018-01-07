@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var \App\View\AppView $this
+ */
     // Will be rendered as percents
     $maxFontSize = 400;
     $minFontSize = 50;

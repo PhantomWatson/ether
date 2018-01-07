@@ -7,6 +7,10 @@ namespace App\Controller;
  * This controller will render views from Template/Pages/
  *
  * @link http://book.cakephp.org/3.0/en/controllers/pages-controller.html
+ * @property \App\Model\Table\ThoughtsTable $Thoughts
+ * @property \App\Model\Table\CommentsTable $Comments
+ * @property \App\Model\Table\MessagesTable $Messages
+ * @property \App\Model\Table\UsersTable $Users
  */
 class OverhaulController extends AppController
 {

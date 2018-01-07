@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
 <div class="row">
     <div class="col-sm-offset-2 col-sm-1 sender">
         <?= $this->element('colorbox', [

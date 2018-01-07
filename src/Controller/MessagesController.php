@@ -8,7 +8,7 @@ use Cake\Utility\Hash;
  * Messages Controller
  *
  * @property \App\Model\Table\MessagesTable $Messages
- * @property UsersTable $Users
+ * @property \App\Model\Table\UsersTable $Users
  */
 class MessagesController extends AppController
 {

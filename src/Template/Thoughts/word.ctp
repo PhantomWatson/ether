@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Thought[]|\Cake\Collection\CollectionInterface $thoughts
+ */
+?>
 <div class="tw_thoughts">
     <div class="row">
         <div class="col-sm-offset-2 col-sm-8">

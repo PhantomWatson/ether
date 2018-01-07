@@ -8,6 +8,18 @@ use Cake\ORM\TableRegistry;
 
 /**
  * Comment Entity.
+ *
+ * @property int $id
+ * @property int $thought_id
+ * @property int $user_id
+ * @property string $comment
+ * @property string $formatting_key
+ * @property string $formatted_comment
+ * @property \Cake\I18n\FrozenTime $created
+ * @property \Cake\I18n\FrozenTime $modified
+ * @property \Cake\I18n\FrozenTime $formatted
+ * @property \App\Model\Entity\Thought $thought
+ * @property \App\Model\Entity\User $user
  */
 class Comment extends Entity
 {

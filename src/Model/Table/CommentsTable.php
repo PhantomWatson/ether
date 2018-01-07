@@ -11,7 +11,16 @@ use League\HTMLToMarkdown\HtmlConverter;
 /**
  * Comments Model
  *
- * @property ThoughtsTable $Thoughts
+ * @property \App\Model\Table\ThoughtsTable|\Cake\ORM\Association\BelongsTo $Thoughts
+ * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $Users
+ * @method \App\Model\Entity\Comment get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Comment newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Comment[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Comment|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Comment patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Comment[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Comment findOrCreate($search, callable $callback = null, $options = [])
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class CommentsTable extends Table
 {

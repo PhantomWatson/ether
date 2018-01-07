@@ -1,4 +1,8 @@
 <?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Message[]|\Cake\Collection\CollectionInterface $messages
+ */
     $this->Paginator->templates([
         'nextActive' => '<div class="row convo_pagination"><div class="col-sm-offset-2 col-sm-7"><a href="{{url}}&dir=next">{{text}}</a></div></div>',
         'prevActive' => '<div class="row convo_pagination"><div class="col-sm-offset-2 col-sm-7"><a href="{{url}}&dir=prev">{{text}}</a></div></div>'

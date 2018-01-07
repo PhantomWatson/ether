@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var \App\View\AppView $this
+ */
     /* This creates the hidden #flash_messages container and fills it with
      * flash messages and displayed via a javascript animation if there are
      * messages to display. Regardless, the container is put onto the page

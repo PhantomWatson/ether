@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var \App\View\AppView $this
+ */
     function letterLink($letter) {
         return '<a href="#abc_thoughts_'.($letter == '#' ? '0' : $letter).'">'.$letter.'</a> ';
     }

@@ -11,7 +11,7 @@ use Recaptcha\Controller\Component\RecaptchaComponent;
  * Users Controller
  *
  * @property \App\Model\Table\UsersTable $Users
- * @property MessagesTable $Messages
+ * @property \App\Model\Table\MessagesTable $Messages
  * @property RecaptchaComponent $Recaptcha
  */
 class UsersController extends AppController

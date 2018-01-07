@@ -20,6 +20,9 @@ use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\ORM\TableRegistry;
 
+/**
+ * @property \App\Controller\Component\FlashComponent $Flash
+ */
 class AppController extends Controller
 {
     public $helpers = [
