@@ -1,8 +1,8 @@
 <?php
 namespace App\Model\Table;
 
+use App\Model\Entity\Message;
 use Cake\Mailer\Email;
-use Cake\Network\Exception\InternalErrorException;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -53,8 +53,10 @@ class MessagesTable extends Table
             ->allowEmpty('id', 'create')
             ->add('recipient_id', 'valid', ['rule' => 'numeric'])
             ->add('recipient_id', 'acceptsMessages', [
-                'rule' => function ($value, $context) {
+                'rule' => function ($value) {
+                    /** @var UsersTable $users */
                     $users = TableRegistry::get('Users');
+
                     return $users->acceptsMessages($value);
                 },
                 'message' => 'Sorry, this Thinker has chosen not to receive messages. Your message was not sent. :('
@@ -141,6 +143,7 @@ class MessagesTable extends Table
                 continue;
             }
 
+            /** @var Message $message */
             $message = $this->find('all')
                 ->select(['message', 'received'])
                 ->where([

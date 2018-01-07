@@ -1,9 +1,7 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\ThoughtsController;
 use Cake\TestSuite\IntegrationTestCase;
-use Cake\Routing\Router;
 
 /**
  * App\Controller\ThoughtsController Test Case

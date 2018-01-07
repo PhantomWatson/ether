@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Model\Table\ThoughtsTable;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use EtherMarkov\EtherMarkovChain;
@@ -15,6 +16,7 @@ class GeneratorController extends AppController
 
     public function serverside()
     {
+        /** @var ThoughtsTable $thoughtsTable */
         $thoughtsTable = TableRegistry::get('Thoughts');
         $result = $thoughtsTable->generateFromAll(1000, 2, 200);
         $result = EtherMarkovChain::trimToNaturalEnding($result);

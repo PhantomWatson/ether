@@ -5,6 +5,11 @@ use App\View\Helper\EtherTimeHelper;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 
+/**
+ * Class EtherTimeHelperTest
+ * @package App\Test\TestCase\View\Helper
+ * @property EtherTimeHelper $EtherTime
+ */
 class EtherTimeHelperTest extends TestCase
 {
     public function setUp()

@@ -1,9 +1,11 @@
 <?php
 namespace App\Event;
 
+use App\Model\Table\ThoughtsTable;
+use Cake\Event\Event;
 use Cake\Event\EventListenerInterface;
+use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
-use Cake\I18n\Time;
 use Cake\Cache\Cache;
 
 class ThoughtListener implements EventListenerInterface
@@ -24,14 +26,21 @@ class ThoughtListener implements EventListenerInterface
         ];
     }
 
+    /**
+     * Updates the cache of populated thoughtwords
+     *
+     * @param Event $event Event
+     * @param Entity $entity Entity
+     */
     public function updatePopulatedThoughtwords($event, $entity)
     {
         // Exit if entity was updated without changing word
-        if (! $entity->isNew() && ! $entity->dirty('word')) {
+        if (!$entity->isNew() && !$entity->isDirty('word')) {
             return;
         }
 
         // Exit if this is a new thought on an already-populated thoughtword
+        /** @var ThoughtsTable $thoughts */
         $thoughts = TableRegistry::get('Thoughts');
         if ($entity->isNew() && $thoughts->getPopulation($entity->word) > 1) {
             return;

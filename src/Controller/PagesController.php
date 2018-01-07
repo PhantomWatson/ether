@@ -15,6 +15,7 @@
 namespace App\Controller;
 
 use App\Color\Color;
+use App\Model\Entity\Thought;
 use App\Model\Table\UsersTable;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
@@ -63,16 +64,22 @@ class PagesController extends AppController
         $thoughtsTable = TableRegistry::get('Thoughts');
         $totalThoughts = $thoughtsTable->find('all')->count();
         $stats['Thoughts'] = number_format($totalThoughts);
-        $stats['First thought posted'] = $thoughtsTable->find('all')
+
+        /** @var Thought $firstThought */
+        $firstThought = $thoughtsTable->find('all')
             ->select(['created'])
             ->order(['created' => 'ASC'])
-            ->first()
+            ->first();
+        $stats['First thought posted'] = $firstThought
             ->created
             ->format('M d, Y');
+
         $thoughtsCommentsEnabled = $thoughtsTable->find('all')
             ->where(['comments_enabled' => 1])
             ->count();
         $stats['Thoughts with comments enabled'] = round(($thoughtsCommentsEnabled / $totalThoughts) * 100, 2).'%';
+
+        /** @var Thought $mostPopularWord */
         $mostPopularWord = $thoughtsTable->find('all')
             ->select([
                 'word',
@@ -88,6 +95,7 @@ class PagesController extends AppController
         $totalComments = $commentsTable->find('all')->count();
         $stats['Comments'] = number_format($totalComments);
 
+        /** @var UsersTable $usersTable */
         $usersTable = TableRegistry::get('Users');
         $totalThinkers = $usersTable->find('all')->count();
         $stats['Thinkers'] = $totalThinkers;

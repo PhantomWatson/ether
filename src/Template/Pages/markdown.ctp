@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \Gourmet\CommonMark\View\Helper\CommonMarkHelper $markdownHelper
+ */
+?>
 <div id="content_title">
     <h1>
         <?= $title_for_layout ?>

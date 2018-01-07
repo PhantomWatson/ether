@@ -7,7 +7,6 @@ use Cake\Network\Exception\InternalErrorException;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 use Cake\Utility\Security;
 use Cake\Validation\Validator;
@@ -15,6 +14,7 @@ use League\HTMLToMarkdown\HtmlConverter;
 
 /**
  * Users Model
+ * @method Query findByColor($color)
  */
 class UsersTable extends Table
 {
@@ -63,7 +63,7 @@ class UsersTable extends Table
             ->requirePresence('color', 'create')
             ->notEmpty('color')
             ->add('color', 'validColor', [
-                'rule' => function ($value, $context) {
+                'rule' => function ($value) {
                     return (boolean) preg_match('/^[a-fA-F0-9]{6}$/', $value);
                 },
                 'message' => 'That does not appear to be a valid hexadecimal color'
@@ -128,6 +128,8 @@ class UsersTable extends Table
             ])
             ->contain([
                 'Thoughts' => function ($q) {
+                    /** @var Query $q */
+
                     return $q
                         ->select(['id', 'word', 'user_id'])
                         ->where(['anonymous' => false])
