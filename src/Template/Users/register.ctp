@@ -43,7 +43,7 @@
     ?>
 
     <div class="input form-group" id="reg_color_input">
-        <label>
+        <label for="color_hex">
             Color
         </label>
         <div class="evaluation_message"></div>

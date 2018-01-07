@@ -21,9 +21,9 @@
         </h2>
         <div class="well">
             <div class="form-group row">
-                <div class="col-sm-4">
+                <label for="speed" class="col-sm-4">
                     Words per second:
-                </div>
+                </label>
                 <div class="col-sm-6">
                     <select id="speed" class="form-control">
                         <option value="0.5">
@@ -38,9 +38,9 @@
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-sm-4">
+                <label for="blockLength" class="col-sm-4">
                     Block length:
-                </div>
+                </label>
                 <div class="col-sm-6">
                     <select id="blockLength" class="form-control">
                         <?php for ($n = 1; $n <= 5; $n++): ?>
@@ -52,9 +52,9 @@
                 </div>
             </div>
             <div class="form-group row">
-                <div class="col-sm-4">
+                <label for="limit" class="col-sm-4">
                     Limit:
-                </div>
+                </label>
                 <div class="col-sm-6">
                     <select id="limit" class="form-control">
                         <option value="">
