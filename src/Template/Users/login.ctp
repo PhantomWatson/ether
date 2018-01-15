@@ -12,7 +12,7 @@
 <div class="content_box">
     <?php
         echo $this->Form->create('User');
-        echo $this->Form->input(
+        echo $this->Form->control(
             'email',
             [
                 'class' => 'form-control',
@@ -22,7 +22,7 @@
                 ]
             ]
         );
-        echo $this->Form->input(
+        echo $this->Form->control(
             'password',
             [
                 'class' => 'form-control',

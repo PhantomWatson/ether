@@ -8,7 +8,7 @@
     ['url' => ['controller' => 'Comments', 'action' => 'add']]
 ) ?>
 
-<?= $this->Form->input(
+<?= $this->Form->control(
     'comment',
     [
        'class' => 'form-control',

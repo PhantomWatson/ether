@@ -34,7 +34,7 @@
             <?php $this->end(); ?>
         <?php endif; ?>
 
-        <?= $this->Form->input(
+        <?= $this->Form->control(
             'word',
             [
                 'class' => 'form-control',
@@ -46,7 +46,7 @@
             ]
         ) ?>
 
-        <?= $this->Form->input(
+        <?= $this->Form->control(
             'thought',
             [
                 'class' => 'form-control',
@@ -61,7 +61,7 @@
 
         <div class="options row">
             <div class="form-group col-md-5">
-                <?= $this->Form->input(
+                <?= $this->Form->control(
                     'comments_enabled',
                     [
                         'label' => 'Allow comments',
@@ -71,7 +71,7 @@
             </div>
 
             <div class="form-group col-md-5">
-                <?= $this->Form->input(
+                <?= $this->Form->control(
                     'anonymous',
                     [
                         'label' => 'Post anonymously',

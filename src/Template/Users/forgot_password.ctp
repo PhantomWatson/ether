@@ -20,7 +20,7 @@
 
 <?php
     echo $this->Form->create($user);
-    echo $this->Form->input(
+    echo $this->Form->control(
         'email',
         [
             'class' => 'form-control',

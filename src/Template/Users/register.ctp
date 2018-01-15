@@ -13,7 +13,7 @@
 <div class="content_box">
     <?php
         echo $this->Form->create($user);
-        echo $this->Form->input(
+        echo $this->Form->control(
             'email',
             [
                 'class' => 'form-control',
@@ -23,7 +23,7 @@
                 ]
             ]
         );
-        echo $this->Form->input(
+        echo $this->Form->control(
             'new_password',
             [
                 'label' => 'Password',
@@ -35,7 +35,7 @@
                 ]
             ]
         );
-        echo $this->Form->input(
+        echo $this->Form->control(
             'confirm_password',
             [
                 'type' => 'password',

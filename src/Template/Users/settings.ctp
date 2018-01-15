@@ -12,7 +12,7 @@
             </h2>
             <?php
                 echo $this->Form->create($user);
-                echo $this->Form->input(
+                echo $this->Form->control(
                     'profile',
                     [
                         'class' => 'form-control',
@@ -20,7 +20,7 @@
                         'placeholder' => 'Share something about yourself.'
                     ]
                 );
-                echo $this->Form->input(
+                echo $this->Form->control(
                     'action',
                     [
                         'type' => 'hidden',
@@ -46,7 +46,7 @@
                     $user,
                     ['id' => 'UserChangePasswordForm']
                 );
-                echo $this->Form->input(
+                echo $this->Form->control(
                     'new_password',
                     [
                         'autocomplete' => 'off',
@@ -58,7 +58,7 @@
                         'value' => ''
                     ]
                 );
-                echo $this->Form->input(
+                echo $this->Form->control(
                     'confirm_password',
                     [
                         'autocomplete' => 'off',
@@ -69,7 +69,7 @@
                         'value' => ''
                     ]
                 );
-                echo $this->Form->input(
+                echo $this->Form->control(
                     'action',
                     [
                         'type' => 'hidden',
@@ -95,28 +95,28 @@
                     $user,
                     ['id' => 'UserAccountOptionsForm']
                 );
-                echo $this->Form->input(
+                echo $this->Form->control(
                     'acceptMessages',
                     [
                         'label' => 'Allow other users to send me messages',
                         'type' => 'checkbox'
                     ]
                 );
-                echo $this->Form->input(
+                echo $this->Form->control(
                     'messageNotification',
                     [
                         'label' => 'Notify me of new messages via email',
                         'type' => 'checkbox'
                     ]
                 );
-                echo $this->Form->input(
+                echo $this->Form->control(
                     'emailUpdates',
                     [
                         'label' => 'Send me updates about Ether via email',
                         'type' => 'checkbox'
                     ]
                 );
-                echo $this->Form->input(
+                echo $this->Form->control(
                     'action',
                     [
                         'type' => 'hidden',

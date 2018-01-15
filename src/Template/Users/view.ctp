@@ -99,7 +99,7 @@
                                     'url' => ['controller' => 'Messages', 'action' => 'send']
                                 ]
                             );
-                            echo $this->Form->input(
+                            echo $this->Form->control(
                                 'message',
                                 [
                                     'class' => 'form-control',
@@ -108,7 +108,7 @@
                                     'placeholder' => 'Send a message'
                                 ]
                             );
-                            echo $this->Form->input(
+                            echo $this->Form->control(
                                 'recipient',
                                 [
                                     'type' => 'hidden',

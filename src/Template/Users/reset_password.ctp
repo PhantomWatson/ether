@@ -17,7 +17,7 @@
 
 <?php
     echo $this->Form->create($user);
-    echo $this->Form->input(
+    echo $this->Form->control(
         'new_password',
         [
             'autocomplete' => 'off',
@@ -27,7 +27,7 @@
             'type' => 'password'
         ]
     );
-    echo $this->Form->input(
+    echo $this->Form->control(
         'confirm_password',
         [
             'autocomplete' => 'off',
