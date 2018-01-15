@@ -20,7 +20,7 @@
     $(document).ready(function () {
         <?= $this->fetch('buffered_js') ?>
         ga('send', 'pageview', {
-            'page': '<?= $this->request->here ?>',
+            'page': '<?= $this->request->getUri()->getPath() ?>',
             'title': '<?= (isset($titleForLayout) ? $titleForLayout : "''") ?>'
         });
     });
