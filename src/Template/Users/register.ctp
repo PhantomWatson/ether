@@ -53,7 +53,7 @@
             Color
         </label>
         <div class="evaluation_message"></div>
-        <input type="text" size="7" maxlength="7" name="color" id="color_hex" value="<?= $this->request->data['color'] ?>" class="form-control color" />
+        <input type="text" size="7" maxlength="7" name="color" id="color_hex" value="<?= $this->request->getData('color') ?>" class="form-control color" />
         <?php if (isset($randomColor)): ?>
             <div class="footnote">
                 We've pre-selected a random color for you, but feel free to change it.
