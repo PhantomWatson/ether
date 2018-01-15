@@ -1,7 +1,7 @@
 {
 	"name" : "phantomwatson/ether",
 	"description" : "The Ether - Thought Repository",
-	"homepage" : "http://theether.com",
+	"homepage" : "https://theether.com",
 	"type" : "project",
 	"license" : "proprietary",
 	"require" : {

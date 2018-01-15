@@ -32,8 +32,8 @@
                                         Ether
                                     </span>
                                     <br />
-                                    <a href="http://theEther.com/" style="font-size: 80%;">
-                                        http://theEther.com/
+                                    <a href="https://theEther.com/" style="font-size: 80%;">
+                                        https://theEther.com/
                                     </a>
                                 </p>
                             </td>
