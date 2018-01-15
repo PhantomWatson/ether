@@ -17,7 +17,7 @@
                 <?= $this->element('Comments/add', ['thoughtId' => $thought['id']]) ?>
             </div>
             <div class="post" id="newcomment<?= $thought['id'] ?>button">
-                <?php if ($this->request->session()->check('Auth.User.id')): ?>
+                <?php if ($this->request->getSession()->check('Auth.User.id')): ?>
                     <a href="#" class="add_comment" data-thought-id="<?= $thought['id'] ?>">
                         Leave Comment
                     </a>
