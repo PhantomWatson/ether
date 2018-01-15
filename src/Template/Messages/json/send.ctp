@@ -2,5 +2,4 @@
 /**
  * @var \App\View\AppView $this
  */
-?>
-<?php echo json_encode($result);
+echo json_encode($result);

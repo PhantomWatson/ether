@@ -2,5 +2,4 @@
 /**
  * @var \App\View\AppView $this
  */
-?>
-<?= $this->element('Thoughts'.DS.'recent') ?>
+echo $this->element('Thoughts'.DS.'recent');

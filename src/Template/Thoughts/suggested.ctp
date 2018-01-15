@@ -2,5 +2,3 @@
 /**
  * @var \App\View\AppView $this
  */
-?>
-<?php
