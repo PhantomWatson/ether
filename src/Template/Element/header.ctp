@@ -146,6 +146,7 @@
                 ?>
                 <form class="navbar-form navbar-left" role="search" action="<?= $goto_url ?>" method="post" id="header-search">
                     <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    <label for="header-search" class="sr-only">Go to thoughtword</label>
                     <input type="search" class="form-control" placeholder="Go to thoughtword..." required="required" name="word" />
                 </form>
             </li>
