@@ -105,8 +105,14 @@
                         ?>
                         <br />
                         <?= $this->Html->link(
-                            'Link',
-                            ['controller' => 'Thoughts', 'action' => 'word', $word, '#' => 't'.$thought['id']]
+                            'Link <span class="sr-only">to this thought</span>',
+                            [
+                                'controller' => 'Thoughts',
+                                'action' => 'word',
+                                $word,
+                                '#' => 't' . $thought['id']
+                            ],
+                            ['escape' => false]
                         ) ?>
                         <?php if ($userId == $thought['user']['id']): ?>
                             <br />
