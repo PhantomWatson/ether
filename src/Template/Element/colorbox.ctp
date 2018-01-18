@@ -13,7 +13,7 @@
     <div class="colorbox anonymous_colorbox" title="(Thinker not found)"></div>
 <?php else: ?>
     <?= $this->Html->link(
-        '',
+        '<span class="sr-only">View Thinker #' . $color . '\'s profile</span>',
         [
             'controller' => 'Users',
             'action' => 'view',
@@ -21,10 +21,10 @@
         ],
         [
             'escape' => false,
-            'title' => 'View Thinker #'.$color.'\'s profile',
+            'title' => 'View Thinker #' . $color . '\'s profile',
             'id' => (isset($colorboxId) ? $colorboxId : ''),
-            'class' => 'colorbox'.(isset($class) ? " $class" : ''),
-            'style' => 'background-color: #'.$color.';'
+            'class' => 'colorbox' . (isset($class) ? " $class" : ''),
+            'style' => 'background-color: #' . $color . ';'
         ]
     ) ?>
 <?php endif; ?>
