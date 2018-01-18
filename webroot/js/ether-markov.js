@@ -52,7 +52,7 @@ var EtherMarkov = {
     setup: function () {
         $('#start').prop('disabled', true).hide();
         
-        $('#start').after('<p id="loadingSource">Loading source text... <img src="/img/loading_small.gif" /></p>');
+        $('#start').after('<p id="loadingSource">Loading source text... <img src="/img/loading_small.gif" alt="Loading..." /></p>');
         this.getSeed(function () {
             $('#start').prop('disabled', false).show();
             $('#loadingSource').hide();

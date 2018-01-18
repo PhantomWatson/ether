@@ -669,7 +669,7 @@ var messages = {
     },
     setupPagination: function () {
         var links = $('.convo_pagination a');
-        var loadingIndicator = $('<img src="/img/loading_small.gif" class="loading" />');
+        var loadingIndicator = $('<img src="/img/loading_small.gif" class="loading" alt="Loading..."/>');
         loadingIndicator.hide();
         links.append(loadingIndicator);
         links.click(function (event) {
