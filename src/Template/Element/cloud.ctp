@@ -7,7 +7,9 @@
     $minFontSize = 50;
 
     // This is the darkest shade of gray allowed
-    $darkestColor = hexdec('55');
+    $lowContrastDarkest = '55'; // Looks neater
+    $highContrastDarkest = '89'; // Easier for users with visual impairments to read
+    $darkestColor = hexdec($highContrastDarkest);
 
     /* To draw the colors higher up on the dark-to-light scale,
      * we pretend that the highest color is brighter than possible,
