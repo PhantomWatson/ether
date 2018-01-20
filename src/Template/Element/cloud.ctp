@@ -1,7 +1,13 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var array $words
+ * @var bool $animate
  */
+
+use Cake\Cache\Cache;
+
+echo Cache::remember('thoughtwordCloudRendered', function () use ($words, $animate) {
     // Will be rendered as percents
     $maxFontSize = 400;
     $minFontSize = 50;
@@ -18,6 +24,7 @@
 
     $ceiling = max($words);
 
+    $cloud = '';
     foreach($words as $word => $count) {
         $scale = $count / $ceiling;
 
@@ -39,7 +46,7 @@
             $animationClass = '';
         }
 
-        echo $this->Html->link(
+        $cloud .= $this->Html->link(
             $word,
             [
                 'controller' => 'Thoughts',
@@ -51,5 +58,8 @@
                 'class' => 'thoughtword'.$animationClass
             ]
         );
-        echo ' ';
+        $cloud .= ' ';
     }
+
+    return $cloud;
+}, 'long');
