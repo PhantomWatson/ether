@@ -47,18 +47,19 @@ echo Cache::remember('thoughtwordCloudRendered', function () use ($words, $anima
         }
 
         $cloud .= $this->Html->link(
-            $word,
+            '<span>' . $word . '</span>',
             [
                 'controller' => 'Thoughts',
                 'action' => 'word',
                 $word
             ],
             [
-                'style' => "font-size: $size%; color: #$color;",
-                'class' => 'thoughtword'.$animationClass
+                'class' => 'thoughtword'.$animationClass,
+                'escape' => false,
+                'style' => "font-size: $size%; color: #$color;"
             ]
         );
-        $cloud .= ' ';
+        $cloud .= "\n";
     }
 
     return $cloud;
