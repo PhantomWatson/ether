@@ -94,22 +94,23 @@
     </section>
 
     <section class="col-sm-4 col-sm-offset-1">
-        <h2>Thinkin':</h2>
+        <h2>Thinkin'</h2>
         <div class="well">
-            <span id="randomness-label">Randomness:</span>
-            <div class="progress" id="entropyScore">
-                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-                    <span></span>
-                </div>
-            </div>
-            <hr />
             <div id="markovOptions"></div>
         </div>
     </section>
 </div>
 
-<section>
-    <h2>Results:</h2>
+<section id="generator-results">
+    <h2>Results</h2>
+    <span id="randomness-container">
+        <span id="randomness-label">Randomness:</span>
+        <div class="progress" id="entropyScore">
+            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                <span></span>
+            </div>
+        </div>
+    </span>
     <p id="markovResults" class="well"></p>
 </section>
 
