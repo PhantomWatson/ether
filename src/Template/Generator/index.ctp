@@ -9,17 +9,24 @@
     </h1>
 </div>
 
-<p>
-    This is a work in progress. This generates text based on thoughts that have been shared on Ether. Set the speed and the block length
-    (smaller for more variation, larger for less variation) and let'r rip. The <em>Thinkin'</em> section shows you how the
-    process takes a block of N words and searches for a random word that someone, somewhere once wrote <em>after</em> that. The
-    <em>Entropy Score</em> shows you how many times your text encountered a fork in the road where it could switch from one source
-    thought to another.
-    &nbsp; &nbsp;
-    <em>Love, Phantom</em>
-</p>
+<div id="generator-intro">
+    <p>
+        The Ether Thought Generator generates text based on thoughts that have been shared on Ether. You can set the
+        speed and the block length (smaller for more variation, larger for less variation) and let'r rip.
+    </p>
+    <p>
+        The <em>Thinkin'</em> section shows you how the process takes a block of N words and searches for a random word
+        that someone, somewhere once wrote <em>after</em> that.
+    </p>
+    <p>
+        The <em>Randomness</em> score shows you how many times your text encountered a fork in the road where it could
+        switch from one source thought to another.
+    </p>
 
-<div class="row">
+    <em class="signature">Love,&nbsp;Phantom</em>
+</div>
+
+<div class="row" id="generator-interface">
     <section class="col-sm-4">
         <h2>
             Controls
@@ -89,9 +96,13 @@
     <section class="col-sm-4 col-sm-offset-1">
         <h2>Thinkin':</h2>
         <div class="well">
-            <p>
-                Entropy score: <span id="entropyScore">0</span>
-            </p>
+            <span id="randomness-label">Randomness:</span>
+            <div class="progress" id="entropyScore">
+                <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                    <span></span>
+                </div>
+            </div>
+            <hr />
             <div id="markovOptions"></div>
         </div>
     </section>

@@ -88,6 +88,9 @@ var EtherMarkov = {
     },
     
     start: function () {
+        $('#generator-interface').find('hr').show();
+        $('#randomness-label').show();
+        this.entropyScoreContainer.css({display: 'inline-block'});
         $('#start').hide();
         $('#stop').show();
         $('#blockLength').prop('disabled', true);
@@ -193,6 +196,7 @@ var EtherMarkov = {
     updateDisplayedEntropyScore: function () {
         var percent = Math.round((this.entropyScore / this.blockCount) * 100);
         var output = percent + '% (' + this.entropyScore + '/' + this.blockCount + ')';
-        this.entropyScoreContainer.html(output);
+        this.entropyScoreContainer.find('span').html(output);
+        this.entropyScoreContainer.find('.progress-bar').css({width: percent + '%'})
     }
 };
