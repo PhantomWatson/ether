@@ -22,9 +22,13 @@ var EtherMarkov = {
      * @param {string} sourceUrl
      */
     init: function (sourceUrl) {
-        this.blockLength = $('#blockLength').val();
-        this.interval = 1000 / $('#speed').val();
-        this.limit = $('#limit').val();
+        var blockLength = $('#blockLength');
+        var speed = $('#speed');
+        var limit = $('#limit');
+
+        this.blockLength = blockLength.val();
+        this.interval = 1000 / speed.val();
+        this.limit = limit.val();
         this.resultsContainer = $('#markovResults');
         this.processingContainer = $('#markovOptions');
         this.entropyScoreContainer = $('#entropyScore');
@@ -36,13 +40,13 @@ var EtherMarkov = {
         $('#stop').click(function () {
             EtherMarkov.stop();
         }).hide();
-        $('#blockLength').change(function () {
+        blockLength.change(function () {
             EtherMarkov.blockLength = $(this).val();
         });
-        $('#speed').change(function () {
+        speed.change(function () {
             EtherMarkov.interval = 1000 / $(this).val();
         });
-        $('#limit').change(function () {
+        limit.change(function () {
             EtherMarkov.limit = $(this).val();
         });
         
@@ -50,11 +54,12 @@ var EtherMarkov = {
     },
     
     setup: function () {
-        $('#start').prop('disabled', true).hide();
+        var start = $('#start');
+        start.prop('disabled', true).hide();
         
-        $('#start').after('<p id="loadingSource">Loading source text... <img src="/img/loading_small.gif" alt="Loading..." /></p>');
+        start.after('<p id="loadingSource">Loading source text... <img src="/img/loading_small.gif" alt="Loading..." /></p>');
         this.getSeed(function () {
-            $('#start').prop('disabled', false).show();
+            start.prop('disabled', false).show();
             $('#loadingSource').hide();
         });
     },
@@ -97,7 +102,7 @@ var EtherMarkov = {
         this.loop = setInterval(function () {EtherMarkov.addBlock();}, this.interval);
     },
     
-    addBlock: function (block) {
+    addBlock: function () {
         var word = this.getNextWord();
         this.currentBlock.shift();
         this.currentBlock.push(word);
@@ -110,8 +115,8 @@ var EtherMarkov = {
         this.updateDisplayedEntropyScore();
     },
     
-    displayInResults: function (text) {
-        var text = $('<span> '+text+'</span>');
+    displayInResults: function (message) {
+        var text = $('<span> ' + message + '</span>');
         text.css('opacity', 0);
         this.resultsContainer.append(text);
         var duration = 500 + (Math.round(Math.random()) ? -1 : 1) * (Math.random() * 400);
@@ -121,7 +126,6 @@ var EtherMarkov = {
     stop: function () {
         $('#stop').hide();
         $('#start').show();
-        //$('#blockLength').prop('disabled', false);
         $('#speed').prop('disabled', false);
         $('#limit').prop('disabled', false);
         clearInterval(this.loop);
@@ -136,7 +140,7 @@ var EtherMarkov = {
         this.processingContainer.html(prevBlock+'<ul></ul>');
         while (true) {
             var matchPos = seed.indexOf(prevBlock, searchStart);
-            if (matchPos == -1) {
+            if (matchPos === -1) {
                 break;
             }
             var wordStart = matchPos + prevBlock.length;
@@ -147,11 +151,11 @@ var EtherMarkov = {
             
             var safeWord = encodeURI(word);
             var displayedWord = this.processingContainer.find('li[data-word="'+safeWord+'"]');
-            if (displayedWord.length == 0) {
+            if (displayedWord.length === 0) {
                 this.processingContainer.find('ul').append('<li data-word="'+word+'">'+word+'</li>');
             } else {
                 var countElement = displayedWord.find('span.count');
-                if (countElement.length == 0) {
+                if (countElement.length === 0) {
                     displayedWord.append(' <span class="count">2</span>');
                 } else {
                     var count = parseInt(countElement.html());
@@ -177,13 +181,11 @@ var EtherMarkov = {
             var startPos = Math.floor(Math.random() * seed.length);
             var blockStart = seed.indexOf(' ', startPos) + 1;
             var blockEnd = blockStart;
-            for (i = 1; i <= blockLength; i++) {
+            for (var i = 1; i <= blockLength; i++) {
                 blockEnd = seed.indexOf(' ', blockEnd + 1);
             }
             if (blockStart > -1 && blockEnd > -1) {
-                var blockLength = blockEnd - blockStart;
-                var word = seed.substr(blockStart, blockLength);
-                return word;
+                return seed.substr(blockStart, (blockEnd - blockStart));
             }
         }
     },
