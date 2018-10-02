@@ -86,8 +86,8 @@
                 </label>
                 <div class="col-sm-6">
                     <select id="limit" class="form-control">
-                        <option value="1">
-                            Each word
+                        <option value="10">
+                            10 words
                         </option>
                         <option value="100">
                             100 words
