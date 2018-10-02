@@ -82,12 +82,12 @@
             </div>
             <div class="form-group row">
                 <label for="limit" class="col-sm-4">
-                    Limit:
+                    Stop after:
                 </label>
                 <div class="col-sm-6">
                     <select id="limit" class="form-control">
-                        <option value="">
-                            None
+                        <option value="1">
+                            Each word
                         </option>
                         <option value="100">
                             100 words
@@ -100,6 +100,9 @@
                         </option>
                         <option value="1000">
                             1000 words
+                        </option>
+                        <option value="" selected="selected">
+                            Never
                         </option>
                     </select>
                 </div>
