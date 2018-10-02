@@ -143,6 +143,9 @@ var EtherMarkov = {
         var wordCandidates = [];
         var searchStart = 0;
         this.processingContainer.html(prevBlock+'<ul></ul>');
+        var wordList = this.processingContainer.find('ul');
+        var safeWord;
+        var wordListItem;
         while (true) {
             var matchPos = seed.indexOf(prevBlock, searchStart);
             if (matchPos === -1) {
@@ -154,10 +157,11 @@ var EtherMarkov = {
             var word = seed.substr(wordStart, wordLength);
             wordCandidates.push(word);
             
-            var safeWord = encodeURI(word);
+            safeWord = encodeURI(word);
             var displayedWord = this.processingContainer.find('li[data-word="'+safeWord+'"]');
             if (displayedWord.length === 0) {
-                this.processingContainer.find('ul').append('<li data-word="'+word+'">'+word+'</li>');
+                wordListItem = $('<li>' + word + '</li>').data('word', safeWord);
+                wordList.append(wordListItem);
             } else {
                 var countElement = displayedWord.find('span.count');
                 if (countElement.length === 0) {
@@ -175,8 +179,12 @@ var EtherMarkov = {
                 this.entropyScore++;
             }
             var key = Math.floor(Math.random() * wordCandidates.length);
-            this.processingContainer.find('li:nth-child('+(key + 1)+')').addClass('selected');
-            return wordCandidates[key];
+            var chosenWord = wordCandidates[key];
+            var chosenListItem = wordList.find('li').filter(function () {
+                return $(this).text() === chosenWord;
+            });
+            chosenListItem.addClass('selected');
+            return chosenWord;
         }
         return this.getRandomBlock(seed, blockLength);
     },
