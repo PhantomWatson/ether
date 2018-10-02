@@ -8606,6 +8606,13 @@ pre.cake-error {
 #markovOptions .count:after {
   content: ')';
 }
+#markovOptions li {
+  color: #666;
+}
+#markovOptions li.selected {
+  color: #ccc;
+  font-weight: bold;
+}
 #unpopulated-thoughtword {
   float: none;
   text-align: center;

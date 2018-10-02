@@ -175,7 +175,7 @@ var EtherMarkov = {
                 this.entropyScore++;
             }
             var key = Math.floor(Math.random() * wordCandidates.length);
-            this.processingContainer.find('li:nth-child('+(key + 1)+')').css('font-weight', 'bold');
+            this.processingContainer.find('li:nth-child('+(key + 1)+')').addClass('selected');
             return wordCandidates[key];
         }
         return this.getRandomBlock(seed, blockLength);
