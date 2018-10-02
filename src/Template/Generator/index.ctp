@@ -34,18 +34,31 @@
         <div class="well">
             <div class="form-group row">
                 <label for="speed" class="col-sm-4">
-                    Words per second:
+                    Speed:
                 </label>
                 <div class="col-sm-6">
                     <select id="speed" class="form-control">
                         <option value="0.5">
-                            0.5
+                            Very slow
                         </option>
-                        <?php for ($n = 1; $n <= 10; $n++): ?>
-                            <option value="<?= $n ?>" <?= $n == 2 ? 'selected' : '' ?>>
-                                <?= $n ?>
-                            </option>
-                        <?php endfor; ?>
+                        <option value="1">
+                            Slow
+                        </option>
+                        <option value="2" selected="selected">
+                            Normal
+                        </option>
+                        <option value="4">
+                            Fast
+                        </option>
+                        <option value="6">
+                            Faster
+                        </option>
+                        <option value="8">
+                            Fasterer
+                        </option>
+                        <option value="10">
+                            Ludicrous speed
+                        </option>
                     </select>
                 </div>
             </div>
