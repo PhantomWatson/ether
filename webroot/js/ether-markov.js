@@ -197,8 +197,7 @@ var EtherMarkov = {
     
     updateDisplayedEntropyScore: function () {
         var percent = Math.round((this.entropyScore / this.blockCount) * 100);
-        var output = percent + '% (' + this.entropyScore + '/' + this.blockCount + ')';
-        this.entropyScoreContainer.find('span').html(output);
+        this.entropyScoreContainer.find('span').html(percent + '%');
         this.entropyScoreContainer.find('.progress-bar').css({width: percent + '%'})
     }
 };

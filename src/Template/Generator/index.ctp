@@ -19,7 +19,7 @@
         that someone, somewhere once wrote <em>after</em> that.
     </p>
     <p>
-        The <em>Randomness</em> score shows you how many times your text encountered a fork in the road where it could
+        The <em>Randomness</em> score shows you how often your text encountered a fork in the road where it could
         switch from one source thought to another.
     </p>
 
