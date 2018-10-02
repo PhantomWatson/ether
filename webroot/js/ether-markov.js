@@ -113,7 +113,9 @@ var EtherMarkov = {
         this.blockCount++;
         if (this.limit && this.blockCount >= this.limit) {
             this.stop();
+            this.entropyScore = 0;
             this.blockCount = 0;
+            return;
         }
         this.updateDisplayedEntropyScore();
     },
