@@ -12,7 +12,7 @@
 <div id="generator-intro">
     <p>
         The Ether Thought Generator generates text based on thoughts that have been shared on Ether. You can set the
-        speed and the block length (smaller for more variation, larger for less variation) and let'r rip.
+        speed and the randomness and let'r rip.
     </p>
     <p>
         The <em>Thinkin'</em> section shows you how the process takes a block of N words and searches for a random word
@@ -51,15 +51,19 @@
             </div>
             <div class="form-group row">
                 <label for="blockLength" class="col-sm-4">
-                    Block length:
+                    Random&shy;ness:
                 </label>
                 <div class="col-sm-6">
                     <select id="blockLength" class="form-control">
-                        <?php for ($n = 1; $n <= 5; $n++): ?>
-                            <option value="<?= $n ?>" <?= $n == 2 ? 'selected' : '' ?>>
-                                <?= $n ?>
-                            </option>
-                        <?php endfor; ?>
+                        <option value="4">
+                            Mostly exact quotes
+                        </option>
+                        <option value="3">
+                            Slightly weird
+                        </option>
+                        <option value="2" selected="selected">
+                            Moderately chaotic
+                        </option>
                     </select>
                 </div>
             </div>
