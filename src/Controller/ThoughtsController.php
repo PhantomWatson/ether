@@ -258,6 +258,7 @@ class ThoughtsController extends AppController
             $thought = $this->Thoughts->get($thoughtId);
         } catch (RecordNotFoundException $e) {
             $this->set([
+                '_serialize' => ['result'],
                 'result' => [
                     'success' => false,
                     'update' => false
@@ -269,6 +270,7 @@ class ThoughtsController extends AppController
         $formattingKey = $this->Thoughts->getPopulatedThoughtwordHash();
         if ($formattingKey == $thought->formatting_key) {
             $this->set([
+                '_serialize' => ['result'],
                 'result' => [
                     'success' => true,
                     'update' => false
@@ -282,6 +284,7 @@ class ThoughtsController extends AppController
         $this->Thoughts->save($thought);
 
         $this->set([
+            '_serialize' => ['result'],
             'result' => [
                 'success' => true,
                 'update' => true,
