@@ -60,48 +60,52 @@ gulp.task('php_unit', function() {
 /**************
  * Javascript *
  **************/
-
-var jsFiles = [
-    'vendor/flesler/jquery.scrollto/jquery.scrollTo.js', 
-    'vendor/twbs/bootstrap/dist/js/bootstrap.js', 
-    'webroot/js/script.js'
+var jsVendorFiles = [
+    'vendor/flesler/jquery.scrollto/jquery.scrollTo.js',
+    'vendor/twbs/bootstrap/dist/js/bootstrap.js',
 ];
-var jsMinFiles = [
-    'vendor/flesler/jquery.scrollto/jquery.scrollTo.min.js', 
-    'vendor/twbs/bootstrap/dist/js/bootstrap.min.js', 
-    'webroot/js/script.min.js'
+var jsSrcFiles = [
+    'webroot/js/script.js',
+    'webroot/js/comment.js',
+    'webroot/js/flash-message.js',
+    'webroot/js/messages.js',
+    'webroot/js/profile.js',
+    'webroot/js/recent.js',
+    'webroot/js/registration.js',
+    'webroot/js/scroll.js',
+    'webroot/js/search.js',
+    'webroot/js/suggested.js',
+    'webroot/js/thought.js',
+    'webroot/js/thoughtword-index.js',
+    'webroot/js/user-index.js'
 ];
+var allJsFiles = jsVendorFiles.concat(jsSrcFiles);
 
 gulp.task('js', function(callback) {
-	return runSequence('js_lint', 'js_minify', 'js_concat', callback);
+	return runSequence('js_lint', 'js_build', callback);
 });
 
 gulp.task('js_lint', function () {
-	return gulp.src('webroot/js/script.js')
+	return gulp.src('webroot/js/*.js')
     	.pipe(jshint())
         .pipe(jshint.reporter(stylish))
         .pipe(notify('JS linted'));
 });
 
-gulp.task('js_minify', function () {
-	return gulp.src('webroot/js/script.js')
-    	.pipe(uglify())
-    	.pipe(rename({
-    		extname: '.min.js'
-    	}))
-    	.pipe(gulp.dest('webroot/js'))
-    	.pipe(notify('JS minified'));
-});
-
-gulp.task('js_concat', function () {
-	gulp.src(jsFiles)
+// Builds all JS files into a single combined, minified file
+gulp.task('js_build', function () {
+    // Concatenate files
+    gulp.src(allJsFiles)
 		.pipe(concat('script.concat.js'))
 		.pipe(gulp.dest('webroot/js/'))
 		.pipe(notify('JS concatenated'));
-	gulp.src(jsMinFiles)
-		.pipe(concat('script.concat.min.js'))
-		.pipe(gulp.dest('webroot/js/'))
-		.pipe(notify('Minified JS concatenated'));
+
+    // Minify concatenated file
+	gulp.src('webroot/js/script.concat.js')
+        .pipe(uglify())
+        .pipe(rename({extname: '.min.js'}))
+        .pipe(gulp.dest('webroot/js'))
+        .pipe(notify('JS minified'));
 });
 
 
@@ -130,7 +134,7 @@ gulp.task('watch', function() {
     	.pipe(less({plugins: [cleanCSSPlugin]}))
         .pipe(gulp.dest('webroot/css'))
         .pipe(notify('LESS compiled'));
-	gulp.watch(jsFiles, ['js']);
+	gulp.watch(allJsFiles, ['js']);
 	gulp.watch('src/**/*.php', ['php_cs', 'php_unit']);
 	gulp.watch('src/**/*.ctp', ['php_unit']);
 });
