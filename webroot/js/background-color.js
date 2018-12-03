@@ -22,21 +22,21 @@ function adjustBackground() {
     var adjustment = Math.round(Math.random()) === 0 ? -1 : 1;
     if (rand_color === 0) {
         target_color = color.r;
-    } else if (rand_color == 1) {
+    } else if (rand_color === 1) {
         target_color = color.g;
-    } else if (rand_color == 2) {
+    } else if (rand_color === 2) {
         target_color = color.b;
     }
-    if (adjustment == 1 && target_color >= upper_limit) {
+    if (adjustment === 1 && target_color >= upper_limit) {
         adjustment = -1;
-    } else if (adjustment == -1 && target_color <= lower_limit) {
+    } else if (adjustment === -1 && target_color <= lower_limit) {
         adjustment = 1;
     }
     if (rand_color === 0) {
         color.r += adjustment;
-    } else if (rand_color == 1) {
+    } else if (rand_color === 1) {
         color.g += adjustment;
-    } else if (rand_color == 2) {
+    } else if (rand_color === 2) {
         color.b += adjustment;
     }
     document.getElementById('toggleBGFade').innerHTML = color.toHex();

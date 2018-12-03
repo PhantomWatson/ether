@@ -40,8 +40,8 @@ gulp.task('php_cs', function() {
 
 function testNotification(status, pluginName, override) {
     var options = {
-        title:   ( status == 'pass' ) ? 'Tests Passed' : 'Tests Failed',
-        message: ( status == 'pass' ) ? '\n\nAll tests have passed!\n\n' : '\n\nOne or more tests failed...\n\n',
+        title:   ( status === 'pass' ) ? 'Tests Passed' : 'Tests Failed',
+        message: ( status === 'pass' ) ? '\n\nAll tests have passed!\n\n' : '\n\nOne or more tests failed...\n\n',
         icon:    __dirname + '/node_modules/gulp-' + pluginName +'/assets/test-' + status + '.png'
     };
     options = _.merge(options, override);

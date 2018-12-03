@@ -86,7 +86,7 @@ var thought = {
     	var refresh = function (model, formattingKey) { 
         	$('div.'+model).each(function () {
         		var post = $(this);
-        		if (post.data('formatting-key') == formattingKey) {
+        		if (post.data('formatting-key') === formattingKey) {
         			return;
         		}
         		var body = post.children('.body');
@@ -522,7 +522,7 @@ var scroll = {
 		});
 	},
 	hashTargets: function (targetType) {
-		if (targetType == 'comment') {
+		if (targetType === 'comment') {
 			return location.hash.match(/^#c\d+$/);
 		}
 		return false;
@@ -550,7 +550,7 @@ var search = {
             var input = $(this);
             var original = input.val();
             var spaceless = original.replace(' ', '');
-            if (original != spaceless) {
+            if (original !== spaceless) {
                 input.val(spaceless);
             }
 
