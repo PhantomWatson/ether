@@ -740,9 +740,7 @@ class ThoughtsTable extends Table
             ->toArray();
         $thoughts = $this->find('all')
             ->select(['thought'])
-            ->where(function ($exp, $q) use ($ids) {
-                /** @var QueryExpression $exp */
-
+            ->where(function (QueryExpression $exp) use ($ids) {
                 return $exp->in('id', $ids);
             })
             ->toArray();
@@ -820,9 +818,7 @@ class ThoughtsTable extends Table
      */
     public function findWithQuestions(Query $query, array $options)
     {
-        return $query->where(function ($exp, $q) {
-            /** @var QueryExpression $exp */
-
+        return $query->where(function (QueryExpression $exp) {
             return $exp->like('thought', '%?%');
         });
     }
