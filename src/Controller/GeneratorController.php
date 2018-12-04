@@ -17,7 +17,7 @@ class GeneratorController extends AppController
     public function serverside()
     {
         /** @var ThoughtsTable $thoughtsTable */
-        $thoughtsTable = TableRegistry::get('Thoughts');
+        $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
         $result = $thoughtsTable->generateFromAll(1000, 2, 200);
         $result = EtherMarkovChain::trimToNaturalEnding($result);
         $this->set([
@@ -28,7 +28,7 @@ class GeneratorController extends AppController
 
     public function index()
     {
-        $thoughtsTable = TableRegistry::get('Thoughts');
+        $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
         $thoughts = $thoughtsTable->find('all')
             ->select(['thought'])
             ->toArray();
@@ -46,7 +46,7 @@ class GeneratorController extends AppController
 
     public function getSource()
     {
-        $thoughtsTable = TableRegistry::get('Thoughts');
+        $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
         $thoughts = $thoughtsTable->find('all')
             ->select(['thought'])
             ->toArray();

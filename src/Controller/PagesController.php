@@ -68,7 +68,7 @@ class PagesController extends AppController
 
     public function about()
     {
-        $thoughtsTable = TableRegistry::get('Thoughts');
+        $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
         $totalThoughts = $thoughtsTable->find('all')->count();
         $stats['Thoughts'] = number_format($totalThoughts);
 
@@ -98,12 +98,12 @@ class PagesController extends AppController
         $url = Router::url(['controller' => 'thoughts', 'action' => 'word', $mostPopularWord->word]);
         $stats['Most thought-about thoughtword'] = '<a href="'.$url.'">'.$mostPopularWord->word.'</a> ('.number_format($mostPopularWord->count).' thoughts)';
 
-        $commentsTable = TableRegistry::get('Comments');
+        $commentsTable = TableRegistry::getTableLocator()->get('Comments');
         $totalComments = $commentsTable->find('all')->count();
         $stats['Comments'] = number_format($totalComments);
 
         /** @var UsersTable $usersTable */
-        $usersTable = TableRegistry::get('Users');
+        $usersTable = TableRegistry::getTableLocator()->get('Users');
         $totalThinkers = $usersTable->find('all')->count();
         $stats['Thinkers'] = $totalThinkers;
         $stats['Thinkers who have posted thoughts'] = round(($usersTable->getActiveThinkerCount() / $totalThinkers) * 100, 2).'%';
@@ -154,7 +154,7 @@ class PagesController extends AppController
     public function colorNames()
     {
         /** @var UsersTable $usersTable */
-        $usersTable = TableRegistry::get('Users');
+        $usersTable = TableRegistry::getTableLocator()->get('Users');
         $colors = $usersTable->getColorsWithThoughts();
         $Color = new Color();
         $hexCodes = [];

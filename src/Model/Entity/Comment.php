@@ -38,7 +38,7 @@ class Comment extends Entity
     public function _setComment($comment)
     {
         /** @var ThoughtsTable $thoughtsTable */
-        $thoughtsTable = TableRegistry::get('Thoughts');
+        $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
         $formatted = $thoughtsTable->formatThought($comment);
         $this->set('formatted_comment', $formatted);
         return $comment;
@@ -47,7 +47,7 @@ class Comment extends Entity
     public function _setFormattedComment($formattedComment)
     {
         /** @var ThoughtsTable $thoughtsTable */
-        $thoughtsTable = TableRegistry::get('Thoughts');
+        $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
         $hash = $thoughtsTable->getPopulatedThoughtwordHash();
         $this->set('formatting_key', $hash);
         $this->set('formatted', Time::now());

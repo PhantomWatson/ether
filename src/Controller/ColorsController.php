@@ -33,7 +33,7 @@ class ColorsController extends AppController
     public function colorNames()
     {
         /** @var UsersTable $usersTable */
-        $usersTable = TableRegistry::get('Users');
+        $usersTable = TableRegistry::getTableLocator()->get('Users');
         $colors = $usersTable->getColorsWithThoughts();
         $hexCodes = [];
         foreach ($colors as $section => $sectionColors) {

@@ -61,7 +61,7 @@ class CommentsTable extends Table
             ->notEmpty('thought_id')
             ->add('thought_id', 'comments_enabled', [
                 'rule' => function ($value, $context) {
-                    $thoughtsTable = TableRegistry::get('Thoughts');
+                    $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
                     /** @var Thought $thought Thought record */
                     $thought = $thoughtsTable->find()
                         ->select(['comments_enabled'])

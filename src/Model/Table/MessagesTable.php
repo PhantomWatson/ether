@@ -66,7 +66,7 @@ class MessagesTable extends Table
             ->add('recipient_id', 'acceptsMessages', [
                 'rule' => function ($value) {
                     /** @var UsersTable $users */
-                    $users = TableRegistry::get('Users');
+                    $users = TableRegistry::getTableLocator()->get('Users');
 
                     return $users->acceptsMessages($value);
                 },
@@ -331,7 +331,7 @@ class MessagesTable extends Table
 
     public function sendNotificationEmail($senderId, $recipientId, $message)
     {
-        $usersTable = TableRegistry::get('Users');
+        $usersTable = TableRegistry::getTableLocator()->get('Users');
         $recipient = $usersTable->get($recipientId);
         $sender = $usersTable->get($senderId);
 

@@ -94,7 +94,7 @@ class AppController extends Controller
     {
         $userId = $this->Auth->user('id');
         /** @var MessagesTable $messagesTable */
-        $messagesTable = TableRegistry::get('Messages');
+        $messagesTable = TableRegistry::getTableLocator()->get('Messages');
         $this->set([
             'userId' => $userId,
             'userColor' => $this->Auth->user('color'),

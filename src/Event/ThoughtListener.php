@@ -41,7 +41,7 @@ class ThoughtListener implements EventListenerInterface
 
         // Exit if this is a new thought on an already-populated thoughtword
         /** @var ThoughtsTable $thoughts */
-        $thoughts = TableRegistry::get('Thoughts');
+        $thoughts = TableRegistry::getTableLocator()->get('Thoughts');
         if ($entity->isNew() && $thoughts->getPopulation($entity->word) > 1) {
             return;
         }

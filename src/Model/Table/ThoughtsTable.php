@@ -308,7 +308,7 @@ class ThoughtsTable extends Table
         }
         $combinedQuery->epilog("ORDER BY created $direction LIMIT $limit OFFSET $offset");
         $combinedQuery->counter(function ($query) {
-            $comments = TableRegistry::get('Comments');
+            $comments = TableRegistry::getTableLocator()->get('Comments');
 
             return $comments->find('all')->count() + $this->find('all')->count();
         });
@@ -323,7 +323,7 @@ class ThoughtsTable extends Table
      */
     public function getThoughtsAndComments()
     {
-        $thoughts = TableRegistry::get('Thoughts');
+        $thoughts = TableRegistry::getTableLocator()->get('Thoughts');
         $thoughtsQuery = $thoughts->find('all');
         $thoughtsQuery
             ->select([
@@ -339,7 +339,7 @@ class ThoughtsTable extends Table
                 ]
             ]);
 
-        $comments = TableRegistry::get('Comments');
+        $comments = TableRegistry::getTableLocator()->get('Comments');
         $commentsQuery = $comments
             ->find('all')
             ->select([

@@ -57,7 +57,7 @@ class CommentsController extends AppController
     {
         $this->viewBuilder()->setLayout('json');
         /** @var ThoughtsTable $thoughtsTable */
-        $thoughtsTable = TableRegistry::get('Thoughts');
+        $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
 
         try {
             $comment = $this->Comments->get($commentId);

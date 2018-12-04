@@ -226,4 +226,4 @@ use App\Event\ThoughtListener;
 $ThoughtListener = new ThoughtListener();
 
 use Cake\Event\EventManager;
-EventManager::instance()->attach($ThoughtListener);
+EventManager::instance()->on($ThoughtListener);
