@@ -350,7 +350,7 @@ class ThoughtsController extends AppController
                     }
 
                     // Must not start with a conjunction
-                    if (stripos($question,'and') === 0 || stripos($question,'but') === 0) {
+                    if (stripos($question, 'and') === 0 || stripos($question, 'but') === 0) {
                         continue;
                     }
 

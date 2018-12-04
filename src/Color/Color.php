@@ -1013,7 +1013,6 @@ class Color
         $xkcdColors = $this->getXkcdColors();
         $candidates = [];
         foreach ($xkcdColors as $xkcdColorName => $xkcdColorParts) {
-
             // Exact match
             if ($xkcdColorParts['hex'] == $color) {
                 return $xkcdColorName;
