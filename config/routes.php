@@ -43,8 +43,7 @@ use Cake\Routing\Route\DashedRoute;
 Router::defaultRouteClass(DashedRoute::class);
 
 Router::scope('/', function (RouteBuilder $routes) {
-    /** @var Router $routes */
-    $routes->extensions(['json']);
+    $routes->setExtensions(['json']);
 
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'home']);
     $routes->connect('/about', ['controller' => 'Pages', 'action' => 'about']);

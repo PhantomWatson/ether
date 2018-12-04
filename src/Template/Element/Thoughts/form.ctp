@@ -10,7 +10,7 @@
             [
                 'url' => [
                     'controller' => 'Thoughts',
-                    'action' => $this->request->action == 'edit' ? 'edit' : 'add'
+                    'action' => $this->request->getParam('action') == 'edit' ? 'edit' : 'add'
                 ],
                 'id' => 'ThoughtAddForm'
             ]
