@@ -34,6 +34,11 @@ class AppController extends Controller
         ]
     ];
 
+    /**
+     * Initialize function
+     *
+     * @throws \Exception
+     */
     public function initialize()
     {
         $this->loadComponent('Cookie');

@@ -2,8 +2,8 @@
 namespace App\Model\Table;
 
 use Cake\Collection\Collection;
+use Cake\Http\Exception\InternalErrorException;
 use Cake\Mailer\Email;
-use Cake\Network\Exception\InternalErrorException;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -154,7 +154,12 @@ class UsersTable extends Table
             ->toArray();
     }
 
-
+    /**
+     * Returns an array of all colors with associated thoughts
+     *
+     * @return array
+     * @throws InternalErrorException
+     */
     public function getColorsWithThoughts()
     {
         $result = $this->find('all')
@@ -170,6 +175,7 @@ class UsersTable extends Table
         $combined = $collection->combine('color', 'count');
         $colors = $combined->toArray();
         $sorted = $this->sortColors($colors);
+
         return $sorted;
     }
 

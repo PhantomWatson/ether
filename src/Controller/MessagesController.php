@@ -23,6 +23,7 @@ class MessagesController extends AppController
      * Initialize method
      *
      * @return void
+     * @throws \Exception
      */
     public function initialize()
     {

@@ -3,7 +3,7 @@ namespace App\Controller;
 
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Event\Event;
-use Cake\Network\Exception\BadRequestException;
+use Cake\Http\Exception\BadRequestException;
 
 /**
  * Thoughts Controller
@@ -17,6 +17,7 @@ class ThoughtsController extends AppController
      * Initialize method
      *
      * @return void
+     * @throws \Exception
      */
     public function initialize()
     {
@@ -70,7 +71,6 @@ class ThoughtsController extends AppController
      *
      * @param string|null $id Thought ID
      * @return void
-     * @throws \Cake\Network\Exception\NotFoundException
      */
     public function view($id = null)
     {
@@ -84,6 +84,7 @@ class ThoughtsController extends AppController
      * Add method
      *
      * @return \Cake\Http\Response|null
+     * @throws \Cake\Network\Exception\InternalErrorException
      */
     public function add()
     {
@@ -198,6 +199,7 @@ class ThoughtsController extends AppController
      *
      * @param string|null $word Thoughtword
      * @return \Cake\Http\Response|null
+     * @throws BadRequestException
      */
     public function word($word = null)
     {

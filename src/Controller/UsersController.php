@@ -2,9 +2,8 @@
 namespace App\Controller;
 
 use App\Color\Color;
-use App\Model\Table\MessagesTable;
-use Cake\Network\Exception\ForbiddenException;
-use Cake\Network\Exception\NotFoundException;
+use Cake\Http\Exception\ForbiddenException;
+use Cake\Http\Exception\NotFoundException;
 use Recaptcha\Controller\Component\RecaptchaComponent;
 
 /**
@@ -20,6 +19,7 @@ class UsersController extends AppController
      * Initialize method
      *
      * @return void
+     * @throws \Exception
      */
     public function initialize()
     {

@@ -41,6 +41,11 @@ class PagesController extends AppController
         ]
     ];
 
+    /**
+     * Initialize method
+     *
+     * @throws \Exception
+     */
     public function initialize()
     {
         parent::initialize();

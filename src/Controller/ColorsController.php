@@ -3,7 +3,7 @@ namespace App\Controller;
 
 use App\Color\Color;
 use App\Model\Table\UsersTable;
-use Cake\Network\Exception\NotFoundException;
+use Cake\Http\Exception\NotFoundException;
 use Cake\ORM\TableRegistry;
 
 class ColorsController extends AppController
@@ -15,6 +15,7 @@ class ColorsController extends AppController
      * Initialize method
      *
      * @return void
+     * @throws \Exception
      */
     public function initialize()
     {

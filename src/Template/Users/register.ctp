@@ -65,7 +65,13 @@
         <label>
             Human?
         </label>
-        <?= $this->Recaptcha->display() ?>
+        <?php
+            try {
+                echo $this->Recaptcha->display();
+            } catch (Exception $e) {
+                echo '<div class="error-message">Error displaying CAPTCHA challenge</div>';
+            }
+        ?>
         <?php if (isset($recaptchaError)): ?>
             <div class="error-message">
                 Invalid CAPTCHA response. Please try again.

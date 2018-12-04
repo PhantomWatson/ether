@@ -5,9 +5,9 @@ use App\Model\Entity\Thought;
 use Cake\Cache\Cache;
 use Cake\Database\Expression\QueryExpression;
 use Cake\Event\Event;
+use Cake\Http\Exception\BadRequestException;
+use Cake\Http\Exception\InternalErrorException;
 use Cake\Log\Log;
-use Cake\Network\Exception\BadRequestException;
-use Cake\Network\Exception\InternalErrorException;
 use Cake\ORM\Entity;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -17,9 +17,9 @@ use Cake\Routing\Router;
 use Cake\Utility\Hash;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
+use EtherMarkov\EtherMarkovChain;
 use League\CommonMark\CommonMarkConverter;
 use League\HTMLToMarkdown\HtmlConverter;
-use EtherMarkov\EtherMarkovChain;
 
 /**
  * Thoughts Model
@@ -295,6 +295,7 @@ class ThoughtsTable extends Table
      * @param Query $query
      * @param array $options
      * @return Query
+     * @throws BadRequestException
      */
     public function findRecentActivity(Query $query, array $options)
     {
