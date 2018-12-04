@@ -614,9 +614,7 @@ class ThoughtsTable extends Table
             ->select(['id', 'thought'])
             ->where([
                 'OR' => [
-                    function ($exp, $q) {
-                        /** @var QueryExpression $exp */
-
+                    function (QueryExpression $exp) {
                         return $exp->isNull('formatting_key');
                     },
                     'formatting_key IS NOT' => $populatedThoughtwordHash
@@ -708,16 +706,14 @@ class ThoughtsTable extends Table
         $ids = $this->find('list')
             ->select(['id'])
             ->where([
-                'user_id' => 1,
+                'user_id' => $userId,
                 'anonymous' => false
             ])
             ->order('rand()')
             ->toArray();
         $thoughts = $this->find('all')
             ->select(['thought'])
-            ->where(function ($exp, $q) use ($ids) {
-                /** @var QueryExpression $exp */
-
+            ->where(function (QueryExpression $exp) use ($ids) {
                 return $exp->in('id', $ids);
             })
             ->toArray();
