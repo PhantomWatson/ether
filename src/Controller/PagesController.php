@@ -27,7 +27,7 @@ use Cake\Routing\Router;
  *
  * @link http://book.cakephp.org/3.0/en/controllers/pages-controller.html
  * @property \App\Model\Table\ThoughtsTable $Thoughts
- * @method \App\Model\Entity\Thought[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @method Thought[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class PagesController extends AppController
 {
