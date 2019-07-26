@@ -102,20 +102,27 @@ class UsersController extends AppController
                 $cleanColor = strtolower($user->color);
                 $cleanColor = preg_replace("/[^a-z0-9]/", '', $cleanColor);
 
-                $user->set([
-                    'password' => $this->request->getData('new_password'),
-                    'email' => $cleanEmail,
-                    'color' => $cleanColor,
-                    'password_version' => 3,
-                    'is_admin' => 0
-                ]);
+                if (!$this->Users->colorIsTaken($cleanColor)) {
+                    $user->set([
+                        'password' => $this->request->getData('new_password'),
+                        'email' => $cleanEmail,
+                        'color' => $cleanColor,
+                        'password_version' => 3,
+                        'is_admin' => 0
+                    ]);
 
-                if ($this->Users->save($user)) {
-                    $this->Flash->success('Your account has been registered. You may now log in.');
+                    if ($this->Users->save($user)) {
+                        $this->Flash->success('Your account has been registered. You may now log in.');
 
-                    return $this->redirect(['action' => 'login']);
+                        return $this->redirect(['action' => 'login']);
+                    } else {
+                        $this->Flash->error('There was an error registering your account. Please try again.');
+                    }
                 } else {
-                    $this->Flash->error('There was an error registering your account. Please try again.');
+                    $this->Flash->error(
+                        "Sorry, the color #$cleanColor is already taken. You could try tweaking that color slightly " .
+                        'and seeing if the new color is available, or you could pick a completely different color.'
+                    );
                 }
             } else {
                 $this->set('recaptchaError', true);
