@@ -344,7 +344,7 @@ class MessagesTable extends Table
             'message' => $message,
             'loginUrl' => Router::url(['controller' => 'Users', 'action' => 'login'], true),
             'messageUrl' => Router::url(['controller' => 'Messages', 'action' => 'index', $sender->color], true),
-            'accountUrl' => Router::url(['controller' => 'Users', 'action' => 'account'], true),
+            'accountUrl' => Router::url(['controller' => 'Users', 'action' => 'settings'], true),
             'siteUrl' => Router::url('/', true)
         ]);
         $email->setTemplate('new_message');
