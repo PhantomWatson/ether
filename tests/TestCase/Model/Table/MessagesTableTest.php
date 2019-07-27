@@ -16,9 +16,9 @@ class MessagesTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'Messages' => 'app.messages',
-        'Recipients' => 'app.users',
-        'Senders' => 'app.users'
+        'Messages' => 'app.Messages',
+        'Recipients' => 'app.Users',
+        'Senders' => 'app.Users'
     ];
 
     /**

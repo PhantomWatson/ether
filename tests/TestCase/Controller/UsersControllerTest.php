@@ -15,9 +15,9 @@ class UsersControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'Users' => 'app.users',
-        'Comments' => 'app.comments',
-        'Thoughts' => 'app.thoughts'
+        'Users' => 'app.Users',
+        'Comments' => 'app.Comments',
+        'Thoughts' => 'app.Thoughts'
     ];
 
     /**
