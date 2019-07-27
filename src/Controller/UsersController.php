@@ -2,15 +2,19 @@
 namespace App\Controller;
 
 use App\Color\Color;
+use App\Model\Table\MessagesTable;
+use App\Model\Table\UsersTable;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
+use Cake\Http\Response;
+use Exception;
 use Recaptcha\Controller\Component\RecaptchaComponent;
 
 /**
  * Users Controller
  *
- * @property \App\Model\Table\UsersTable $Users
- * @property \App\Model\Table\MessagesTable $Messages
+ * @property UsersTable $Users
+ * @property MessagesTable $Messages
  * @property RecaptchaComponent $Recaptcha
  */
 class UsersController extends AppController
@@ -19,7 +23,7 @@ class UsersController extends AppController
      * Initialize method
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function initialize()
     {
@@ -34,7 +38,7 @@ class UsersController extends AppController
             'view'
         ]);
 
-        if ($this->request->action === 'register') {
+        if ($this->request->getParam('action') === 'register') {
             $this->loadComponent('Recaptcha.Recaptcha');
         }
 
@@ -59,7 +63,7 @@ class UsersController extends AppController
      *
      * @param string|null $color User color
      * @return void
-     * @throws \Cake\Network\Exception\NotFoundException
+     * @throws NotFoundException
      */
     public function view($color = null)
     {
@@ -87,7 +91,7 @@ class UsersController extends AppController
     /**
      * Renders /users/register
      *
-     * @return \Cake\Http\Response|null
+     * @return Response|null
      */
     public function register()
     {
@@ -156,7 +160,7 @@ class UsersController extends AppController
     /**
      * Renders /users/login
      *
-     * @return \Cake\Http\Response|null
+     * @return Response|null
      */
     public function login()
     {
@@ -196,7 +200,7 @@ class UsersController extends AppController
     /**
      * Renders /users/logout
      *
-     * @return \Cake\Http\Response|null
+     * @return Response|null
      */
     public function logout()
     {
@@ -288,7 +292,7 @@ class UsersController extends AppController
     /**
      * Allows the user to enter their email address and get a link to reset their password
      *
-     * @return \Cake\Http\Response|null
+     * @return Response|null
      */
     public function forgotPassword()
     {
@@ -330,7 +334,7 @@ class UsersController extends AppController
      * @param int|null $userId
      * @param int|null $timestamp
      * @param string|null $hash
-     * @return \Cake\Http\Response|null
+     * @return Response|null
      */
     public function resetPassword($userId = null, $timestamp = null, $hash = null)
     {

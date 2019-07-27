@@ -1,14 +1,17 @@
 <?php
 namespace App\Controller;
 
+use App\Model\Table\CommentsTable;
 use App\Model\Table\ThoughtsTable;
 use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Http\Response;
 use Cake\ORM\TableRegistry;
+use Exception;
 
 /**
  * Comments Controller
  *
- * @property \App\Model\Table\CommentsTable $Comments
+ * @property CommentsTable $Comments
  */
 class CommentsController extends AppController
 {
@@ -16,6 +19,7 @@ class CommentsController extends AppController
      * Initialize method
      *
      * @return void
+     * @throws Exception
      */
     public function initialize()
     {
@@ -26,7 +30,7 @@ class CommentsController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null
+     * @return Response|null
      */
     public function add()
     {
@@ -42,7 +46,7 @@ class CommentsController extends AppController
             } else {
                 $this->Flash->error('Your comment could not be posted. Please try again.');
 
-                return  $this->redirect($this->request->referer());
+                return $this->redirect($this->request->referer());
             }
         }
 
@@ -50,8 +54,10 @@ class CommentsController extends AppController
     }
 
     /**
+     * Refreshes $comment->formatted for a specified comment
+     *
      * @param int $commentId Comment ID
-     * @return \Cake\Http\Response|null
+     * @return Response|null
      */
     public function refreshFormatting($commentId)
     {

@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use Cake\Event\Event;
+use Exception;
 
 class ErrorController extends AppController
 {
@@ -9,6 +10,7 @@ class ErrorController extends AppController
      * Initialization hook method.
      *
      * @return void
+     * @throws Exception
      */
     public function initialize()
     {
@@ -18,7 +20,7 @@ class ErrorController extends AppController
     /**
      * beforeRender callback.
      *
-     * @param \Cake\Event\Event $event Event.
+     * @param Event $event Event.
      * @return void
      */
     public function beforeRender(Event $event)

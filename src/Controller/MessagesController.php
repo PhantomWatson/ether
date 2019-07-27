@@ -1,13 +1,17 @@
 <?php
 namespace App\Controller;
 
+use App\Model\Table\MessagesTable;
+use App\Model\Table\UsersTable;
+use Cake\Http\Response;
 use Cake\Utility\Hash;
+use Exception;
 
 /**
  * Messages Controller
  *
- * @property \App\Model\Table\MessagesTable $Messages
- * @property \App\Model\Table\UsersTable $Users
+ * @property MessagesTable $Messages
+ * @property UsersTable $Users
  */
 class MessagesController extends AppController
 {
@@ -22,7 +26,7 @@ class MessagesController extends AppController
      * Initialize method
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function initialize()
     {
@@ -68,7 +72,7 @@ class MessagesController extends AppController
      * will contain a JSON object describing the results. Otherwise, redirects back
      * to the referer with a flash message.
      *
-     * @return \Cake\Http\Response|null
+     * @return Response|null
      */
     public function send()
     {
@@ -122,7 +126,7 @@ class MessagesController extends AppController
      * Renders /messages/conversation
      *
      * @param string|null $penpalColor Color of other user
-     * @return \Cake\Http\Response|null
+     * @return Response|null
      */
     public function conversation($penpalColor = null)
     {

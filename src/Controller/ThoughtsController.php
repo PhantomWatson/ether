@@ -1,14 +1,19 @@
 <?php
 namespace App\Controller;
 
+use App\Model\Table\ThoughtsTable;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Event\Event;
 use Cake\Http\Exception\BadRequestException;
+use Cake\Http\Response;
+use Cake\Network\Exception\InternalErrorException;
+use Cake\Network\Exception\NotFoundException;
+use Exception;
 
 /**
  * Thoughts Controller
  *
- * @property \App\Model\Table\ThoughtsTable $Thoughts
+ * @property ThoughtsTable $Thoughts
  */
 class ThoughtsController extends AppController
 {
@@ -17,7 +22,7 @@ class ThoughtsController extends AppController
      * Initialize method
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function initialize()
     {
@@ -44,8 +49,9 @@ class ThoughtsController extends AppController
     {
         // Author-only actions
         $authorOnlyActions = ['edit', 'delete'];
-        if (in_array($this->request->action, $authorOnlyActions)) {
-            $thoughtId = $this->request->pass[0];
+        if (in_array($this->request->getParam('action'), $authorOnlyActions)) {
+            $passedParams = $this->request->getParam('pass');
+            $thoughtId = $passedParams ? $passedParams[0] : null;
             $authorId = $this->Thoughts->getAuthorId($thoughtId);
             return $user['id'] === $authorId;
         }
@@ -83,8 +89,8 @@ class ThoughtsController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Network\Exception\InternalErrorException
+     * @return Response|null
+     * @throws InternalErrorException
      */
     public function add()
     {
@@ -94,7 +100,10 @@ class ThoughtsController extends AppController
             $data['user_id'] = $this->Auth->user('id');
             $thought = $this->Thoughts->patchEntity($thought, $data);
             if ($thought->getErrors()) {
-                $this->Flash->error('Please correct the indicated '.__n('error', 'errors', count($thought->getErrors())).' before continuing.');
+                $this->Flash->error(sprintf(
+                    'Please correct the indicated %s before continuing.',
+                    __n('error', 'errors', count($thought->getErrors()))
+                ));
             } elseif ($this->Thoughts->save($thought)) {
                 $event = new Event('Model.Thought.created', $this, ['entity' => $thought]);
                 $this->getEventManager()->dispatch($event);
@@ -127,8 +136,8 @@ class ThoughtsController extends AppController
      * Edit method
      *
      * @param string|null $id Thought ID
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Network\Exception\NotFoundException
+     * @return Response|null
+     * @throws NotFoundException
      */
     public function edit($id = null)
     {
@@ -140,7 +149,10 @@ class ThoughtsController extends AppController
                 'fieldList' => ['word', 'thought', 'comments_enabled', 'anonymous']
             ]);
             if ($thought->getErrors()) {
-                $this->Flash->error('Please correct the indicated '.__n('error', 'errors', count($thought->getErrors())).' before continuing.');
+                $this->Flash->error(sprintf(
+                    'Please correct the indicated %s before continuing.',
+                    __n('error', 'errors', count($thought->getErrors()))
+                ));
             } elseif ($this->Thoughts->save($thought)) {
                 $event = new Event('Model.Thought.updated', $this, ['entity' => $thought]);
                 $this->getEventManager()->dispatch($event);
@@ -163,8 +175,8 @@ class ThoughtsController extends AppController
      * Delete method
      *
      * @param string|null $id Thought id
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Network\Exception\NotFoundException
+     * @return Response|null
+     * @throws NotFoundException
      */
     public function delete($id = null)
     {
@@ -198,7 +210,7 @@ class ThoughtsController extends AppController
      * Renders /thoughts/word
      *
      * @param string|null $word Thoughtword
-     * @return \Cake\Http\Response|null
+     * @return Response|null
      * @throws BadRequestException
      */
     public function word($word = null)

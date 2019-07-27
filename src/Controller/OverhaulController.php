@@ -1,25 +1,42 @@
 <?php
 namespace App\Controller;
 
+use App\Model\Table\CommentsTable;
+use App\Model\Table\MessagesTable;
+use App\Model\Table\ThoughtsTable;
+use App\Model\Table\UsersTable;
+use Exception;
+
 /**
  * Static content controller
  *
  * This controller will render views from Template/Pages/
  *
  * @link http://book.cakephp.org/3.0/en/controllers/pages-controller.html
- * @property \App\Model\Table\ThoughtsTable $Thoughts
- * @property \App\Model\Table\CommentsTable $Comments
- * @property \App\Model\Table\MessagesTable $Messages
- * @property \App\Model\Table\UsersTable $Users
+ * @property ThoughtsTable $Thoughts
+ * @property CommentsTable $Comments
+ * @property MessagesTable $Messages
+ * @property UsersTable $Users
  */
 class OverhaulController extends AppController
 {
+    /**
+     * Initialize method
+     *
+     * @throws Exception
+     * @return void
+     */
     public function initialize()
     {
         parent::initialize();
         $this->Auth->allow();
     }
 
+    /**
+     * Strips all slashes from database content
+     *
+     * @return void
+     */
     public function stripSlashes()
     {
         $this->loadModel('Thoughts');
@@ -33,6 +50,11 @@ class OverhaulController extends AppController
         $this->render('/Pages/blank');
     }
 
+    /**
+     * Converts all database content to markdown
+     *
+     * @return void
+     */
     public function convertToMarkdown()
     {
         $this->loadModel('Thoughts');

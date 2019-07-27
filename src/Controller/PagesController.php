@@ -1,33 +1,18 @@
 <?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link      http://cakephp.org CakePHP(tm) Project
- * @since     0.2.9
- * @license   http://www.opensource.org/licenses/mit-license.php MIT License
- */
 namespace App\Controller;
 
 use App\Color\Color;
 use App\Model\Entity\Thought;
+use App\Model\Table\ThoughtsTable;
 use App\Model\Table\UsersTable;
+use Cake\Datasource\ResultSetInterface;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
+use Exception;
 
 /**
- * Static content controller
- *
- * This controller will render views from Template/Pages/
- *
- * @link http://book.cakephp.org/3.0/en/controllers/pages-controller.html
- * @property \App\Model\Table\ThoughtsTable $Thoughts
- * @method Thought[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
+ * @property ThoughtsTable $Thoughts
+ * @method Thought[]|ResultSetInterface paginate($object = null, array $settings = [])
  */
 class PagesController extends AppController
 {
@@ -44,7 +29,8 @@ class PagesController extends AppController
     /**
      * Initialize method
      *
-     * @throws \Exception
+     * @throws Exception
+     * @return void
      */
     public function initialize()
     {
@@ -54,6 +40,11 @@ class PagesController extends AppController
         $this->Auth->allow();
     }
 
+    /**
+     * Site homepage
+     *
+     * @return void
+     */
     public function home()
     {
         $this->loadModel('Thoughts');
@@ -66,6 +57,11 @@ class PagesController extends AppController
         ]);
     }
 
+    /**
+     * About page
+     *
+     * @return void
+     */
     public function about()
     {
         $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
@@ -84,7 +80,10 @@ class PagesController extends AppController
         $thoughtsCommentsEnabled = $thoughtsTable->find('all')
             ->where(['comments_enabled' => 1])
             ->count();
-        $stats['Thoughts with comments enabled'] = round(($thoughtsCommentsEnabled / $totalThoughts) * 100, 2).'%';
+        $stats['Thoughts with comments enabled'] = round(
+            ($thoughtsCommentsEnabled / $totalThoughts) * 100,
+            2
+        ) . '%';
 
         /** @var Thought $mostPopularWord */
         $mostPopularWord = $thoughtsTable->find('all')
@@ -95,8 +94,13 @@ class PagesController extends AppController
             ->group('word')
             ->order(['count' => 'DESC'])
             ->first();
-        $url = Router::url(['controller' => 'thoughts', 'action' => 'word', $mostPopularWord->word]);
-        $stats['Most thought-about thoughtword'] = '<a href="'.$url.'">'.$mostPopularWord->word.'</a> ('.number_format($mostPopularWord->count).' thoughts)';
+        $url = Router::url(['controller' => 'Thoughts', 'action' => 'word', $mostPopularWord->word]);
+        $stats['Most thought-about thoughtword'] = sprintf(
+            '<a href="%s">%s</a> (%s thoughts)',
+            $url,
+            $mostPopularWord->word,
+            number_format($mostPopularWord->count)
+        );
 
         $commentsTable = TableRegistry::getTableLocator()->get('Comments');
         $totalComments = $commentsTable->find('all')->count();
@@ -106,11 +110,17 @@ class PagesController extends AppController
         $usersTable = TableRegistry::getTableLocator()->get('Users');
         $totalThinkers = $usersTable->find('all')->count();
         $stats['Thinkers'] = $totalThinkers;
-        $stats['Thinkers who have posted thoughts'] = round(($usersTable->getActiveThinkerCount() / $totalThinkers) * 100, 2).'%';
+        $stats['Thinkers who have posted thoughts'] = round(
+            ($usersTable->getActiveThinkerCount() / $totalThinkers) * 100,
+            2
+        ) . '%';
         $usersMessagesEnabled = $usersTable->find('all')
             ->where(['acceptMessages' => 1])
             ->count();
-        $stats['Thinkers who accept messages'] = round(($usersMessagesEnabled / $totalThinkers) * 100, 2).'%';
+        $stats['Thinkers who accept messages'] = round(
+            ($usersMessagesEnabled / $totalThinkers) * 100,
+            2
+        ) . '%';
 
         $this->set([
             'title_for_layout' => 'About Ether',
@@ -120,21 +130,41 @@ class PagesController extends AppController
         ]);
     }
 
+    /**
+     * Page explaining how markdown works
+     *
+     * @return void
+     */
     public function markdown()
     {
         $this->set(['title_for_layout' => 'Markdown']);
     }
 
+    /**
+     * Terms and conditions page
+     *
+     * @return void
+     */
     public function terms()
     {
         $this->set(['titleForLayout' => 'Terms of Use']);
     }
 
+    /**
+     * Privacy policy page
+     *
+     * @return void
+     */
     public function privacy()
     {
         $this->set(['titleForLayout' => 'Privacy Policy']);
     }
 
+    /**
+     * Contact page
+     *
+     * @return void
+     */
     public function contact()
     {
         $this->set(['titleForLayout' => 'Contact']);
@@ -151,6 +181,11 @@ class PagesController extends AppController
         $this->response = $this->response->withStatus(404);
     }
 
+    /**
+     * A page for displaying each color's name
+     *
+     * @return void
+     */
     public function colorNames()
     {
         /** @var UsersTable $usersTable */
