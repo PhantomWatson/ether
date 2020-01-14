@@ -398,5 +398,20 @@ return [
         'cookie' => 'ether'
     ],
 
+    'Recaptcha' => [
+        // Register API keys at https://www.google.com/recaptcha/admin
+        'sitekey' => '6Ldw9D4UAAAAALHquIqLYectG-dyzbJylqdScr5r',
+        'secret' => env('RECAPTCHA_SECRET'),
+        // reCAPTCHA supported 40+ languages listed
+        // here: https://developers.google.com/recaptcha/docs/language
+        'lang' => 'en',
+        // either light or dark
+        'theme' => 'dark',
+        // either image or audio
+        'type' => 'image',
+        // either normal or compact
+        'size' => 'normal'
+    ],
+
     'no_reply_email' => 'no-reply@theether.com'
 ];

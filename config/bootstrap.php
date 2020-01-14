@@ -205,7 +205,7 @@ Type::build('timestamp')
  *
  */
 Plugin::load('Migrations');
-Plugin::load('Recaptcha', ['routes' => true, 'bootstrap' => true]);
+Plugin::load('Recaptcha', ['bootstrap' => true]);
 Plugin::load('Gourmet/CommonMark');
 Plugin::load('Xety/Cake3CookieAuth');
 

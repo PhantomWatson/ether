@@ -10,7 +10,6 @@
 		"mobiledetect/mobiledetectlib" : "2.*",
 		"cakephp/migrations" : "~1.0",
 		"cakephp/plugin-installer" : "^1.0",
-		"cake17/cakephp-recaptcha" : "dev-master",
 		"phantomwatson/cakephp-autologin": "dev-master",
 		"phantomwatson/ether-markov": "*",
 		"phpunit/phpunit": "^6.0",
@@ -21,7 +20,8 @@
 		"gourmet/common-mark": "~1.0",
 		"xety/cake3-cookieauth": "1.*",
 		"josegonzalez/dotenv": "dev-master",
-        "ext-json": "*"
+        "ext-json": "*",
+		"cakephp-fr/recaptcha": "~1.0"
     },
 	"require-dev" : {
 		"psy/psysh" : "@stable",

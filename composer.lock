@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8085eb810781782413acd89547a6de5b",
+    "content-hash": "933659625e1748f93ca97adc4a0b173d",
     "packages": [
         {
             "name": "aura/intl",
@@ -53,21 +53,21 @@
             "time": "2017-01-20T05:00:11+00:00"
         },
         {
-            "name": "cake17/cakephp-recaptcha",
-            "version": "dev-master",
+            "name": "cakephp-fr/recaptcha",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/cake17/cakephp-recaptcha.git",
-                "reference": "4c37da96a431354dff211768e9d3f560325d00cc"
+                "url": "https://github.com/cakephp-fr/recaptcha.git",
+                "reference": "5009d0b715f4406a8a0473f6e7034e2432cdc45e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cake17/cakephp-recaptcha/zipball/4c37da96a431354dff211768e9d3f560325d00cc",
-                "reference": "4c37da96a431354dff211768e9d3f560325d00cc",
+                "url": "https://api.github.com/repos/cakephp-fr/recaptcha/zipball/5009d0b715f4406a8a0473f6e7034e2432cdc45e",
+                "reference": "5009d0b715f4406a8a0473f6e7034e2432cdc45e",
                 "shasum": ""
             },
             "require": {
-                "cakephp/cakephp": "~3.0",
+                "cakephp/cakephp": "~3.1",
                 "php": ">=5.4"
             },
             "require-dev": {
@@ -93,8 +93,8 @@
                     "email": "cake17@cake-websites.com"
                 }
             ],
-            "description": "[DEPRECIATED] Please use https://github.com/cakephp-fr/recaptcha/",
-            "homepage": "https://github.com/cake17/cakephp-recaptcha",
+            "description": "To easily use Google Recaptcha (free CAPTCHA service that protect websites from spam and abuse) in CakePHP projects",
+            "homepage": "https://github.com/cakephp-fr/recaptcha",
             "keywords": [
                 "bootstrap",
                 "cakephp",
@@ -102,7 +102,7 @@
                 "google",
                 "recaptcha"
             ],
-            "time": "2015-12-15T17:50:03+00:00"
+            "time": "2018-04-28T12:11:47+00:00"
         },
         {
             "name": "cakephp/cakephp",
@@ -3215,6 +3215,7 @@
                 "psr",
                 "psr-7"
             ],
+            "abandoned": "laminas/laminas-diactoros",
             "time": "2019-08-06T17:53:53+00:00"
         }
     ],
@@ -4839,7 +4840,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "cake17/cakephp-recaptcha": 20,
         "phantomwatson/cakephp-autologin": 20,
         "josegonzalez/dotenv": 20,
         "psy/psysh": 0
