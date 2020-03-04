@@ -15,6 +15,7 @@
 namespace App;
 
 use Cake\Core\Configure;
+use Cake\Core\Exception\MissingPluginException;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
 use Cake\Routing\Middleware\AssetMiddleware;
@@ -33,12 +34,24 @@ class Application extends BaseApplication
      */
     public function bootstrap()
     {
-        // Call parent to load bootstrap from files.
         parent::bootstrap();
 
+        $this->addPlugin('Migrations');
+        $this->addPlugin('Recaptcha', ['bootstrap' => true]);
+        $this->addPlugin('Gourmet/CommonMark');
+        $this->addPlugin('Xety/Cake3CookieAuth');
+
         if (Configure::read('debug')) {
+            $this->addPlugin(\DebugKit\Plugin::class, ['bootstrap' => true]);
+
             if (PHP_SAPI === 'cli') {
-                $this->addPlugin('IdeHelper');
+                try {
+                    $this->addPlugin('Bake');
+                    $this->addPlugin('IdeHelper');
+                    $this->addPlugin('Migrations');
+                } catch (MissingPluginException $e) {
+                    // Do not halt if the plugin is missing
+                }
             }
         }
     }

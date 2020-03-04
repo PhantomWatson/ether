@@ -195,28 +195,6 @@ Type::build('timestamp')
 //Inflector::rules('uninflected', ['dontinflectme']);
 //Inflector::rules('transliteration', ['/å/' => 'aa']);
 
-/*
- * Plugins need to be loaded manually, you can either load them one by one or all of them in a single call
- * Uncomment one of the lines below, as you need. make sure you read the documentation on Plugin to use more
- * advanced ways of loading plugins
- *
- * Plugin::loadAll(); // Loads all plugins at once
- * Plugin::load('Migrations'); //Loads a single plugin named Migrations
- *
- */
-Plugin::load('Migrations');
-Plugin::load('Recaptcha', ['bootstrap' => true]);
-Plugin::load('Gourmet/CommonMark');
-Plugin::load('Xety/Cake3CookieAuth');
-
-/*
- * Only try to load DebugKit in development mode
- * Debug Kit should not be installed on a production system
- */
-if (Configure::read('debug')) {
-    Plugin::load('DebugKit', ['bootstrap' => true]);
-}
-
 /**
  * Event listeners
  */
