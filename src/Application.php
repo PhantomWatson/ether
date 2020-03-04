@@ -14,6 +14,7 @@
  */
 namespace App;
 
+use Cake\Core\Configure;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
 use Cake\Http\BaseApplication;
 use Cake\Routing\Middleware\AssetMiddleware;
@@ -27,6 +28,21 @@ use Cake\Routing\Middleware\RoutingMiddleware;
  */
 class Application extends BaseApplication
 {
+    /**
+     * {@inheritDoc}
+     */
+    public function bootstrap()
+    {
+        // Call parent to load bootstrap from files.
+        parent::bootstrap();
+
+        if (Configure::read('debug')) {
+            if (PHP_SAPI === 'cli') {
+                $this->addPlugin('IdeHelper');
+            }
+        }
+    }
+
     /**
      * Setup the middleware queue your application will use.
      *
