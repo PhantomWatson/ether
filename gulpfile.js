@@ -1,7 +1,5 @@
 var gulp = require('gulp');
 var less = require('gulp-less');
-var watchLess = require('gulp-watch-less');
-var plumber = require('gulp-plumber');
 var notify = require("gulp-notify");
 var LessPluginCleanCSS = require('less-plugin-clean-css');
 var uglify = require('gulp-uglify');
@@ -12,9 +10,6 @@ var phpcs = require('gulp-phpcs');
 var phpunit = require('gulp-phpunit');
 var _ = require('lodash');
 var concat = require('gulp-concat');
-var runSequence = require('run-sequence');
-
-gulp.task('default', ['less', 'js', 'php', 'watch']);
 
 
 
@@ -22,15 +17,11 @@ gulp.task('default', ['less', 'js', 'php', 'watch']);
  *    PHP     *
  **************/
 
-gulp.task('php', function(callback) {
-	return runSequence('php_cs', 'php_unit', callback);
-});
-
 gulp.task('php_cs', function() {
 	return gulp.src(['src/**/*.php'])
 		// Validate files using PHP Code Sniffer
 		.pipe(phpcs({
-			bin: 'C:/xampp/htdocs/ether3/vendor/bin/phpcs',
+			bin: 'C:/xampp/htdocs/_personal/ether/vendor/bin/phpcs',
 			standard: 'PSR2',
 			warningSeverity: 0
 		}))
@@ -81,10 +72,6 @@ var jsSrcFiles = [
 ];
 var allJsFiles = jsVendorFiles.concat(jsSrcFiles);
 
-gulp.task('js', function(callback) {
-	return runSequence('js_lint', 'js_build', callback);
-});
-
 gulp.task('js_lint', function () {
 	return gulp.src('webroot/js/*.js')
     	.pipe(jshint())
@@ -120,21 +107,4 @@ gulp.task('less', function () {
 		.pipe(less({plugins: [cleanCSSPlugin]}))
         .pipe(gulp.dest('webroot/css'))
         .pipe(notify('LESS compiled'));
-});
-
-
-
-/**************
- *  Watching  *
- **************/
-
-gulp.task('watch', function() {
-	var cleanCSSPlugin = new LessPluginCleanCSS({advanced: true});
-	watchLess('webroot/css/style.less', ['less'])
-    	.pipe(less({plugins: [cleanCSSPlugin]}))
-        .pipe(gulp.dest('webroot/css'))
-        .pipe(notify('LESS compiled'));
-	gulp.watch(allJsFiles, ['js']);
-	gulp.watch('src/**/*.php', ['php_cs', 'php_unit']);
-	gulp.watch('src/**/*.ctp', ['php_unit']);
 });
