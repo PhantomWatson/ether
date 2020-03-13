@@ -6,30 +6,30 @@
 	"license" : "proprietary",
 	"require" : {
 		"php" : ">=7.2",
-		"cakephp/cakephp" : "~3.0",
-		"mobiledetect/mobiledetectlib" : "2.*",
-		"cakephp/migrations" : "~1.0",
+		"cakephp-fr/recaptcha": "~1.0",
+		"cakephp/cakephp" : "^3.8",
+		"cakephp/migrations" : "^2.0.0",
 		"cakephp/plugin-installer" : "^1.0",
+		"flesler/jquery.scrollto": "*",
+		"gourmet/common-mark": "~1.0",
+		"mobiledetect/mobiledetectlib" : "2.*",
+		"oyejorge/less.php": "~1.5",
 		"phantomwatson/cakephp-autologin": "dev-master",
 		"phantomwatson/ether-markov": "*",
-		"phpunit/phpunit": "^6.0",
-		"cakephp/cakephp-codesniffer": "*",
-		"oyejorge/less.php": "~1.5",
-		"flesler/jquery.scrollto": "*",
 		"twbs/bootstrap": "~3.0",
-		"gourmet/common-mark": "~1.0",
 		"xety/cake3-cookieauth": "1.*",
-		"josegonzalez/dotenv": "dev-master",
-        "ext-json": "*",
-		"cakephp-fr/recaptcha": "~1.0"
+        "ext-json": "*"
     },
 	"require-dev" : {
-		"psy/psysh" : "@stable",
-		"cakephp/debug_kit" : "^3.0",
-		"cakephp/bake" : "~1.0",
+		"cakephp/bake" : "^1.9.0",
+		"cakephp/debug_kit" : "^3.17.0",
+		"dereuromark/cakephp-ide-helper": "0.14.7",
 		"league/html-to-markdown" : "~4.0",
-		"dereuromark/cakephp-ide-helper": "0.14.7"
-	},
+		"psy/psysh" : "@stable",
+        "cakephp/cakephp-codesniffer": "^3.0",
+        "josegonzalez/dotenv": "3.*",
+        "phpunit/phpunit": "^5|^6"
+    },
 	"suggest" : {
 		"phpunit/phpunit" : "Allows automated tests to be run without system-wide install.",
 		"cakephp/cakephp-codesniffer" : "Allows to check the code against the coding standards used in CakePHP."
