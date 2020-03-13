@@ -9,12 +9,13 @@ use Cake\ORM\TableRegistry;
 /**
  * Comment Entity.
  *
+ * @property bool $anonymous
  * @property int $id
  * @property int $thought_id
  * @property int $user_id
  * @property string $comment
- * @property string $formatting_key
  * @property string $formatted_comment
+ * @property string $formatting_key
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  * @property \Cake\I18n\FrozenTime $formatted
@@ -32,7 +33,8 @@ class Comment extends Entity
     protected $_accessible = [
         'thought_id' => true,
         'user_id' => true,
-        'comment' => true
+        'comment' => true,
+        'anonymous' => true
     ];
 
     public function _setComment($comment)

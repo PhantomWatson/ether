@@ -78,6 +78,8 @@ class CommentsTable extends Table
             ->requirePresence('comment', 'create')
             ->notEmpty('comment');
 
+        $validator->boolean('anonymous');
+
         return $validator;
     }
 

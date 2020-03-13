@@ -14,7 +14,7 @@
             <?php endforeach; ?>
             <div id="newcomment<?= $thought['id'] ?>view"></div>
             <div id="newcomment<?= $thought['id'] ?>add" style="display: none;" class="add_comment">
-                <?= $this->element('Comments/add', ['thoughtId' => $thought['id']]) ?>
+                <?= $this->element('Comments/add', ['thought' => $thought]) ?>
             </div>
             <div class="post" id="newcomment<?= $thought['id'] ?>button">
                 <?php if ($this->request->getSession()->check('Auth.User.id')): ?>

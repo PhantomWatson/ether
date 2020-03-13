@@ -399,7 +399,17 @@ class ThoughtsTable extends Table
     public function getFromWord($word)
     {
         return $this->find('all')
-            ->select(['id', 'user_id', 'word', 'thought', 'comments_enabled', 'formatted_thought', 'formatting_key', 'anonymous', 'created', 'modified'])
+            ->select([
+                'id',
+                'user_id',
+                'word',
+                'thought',
+                'comments_enabled',
+                'formatted_thought',
+                'formatting_key',
+                'anonymous',
+                'created',
+                'modified'])
             ->where(['word' => $word])
             ->order(['Thoughts.created' => 'DESC'])
             ->contain([
@@ -412,7 +422,15 @@ class ThoughtsTable extends Table
                     /** @var Query $q */
 
                     return $q
-                        ->select(['id', 'thought_id', 'user_id', 'comment', 'formatted_comment', 'formatting_key'])
+                        ->select([
+                            'id',
+                            'thought_id',
+                            'user_id',
+                            'comment',
+                            'formatted_comment',
+                            'formatting_key',
+                            'anonymous'
+                        ])
                         ->contain([
                             'Users' => function ($q) {
                                 /** @var Query $q */

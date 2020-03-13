@@ -365,6 +365,16 @@ body.popup_active {
             text-decoration: none;
         }
     }
+    .anonymous-comment-toggler {
+        label {
+            display: inline-block;
+            font-weight: normal;
+            margin-left: 0.5em;
+        }
+        input[type="radio"]:checked+label {
+            font-weight: bold;
+        }
+    }
 }
 .readmore {
     font-size: 70%;
