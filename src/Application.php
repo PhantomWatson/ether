@@ -42,7 +42,7 @@ class Application extends BaseApplication
         }
 
         try {
-            $this->addPlugin('Recaptcha', ['bootstrap' => true]);
+            $this->addPlugin('Recaptcha', ['bootstrap' => false]);
             $this->addPlugin('Gourmet/CommonMark');
             $this->addPlugin('Xety/Cake3CookieAuth');
         } catch (MissingPluginException $e) {
