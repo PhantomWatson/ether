@@ -140,6 +140,12 @@
                 ) ?>
             </li>
             <li>
+                <?= $this->Html->link(
+                    'Patreon',
+                    'https://www.patreon.com/the_ether'
+                ) ?>
+            </li>
+            <li>
                 <?php
                     use Cake\Routing\Router;
                     $goto_url = Router::url(['controller' => 'Thoughts', 'action' => 'word']);

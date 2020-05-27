@@ -62,6 +62,11 @@
             <div class="col-sm-2 col-sm-offset-4">
                 <ul class="list-unstyled">
                     <li>
+                        <a href="https://www.patreon.com/the_ether">
+                            Patreon
+                        </a>
+                    </li>
+                    <li>
                         <a href="http://www.facebook.com/EtherThoughtRepository">
                             Facebook
                         </a>
