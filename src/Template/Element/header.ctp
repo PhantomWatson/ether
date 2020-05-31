@@ -141,8 +141,11 @@
             </li>
             <li>
                 <?= $this->Html->link(
-                    'Patreon',
-                    'https://www.patreon.com/the_ether'
+                    'Support Ether',
+                    [
+                        'controller' => 'Pages',
+                        'action' => 'supportEther',
+                    ]
                 ) ?>
             </li>
             <li>

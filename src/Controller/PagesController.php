@@ -204,4 +204,11 @@ class PagesController extends AppController
             'title_for_layout' => 'Color Names'
         ]);
     }
+
+    public function supportEther()
+    {
+        $this->set([
+            'titleForLayout' => 'Support Ether'
+        ]);
+    }
 }
