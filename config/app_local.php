@@ -2,7 +2,7 @@
 
 use Cake\Log\Engine\FileLog;
 
-return [
+$config = [
     'debug' => filter_var(env('DEBUG', true), FILTER_VALIDATE_BOOLEAN),
 
     'Security' => [
@@ -156,3 +156,17 @@ return [
 
     'no_reply_email' => 'no-reply@theether.com'
 ];
+
+// Stripe
+$stripeMode = env('STRIPE_MODE', 'Live'); // Test or Live
+$config['Stripe.mode'] = $stripeMode;
+$config['Stripe.TestSecret'] = env('STRIPE_TEST_SECRET');
+$config['Stripe.TestPublic'] = env('STRIPE_TEST_PUBLIC');
+$config['Stripe.LiveSecret'] = env('STRIPE_LIVE_SECRET');
+$config['Stripe.LivePublic'] = env('STRIPE_LIVE_PUBLIC');
+$stripeSecret = $config["Stripe.{$stripeMode}Secret"];
+$stripePublic = $config["Stripe.{$stripeMode}Public"];
+$config['Stripe.Secret'] = $stripeSecret;
+$config['Stripe.Public'] = $stripePublic;
+
+return $config;
