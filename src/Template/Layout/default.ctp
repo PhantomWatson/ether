@@ -10,6 +10,9 @@
         <title>
             <?php
                 $title = 'Ether - Thought Repository';
+                if (isset($titleForLayout) && !isset($title_for_layout)) {
+                    $title_for_layout = $titleForLayout;
+                }
                 if (isset($title_for_layout) && $title_for_layout !== '') {
                     $title = 'Ether :: '.$title_for_layout;
                 }
