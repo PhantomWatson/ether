@@ -18,7 +18,8 @@
 		"phantomwatson/ether-markov": "*",
 		"twbs/bootstrap": "~3.0",
 		"xety/cake3-cookieauth": "1.*",
-        "ext-json": "*"
+        "ext-json": "*",
+		"stripe/stripe-php": "^7.36"
     },
 	"require-dev" : {
 		"cakephp/bake" : "^1.9.0",
