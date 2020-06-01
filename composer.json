@@ -16,7 +16,7 @@
 		"oyejorge/less.php": "~1.5",
 		"phantomwatson/cakephp-autologin": "dev-master",
 		"phantomwatson/ether-markov": "*",
-		"twbs/bootstrap": "~3.0",
+		"twbs/bootstrap": "~4.5",
 		"xety/cake3-cookieauth": "1.*",
         "ext-json": "*"
     },
