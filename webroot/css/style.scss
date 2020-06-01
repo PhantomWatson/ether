@@ -1,28 +1,32 @@
-@import "../../vendor/twbs/bootstrap/less/bootstrap.less";
-@import "../bootswatch/slate/variables.less";
-@import "../bootswatch/slate/bootswatch.less";
+@import "../../vendor/twbs/bootstrap/scss/bootstrap.scss";
+@import "../bootswatch/slate/_variables.scss";
+@import "../bootswatch/slate/_bootswatch.scss";
 
-@ContentWidth: 500px;
-@FooterHeight: 70px;
-@generalTextColor: #ccc;
-@grid-float-breakpoint: 850px;
-@FontColorError: #D00;
-@FontColorSuccess: #0D0;
-@linkColor: #a88dbf;
-@table-bg: transparent;
-@pre-color: @generalTextColor;
-@blockquote-font-size: 100%;
+$ContentWidth: 500px;
+$FooterHeight: 70px;
+$generalTextColor: #ccc;
+$grid-float-breakpoint: 850px;
+$FontColorError: #D00;
+$FontColorSuccess: #0D0;
+$linkColor: #a88dbf;
+$table-bg: transparent;
+$pre-color: $generalTextColor;
+$blockquote-font-size: 100%;
+$screen-sm-min: map-get($grid-breakpoints, "sm");
+$screen-xs-min: map-get($grid-breakpoints, "xs");
+$navbar-inverse-color: #ccc;
+$hr-border: darken(#272B30, 5%);
 
 html, body {
     background-color: #222;
-    color: @generalTextColor;
+    color: $generalTextColor;
     font-family: Verdana, Helvetica, Arial;
     height: 100%;
     margin: 0;
     padding: 0;
 }
 
-@media (min-width: @screen-sm-min) {
+@media (min-width: $screen-sm-min) {
     html, body {
         background-attachment: fixed;
         background-image: linear-gradient(to top, rgb(10,10,10) 0%, rgb(32,32,32) 10%, rgb(34,34,34) 11%, rgb(34,34,34) 90%, rgb(34,34,34) 95%, rgb(34,34,34) 98%);
@@ -47,7 +51,7 @@ br.clear {
     display: block;
 }
 a {
-    color: @linkColor;
+    color: $linkColor;
     text-decoration: none;
 
     &:hover {
@@ -97,7 +101,7 @@ select {
         margin: 0;
 
         .glyphicon {
-            color: @navbar-inverse-color;
+            color: $navbar-inverse-color;
             position: relative;
             top: 5px;
         }
@@ -123,12 +127,12 @@ select {
     text-transform: uppercase;
 }
 #footer {
-    border-top: 1px solid @hr-border;
+    border-top: 1px solid $hr-border;
     clear: both;
     color: #888;
     font-size: 80%;
-    height: @FooterHeight;
-    margin-top: 0px - @FooterHeight;
+    height: $FooterHeight;
+    margin-top: 0px - $FooterHeight;
     padding-bottom: 15px;
     padding-top: 0;
     position: relative;
@@ -142,7 +146,7 @@ select {
         }
     }
 }
-@media (min-width: @screen-sm-min) {
+@media (min-width: $screen-sm-min) {
     footer {
         .col-sm-2 {
             top: 0;
@@ -254,7 +258,7 @@ body.popup_active {
 }
 #content {
     overflow: auto;
-    padding: 0 20px @FooterHeight 20px;
+    padding: 0 20px $FooterHeight 20px;
     z-index: 2;
 
     > h1:first-child {
@@ -412,12 +416,12 @@ body.popup_active {
     margin-left: auto;
     margin-right: auto;
     padding: 10px;
-    width: @ContentWidth;
+    width: $ContentWidth;
 }
 #overlaid {
     display: none;
     left: 50%;
-    margin-left: (@ContentWidth / -2);
+    margin-left: ($ContentWidth / -2);
     position: absolute;
     top: 100px;
     z-index: 10;
@@ -523,10 +527,10 @@ body.popup_active {
         margin: 0 10px 0 0;
     }
     .success {
-        color: @FontColorSuccess;
+        color: $FontColorSuccess;
     }
     .error {
-        color: @FontColorError;
+        color: $FontColorError;
     }
 }
 
@@ -541,7 +545,7 @@ body.popup_active {
 .newthoughtbutton {
     margin: 0 auto 20px auto;
     text-align: right;
-    width: @ContentWidth;
+    width: $ContentWidth;
 
     a {
         color: #BBB;
@@ -557,7 +561,7 @@ body.popup_active {
 .messages_top_controls {
     margin: 0 auto 20px auto;
     text-align: right;
-    width: @ContentWidth;
+    width: $ContentWidth;
 
     a {
         color: #BBB;
@@ -633,7 +637,7 @@ body.popup_active {
 }
 #penpal_colorboxes {
     margin: 0 auto 20px auto;
-    width: @ContentWidth;
+    width: $ContentWidth;
 
     .colorbox {
         float: left;
@@ -712,11 +716,11 @@ body.popup_active {
     }
 }
 
-@MessagesLighterBgColor: #151515;
-@MessagesPagePadding: 10px;
-@MessageFieldHeight: 150px;
-@MessageSendButtonHeight: 33px;
-@MessageFormHeight: @MessageFieldHeight + @MessageSendButtonHeight + @MessagesPagePadding;
+$MessagesLighterBgColor: #151515;
+$MessagesPagePadding: 10px;
+$MessageFieldHeight: 150px;
+$MessageSendButtonHeight: 33px;
+$MessageFormHeight: $MessageFieldHeight + $MessageSendButtonHeight + $MessagesPagePadding;
 #conversations_index {
     ul {
         margin: 0;
@@ -728,7 +732,7 @@ body.popup_active {
         padding: 0;
 
         &:nth-child(even) {
-            background-color: @MessagesLighterBgColor;
+            background-color: $MessagesLighterBgColor;
         }
     }
     a {
@@ -814,16 +818,16 @@ body.popup_active {
 }
 #send_message {
     textarea {
-        height: @MessageFieldHeight;
+        height: $MessageFieldHeight;
     }
     .submit {
-        height: @MessageSendButtonHeight;
-        line-height: @MessageSendButtonHeight;
-        padding-top: @MessagesPagePadding;
+        height: $MessageSendButtonHeight;
+        line-height: $MessageSendButtonHeight;
+        padding-top: $MessagesPagePadding;
         text-align: right;
 
         input {
-            height: @MessageSendButtonHeight;
+            height: $MessageSendButtonHeight;
         }
     }
     .form-group {
@@ -975,7 +979,7 @@ body.popup_active {
             background-color: inherit;
             border-bottom-color: inherit;
             border-radius: 4px;
-            color: @linkColor;
+            color: $linkColor;
         }
     }
 }
@@ -1042,12 +1046,12 @@ body.popup_active {
         text-align: center;
         li {
             a {
-                .btn;
-                .btn-default;
+                @extend .btn;
+                @extend .btn-primary;
             }
         }
     }
-    @media (max-width: @screen-xs-min) {
+    @media (max-width: $screen-xs-min) {
         float: none;
     }
 }
@@ -1369,7 +1373,13 @@ pre.cake-error {
     text-align: center;
 }
 #suggested-words {
-    .well;
+    background-color: #1c1e22;
+    border-radius: 4px;
+    border: 1px solid #0c0d0e;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    margin-bottom: 20px;
+    min-height: 20px;
+    padding: 19px;
 
     ul {
         display: inline;
@@ -1391,7 +1401,7 @@ pre.cake-error {
     button {
         background-color: transparent;
         border: 0;
-        color: @linkColor;
+        color: $linkColor;
         margin: 0;
         padding: 0;
 
