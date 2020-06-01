@@ -21,7 +21,7 @@
         </title>
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
         <link rel="icon" type="image/png" href="/img/favicon.png" />
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <script src="https://kit.fontawesome.com/6a571270aa.js" crossorigin="anonymous"></script>
         <?php
             echo $this->Html->css('style');
             echo $this->fetch('meta');
