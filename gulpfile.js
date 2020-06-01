@@ -54,7 +54,6 @@ gulp.task('php_unit', function() {
  **************/
 var jsVendorFiles = [
     'vendor/flesler/jquery.scrollto/jquery.scrollTo.js',
-    'vendor/twbs/bootstrap/dist/js/bootstrap.js',
 ];
 var jsSrcFiles = [
     'webroot/js/script.js',
