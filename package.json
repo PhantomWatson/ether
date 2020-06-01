@@ -18,5 +18,8 @@
         "lodash": "^4.17.15",
         "run-sequence": "^2.2.1"
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "gulp-sass": "^4.1.0",
+        "node-sass": "^4.14.1"
+    }
 }

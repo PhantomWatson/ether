@@ -1,3 +1,4 @@
+'use strict';
 var gulp = require('gulp');
 var less = require('gulp-less');
 var notify = require("gulp-notify");
@@ -107,4 +108,23 @@ gulp.task('less', function () {
 		.pipe(less({plugins: [cleanCSSPlugin]}))
         .pipe(gulp.dest('webroot/css'))
         .pipe(notify('LESS compiled'));
+});
+
+
+
+/**************
+ *    SASS    *
+ **************/
+
+const sass = require('gulp-sass');
+sass.compiler = require('node-sass');
+
+gulp.task('sass', function () {
+    return gulp.src('./webroot/css/style.scss')
+        .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest('./webroot/css/'));
+});
+
+gulp.task('sass:watch', function () {
+    gulp.watch('./sass/**/*.scss', ['sass']);
 });
