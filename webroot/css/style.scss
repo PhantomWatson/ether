@@ -94,7 +94,7 @@ select {
     }
 }
 #header {
-    background-color: #000;
+    background-image: linear-gradient(#313131, #222 60%, #181818);
     border-bottom: 1px solid #555;
 
     form {
@@ -1480,4 +1480,7 @@ div.named-color {
 #randomness-container {
     display: inline-block;
     margin-left: 30px;
+}
+#header-search-input {
+    width: 11em;
 }
