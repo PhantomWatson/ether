@@ -4,8 +4,9 @@ var suggestedWords = {
             event.preventDefault();
             var word = $(this).html();
             $('#word').val(word);
-            $('#suggested-words').slideUp();
             $('#thought').focus();
+            $('#suggested-words button.selected').removeClass('selected');
+            $(this).addClass('selected');
         });
     }
 };
