@@ -802,7 +802,9 @@ class ThoughtsTable extends Table
 
             arsort($allWords);
 
-            return array_keys($allWords);
+            $allWords = array_keys($allWords);
+
+            return array_filter($allWords, function ($word) {return $word != '';});
         }, 'long');
     }
 
