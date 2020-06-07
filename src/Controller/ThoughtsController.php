@@ -120,7 +120,7 @@ class ThoughtsController extends AppController
         }
 
         if ($thought->word == null) {
-            $suggestedThoughtwords = $this->Thoughts->getSuggestedWords(3);
+            $suggestedThoughtwords = $this->Thoughts->getSuggestedWords(20);
             $this->set('suggestedThoughtwords', $suggestedThoughtwords);
         }
 
