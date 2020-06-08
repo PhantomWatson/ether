@@ -38,6 +38,12 @@
                 <ul class="dropdown-menu">
                     <li>
                         <?= $this->Html->link(
+                            'Add a Thought',
+                            ['controller' => 'Thoughts', 'action' => 'add']
+                        ) ?>
+                    </li>
+                    <li>
+                        <?= $this->Html->link(
                             'Browse',
                             ['controller' => 'Thoughts', 'action' => 'index']
                         ) ?>
@@ -59,12 +65,6 @@
                         <?= $this->Html->link(
                             'Questions',
                             ['controller' => 'Thoughts', 'action' => 'questions']
-                        ) ?>
-                    </li>
-                    <li>
-                        <?= $this->Html->link(
-                            'Add a Thought',
-                            ['controller' => 'Thoughts', 'action' => 'add']
                         ) ?>
                     </li>
                     <li>
