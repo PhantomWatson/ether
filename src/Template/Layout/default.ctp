@@ -124,13 +124,11 @@
             echo $this->element('analytics');
         ?>
 
-        <?php if ($this->fetch('buffered_js')): ?>
-            <script>
-                $(document).ready(function () {
-                    scroll.init();
-                    <?= $this->fetch('buffered_js') ?>
-                });
-            </script>
-        <?php endif; ?>
+        <script>
+            $(document).ready(function () {
+                scroll.init();
+                <?= $this->fetch('buffered_js') ?>
+            });
+        </script>
     </body>
 </html>
