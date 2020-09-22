@@ -254,7 +254,7 @@ body.popup_active {
 }
 #content {
     overflow: auto;
-    padding: 0 20px @FooterHeight 20px;
+    padding: 0 20px 20px 20px;
     z-index: 2;
 
     > h1:first-child {
@@ -1473,4 +1473,25 @@ div.named-color {
 #randomness-container {
     display: inline-block;
     margin-left: 30px;
+}
+
+#patrons {
+    padding-bottom: @FooterHeight;
+    margin-bottom: 40px;
+
+    > div {
+        border-bottom: 1px solid #666;
+        padding-bottom: 40px;
+    }
+
+    ul {
+        padding: 0;
+    }
+
+    li {
+        display: inline-block;
+        font-size: 1.5em;
+        list-style-type: none;
+        margin-right: 3em;
+    }
 }
