@@ -5,7 +5,8 @@
         </h3>
         <?php
             $patrons = [
-                'Luna Kay'
+                'Luna Kay',
+                'Wocket',
             ];
         ?>
         <ul class="unstyled">
