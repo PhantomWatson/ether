@@ -111,7 +111,7 @@ class MessagesTable extends Table
     /**
      * Returns an array of metadata about conversations the user has engaged in
      *
-     * @param int $userId
+     * @param int $userId The logged-in user's ID
      * @return array
      */
     public function getConversationsIndex($userId)
@@ -169,8 +169,8 @@ class MessagesTable extends Table
                 'color' => $result[$otherUser]['color'],
                 'time' => $result['created'],
                 'message' => Text::truncate($message->message, 100, ['exact' => false]),
-                'verb' => ($result['sender']['id'] == $userId) ? 'sent' : 'received',
-                'unread' => $message->received == 0
+                'verb' => ($message->sender_id == $userId) ? 'sent' : 'received',
+                'unread' => $message->recipient_id == $userId && $message->received == 0
             ];
         }
         return $conversations;
@@ -220,16 +220,19 @@ class MessagesTable extends Table
             ->order(['Messages.created' => 'ASC']);
     }
 
+    /**
+     * Returns the count of unread messages received by this user
+     *
+     * @param $userId
+     * @return int|null
+     */
     public function getNewMessagesCount($userId)
     {
         return $this->find('all')
             ->select(['id'])
             ->where([
-                'OR' => [
-                    'sender_id' => $userId,
-                    'recipient_id' => $userId
-                ],
-                'received' => 0
+                'recipient_id' => $userId,
+                'received' => 0,
             ])
             ->count();
     }
