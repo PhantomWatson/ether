@@ -117,7 +117,8 @@ class MessagesTable extends Table
     public function getConversationsIndex($userId)
     {
         $query = $this->find('all');
-        $results = $query
+        /** @var Message[] $newestMessages */
+        $newestMessages = $query
             ->select([
                 'Messages.sender_id',
                 'Messages.recipient_id',
@@ -125,14 +126,10 @@ class MessagesTable extends Table
             ])
             ->distinct(['Messages.sender_id', 'Messages.recipient_id'])
             ->contain([
-                'Senders' => function ($q) {
-                    /** @var Query $q */
-
+                'Senders' => function (Query $q) {
                     return $q->select(['id', 'color']);
                 },
-                'Recipients' => function ($q) {
-                    /** @var Query $q */
-
+                'Recipients' => function (Query $q) {
                     return $q->select(['id', 'color']);
                 }
             ])
@@ -143,36 +140,38 @@ class MessagesTable extends Table
                 ]
             ])
             ->order(['created' => 'DESC'])
-            ->toArray();
+            ->all();
 
         $conversations = [];
-        foreach ($results as $result) {
-            $otherUser = ($result['sender']['id'] == $userId) ? 'recipient' : 'sender';
-            $otherUserId = $result[$otherUser]['id'];
+        foreach ($newestMessages as $newestMessage) {
+            $otherUser = ($newestMessage->sender_id == $userId) ? 'recipient' : 'sender';
+            $otherUserId = $newestMessage->$otherUser->id;
 
-            if (isset($conversations[$otherUserId]) && $result['created'] < $conversations[$otherUserId]['time']) {
+            // Ignore all but the newest message between these users
+            if (isset($conversations[$otherUserId]) && $newestMessage['created'] < $conversations[$otherUserId]['time']) {
                 continue;
             }
 
-            /** @var Message $message */
-            $message = $this->find('all')
+            /** @var Message $messageDetails */
+            $messageDetails = $this->find('all')
                 ->select(['message', 'received'])
                 ->where([
-                    'sender_id' => $result['sender']['id'],
-                    'recipient_id' => $result['recipient']['id'],
-                    'created' => $result['created'],
+                    'sender_id' => $newestMessage['sender']['id'],
+                    'recipient_id' => $newestMessage['recipient']['id'],
+                    'created' => $newestMessage['created'],
                 ])
                 ->order(['created' => 'DESC'])
                 ->first();
 
             $conversations[$otherUserId] = [
-                'color' => $result[$otherUser]['color'],
-                'time' => $result['created'],
-                'message' => Text::truncate($message->message, 100, ['exact' => false]),
-                'verb' => ($message->sender_id == $userId) ? 'sent' : 'received',
-                'unread' => $message->recipient_id == $userId && $message->received == 0
+                'color' => $newestMessage->$otherUser->color,
+                'time' => $newestMessage->created,
+                'message' => Text::truncate($messageDetails->message, 100, ['exact' => false]),
+                'verb' => $messageDetails->sender_id == $userId ? 'sent' : 'received',
+                'unread' => $messageDetails->recipient_id == $userId && $messageDetails->received == 0,
             ];
         }
+
         return $conversations;
     }
 
