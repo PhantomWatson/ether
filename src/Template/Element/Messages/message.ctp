@@ -1,6 +1,9 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var array $message
+ * @var int $penpalId
+ * @var int $userId
  */
 ?>
 <div class="row">
@@ -18,7 +21,7 @@
             echo $formattedMessage;
         ?>
         <div class="message_info">
-            <?php if ($message['received'] == 0): ?>
+            <?php if ($message['received'] == 0 && $message['recipient_id'] == $userId): ?>
                 <span class="new">
                     New
                 </span>
