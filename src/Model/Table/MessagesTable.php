@@ -236,26 +236,22 @@ class MessagesTable extends Table
             ->count();
     }
 
-    public function setConversationAsRead($userId, $penpalId)
+    /**
+     * Marks messages received by the logged-in user and sent by the specified penpal as being read
+     *
+     * @param int $userId The logged-in user's ID
+     * @param int $penpalId The other user's ID
+     */
+    public function setConversationAsRead(int $userId, int $penpalId)
     {
         $messages = $this->find('all')
             ->select(['id'])
             ->where([
                 'received' => 0,
-                'OR' => [
-                    [
-                        'sender_id' => $userId,
-                        'recipient_id' => $penpalId
-                    ],
-                    [
-                        'sender_id' => $penpalId,
-                        'recipient_id' => $userId
-                    ]
-                ]
+                'sender_id' => $penpalId,
+                'recipient_id' => $userId,
             ]);
-        if (empty($messages)) {
-            return;
-        }
+
         foreach ($messages as $message) {
             $message->received = 1;
             $this->save($message);
