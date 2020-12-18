@@ -154,7 +154,7 @@ class MessagesTable extends Table
 
             /** @var Message $messageDetails */
             $messageDetails = $this->find('all')
-                ->select(['message', 'received'])
+                ->select(['message', 'received', 'sender_id', 'recipient_id'])
                 ->where([
                     'sender_id' => $newestMessage['sender']['id'],
                     'recipient_id' => $newestMessage['recipient']['id'],
