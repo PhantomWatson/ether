@@ -1,6 +1,8 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var int $newMessages
+ * @var string $userColor
  */
 ?>
 <nav class="navbar navbar-default navbar-fixed-top navbar-inverse" role="navigation" id="header">
@@ -82,7 +84,7 @@
                     <a  href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <?php if ($newMessages): ?>
                             <span class="new_messages">
-                                <?= $newMessages ?> New Messages
+                                <?= $newMessages ?> New <?= __n('Message', 'Messages', $newMessages) ?>
                             </span>
                         <?php else: ?>
                             Logged in
