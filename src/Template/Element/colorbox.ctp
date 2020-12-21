@@ -2,6 +2,8 @@
 /**
  * @var \App\View\AppView $this
  */
+
+$noLink = $noLink ?? false;
 ?>
 <?php if (isset($anonymous) && $anonymous): ?>
     <div class="colorbox anonymous_colorbox" title="Contributed anonymously"></div>
@@ -11,6 +13,9 @@
     </div>
 <?php elseif (! $color): ?>
     <div class="colorbox anonymous_colorbox" title="(Thinker not found)"></div>
+<?php elseif ($noLink): ?>
+    <div class="colorbox <?= $class ?? null ?>" style="background-color: #<?= $color ?>;"
+         title="Thinker #<?= $color ?>"></div>
 <?php else: ?>
     <?= $this->Html->link(
         '<span class="sr-only">View Thinker #' . $color . '\'s profile</span>',

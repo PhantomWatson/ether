@@ -8171,6 +8171,12 @@ body.popup_active #abc_thoughts_shortcuts .nav-tabs > li.active > a {
   font-size: 1.5em;
   text-transform: capitalize;
 }
+#recent a:hover {
+  text-decoration: none;
+}
+#recent a:hover .word {
+  text-decoration: underline;
+}
 #recent .colorbox {
   height: 10px;
   width: 10px;
@@ -8178,6 +8184,11 @@ body.popup_active #abc_thoughts_shortcuts .nav-tabs > li.active > a {
 #recent .colorbox img {
   height: 10px;
   width: 10px;
+}
+#recent .info {
+  color: #ccc;
+  font-size: 1rem;
+  text-transform: none;
 }
 #recent .prev,
 #recent .next {

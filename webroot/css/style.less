@@ -1013,6 +1013,12 @@ body.popup_active {
             text-transform: capitalize;
         }
     }
+    a:hover {
+        text-decoration: none;
+        .word {
+            text-decoration: underline;
+        }
+    }
     .colorbox {
         height: 10px;
         width: 10px;
@@ -1021,6 +1027,11 @@ body.popup_active {
             height: 10px;
             width: 10px;
         }
+    }
+    .info {
+        color: @generalTextColor;
+        font-size: 1rem;
+        text-transform: none;
     }
     .prev, .next {
         display: inline-block;
