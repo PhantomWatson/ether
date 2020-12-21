@@ -8168,6 +8168,7 @@ body.popup_active #abc_thoughts_shortcuts .nav-tabs > li.active > a {
   padding: 0;
 }
 #recent li a:first-child {
+  font-size: 1.5em;
   text-transform: capitalize;
 }
 #recent .colorbox {
