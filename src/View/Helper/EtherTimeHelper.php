@@ -9,7 +9,7 @@ class EtherTimeHelper extends TimeHelper
     public function abbreviatedTimeAgoInWords($time)
     {
         $time = new Time($time);
-        $timeAgo = $time->timeAgoInWords(['end' => '+10 years']);
+        $timeAgo = $time->timeAgoInWords(['end' => '+100 years']);
         if (strpos($timeAgo, ',') !== false) {
             $firstCommaPos = strpos($timeAgo, ',');
 

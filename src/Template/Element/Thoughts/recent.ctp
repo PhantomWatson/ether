@@ -55,7 +55,7 @@
                 <?php
                     $timeAgo = $this->Time->timeAgoInWords(
                         $action->created,
-                        ['end' => '+10 years']
+                        ['end' => '+100 years']
                     );
                     if (stripos($timeAgo, ',') !== false) {
                         $timeAgo = substr($timeAgo, 0, strpos($timeAgo, ','));
