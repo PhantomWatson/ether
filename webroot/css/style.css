@@ -7524,8 +7524,8 @@ body.popup_active #content_outer {
   background-color: rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  font-size: 110%;
-  line-height: 150%;
+  font-size: 1.5em;
+  line-height: 1.75em;
   margin-bottom: 60px;
   padding: 0;
   width: auto;
@@ -7564,11 +7564,11 @@ body.popup_active #content_outer {
 }
 .comments .post {
   float: right;
-  padding: 0 5px;
+  padding: 5px;
 }
 .comments .post a {
   color: #BBB;
-  font-size: 60%;
+  font-size: 90%;
   text-transform: uppercase;
 }
 .comments .post a:hover {
@@ -7576,7 +7576,7 @@ body.popup_active #content_outer {
   text-decoration: none;
 }
 .comment {
-  font-size: 80%;
+  font-size: 90%;
   margin-left: 25px;
   margin-top: 10px;
   padding: 10px;
