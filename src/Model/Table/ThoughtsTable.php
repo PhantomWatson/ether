@@ -72,21 +72,30 @@ class ThoughtsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->add('id', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('id', 'create')
-            ->add('user_id', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('user_id')
+            ->scalar('id')
+            ->numeric('id');
+
+        $validator
+            ->scalar('user_id')
+            ->numeric('user_id');
+
+        $validator
+            ->scalar('word')
             ->requirePresence('word', 'create')
-            ->notEmpty('word')
+            ->allowEmptyString('word', 'Thoughtword required', false);
+
+        $validator
+            ->scalar('thought')
             ->requirePresence('thought', 'create')
-            ->add('thought', [
-                'length' => [
-                    'rule' => ['minLength', 20],
-                    'message' => 'That thought is way too short! Please enter at least 20 characters.'
-                ]
-            ])
-            ->add('comments_enabled', 'valid', ['rule' => 'boolean'])
-            ->add('anonymous', 'valid', ['rule' => 'boolean']);
+            ->minLength('thought', 20, 'That thought is way too short! Please enter at least 20 characters.');
+
+        $validator
+            ->scalar('comments_enabled')
+            ->boolean('comments_enabled');
+
+        $validator
+            ->scalar('anonymous')
+            ->boolean('anonymous');
 
         return $validator;
     }

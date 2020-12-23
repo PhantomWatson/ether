@@ -58,33 +58,60 @@ class UsersTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->add('id', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('id', 'create')
-            ->allowEmpty('password')
-            ->add('password_version', 'valid', ['rule' => 'numeric'])
+            ->scalar('id')
+            ->numeric('id');
+
+        $validator
+            ->scalar('password')
+            ->notEmptyString('password');
+
+        $validator
+            ->scalar('password_version')
+            ->numeric('password_version')
             ->requirePresence('password_version', 'create')
-            ->notEmpty('password_version')
-            ->add('is_admin', 'valid', ['rule' => 'boolean'])
-            ->requirePresence('is_admin', 'create')
-            ->notEmpty('is_admin')
-            ->add('email', 'valid', ['rule' => 'email'])
+            ->notEmptyString('password_version');
+
+        $validator
+            ->scalar('is_admin')
+            ->boolean('is_admin')
+            ->requirePresence('is_admin', 'create');
+
+        $validator
+            ->scalar('email')
+            ->email('email')
             ->requirePresence('email', 'create')
-            ->notEmpty('email')
+            ->notEmptyString('email');
+
+        $validator
+            ->scalar('color')
             ->requirePresence('color', 'create')
-            ->notEmpty('color')
+            ->notEmptyString('color')
             ->add('color', 'validColor', [
                 'rule' => function ($value) {
                     return (boolean) preg_match('/^[a-fA-F0-9]{6}$/', $value);
                 },
                 'message' => 'That does not appear to be a valid hexadecimal color'
-            ])
-            ->add('messageNotification', 'valid', ['rule' => 'boolean'])
-            ->allowEmpty('messageNotification')
-            ->add('acceptMessages', 'valid', ['rule' => 'boolean'])
-            ->allowEmpty('acceptMessages')
-            ->add('emailUpdates', 'valid', ['rule' => 'boolean'])
-            ->allowEmpty('emailUpdates')
-            ->notEmpty('new_password')
+            ]);
+
+        $validator
+            ->scalar('messageNotification')
+            ->boolean('messageNotification');
+
+        $validator
+            ->scalar('acceptMessages')
+            ->boolean('acceptMessages');
+
+        $validator
+            ->scalar('emailUpdates')
+            ->boolean('emailUpdates');
+
+        $validator
+            ->scalar('new_password')
+            ->notEmptyString('new_password');
+
+        $validator
+            ->scalar('confirm_password')
+            ->notEmptyString('confirm_password')
             ->add('confirm_password', 'compareWith', [
                 'rule' => ['compareWith', 'new_password'],
                 'message' => 'Passwords do not match.'

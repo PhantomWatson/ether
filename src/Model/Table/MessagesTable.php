@@ -60,25 +60,36 @@ class MessagesTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->add('id', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('id', 'create')
-            ->add('recipient_id', 'valid', ['rule' => 'numeric'])
+            ->scalar('id')
+            ->numeric('id');
+
+        $validator
+            ->scalar('recipient_id')
+            ->numeric('recipient_id')
             ->add('recipient_id', 'acceptsMessages', [
                 'rule' => function ($value) {
-                    /** @var UsersTable $users */
-                    $users = TableRegistry::getTableLocator()->get('Users');
+                    /** @var \App\Model\Table\UsersTable $usersTable */
+                    $usersTable = TableRegistry::getTableLocator()->get('Users');
 
-                    return $users->acceptsMessages($value);
+                    return $usersTable->acceptsMessages($value);
                 },
                 'message' => 'Sorry, this Thinker has chosen not to receive messages. Your message was not sent. :('
             ])
-            ->requirePresence('recipient_id', 'create')
-            ->notEmpty('recipient_id')
-            ->add('sender_id', 'valid', ['rule' => 'numeric'])
-            ->requirePresence('sender_id', 'create')
-            ->notEmpty('sender_id')
+            ->requirePresence('recipient_id', 'create');
+
+        $validator
+            ->scalar('sender_id')
+            ->numeric('sender_id', 'valid', ['rule' => 'numeric'])
+            ->requirePresence('sender_id', 'create');
+
+        $validator
+            ->scalar('message')
             ->requirePresence('message', 'create')
-            ->notEmpty('message', 'You can\'t send a blank message. It would be terribly disappointing for the recipient.');
+            ->allowEmptyString(
+                'message',
+                'You can\'t send a blank message. It would be terribly disappointing for the recipient.',
+                false
+            );
 
         return $validator;
     }

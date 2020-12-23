@@ -54,15 +54,17 @@ class CommentsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->add('id', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('id', 'create')
-            ->add('thought_id', 'valid', ['rule' => 'numeric'])
+            ->scalar('id')
+            ->numeric('id');
+
+        $validator
+            ->scalar('thought_id')
+            ->numeric('thought_id')
             ->requirePresence('thought_id', 'create')
-            ->notEmpty('thought_id')
             ->add('thought_id', 'comments_enabled', [
                 'rule' => function ($value, $context) {
                     $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
-                    /** @var Thought $thought Thought record */
+                    /** @var \App\Model\Entity\Thought $thought Thought record */
                     $thought = $thoughtsTable->find()
                         ->select(['comments_enabled'])
                         ->where(['id' => $value])
@@ -71,14 +73,25 @@ class CommentsTable extends Table
                     return $thought && $thought->comments_enabled;
                 },
                 'message' => 'That thought has comments disabled'
-            ])
-            ->add('user_id', 'valid', ['rule' => 'numeric'])
-            ->requirePresence('user_id', 'create')
-            ->notEmpty('user_id')
-            ->requirePresence('comment', 'create')
-            ->notEmpty('comment');
+            ]);
 
-        $validator->boolean('anonymous');
+        $validator
+            ->scalar('user_id')
+            ->numeric('user_id')
+            ->requirePresence('user_id', 'create');
+
+        $validator
+            ->scalar('comment')
+            ->requirePresence('comment', 'create')
+            ->allowEmptyString(
+                'comment',
+                'Please don\'t leave an empty comment. It would be terrible confusing to everyone.',
+                false
+            );
+
+        $validator
+            ->scalar('anonymous')
+            ->boolean('anonymous');
 
         return $validator;
     }
