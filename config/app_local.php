@@ -1,8 +1,9 @@
 <?php
 
 use Cake\Log\Engine\FileLog;
+use Cake\Mailer\Transport\DebugTransport;
 
-return [
+$config = [
     'debug' => filter_var(env('DEBUG', true), FILTER_VALIDATE_BOOLEAN),
 
     'Security' => [
@@ -124,7 +125,8 @@ return [
             'className' => FileLog::class,
             'path' => LOGS,
             'file' => 'email',
-            'levels' => ['info'],
+            'levels' => ['notice', 'info', 'debug'],
+            'scopes' => ['email'],
         ]
     ],
 
@@ -156,3 +158,12 @@ return [
 
     'no_reply_email' => 'no-reply@theether.com'
 ];
+
+if ($config['debug']) {
+    $config['EmailTransport']['default']['className'] = DebugTransport::class;
+    $config['Email']['default']['log'] = true;
+    $config['Email']['new_message']['log'] = true;
+    $config['Email']['reset_password']['log'] = true;
+}
+
+return $config;
