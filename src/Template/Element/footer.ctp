@@ -1,7 +1,7 @@
 <div class="row" id="patrons">
     <div class="col-sm-8 col-sm-offset-2">
         <h3>
-            <a href="https://www.patreon.com/the_ether">Patreon CAPSLOCK SUPPORTERS</a>
+            Patreon CAPSLOCK SUPPORTERS:
         </h3>
         <?php
             $patrons = [
@@ -14,6 +14,9 @@
                 <li><?= $patron ?></li>
             <?php endforeach; ?>
         </ul>
+        <p>
+            <a href="https://www.patreon.com/the_ether">Support Ether by becoming a Patreon supporter</a>
+        </p>
     </div>
 </div>
 
