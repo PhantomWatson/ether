@@ -1,26 +1,28 @@
-<div class="row" id="patrons">
-    <div class="col-sm-8 col-sm-offset-2">
-        <h3>
-            Patreon CAPSLOCK SUPPORTERS:
-        </h3>
-        <?php
+<div class="container">
+    <div class="row" id="patrons">
+        <div class="col-sm-8 col-sm-offset-2">
+            <h3>
+                Patreon CAPSLOCK SUPPORTERS:
+            </h3>
+            <?php
             $patrons = [
                 'Luna Kay',
                 'Wocket',
             ];
-        ?>
-        <ul class="unstyled">
-            <?php foreach ($patrons as $patron): ?>
-                <li><?= $patron ?></li>
-            <?php endforeach; ?>
-        </ul>
-        <p>
-            <a href="https://www.patreon.com/the_ether">Support Ether by becoming a Patreon supporter</a>
-        </p>
+            ?>
+            <ul class="unstyled">
+                <?php foreach ($patrons as $patron): ?>
+                    <li><?= $patron ?></li>
+                <?php endforeach; ?>
+            </ul>
+            <p>
+                <a href="https://www.patreon.com/the_ether">Support Ether by becoming a Patreon supporter</a>
+            </p>
+        </div>
     </div>
 </div>
 
-<footer id="footer">
+<footer id="footer" class="container">
     <div class="row">
         <div class="col-sm-2 col-sm-offset-2">
             <ul class="list-unstyled">
