@@ -8743,14 +8743,18 @@ div.named-color > .colorbox {
   padding-bottom: 40px;
 }
 #gangstacaps-patrons {
-  border: 5px groove #ff00ff;
+  border: 2px groove #ff00ff;
   background-image: url('/img/gangsta/stars.gif');
   font-family: "Comic Sans MS", monospace;
 }
 #gangstacaps-patrons h3 {
   font-family: "Comic Sans MS", monospace;
   font-size: 250%;
+  margin-top: 0;
 }
 #gangstacaps-patrons h3 img {
   vertical-align: text-bottom;
+}
+#gangstacaps-patrons ul img {
+  height: 1.75em;
 }
