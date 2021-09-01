@@ -1,23 +1,33 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var array $ogTags
  */
+
+$title = 'Ether - Thought Repository';
+if (isset($titleForLayout) && !isset($title_for_layout)) {
+    $title_for_layout = $titleForLayout;
+}
+if (isset($title_for_layout) && $title_for_layout !== '') {
+    $title = 'Ether :: ' . $title_for_layout;
+}
+
+$defaultOgTags = [
+    'og:title' => $title,
+    'og:image' => '/img/og.png',
+    'og:image:alt' => 'The logo of Ether, displayed over a cloud of blurry words',
+    'og:locale' => 'en_US',
+    'og:site_name' => 'Ether',
+    'og:type' => 'website',
+];
+$ogTags = isset($ogTags) ? array_merge($defaultOgTags, $ogTags) : $defaultOgTags;
 ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <?= $this->Html->charset() ?>
         <title>
-            <?php
-                $title = 'Ether - Thought Repository';
-                if (isset($titleForLayout) && !isset($title_for_layout)) {
-                    $title_for_layout = $titleForLayout;
-                }
-                if (isset($title_for_layout) && $title_for_layout !== '') {
-                    $title = 'Ether :: '.$title_for_layout;
-                }
-                echo $title;
-            ?>
+            <?= $title ?>
         </title>
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
         <link rel="icon" type="image/png" href="/img/favicon.png" />
@@ -31,6 +41,9 @@
         <meta name="author" content="Phantom Watson" />
         <meta name="language" content="en" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <?php foreach ($ogTags as $property => $content): ?>
+            <meta property="<?= $property ?>" content="<?= h($content) ?>" />
+        <?php endforeach; ?>
     </head>
     <body>
         <?php

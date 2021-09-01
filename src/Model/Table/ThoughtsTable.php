@@ -405,6 +405,10 @@ class ThoughtsTable extends Table
         return isset($results['Thought']['id']) ? $results['Thought']['id'] : false;
     }
 
+    /**
+     * @param string $word
+     * @return \App\Model\Entity\Thought[]
+     */
     public function getFromWord($word)
     {
         return $this->find('all')

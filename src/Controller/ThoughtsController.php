@@ -227,7 +227,12 @@ class ThoughtsController extends AppController
             'thought' => $thought,
             'thoughts' => $thoughts,
             'word' => $word,
-            'formattingKey' => $this->Thoughts->getPopulatedThoughtwordHash()
+            'formattingKey' => $this->Thoughts->getPopulatedThoughtwordHash(),
+            'ogTags' => [
+                'og:type' => 'article',
+                'article:published_time' => end($thoughts)->created->format('Y-m-d'),
+                'article:modified_time' => reset($thoughts)->created->format('Y-m-d'),
+            ],
         ]);
 
         return null;
