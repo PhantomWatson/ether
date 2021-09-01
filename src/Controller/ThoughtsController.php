@@ -73,20 +73,6 @@ class ThoughtsController extends AppController
     }
 
     /**
-     * View method
-     *
-     * @param string|null $id Thought ID
-     * @return void
-     */
-    public function view($id = null)
-    {
-        $thought = $this->Thoughts->get($id, [
-            'contain' => ['Users', 'Comments']
-        ]);
-        $this->set('thought', $thought);
-    }
-
-    /**
      * Add method
      *
      * @return Response|null
