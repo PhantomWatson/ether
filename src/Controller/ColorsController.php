@@ -50,13 +50,13 @@ class ColorsController extends AppController
     }
 
     /**
-     * Renders /colors/get-name
+     * Renders /colors/name
      *
      * @param string|null $color Six-character hex code for a color
      * @return void
      * @throws NotFoundException
      */
-    public function getName($color = null)
+    public function name($color = null)
     {
         $this->viewBuilder()->setClassName('Json');
 

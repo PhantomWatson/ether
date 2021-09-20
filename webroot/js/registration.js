@@ -97,7 +97,7 @@ var registration = {
         }
         var colorLabel = $('#reg_color_input').find('label');
         this.color_name_request = $.ajax({
-            url: '/colors/get-name/'+color,
+            url: '/colors/name/' + color,
             dataType: 'json',
             beforeSend: function () {
                 colorLabel.html('Color: <img src="/img/loading_small.gif" class="loading" alt="Loading..." />');
