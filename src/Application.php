@@ -45,6 +45,7 @@ class Application extends BaseApplication
             $this->addPlugin('Recaptcha', ['bootstrap' => false]);
             $this->addPlugin('Gourmet/CommonMark');
             $this->addPlugin('Xety/Cake3CookieAuth');
+            $this->addPlugin('Setup');
         } catch (MissingPluginException $e) {
             // Do not halt if the plugin is missing
         }
