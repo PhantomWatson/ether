@@ -1,6 +1,5 @@
 # CakePHP
 /vendor/*
-/config/recaptcha.php
 /tmp/*
 /logs/*
 /webroot/coverage/*
@@ -44,7 +43,9 @@ composer.phar
 # Front-end libraries
 /webroot/bootstrap/*
 
-# .env files
+# Configuration
 /config/.env
 /config/.env.dev
 /config/.env.production
+/config/recaptcha.php
+/config/app_local.php
