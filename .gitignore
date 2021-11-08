@@ -47,5 +47,10 @@ composer.phar
 /config/.env
 /config/.env.dev
 /config/.env.production
+/config/.env.production.inmotion
 /config/recaptcha.php
 /config/app_local.php
+/config/Migrations/schema-dump-default.lock
+
+# Docker
+/database/*
