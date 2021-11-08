@@ -156,7 +156,7 @@ class UsersTable extends Table
      */
     public function getProfileInfo($color)
     {
-        return $this->findByColor($color)
+        $user = $this->findByColor($color)
             ->select([
                 'id',
                 'color',
@@ -173,12 +173,22 @@ class UsersTable extends Table
                         ->order([
                             'word' => 'ASC',
                             'created' => 'DESC'
-                        ])
-                        ->distinct(['word']);
+                        ]);
                 }
             ])
             ->first()
             ->toArray();
+
+        $uniqueWords = [];
+        foreach ($user['thoughts'] as $k => $thought) {
+            if (in_array($thought['word'], $uniqueWords)) {
+                unset($user['thoughts'][$k]);
+            } else {
+                $uniqueWords[] = $thought['word'];
+            }
+        }
+
+        return $user;
     }
 
     /**
