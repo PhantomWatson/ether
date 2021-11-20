@@ -502,7 +502,6 @@ class ThoughtsTable extends Table
     public function linkThoughtwords($input)
     {
         $thoughtwords = $this->getWords();
-        $input = stripslashes($input); // Unnecessary after slashes are stripped out of the database
         $trimPattern = "/(^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$)/"; // Pattern used to isolate leading/trailing non-alphanumeric characters
         $nonalphanumericPattern = '/[^a-zA-Z0-9]/';
         $tags = ['i', 'b', 'em', 'strong', 'p', 'ul', 'ol', 'li', 'br', 'wbr', 'blockquote'];
@@ -678,7 +677,7 @@ class ThoughtsTable extends Table
     }
 
     /**
-     * Removs slashes that were a leftover of the anti-injection-attack strategy of the olllllld Ether
+     * Removes slashes that were a leftover of the anti-injection-attack strategy of the olllllld Ether
      *
      * @return void
      */

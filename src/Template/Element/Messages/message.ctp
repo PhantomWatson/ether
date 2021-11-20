@@ -15,7 +15,6 @@
     <div class="col-sm-6">
         <?php
             $formattedMessage = $message['message'];
-            $formattedMessage = stripslashes($formattedMessage);
             $formattedMessage = $this->Text->autoLink($formattedMessage);
             $formattedMessage = nl2br($formattedMessage);
             echo $formattedMessage;

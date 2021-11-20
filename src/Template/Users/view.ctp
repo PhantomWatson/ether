@@ -46,7 +46,7 @@
                     This Thinker has not yet introspected.
                 </em>
             <?php else: ?>
-                 <?= stripslashes($user['profile']) ?>
+                 <?= $user['profile'] ?>
             <?php endif; ?>
         </div>
     </div>
