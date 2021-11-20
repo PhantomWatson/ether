@@ -50,6 +50,7 @@ composer.phar
 /config/.env.production.inmotion
 /config/recaptcha.php
 /config/app_local.php
+/config/app_local.production.php
 /config/Migrations/schema-dump-default.lock
 
 # Docker
