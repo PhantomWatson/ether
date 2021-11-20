@@ -817,7 +817,7 @@ class ThoughtsTable extends Table
             $allWords = array_keys($allWords);
 
             return array_filter($allWords, function ($word) {return $word != '';});
-        }, 'long');
+        }, 'daily');
     }
 
     /**
