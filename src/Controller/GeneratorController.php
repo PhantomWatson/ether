@@ -44,9 +44,7 @@ class GeneratorController extends AppController
      */
     public function index()
     {
-        $thoughts = $this->getGeneratorSourceData();
         $this->set([
-            'thoughtsSeed' => $thoughts,
             'title_for_layout' => 'Thought Generator'
         ]);
     }
