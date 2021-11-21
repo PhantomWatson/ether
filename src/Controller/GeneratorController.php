@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Model\Table\ThoughtsTable;
+use Cake\Cache\Cache;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use EtherMarkov\EtherMarkovChain;
@@ -68,16 +69,18 @@ class GeneratorController extends AppController
      */
     private function getGeneratorSourceData()
     {
-        $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
-        $thoughts = $thoughtsTable->find('all')
-            ->select(['thought'])
-            ->toArray();
-        $thoughts = Hash::extract($thoughts, '{n}.thought');
-        $thoughts = implode(' ', $thoughts);
-        $thoughts = str_replace(["\n", "\r"], " ", $thoughts);
-        $thoughts = str_replace('  ', ' ', $thoughts);
-        $thoughts = str_replace('  ', ' ', $thoughts);
+        return Cache::remember('generatorSource', function () {
+            $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
+            $thoughts = $thoughtsTable->find('all')
+                ->select(['thought'])
+                ->toArray();
+            $thoughts = Hash::extract($thoughts, '{n}.thought');
+            $thoughts = implode(' ', $thoughts);
+            $thoughts = str_replace(["\n", "\r"], " ", $thoughts);
+            $thoughts = str_replace('  ', ' ', $thoughts);
+            $thoughts = str_replace('  ', ' ', $thoughts);
 
-        return $thoughts;
+            return $thoughts;
+        }, 'long');
     }
 }
