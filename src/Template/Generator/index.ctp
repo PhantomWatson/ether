@@ -109,7 +109,7 @@
                 </div>
             </div>
             <br />
-            <button id="stop" class="btn btn-default">Stop</button>
+            <button id="stop" class="btn btn-default" style="display: none;">Stop</button>
             <button id="start" class="btn btn-default">Start</button>
         </div>
     </section>
