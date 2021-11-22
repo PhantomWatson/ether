@@ -6,7 +6,7 @@
 ?>
 <div class="tw_thoughts">
     <div class="row">
-        <div class="col-sm-offset-2 col-sm-8">
+        <div class="offset-sm-2 col-sm-8">
             <h1 class="word_heading">
                 <?= $title_for_layout ?>
             </h1>
@@ -14,7 +14,7 @@
     </div>
 
     <div class="row word_summary">
-        <div class="col-sm-offset-2 col-sm-8">
+        <div class="offset-sm-2 col-sm-8">
             <ul class="unstyled">
                 <li>
                     <?php
@@ -41,7 +41,7 @@
 
     <?php if (empty($thoughts)): ?>
         <div id="unpopulated-thoughtword">
-            <div class="col-sm-offset-1 col-sm-10">
+            <div class="offset-sm-1 col-sm-10">
                 <?php if ($loggedIn): ?>
                     <p>
                         No one has yet thought about <strong><?= $word ?></strong>.<br />
@@ -91,7 +91,7 @@
 
         <?php foreach ($thoughts as $thought): ?>
             <div class="row thoughtrow" id="t<?= $thought['id'] ?>">
-                <div class="col-sm-1 col-sm-offset-1 meta">
+                <div class="col-sm-1 offset-sm-1 meta">
                     <div class="visible-xs-inline-block visible-sm visible-md visible-lg">
                         <?= $this->element('colorbox', [
                             'color' => $thought['user']['color'],
@@ -105,7 +105,7 @@
                         ?>
                         <br />
                         <?= $this->Html->link(
-                            'Link <span class="sr-only">to this thought</span>',
+                            'Link <span class="visually-hidden">to this thought</span>',
                             [
                                 'controller' => 'Thoughts',
                                 'action' => 'word',

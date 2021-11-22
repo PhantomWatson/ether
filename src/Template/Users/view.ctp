@@ -30,14 +30,14 @@
 
     <div class="row">
         <div class="minimized_users_index">
-            <div class="col-sm-offset-2 col-sm-8 users_index">
+            <div class="offset-sm-2 col-sm-8 users_index">
                 <?= $this->element('Users'.DS.'index') ?>
             </div>
         </div>
     </div>
 
     <div class="introspection row">
-        <div class="col-sm-offset-2 col-sm-8">
+        <div class="offset-sm-2 col-sm-8">
             <h2>
                 Introspection
             </h2>
@@ -52,7 +52,7 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-offset-2 col-sm-8">
+        <div class="offset-sm-2 col-sm-8">
             <h2>
                 Thoughts
             </h2>
@@ -76,7 +76,7 @@
 
     <?php if ((isset($messagesCount) && $messagesCount) || $user['acceptMessages']): ?>
         <div class="row">
-            <div class="col-sm-offset-2 col-sm-8">
+            <div class="offset-sm-2 col-sm-8">
                 <h2>
                     Communication
                 </h2>

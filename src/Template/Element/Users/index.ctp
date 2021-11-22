@@ -18,7 +18,7 @@ foreach ($colors as $group => $thinker) {
         $resizePercent = round(($thoughtCount / $maxCount) * 100);
         $resizePercent = max($resizePercent, 5);
         echo $this->Html->link(
-            '<span class="sr-only">View profile</span>',
+            '<span class="visually-hidden">View profile</span>',
             [
                 'controller' => 'Users',
                 'action' => 'view',

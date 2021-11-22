@@ -7,7 +7,7 @@
  */
 ?>
 <div class="row">
-    <div class="col-sm-offset-2 col-sm-1 sender">
+    <div class="offset-sm-2 col-sm-1 sender">
         <?= $this->element('colorbox', [
             'color' => $message['sender']['color']
         ]) ?>

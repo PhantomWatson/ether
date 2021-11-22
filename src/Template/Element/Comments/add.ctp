@@ -40,7 +40,7 @@ $this->Form->setTemplates([
 <?php endif; ?>
 
 <div class="row">
-    <div class="col-md-3 col-md-offset-8 text-left">
+    <div class="col-md-3 offset-md-8 text-left">
         <?php if ($thought['anonymous'] && $thought['user_id'] === $userId): ?>
             <div class="anonymous-comment-toggler">
                 <?= $this->Form->radio(

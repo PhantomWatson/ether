@@ -6,7 +6,7 @@
 ?>
 <div id="account">
     <div class="row">
-        <div class="col-sm-offset-3 col-sm-6">
+        <div class="offset-sm-3 col-sm-6">
             <h2>
                 Introspection
             </h2>
@@ -37,7 +37,7 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-offset-3 col-sm-6">
+        <div class="offset-sm-3 col-sm-6">
             <h2>
                 Change Password
             </h2>
@@ -86,7 +86,7 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-offset-3 col-sm-6">
+        <div class="offset-sm-3 col-sm-6">
             <h2>
                 Settings
             </h2>

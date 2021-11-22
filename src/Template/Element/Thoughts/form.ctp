@@ -4,7 +4,7 @@
  */
 ?>
 <div class="row">
-    <div class="col-sm-offset-2 col-sm-8">
+    <div class="offset-sm-2 col-sm-8">
         <?= $this->Form->create(
             $thought,
             [
@@ -17,16 +17,20 @@
         ) ?>
 
         <?php if (isset($suggestedThoughtwords)): ?>
-            <div id="suggested-words">
-                Not sure what to write about?
-                How about one of these commonly-used words that no one has written about yet:
-                <ul>
-                    <?php foreach ($suggestedThoughtwords as $word): ?>
-                        <li>
-                            <button><?= $word ?></button>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
+            <div id="suggested-words" class="card">
+                <div class="card-body">
+                    <p>
+                        Not sure what to write about?
+                        How about one of these commonly-used words that no one has written about yet:
+                    </p>
+                    <ul>
+                        <?php foreach ($suggestedThoughtwords as $word): ?>
+                            <li>
+                                <button><?= $word ?></button>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             </div>
 
             <?php $this->append('buffered_js'); ?>

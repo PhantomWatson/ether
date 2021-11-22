@@ -50,7 +50,7 @@
 
 <div id="send_message" class="row">
     <?php if ($penpalAcceptsMessages): ?>
-        <div class="col-sm-offset-3 col-sm-6">
+        <div class="offset-sm-3 col-sm-6">
             <?php
                 echo $this->Form->create(
                     $messageEntity,
@@ -82,7 +82,7 @@
             ?>
         </div>
     <?php else: ?>
-        <div class="col-sm-offset-2 col-sm-8">
+        <div class="offset-sm-2 col-sm-8">
             This user has opted out of receiving messages.
         </div>
     <?php endif; ?>

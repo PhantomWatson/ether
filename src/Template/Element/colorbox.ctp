@@ -18,7 +18,7 @@ $noLink = $noLink ?? false;
          title="Thinker #<?= $color ?>"></div>
 <?php else: ?>
     <?= $this->Html->link(
-        '<span class="sr-only">View Thinker #' . $color . '\'s profile</span>',
+        '<span class="visually-hidden">View Thinker #' . $color . '\'s profile</span>',
         [
             'controller' => 'Users',
             'action' => 'view',

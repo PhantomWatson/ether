@@ -13,7 +13,7 @@
     Stats
 </h2>
 <div class="row">
-    <div class="col-sm-offset-2 col-sm-8">
+    <div class="offset-sm-2 col-sm-8">
         <table id="stats" class="table">
             <tbody>
                 <?php foreach ($stats as $label => $value): ?>
@@ -35,7 +35,7 @@
     Q & A
 </h2>
 <div class="row" id="faq">
-    <div class="col-sm-offset-2 col-sm-8">
+    <div class="offset-sm-2 col-sm-8">
         <section>
             <p>
                 Here, people share Thoughts. Each Thought is located under a single word that it relates to, and each Thinker is identified by only a unique color.

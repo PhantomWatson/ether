@@ -4,7 +4,7 @@
  */
 ?>
 <div class="row" id="welcome">
-    <div class="col-sm-2 col-sm-offset-2">
+    <div class="col-sm-2 offset-sm-2">
         <h2>
             Ether
         </h2>
@@ -48,7 +48,7 @@
 <hr />
 
 <div class="row">
-    <div class="col-sm-8 col-sm-offset-2">
+    <div class="col-sm-8 offset-sm-2">
         <span class="glyphicon glyphicon-info-sign text-info"></span>
         <strong>New thing:</strong>
         Ever wondered what other people are wondering? If so, then I have some

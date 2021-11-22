@@ -13,7 +13,7 @@
 <div id="conversations">
     <?php if (empty($conversations)): ?>
         <div class="row">
-            <div class="col-sm-offset-2 col-sm-8 no_messages">
+            <div class="offset-sm-2 col-sm-8 no_messages">
                 <p>
                     No messages sent or received. :(
                 </p>
@@ -32,7 +32,7 @@
         </div>
     <?php else: ?>
         <div class="row">
-            <div class="col-sm-offset-2 col-sm-8">
+            <div class="offset-sm-2 col-sm-8">
                 <h2>
                     Select a Conversation
                 </h2>
@@ -41,7 +41,7 @@
         <div id="conversations_index">
             <?php foreach ($conversations as $other_user_id => $conversation): ?>
                 <div class="row">
-                    <div class="col-sm-offset-2 col-sm-8">
+                    <div class="offset-sm-2 col-sm-8">
                         <a href="<?= Router::url(['action' => 'conversation', $conversation['color']]) ?>" data-color="<?= $conversation['color'] ?>" class="row">
                             <span class="col-sm-2">
                                 <span class="penpal">
