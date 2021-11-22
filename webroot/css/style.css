@@ -8721,6 +8721,10 @@ div.named-color > .colorbox {
 #markovResults {
   clear: both;
 }
+#markovResults span {
+  opacity: 0;
+  transition: opacity 500ms ease 0s;
+}
 #randomness-container {
   display: inline-block;
   margin-left: 30px;
