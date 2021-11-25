@@ -159,7 +159,7 @@
                     ?>
                     <form class="navbar-form navbar-left" role="search" action="<?= $goto_url ?>" method="post" id="header-search">
                         <label for="header-search-input">
-                            🔍
+                            <i class="fas fa-search" aria-label="Go to thoughtword" title="Go to thoughtword"></i>
                         </label>
                         <input type="search" class="form-control" placeholder="Go to thoughtword..." required="required"
                                name="word" id="header-search-input" />
