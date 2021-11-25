@@ -11879,6 +11879,13 @@ body.popup_active #content_outer {
 #ThoughtAddForm input[type=checkbox] {
   margin-right: 0.5em;
 }
+#ThoughtAddForm label[for=input-thought-word],
+#ThoughtAddForm label[for=input-thought-body],
+#ThoughtAddForm #options-header,
+#ThoughtAddForm div.submit {
+  font-size: 1.5em;
+  margin-top: 1em;
+}
 
 .user_profile .row {
   margin-bottom: 60px;

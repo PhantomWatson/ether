@@ -519,6 +519,14 @@ body.popup_active {
     input[type=checkbox] {
         margin-right: 0.5em;
     }
+
+    label[for="input-thought-word"],
+    label[for="input-thought-body"],
+    #options-header,
+    div.submit {
+        font-size: 1.5em;
+        margin-top: 1em;
+    }
 }
 
 .user_profile {

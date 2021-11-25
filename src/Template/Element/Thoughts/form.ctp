@@ -47,7 +47,8 @@
                     'class' => 'control-label',
                     'text' => 'Thoughtword'
                 ],
-                'placeholder' => 'Enter a word to associated your thought with'
+                'placeholder' => 'Enter a word to associate your thought with',
+                'id' => 'input-thought-word'
             ]
         ) ?>
 
@@ -60,39 +61,10 @@
                     'text' => 'Thought'
                 ],
                 'type' => 'textarea',
-                'placeholder' => 'What\'s on your mind?'
+                'placeholder' => 'What\'s on your mind?',
+                'id' => 'input-thought-body'
             ]
         ) ?>
-
-        <div class="options row">
-            <div class="form-group col-md-5">
-                <?= $this->Form->control(
-                    'comments_enabled',
-                    [
-                        'label' => 'Allow comments',
-                        'type' => 'checkbox'
-                    ]
-                ) ?>
-            </div>
-
-            <div class="form-group col-md-5">
-                <?= $this->Form->control(
-                    'anonymous',
-                    [
-                        'label' => 'Post anonymously',
-                        'type' => 'checkbox'
-                    ]
-                ) ?>
-            </div>
-
-            <div class="col-md-2">
-                <?= $this->Form->submit(
-                    'Think',
-                    ['class' => 'btn btn-default btn-block']
-                ) ?>
-                <?= $this->Form->end(); ?>
-            </div>
-        </div>
 
         <p>
             Styles like *<em>italics</em>* and **<strong>bold</strong>** can be applied with Markdown. For a full list of supported styles, consult the
@@ -104,5 +76,32 @@
                 ['target' => '_blank']
             ) ?>
         </p>
+
+        <div>
+            <p id="options-header">
+                Options
+            </p>
+            <?= $this->Form->control(
+                'comments_enabled',
+                [
+                    'label' => 'Allow comments',
+                    'type' => 'checkbox'
+                ]
+            ) ?>
+            <?= $this->Form->control(
+                'anonymous',
+                [
+                    'label' => 'Post anonymously',
+                    'type' => 'checkbox'
+                ]
+            ) ?>
+        </div>
+
+        <?= $this->Form->submit(
+            'Think',
+            ['class' => 'btn btn-default btn-block']
+        ) ?>
+        <?= $this->Form->end(); ?>
+
     </div>
 </div>
