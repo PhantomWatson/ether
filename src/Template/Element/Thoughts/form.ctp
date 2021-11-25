@@ -35,7 +35,7 @@
             </div>
 
             <?php $this->append('buffered_js'); ?>
-                suggestedWords.init();
+                new SuggestedWords();
             <?php $this->end(); ?>
         <?php endif; ?>
 
