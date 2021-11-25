@@ -29,7 +29,7 @@
                 );
                 echo $this->Form->submit(
                     'Update',
-                    ['class' => 'btn btn-default']
+                    ['class' => 'btn btn-primary']
                 );
                 echo $this->Form->end();
             ?>
@@ -78,7 +78,7 @@
                 );
                 echo $this->Form->submit(
                     'Change password',
-                    ['class' => 'btn btn-default']
+                    ['class' => 'btn btn-primary']
                 );
                 echo $this->Form->end();
             ?>
@@ -125,7 +125,7 @@
                 );
                 echo $this->Form->submit(
                     'Update',
-                    ['class' => 'btn btn-default']
+                    ['class' => 'btn btn-primary']
                 );
                 echo $this->Form->end();
             ?>

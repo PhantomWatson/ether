@@ -99,7 +99,7 @@
 
         <?= $this->Form->submit(
             'Think',
-            ['class' => 'btn btn-default btn-block']
+            ['class' => 'btn btn-primary btn-block']
         ) ?>
         <?= $this->Form->end(); ?>
 

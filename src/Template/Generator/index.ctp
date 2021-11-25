@@ -131,8 +131,8 @@
                 </div>
             </div>
             <br />
-            <button id="stop" class="btn btn-default" style="display: none;">Stop</button>
-            <button id="start" class="btn btn-default">Start</button>
+            <button id="stop" class="btn btn-primary" style="display: none;">Stop</button>
+            <button id="start" class="btn btn-primary">Start</button>
         </div>
     </section>
 

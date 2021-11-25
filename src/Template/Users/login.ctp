@@ -35,7 +35,7 @@
         echo $this->Form->submit(
             'Log in',
             [
-                'class' => 'btn btn-default'
+                'class' => 'btn btn-primary'
             ]
         );
         echo $this->Form->end();

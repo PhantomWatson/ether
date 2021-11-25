@@ -82,7 +82,7 @@
     <?php
         echo $this->Form->submit(
             'Register',
-            ['class' => 'btn btn-default']
+            ['class' => 'btn btn-primary']
         );
         echo $this->Form->end();
     ?>

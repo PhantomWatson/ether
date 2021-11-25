@@ -63,7 +63,7 @@ $this->Form->setTemplates([
         <?php endif; ?>
         <?= $this->Form->submit(
             'Post comment',
-            ['class' => 'btn btn-default']
+            ['class' => 'btn btn-primary']
         ) ?>
         <a href="#" class="cancel_comment" data-thought-id="<?= $thought['id'] ?>">
             Cancel

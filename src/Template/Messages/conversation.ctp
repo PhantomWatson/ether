@@ -76,7 +76,7 @@
                 );
                 echo $this->Form->submit(
                     'Send',
-                    ['class' => 'btn btn-default']
+                    ['class' => 'btn btn-primary']
                 );
                 echo $this->Form->end();
             ?>
