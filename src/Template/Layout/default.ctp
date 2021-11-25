@@ -45,6 +45,25 @@ $ogTags = isset($ogTags) ? array_merge($defaultOgTags, $ogTags) : $defaultOgTags
         <?php foreach ($ogTags as $property => $content): ?>
             <meta property="<?= $property ?>" content="<?= h($content) ?>" />
         <?php endforeach; ?>
+        <?php
+            $scriptFiles = [
+                '/js/comment.js',
+                '/js/flash-message.js',
+                '/js/messages.js',
+                '/js/profile.js',
+                '/js/recent.js',
+                '/js/registration.js',
+                '/js/scroll.js',
+                '/js/search.js',
+                '/js/suggested.js',
+                '/js/thought.js',
+                '/js/thoughtword-index.js',
+                '/js/user-index.js'
+            ];
+            foreach ($scriptFiles as $scriptFile) {
+                echo $this->Html->script($scriptFile);
+            }
+        ?>
     </head>
     <body>
         <?php
@@ -65,12 +84,8 @@ $ogTags = isset($ogTags) ? array_merge($defaultOgTags, $ogTags) : $defaultOgTags
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="/js/jquery-1.9.1.min.js"><\/script>')</script>
 
-        <?php
-            $scriptFile = $debug ? 'script.concat.js' : 'script.concat.min.js';
-            echo $this->Html->script($scriptFile);
-            echo $this->fetch('script');
-            echo $this->element('analytics');
-        ?>
+        <?= $this->fetch('script') ?>
+        <?= $this->element('analytics') ?>
 
         <script>
             $(document).ready(function () {
