@@ -27,28 +27,6 @@
     <em class="signature">Love,&nbsp;Phantom</em>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-8 col-8 black">
-            <p>Bar Graph or Line Graph</p>
-        </div>
-        <div class="col-sm-4 col-4 d-flex align-content-around flex-wrap">
-            <div class="red">
-                <p>numbers and more and so on and on and on</p>
-            </div>
-            <div class="purple">
-                <p>numbers</p>
-            </div>
-            <div class="green">
-                <p>numbers</p>
-            </div>
-            <div class="blue">
-                <p class="mb-0">numbers</p>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="row" id="generator-interface">
     <section class="col-sm-4">
         <h2>
