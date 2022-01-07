@@ -12702,7 +12702,7 @@ pre.cake-error {
   overflow: auto;
 }
 #markovOptions .count {
-  font-size: 80%;
+  font-size: 70%;
 }
 #markovOptions .count:before {
   content: "(x";
@@ -12712,6 +12712,9 @@ pre.cake-error {
 }
 #markovOptions li {
   color: #666;
+  display: inline-block;
+  list-style-type: none;
+  margin-right: 1.3em;
 }
 #markovOptions li.selected {
   color: #ccc;
