@@ -4,6 +4,9 @@
  * @var int $newMessages
  * @var string $userColor
  */
+
+use Cake\Routing\Router;
+$goToUrl = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
 ?>
 <nav class="navbar fixed-top navbar-dark navbar-expand-md" id="header">
     <div class="container-fluid">
@@ -153,19 +156,17 @@
                     ) ?>
                 </li>
                 <li class="nav-item">
-                    <?php
-                    use Cake\Routing\Router;
-                    $goto_url = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
-                    ?>
-                    <form class="navbar-form navbar-left" role="search" action="<?= $goto_url ?>" method="post" id="header-search">
-                        <label for="header-search-input">
-                            <i class="fas fa-search" aria-label="Go to thoughtword" title="Go to thoughtword"></i>
-                        </label>
-                        <input type="search" class="form-control" placeholder="Go to thoughtword..." required="required"
-                               name="word" id="header-search-input" />
-                    </form>
+
                 </li>
             </ul>
+            <form class="d-flex" role="search" action="<?= $goToUrl ?>" method="post" id="header-search">
+                <input class="form-control" type="search" aria-label="Go to thoughtword..."
+                       aria-describedby="basic-addon1" placeholder="Go to thoughtword..." required="required"
+                       name="word" id="header-search-input">
+                <button class="btn btn-primary" type="submit">
+                    Go
+                </button>
+            </form>
         </div>
     </div>
 </nav>

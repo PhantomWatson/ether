@@ -11545,11 +11545,12 @@ select.form-control:focus {
 }
 
 #header-search-input {
-  background-color: transparent;
+  background-color: #222;
   border: none;
   color: #fff;
   display: inline-block;
-  margin-top: 5px;
+  margin-left: 1rem;
+  margin-right: 0.5rem;
   padding: 0 4px;
   width: 200px;
 }
