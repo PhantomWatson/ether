@@ -12802,11 +12802,21 @@ div.named-color > .colorbox {
   display: none;
 }
 
+#generator-interface {
+  margin-top: 30px;
+}
 #generator-interface hr {
   border-color: #666;
   display: none;
 }
+#generator-interface .tooltip-icon {
+  font-size: 1rem;
+}
 
+#generator-results {
+  margin-top: 30px;
+  vertical-align: middle;
+}
 #generator-results h2, #generator-results .h2 {
   display: inline-block;
   vertical-align: baseline;
@@ -12860,6 +12870,10 @@ div.named-color > .colorbox {
 }
 #gangstacaps-patrons ul img {
   height: 1.75em;
+}
+
+.tooltip-icon {
+  color: #a88dbf;
 }
 
 /*# sourceMappingURL=style.css.map */

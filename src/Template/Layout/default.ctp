@@ -32,6 +32,7 @@ $ogTags = isset($ogTags) ? array_merge($defaultOgTags, $ogTags) : $defaultOgTags
         <link rel="dns-prefetch" href="//ajax.googleapis.com" />
         <link rel="icon" type="image/png" href="/img/favicon.png" />
         <link rel="stylesheet" href="/font-awesome/css/all.min.css" />
+        <script src="/js/popper.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
         <?php
             echo $this->Html->css('style');
@@ -91,6 +92,10 @@ $ogTags = isset($ogTags) ? array_merge($defaultOgTags, $ogTags) : $defaultOgTags
             $(document).ready(function () {
                 scroll.init();
                 <?= $this->fetch('buffered_js') ?>
+                let popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+                let popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                    return new bootstrap.Popover(popoverTriggerEl)
+                })
             });
         </script>
     </body>

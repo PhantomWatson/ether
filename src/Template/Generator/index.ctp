@@ -15,14 +15,6 @@
         The Ether Thought Generator generates text based on thoughts that have been shared on Ether. You can set the
         speed and the randomness and let'r rip.
     </p>
-    <p>
-        The <em>Thinkin'</em> section shows you how the process takes a block of N words and searches for a random word
-        that someone, somewhere once wrote <em>after</em> that.
-    </p>
-    <p>
-        The <em>Randomness</em> score shows you how often your text encountered a fork in the road where it could
-        switch from one source thought to another.
-    </p>
 
     <em class="signature">Love,&nbsp;Phantom</em>
 </div>
@@ -66,6 +58,8 @@
             <div class="form-group row">
                 <label for="blockLength" class="col-sm-4">
                     Random&shy;ness:
+                    <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="popover" data-bs-html="true" data-bs-trigger="hover"
+                       data-bs-content="The <em>Randomness</em> score shows you how often your text encountered a fork in the road where it could switch from one source thought to another."></i>
                 </label>
                 <div class="col-sm-6">
                     <select id="blockLength" class="form-control">
@@ -115,7 +109,11 @@
     </section>
 
     <section class="col-sm-4 offset-sm-1">
-        <h2>Thinkin'</h2>
+        <h2>
+            Thinkin'
+            <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="popover" data-bs-html="true" data-bs-trigger="hover"
+               data-bs-content="The <em>Thinkin'</em> section shows you how the process takes a block of N words and searches for a random word that someone, somewhere once wrote <em>after</em> that."></i>
+        </h2>
         <div class="well">
             <div id="markovOptions"></div>
         </div>

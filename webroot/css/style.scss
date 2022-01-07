@@ -12,6 +12,7 @@ $generalTextColor: #ccc;
 $grid-float-breakpoint: 850px;
 $linkColor: #a88dbf;
 $MessagesLighterBgColor: #151515;
+$section-vertical-margin: 30px;
 $table-bg: transparent;
 
 $pre-color: $generalTextColor;
@@ -1677,13 +1678,22 @@ div.named-color {
 }
 
 #generator-interface {
+    margin-top: $section-vertical-margin;
+
     hr {
         border-color: #666;
         display: none;
     }
+
+    .tooltip-icon {
+        font-size: 1rem;
+    }
 }
 
 #generator-results {
+    margin-top: $section-vertical-margin;
+    vertical-align: middle;
+
     h2 {
         display: inline-block;
         vertical-align: baseline;
@@ -1748,4 +1758,8 @@ div.named-color {
             height: 1.75em;
         }
     }
+}
+
+.tooltip-icon {
+    color: $linkColor;
 }
