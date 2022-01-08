@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Thought $randomThought
  */
 ?>
 <div class="row align-items-center" id="welcome">
