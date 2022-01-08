@@ -12633,6 +12633,9 @@ pre.cake-error {
   font-size: 150%;
 }
 
+#welcome {
+  margin-bottom: 30px;
+}
 #welcome h2, #welcome .h2 {
   margin: 0;
   font-size: 300%;

@@ -45,8 +45,6 @@
     </div>
 </div>
 
-<hr />
-
 <div id="recent">
     <h2>
         Recent
