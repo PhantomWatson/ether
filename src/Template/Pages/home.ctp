@@ -3,7 +3,7 @@
  * @var \App\View\AppView $this
  */
 ?>
-<div class="row" id="welcome">
+<div class="row align-items-center" id="welcome">
     <div class="col-sm-2 offset-sm-2">
         <h2>
             Ether
