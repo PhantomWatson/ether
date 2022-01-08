@@ -24,7 +24,7 @@
         <h2>
             Controls
         </h2>
-        <div class="well">
+        <div class="generator-well">
             <div class="form-group row">
                 <label for="speed" class="col-sm-4">
                     Speed:
@@ -114,7 +114,7 @@
             <i class="fas fa-info-circle tooltip-icon" data-bs-toggle="popover" data-bs-html="true" data-bs-trigger="hover"
                data-bs-content="The <em>Thinkin'</em> section shows you how the process takes a block of N words and searches for a random word that someone, somewhere once wrote <em>after</em> that."></i>
         </h2>
-        <div class="well">
+        <div class="generator-well">
             <div id="markovOptions"></div>
         </div>
     </section>
@@ -130,7 +130,7 @@
             </span>
         </span>
     </span>
-    <p id="markovResults" class="well"></p>
+    <p id="markovResults" class="generator-well"></p>
 </section>
 
 <?php $this->Html->script('ether-markov', ['block' => 'script']); ?>

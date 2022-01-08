@@ -12816,7 +12816,8 @@ div.named-color > .colorbox {
 #generator-interface .tooltip-icon {
   font-size: 1rem;
 }
-#generator-interface .well {
+
+.generator-well {
   background-color: #1c1e22;
   border-radius: 4px;
   border: 1px solid #0c0d0e;
