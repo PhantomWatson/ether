@@ -62,7 +62,7 @@
         <?= $this->element('cloud', ['words' => $cloud, 'animate' => isset($_GET['animate'])]) ?>
         <?php if (isset($_GET['animate'])): ?>
             <script>
-                var cloud = document.getElementById('frontpage_cloud');
+                let cloud = document.getElementById('frontpage_cloud');
                 cloud.className = 'cloud animate_show';
             </script>
         <?php endif; ?>
