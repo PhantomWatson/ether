@@ -92,7 +92,6 @@ const EtherMarkov = {
         this.buttonStart.style.display = 'none';
         this.buttonStop.style.display = 'inline';
         this.selectorBlockLength.disabled = true;
-        this.selectorBlockLength.title = 'Refresh the page to change randomness';
         this.selectorSpeed.disabled = true;
         this.selectorLimit.disabled = true;
         if (this.currentBlock === null) {
@@ -105,8 +104,16 @@ const EtherMarkov = {
 
     addWord: function () {
         const word = this.getNextWord();
-        this.currentBlock.shift();
+
+        /* Remove as many words as is needed from the current block so that after adding another word, it will be
+         * this.blockLength words long. This accommodates the block length possibly being changed after text generation
+         * starts. */
+        while (this.currentBlock.length + 1 > this.blockLength) {
+            this.currentBlock.shift();
+        }
+
         this.currentBlock.push(word);
+
         this.displayInResults(word);
         this.blockCount++;
         if (this.limit && this.blockCount >= this.limit) {
@@ -132,8 +139,9 @@ const EtherMarkov = {
     stop: function () {
         this.buttonStop.style.display = 'none';
         this.buttonStart.style.display = 'inline';
-        this.selectorSpeed.disabled = false;
+        this.selectorBlockLength.disabled = false;
         this.selectorLimit.disabled = false;
+        this.selectorSpeed.disabled = false;
         clearInterval(this.loop);
     },
 
