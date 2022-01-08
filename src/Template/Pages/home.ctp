@@ -47,26 +47,6 @@
 
 <hr />
 
-<div class="row">
-    <div class="col-sm-8 offset-sm-2">
-        <span class="glyphicon glyphicon-info-sign text-info"></span>
-        <strong>New thing:</strong>
-        Ever wondered what other people are wondering? If so, then I have some
-        <strong>
-            <?= $this->Html->link(
-                'Questions',
-                ['controller' => 'Thoughts', 'action' => 'questions']
-            ) ?>
-        </strong>
-        for you.
-        <div class="pull-right">
-            <em>Love, Phantom</em>
-        </div>
-    </div>
-</div>
-
-<hr />
-
 <div id="recent">
     <h2>
         Recent
