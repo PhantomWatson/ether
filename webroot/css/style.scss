@@ -481,6 +481,10 @@ body.popup_active {
 #UserAccountOptionsForm label {
     display: inline;
     margin-left: 10px;
+
+    input[type=checkbox] {
+        margin-right: 0.5em;
+    }
 }
 
 #account {

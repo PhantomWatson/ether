@@ -11856,6 +11856,9 @@ body.popup_active #content_outer {
   display: inline;
   margin-left: 10px;
 }
+#UserAccountOptionsForm label input[type=checkbox] {
+  margin-right: 0.5em;
+}
 
 #account h2, #account .h2 {
   margin: 0 0 10px 0;
