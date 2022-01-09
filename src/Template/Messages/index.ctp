@@ -1,6 +1,8 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var string $title_for_layout
+ * @var array $conversations
  */
     use Cake\Routing\Router;
 ?>
