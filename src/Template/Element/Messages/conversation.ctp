@@ -4,8 +4,8 @@
  * @var \App\Model\Entity\Message[]|\Cake\Collection\CollectionInterface $messages
  */
     $this->Paginator->setTemplates([
-        'nextActive' => '<div class="row convo_pagination"><div class="offset-sm-2 col-sm-7"><a href="{{url}}&dir=next">{{text}}</a></div></div>',
-        'prevActive' => '<div class="row convo_pagination"><div class="offset-sm-2 col-sm-7"><a href="{{url}}&dir=prev">{{text}}</a></div></div>'
+        'nextActive' => '<div class="row convo_pagination"><div class="offset-sm-3 col-sm-6"><a href="{{url}}&dir=next">{{text}}</a></div></div>',
+        'prevActive' => '<div class="row convo_pagination"><div class="offset-sm-3 col-sm-6"><a href="{{url}}&dir=prev">{{text}}</a></div></div>'
     ]);
 
     /* If this is loaded via AJAX, the result of loading 'next'
