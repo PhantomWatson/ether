@@ -12121,7 +12121,7 @@ body.popup_active #content_outer {
 #conversations_index a {
   border: 1px solid transparent;
   color: #fff;
-  display: block;
+  display: flex;
   opacity: 0.7;
   padding: 5px;
 }
@@ -12137,6 +12137,9 @@ body.popup_active #content_outer {
   background-image: url("/img/loading_small.gif");
   background-position: right 5px top 5px;
   background-repeat: no-repeat;
+}
+#conversations_index a > span {
+  display: block;
 }
 #conversations_index .penpal {
   display: block;
