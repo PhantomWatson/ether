@@ -1,7 +1,13 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var string $titleForLayout
+ * @var string $penpalColor
+ * @var boolean $penpalAcceptsMessages
+ * @var \App\Model\Entity\Message $messageEntity
  */
+
+$pagingUsed = $this->Paginator->hasNext() || ($this->Paginator->hasPrev() && ! $this->request->is('ajax'));
 ?>
 <div id="content_title">
     <h1>
@@ -26,7 +32,6 @@
             ]
         ) ?>
     </li>
-    <?php $pagingUsed = $this->Paginator->hasNext() || ($this->Paginator->hasPrev() && ! $this->request->is('ajax')); ?>
     <?php if ($pagingUsed): ?>
         <li>
             <a href="?full">
@@ -41,7 +46,7 @@
         You have not exchanged any messages with this Thinker yet.
     </p>
 <?php else: ?>
-    <?= $this->element('Messages'.DS.'conversation') ?>
+    <?= $this->element('Messages' . DS . 'conversation') ?>
     <?php $this->append('buffered_js'); ?>
         messages.scrollToLastMsg();
         messages.setupPagination();
