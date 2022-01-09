@@ -12201,13 +12201,8 @@ body.popup_active #content_outer {
   height: 150px;
 }
 #send_message .submit {
-  height: 33px;
-  line-height: 33px;
   padding-top: 10px;
   text-align: right;
-}
-#send_message .submit input {
-  height: 33px;
 }
 #send_message .form-group {
   margin-bottom: 0;
