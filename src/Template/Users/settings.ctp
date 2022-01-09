@@ -2,7 +2,6 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
- * @var string $userColor
  */
 ?>
 <div id="account">
@@ -15,7 +14,7 @@
                 Here, you're invited to write about yourself. This text will appear on
                 <?= $this->Html->link(
                     'your profile page',
-                    ['controller' => 'Users', 'action' => 'view', $userColor]
+                    ['controller' => 'Users', 'action' => 'myProfile']
                 ) ?>.
             </p>
             <?php

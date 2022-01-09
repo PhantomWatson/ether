@@ -63,6 +63,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/settings', ['controller' => 'Users', 'action' => 'settings']);
     $routes->connect('/thinkers', ['controller' => 'Users', 'action' => 'index']);
     $routes->connect('/thinker/:color', ['controller' => 'Users', 'action' => 'view'], ['pass' => ['color']]);
+    $routes->connect('/my-profile', ['controller' => 'Users', 'action' => 'myProfile']);
 
     $routes->connect('/t/:word/*', ['controller' => 'Thoughts', 'action' => 'word'], ['pass' => ['word']]);
     $routes->connect('/questions', ['controller' => 'Thoughts', 'action' => 'questions']);

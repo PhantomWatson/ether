@@ -2,7 +2,6 @@
 /**
  * @var \App\View\AppView $this
  * @var int $newMessages
- * @var string $userColor
  */
 
 use Cake\Routing\Router;
@@ -98,7 +97,7 @@ $goToUrl = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
                             <li>
                                 <?= $this->Html->link(
                                     'My Profile',
-                                    ['controller' => 'Users', 'action' => 'view', $userColor],
+                                    ['controller' => 'Users', 'action' => 'myProfile'],
                                     ['class' => 'dropdown-item']
                                 ) ?>
                             </li>

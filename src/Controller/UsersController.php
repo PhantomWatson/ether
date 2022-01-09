@@ -375,4 +375,13 @@ class UsersController extends AppController
 
         return null;
     }
+
+    public function myProfile()
+    {
+        $color = $this->Auth->user('color');
+
+        $this->view($color);
+
+        return $this->render('view');
+    }
 }
