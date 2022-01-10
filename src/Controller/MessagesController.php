@@ -152,7 +152,7 @@ class MessagesController extends AppController
             return $this->render('conversation_page');
         } else {
             $this->set([
-                'titleForLayout' => 'Messages with Thinker #'.$penpalColor,
+                'titleForLayout' => 'Messages with Thinker #' . $penpalColor,
                 'penpalColor' => $penpal->color,
                 'penpalAcceptsMessages' => $this->Users->acceptsMessages($penpalId),
                 'messageEntity' => $this->Messages->newEntity()
