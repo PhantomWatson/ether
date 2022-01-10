@@ -25,24 +25,20 @@
         <h2 class="col">
             Patreon Supporters
         </h2>
-        <p>
-            Support Ether by
-            <a href="https://www.patreon.com/the_ether">
-                becoming a Patreon supporter
-            </a>
-            at the lowercase, Capitalized, CAPSLOCK, or gAnGsTa CaPs level.
-        </p>
     </div>
-    <div class="row" id="gangstacaps-patrons">
-        <div class="col-sm-10 offset-sm-1">
-            <h3>
-                <img src="/img/gangsta/flame.gif" alt="HELLA RADICAL FYRE" title="Watch out, this website might be too EDGY for you" />
-                gAnGsTa CaPs sUpPoRtErS
-                <img src="/img/gangsta/flame.gif" alt="MORE HELLA RADICAL FYRE" title="If you're not too scared, join my radical webring" />
-            </h3>
-            <ul class="unstyled">
-                <?php foreach ($gangsta as $supporter): ?>
-                    <?php
+    <div class="row gx-5">
+        <div class="col patron-category" id="gangstacaps-patrons">
+            <div>
+                <h3>
+                    <img src="/img/gangsta/flame.gif" alt="HELLA RADICAL FYRE" class="d-none d-md-inline"
+                         title="Watch out, this website might be too EDGY for you" />
+                    gAnGsTa CaPs sUpPoRtErS
+                    <img src="/img/gangsta/flame.gif" alt="MORE HELLA RADICAL FYRE" class="d-none d-md-inline"
+                         title="If you're not too scared, join my radical webring" />
+                </h3>
+                <ul class="unstyled">
+                    <?php foreach ($gangsta as $supporter): ?>
+                        <?php
                         if (!$randomImgs) {
                             $randomImgs = $fullRandomImgs;
                         }
@@ -56,34 +52,37 @@
                         $key = array_rand($randomTitles);
                         $title = $randomTitles[$key];
                         unset($randomTitles[$key]);
-                    ?>
-                    <li>
-                        <?= $supporter ?>
-                        <img src="/img/gangsta/random/<?= $imgNum ?>.gif" alt="IS HELLA RADICAL" title="<?= $title ?>" />
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+                        ?>
+                        <li>
+                            <?= $supporter ?>
+                            <img src="/img/gangsta/random/<?= $imgNum ?>.gif" alt="IS HELLA RADICAL" title="<?= $title ?>" />
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
+        <div class="col patron-category" id="capslock-patrons">
+            <div>
+                <h3>
+                    CAPSLOCK SUPPORTERS
+                </h3>
+                <ul class="unstyled">
+                    <?php foreach ($capslock as $supporter): ?>
+                        <li>
+                            <?= $supporter ?>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
         </div>
     </div>
-    <div class="row" id="capslock-patrons">
-        <div class="col-sm-10 offset-sm-1">
-            <h3>
-                CAPSLOCK SUPPORTERS
-            </h3>
-            <ul class="unstyled">
-                <?php foreach ($capslock as $supporter): ?>
-                    <li>
-                        <?= $supporter ?>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-10 offset-sm-1">
-
-        </div>
-    </div>
+    <p id="patreon-info">
+        Support Ether by
+        <a href="https://www.patreon.com/the_ether">
+            becoming a Patreon supporter
+        </a>
+        at the lowercase, Capitalized, CAPSLOCK, or <strong>gAnGsTa CaPs level</strong>.
+    </p>
 </div>
 
 <footer id="footer" class="container">

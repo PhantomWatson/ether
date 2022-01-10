@@ -3,6 +3,7 @@
 @import '../bootswatch/slate/_variables.scss';
 
 $blockquote-font-size: 100%;
+$capslockBorderColor: 1px solid rgba(100, 100, 100, 0.5);
 $ContentWidth: 500px;
 $FontColorError: #D00;
 $FontColorSuccess: #0D0;
@@ -158,7 +159,7 @@ label[for='header-search-input'] {
     color: #888;
     font-size: 80%;
     height: $FooterHeight;
-    margin-top: 0px - $FooterHeight;
+    margin-top: 50px;
     padding-bottom: 15px;
     padding-top: 0;
     position: relative;
@@ -1743,31 +1744,52 @@ div.named-color {
         font-size: 1.5em;
         list-style-type: none;
         margin-right: 3em;
+
+        &:last-child {
+            margin-right: 0;
+        }
     }
 }
 
-#capslock-patrons {
-    padding-bottom: $FooterHeight;
-    margin-bottom: 40px;
+.patron-category {
+    text-align: center;
+}
 
+#capslock-patrons {
     > div {
-        border-bottom: 1px solid #666;
-        padding-bottom: 40px;
+        border: $capslockBorderColor;
+        height: 100%;
+
+        > div {
+            border-bottom: 1px solid #666;
+        }
+    }
+
+    h3 {
+        border-bottom: $capslockBorderColor;
+        margin-left: 1em;
+        margin-right: 1em;
     }
 }
 
 #gangstacaps-patrons {
-    border: 2px groove #ff00ff;
-    background-image: url('/img/gangsta/stars.gif');
-    font-family: 'Comic Sans MS', monospace;
-    margin-bottom: 40px;
+    > div {
+        background-image: url('/img/gangsta/stars.gif');
+        border: 2px groove #ff00ff;
+        font-family: 'Comic Sans MS', monospace;
+        height: 100%;
+    }
 
     h3 {
+        border-bottom: 1px solid rgba(255, 0, 255, 0.5);
         font-family: 'Comic Sans MS', monospace;
-        font-size: 250%;
+        font-size: 150%;
         margin-top: 0;
+        margin-left: 1em;
+        margin-right: 1em;
 
         img {
+            margin-top: -25px;
             vertical-align: text-bottom;
         }
     }
@@ -1777,6 +1799,10 @@ div.named-color {
             height: 1.75em;
         }
     }
+}
+
+#patreon-info {
+    margin-top: 1em;
 }
 
 .tooltip-icon {
