@@ -11,34 +11,26 @@ $pagingUsed = $this->Paginator->hasNext() || ($this->Paginator->hasPrev() && ! $
 ?>
 <div id="content_title">
     <h1>
-        <?= $titleForLayout ?>
-    </h1>
-</div>
-<ul class="list-unstyled">
-    <li>
+        Messages with
         <?= $this->Html->link(
-            '<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span> Back to conversations',
-            ['action' => 'index'],
-            ['escape' => false]
-        ) ?>
-    </li>
-    <li>
-        <?= $this->Html->link(
-            'View Thinker\'s profile',
+            "Thinker #$penpalColor",
             [
                 'controller' => 'Users',
                 'action' => 'view',
                 $penpalColor
             ]
         ) ?>
+
+    </h1>
+</div>
+<ul class="list-unstyled">
+    <li>
+        <?= $this->Html->link(
+            '<i class="fas fa-arrow-left"></i> Back to conversations',
+            ['action' => 'index'],
+            ['escape' => false]
+        ) ?>
     </li>
-    <?php if ($pagingUsed): ?>
-        <li>
-            <a href="?full">
-                Show full conversation
-            </a>
-        </li>
-    <?php endif; ?>
 </ul>
 
 <?php if (empty($messages)): ?>
