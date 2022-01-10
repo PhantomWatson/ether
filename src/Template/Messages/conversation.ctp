@@ -46,8 +46,11 @@ $pagingUsed = $this->Paginator->hasNext() || ($this->Paginator->hasPrev() && ! $
         You have not exchanged any messages with this Thinker yet.
     </p>
 <?php else: ?>
-    <?= $this->element('Messages' . DS . 'conversation') ?>
+    <div id="conversation">
+        <?= $this->element('Messages' . DS . 'conversation') ?>
+    </div>
     <?php $this->append('buffered_js'); ?>
+        messages.init();
         messages.scrollToLastMsg();
         messages.setupPagination();
     <?php $this->end(); ?>

@@ -1,146 +1,120 @@
-var messages = {
+const messages = {
+    convo: null,
+    convoIndex: null,
     currentRequest: null,
+    selectedConvoWrapper: null,
+
     init: function () {
-        $('#conversations_index a').click(function (event) {
-            event.preventDefault();
-            var color = $(this).data('color');
-            messages.selectConversation(color);
-        });
+        this.convo = document.getElementById('conversation');
+        this.convoIndex = document.getElementById('');
+        this.selectedConvoWrapper = document.getElementById('selected_conversation_wrapper');
     },
+
     scrollToLastMsg: function () {
-        var lastMsg = $('#conversation div.row:last-child');
+        const lastMsg = this.convo.querySelector('div.row:last-child');
         if (lastMsg.length === 0) {
             return;
         }
-        $(window).scrollTo(lastMsg, 1000, {
-            interrupt: true,
-            offset: -100,
-        });
+
+        // This should have a vertical offset to make up for the nav bar
+        //lastMsg.scrollIntoView();
     },
+
     cancelCurrentRequest: function () {
         if (this.currentRequest) {
             this.currentRequest.abort();
         }
-        $('#conversations_index .loading').removeClass('loading');
+        const loading = this.convoIndex.querySelector('.loading');
+        loading.classList.remove('loading');
     },
-    selectConversation: function (color, scroll_to_selection) {
-        var conv_index = $('#conversations_index');
-        var conv_link = conv_index.find('a[data-color='+color+']');
-        this.cancelCurrentRequest();
-        conv_link.addClass('loading');
-        this.currentRequest = $.ajax({
-            url: '/messages/conversation/'+color,
-            complete: function () {
-                conv_link.removeClass('loading');
-            },
-            success: function (data) {
-                conv_index.find('a.selected').removeClass('selected');
-                conv_link.addClass('selected');
-                var inner_container = $('#conversation');
 
-                // Fade out previous conversation
-                if (inner_container.length > 0) {
-                    inner_container.fadeOut(150, function () {
-                        messages.fadeInConversation(data);
-                    });
-
-                } else {
-                    $('#selected_conversation_wrapper').fadeOut(150, function () {
-                        messages.fadeInConversation(data);
-                    });
-                }
-
-                if (scroll_to_selection) {
-                    var scroll_to = conv_index.scrollTop() + conv_link.position().top;
-                    conv_index.animate({
-                        scrollTop: scroll_to
-                    }, 1000);
-                }
-            }
-        });
-    },
     fadeInConversation: function (data) {
-        var outer_container = $('#selected_conversation_wrapper');
-        var inner_container = $('#conversation');
-        outer_container.html(data);
-        inner_container = $('#conversation');
-        inner_container.fadeIn(150);
-        if (outer_container.is(':visible')) {
-            inner_container.scrollTop(inner_container.prop('scrollHeight'));
+        const innerContainer = this.convo;
+        this.selectedConvoWrapper.innerHTML = data;
+        innerContainer.fadeIn(150);
+        if (this.selectedConvoWrapper.is(':visible')) {
+            innerContainer.scrollTop(innerContainer.prop('scrollHeight'));
         } else {
-            outer_container.fadeIn(150, function () {
-                inner_container.scrollTop(inner_container.prop('scrollHeight'));
+            this.selectedConvoWrapper.fadeIn(150, function () {
+                innerContainer.scrollTop(innerContainer.prop('scrollHeight'));
             });
         }
-        outer_container.find('form').submit(function (event) {
+        this.selectedConvoWrapper.find('form').submit(function (event) {
             event.preventDefault();
             messages.send();
         });
     },
+
     send: function () {
-        var outer_container = $('#selected_conversation_wrapper');
-        var recipientColor = outer_container.find('input[name=recipient]').val();
-        var data = {
-            message: outer_container.find('textarea').val(),
+        const recipientColor = this.selectedConvoWrapper.querySelector('input[name=recipient]').value;
+        const data = {
+            message: this.selectedConvoWrapper.querySelector('textarea').value,
             recipient: recipientColor
         };
-        var button = outer_container.find('input[type=submit]');
+        const button = this.selectedConvoWrapper.querySelector('input[type=submit]');
         $.ajax({
             type: 'POST',
             url: '/messages/send',
             data: data,
             dataType: 'json',
             beforeSend: function () {
-                button.prop('disabled', true);
-                $('<img src="/img/loading_small.gif" class="loading" alt="Loading..." />').insertBefore(button);
+                button.disabled = true;
+                button.parentNode.insertBefore(this.createLoadingIndicator(), button);
             },
             success: function (data) {
                 if (data.error) {
                     flashMessage.insert(data.error, 'error');
-                    button.prop('disabled', false);
-                    button.siblings('img.loading').remove();
+                    button.disabled = false;
+                    button.parentNode.querySelector('img.loading').remove();
                 }
                 if (data.success) {
-                    messages.selectConversation(recipientColor);
+                    window.location = '/messages/conversation/' + recipientColor;
                 }
             },
             error: function () {
                 flashMessage.insert('There was an error sending that message. Please try again.', 'error');
-                button.prop('disabled', false);
-                button.siblings('img.loading').remove();
-            }
+                button.disabled = false;
+                button.parentNode.querySelector('img.loading').remove();
+            },
         });
     },
+
+    createLoadingIndicator: function () {
+        const loadingIndicator = document.createElement('i');
+        loadingIndicator.title = 'Loading...';
+        loadingIndicator.className = 'fas fa-spinner fa-spin loading';
+        return loadingIndicator;
+    },
+
     setupPagination: function () {
-        var links = $('.convo_pagination a');
-        var loadingIndicator = $('<img src="/img/loading_small.gif" class="loading" alt="Loading..."/>');
-        loadingIndicator.hide();
-        links.append(loadingIndicator);
-        links.click(function (event) {
+        const paginationContainer = document.querySelector('.convo_pagination');
+        if (paginationContainer === null) {
+            return;
+        }
+
+        const paginationButton = paginationContainer.querySelector('button');
+        const loadingIndicator = paginationButton.querySelector('.loading');
+        paginationButton.addEventListener('click', (event) => {
             event.preventDefault();
-            var link = $(this);
-            var url = link.attr('href').split('?');
-            $.ajax({
-                data: url[1],
-                beforeSend: function () {
-                    var loading = link.children('.loading');
-                    if (loading.is(':visible')) {
-                        return false;
-                    }
-                    loading.show();
-                },
-                success: function (data) {
-                    var row = link.parents('.row');
-                    row.after(data);
-                    row.remove();
-                    messages.setupPagination();
-                },
-                error: function () {
-                    alert('There was an error loading more messages.');
-                },
-                complete: function () {
-                    link.children('.loading').hide();
-                }
+            paginationButton.append(loadingIndicator);
+            paginationButton.disabled = true;
+            loadingIndicator.style.visibility = 'visible';
+            fetch(paginationButton.dataset.url).then((response) => {
+                return response.text();
+            }).then((html) => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const content = doc.querySelector('body');
+                const container = document.createElement('div');
+                container.innerHTML = content.innerHTML
+                this.convo.prepend(container);
+                paginationContainer.remove();
+                this.setupPagination();
+            }).catch(() => {
+                alert('There was an error loading more messages.');
+            })
+            .finally(() => {
+                loadingIndicator.style.visibility = 'hidden';
             });
         });
     }

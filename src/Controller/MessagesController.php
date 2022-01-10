@@ -148,16 +148,20 @@ class MessagesController extends AppController
             'penpalId' => $penpalId
         ]);
 
-        if ($this->request->is('ajax')) {
-            return $this->render('conversation_page');
-        } else {
-            $this->set([
-                'titleForLayout' => 'Messages with Thinker #' . $penpalColor,
-                'penpalColor' => $penpal->color,
-                'penpalAcceptsMessages' => $this->Users->acceptsMessages($penpalId),
-                'messageEntity' => $this->Messages->newEntity()
-            ]);
+        // Just render the content, not the whole template
+        if ($this->request->is('ajax') || $this->getRequest()->getQuery('page')) {
+            // This isn't JSON, but the 'json' template returns JUST the content and nothing else, like we need
+            $this->viewBuilder()->setLayout('json');
+
+            return $this->render(DS . 'Element' . DS . 'Messages' . DS . 'conversation');
         }
+
+        $this->set([
+            'titleForLayout' => 'Messages with Thinker #' . $penpalColor,
+            'penpalColor' => $penpal->color,
+            'penpalAcceptsMessages' => $this->Users->acceptsMessages($penpalId),
+            'messageEntity' => $this->Messages->newEntity()
+        ]);
 
         return null;
     }

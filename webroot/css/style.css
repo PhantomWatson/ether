@@ -229,7 +229,7 @@ sup {
 
 a {
   color: #fff;
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:hover {
   color: #cccccc;
@@ -256,7 +256,7 @@ pre {
   margin-bottom: 1rem;
   overflow: auto;
   font-size: 0.875em;
-  color: inherit;
+  color: #ccc;
 }
 pre code {
   font-size: inherit;
@@ -572,7 +572,7 @@ progress {
 
 .blockquote {
   margin-bottom: 1rem;
-  font-size: 1.25rem;
+  font-size: 100%;
 }
 .blockquote > :last-child {
   margin-bottom: 0;
@@ -2901,7 +2901,6 @@ textarea.form-control-lg {
   line-height: 1.5;
   color: #aaa;
   text-align: center;
-  text-decoration: none;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
@@ -3371,8 +3370,8 @@ textarea.form-control-lg {
 
 .btn-link {
   font-weight: 400;
-  color: #fff;
-  text-decoration: underline;
+  color: #a88dbf;
+  text-decoration: none;
 }
 .btn-link:hover {
   color: #cccccc;
@@ -3668,7 +3667,6 @@ textarea.form-control-lg {
   font-weight: 400;
   color: #aaa;
   text-align: inherit;
-  text-decoration: none;
   white-space: nowrap;
   background-color: transparent;
   border: 0;
@@ -3861,7 +3859,6 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   color: #fff;
-  text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -3971,7 +3968,6 @@ textarea.form-control-lg {
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
   font-size: 1.25rem;
-  text-decoration: none;
   white-space: nowrap;
 }
 .navbar-nav {
@@ -4727,7 +4723,6 @@ textarea.form-control-lg {
   position: relative;
   display: block;
   color: #fff;
-  text-decoration: none;
   background-color: transparent;
   border: 1px solid rgba(0, 0, 0, 0.6);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -5009,7 +5004,6 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   color: #fff;
-  text-decoration: none;
   background-color: #32383e;
   border: 1px solid rgba(0, 0, 0, 0.6);
 }
@@ -12199,8 +12193,8 @@ body.popup_active #content_outer {
 #conversation .convo_pagination {
   text-align: center;
 }
-#conversation .loading {
-  margin-left: 10px;
+#conversation .convo_pagination .loading {
+  visibility: hidden;
 }
 
 #send_message textarea {

@@ -1,7 +1,6 @@
 @use 'sass:map';
+
 @import '../bootswatch/slate/_variables.scss';
-@import '../../vendor/twbs/bootstrap/scss/bootstrap.scss';
-@import '../bootswatch/slate/_bootswatch.scss';
 
 $blockquote-font-size: 100%;
 $ContentWidth: 500px;
@@ -10,12 +9,17 @@ $FontColorSuccess: #0D0;
 $FooterHeight: 70px;
 $generalTextColor: #ccc;
 $grid-float-breakpoint: 850px;
+$link-decoration: none;
 $linkColor: #a88dbf;
 $MessagesLighterBgColor: #151515;
 $section-vertical-margin: 30px;
 $table-bg: transparent;
 
+$btn-link-color: $linkColor;
 $pre-color: $generalTextColor;
+
+@import '../../vendor/twbs/bootstrap/scss/bootstrap.scss';
+@import '../bootswatch/slate/_bootswatch.scss';
 
 @font-face {
     font-family: 'Comic Sans MS';
@@ -914,10 +918,10 @@ body.popup_active {
 
     .convo_pagination {
         text-align: center;
-    }
 
-    .loading {
-        margin-left: 10px;
+        .loading {
+            visibility: hidden;
+        }
     }
 }
 
