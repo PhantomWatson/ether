@@ -51,8 +51,6 @@ $pagingUsed = $this->Paginator->hasNext() || ($this->Paginator->hasPrev() && ! $
     </div>
     <?php $this->append('buffered_js'); ?>
         messages.init();
-        messages.scrollToLastMsg();
-        messages.setupPagination();
     <?php $this->end(); ?>
 <?php endif; ?>
 

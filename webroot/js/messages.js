@@ -8,16 +8,19 @@ const messages = {
         this.convo = document.getElementById('conversation');
         this.convoIndex = document.getElementById('');
         this.selectedConvoWrapper = document.getElementById('selected_conversation_wrapper');
+        this.scrollToLastMsg();
+        this.setupPagination();
     },
 
     scrollToLastMsg: function () {
         const lastMsg = this.convo.querySelector('div.row:last-child');
-        if (lastMsg.length === 0) {
+        if (lastMsg === null) {
             return;
         }
 
-        // This should have a vertical offset to make up for the nav bar
-        //lastMsg.scrollIntoView();
+        const navBarOffset = -100;
+        const y = lastMsg.getBoundingClientRect().top + window.pageYOffset + navBarOffset;
+        window.scrollTo({top: y, behavior: 'smooth'});
     },
 
     cancelCurrentRequest: function () {
