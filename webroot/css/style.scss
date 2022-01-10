@@ -919,6 +919,9 @@ body.popup_active {
     .convo_pagination {
         text-align: center;
 
+        button {
+            padding-left: 32px; /* counters the pre-positioned loading indicator on right */
+        }
         .loading {
             visibility: hidden;
         }
