@@ -12854,13 +12854,8 @@ div.named-color > .colorbox {
   padding: 0;
 }
 .patrons li {
-  display: inline-block;
   font-size: 1.5em;
   list-style-type: none;
-  margin-right: 3em;
-}
-.patrons li:last-child {
-  margin-right: 0;
 }
 
 .patron-category {
