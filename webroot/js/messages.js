@@ -3,6 +3,7 @@ const messages = {
     convoIndex: null,
     currentRequest: null,
     selectedConvoWrapper: null,
+    navBarOffset: -100,
 
     init: function () {
         this.convo = document.getElementById('conversation');
@@ -18,9 +19,7 @@ const messages = {
             return;
         }
 
-        const navBarOffset = -100;
-        const y = lastMsg.getBoundingClientRect().top + window.pageYOffset + navBarOffset;
-        window.scrollTo({top: y, behavior: 'smooth'});
+        this.scrollTo(lastMsg);
     },
 
     cancelCurrentRequest: function () {
@@ -89,6 +88,11 @@ const messages = {
         return loadingIndicator;
     },
 
+    scrollTo: function (element) {
+        const y = element.getBoundingClientRect().top + window.pageYOffset + this.navBarOffset;
+        window.scrollTo({top: y, behavior: 'smooth'});
+    },
+
     setupPagination: function () {
         const paginationContainer = document.querySelector('.convo_pagination');
         if (paginationContainer === null) {
@@ -105,12 +109,19 @@ const messages = {
             fetch(paginationButton.dataset.url).then((response) => {
                 return response.text();
             }).then((html) => {
+                // Add new content to the screen
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
                 const content = doc.querySelector('body');
                 const container = document.createElement('div');
                 container.innerHTML = content.innerHTML
                 this.convo.prepend(container);
+
+                // Scroll to last new message
+                const lastNewMsg = container.querySelector('div.row:last-child');
+                this.scrollTo(lastNewMsg);
+
+                // Remove old pagination button and set up new one
                 paginationContainer.remove();
                 this.setupPagination();
             }).catch(() => {
