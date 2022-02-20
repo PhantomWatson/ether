@@ -292,22 +292,6 @@
 
                 <dt>
                     <a href="#">
-                        How do I style my thoughts with Markdown?
-                    </a>
-                </dt>
-                <dd>
-                        A list of all the supported styles (bold, italics, lists, etc.) can be found on the
-                        <?= $this->Html->link(
-                            'Markdown guide',
-                            [
-                                'controller' => 'Pages',
-                                'action' => 'markdown'
-                            ]
-                        ) ?>. Markdown is also supported in comments, messages, and "introspection" profile text.
-                </dd>
-
-                <dt>
-                    <a href="#">
                         Why can't I comment on some thoughts?
                     </a>
                 </dt>

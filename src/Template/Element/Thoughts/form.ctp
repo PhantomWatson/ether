@@ -56,17 +56,6 @@
         <div id="thought-rich-text-editor"></div>
         <textarea id="input-thought-body" name="thought"><?= $thought->thought ?></textarea>
 
-        <p>
-            Styles like *<em>italics</em>* and **<strong>bold</strong>** can be applied with Markdown. For a full list of supported styles, consult the
-            <?= $this->Html->link('Markdown styling guide',
-                [
-                    'controller' => 'Pages',
-                    'action' => 'markdown'
-                ],
-                ['target' => '_blank']
-            ) ?>
-        </p>
-
         <div>
             <p id="options-header">
                 Options
