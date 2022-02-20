@@ -527,12 +527,16 @@ body.popup_active {
     }
 
     label[for="input-thought-word"],
-    label[for="input-thought-body"],
+    label[for="thought-rich-text-editor"],
     #options-header,
     div.submit {
         font-size: 1.5em;
         margin-top: 1em;
     }
+}
+
+#input-thought-body {
+    display: none;
 }
 
 .user_profile {
@@ -1811,4 +1815,17 @@ div.named-color {
     border: none;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
+}
+
+.toastui-editor-contents {
+    font-size: 120%;
+}
+
+blockquote {
+    background-color: rgba(0, 0, 0, .25);
+    border-color: #303135;
+    border-left: 4px solid #e5e5e5;
+    color: darken($generalTextColor, 10%);
+    margin: 14px 0;
+    padding: 0 16px;
 }

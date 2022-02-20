@@ -52,19 +52,9 @@
             ]
         ) ?>
 
-        <?= $this->Form->control(
-            'thought',
-            [
-                'class' => 'form-control',
-                'label' => [
-                    'class' => 'control-label',
-                    'text' => 'Thought'
-                ],
-                'type' => 'textarea',
-                'placeholder' => 'What\'s on your mind?',
-                'id' => 'input-thought-body'
-            ]
-        ) ?>
+        <label class="control-label" for="thought-rich-text-editor">Thought</label>
+        <div id="thought-rich-text-editor"></div>
+        <textarea id="input-thought-body" name="thought"><?= $thought->thought ?></textarea>
 
         <p>
             Styles like *<em>italics</em>* and **<strong>bold</strong>** can be applied with Markdown. For a full list of supported styles, consult the
@@ -105,3 +95,11 @@
 
     </div>
 </div>
+
+<script>
+    new ThoughtForm({
+        toastui,
+        DOMPurify,
+        markdown: <?= json_encode($thought->thought ?? '') ?>,
+    });
+</script>

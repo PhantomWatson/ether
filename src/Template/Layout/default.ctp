@@ -43,8 +43,8 @@ $ogTags = isset($ogTags) ? array_merge($defaultOgTags, $ogTags) : $defaultOgTags
         <?php
             $cssFiles = [
                 '/font-awesome/css/all.min.css',
+                'toastui-editor.min.css',
                 'toastui-editor-dark.min.css',
-                'toastui-editor-only.min.css',
             ];
             echo $this->Html->css($cssFiles);
             echo $this->Html->css('style');
@@ -64,6 +64,8 @@ $ogTags = isset($ogTags) ? array_merge($defaultOgTags, $ogTags) : $defaultOgTags
                 '/js/thoughtword-index.js',
                 '/js/user-index.js',
                 '/js/toastui-editor-all.min.js',
+                '/js/purify.min.js',
+                '/js/thought-form.js',
             ];
             echo $this->Html->script($scriptFiles);
         ?>
