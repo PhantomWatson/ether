@@ -29,15 +29,6 @@ $ogTags = isset($ogTags) ? array_merge($defaultOgTags, $ogTags) : $defaultOgTags
         <title>
             <?= $title ?>
         </title>
-        <link rel="dns-prefetch" href="//ajax.googleapis.com" />
-        <link rel="icon" type="image/png" href="/img/favicon.png" />
-        <link rel="stylesheet" href="/font-awesome/css/all.min.css" />
-        <script src="/js/popper.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
-        <?php
-            echo $this->Html->css('style');
-            echo $this->fetch('meta');
-        ?>
         <meta name="title" content="<?= $title ?>" />
         <meta name="description" content="Ether: An experimental freeform thought repository. What's on YOUR mind?" />
         <meta name="author" content="Phantom Watson" />
@@ -46,8 +37,20 @@ $ogTags = isset($ogTags) ? array_merge($defaultOgTags, $ogTags) : $defaultOgTags
         <?php foreach ($ogTags as $property => $content): ?>
             <meta property="<?= $property ?>" content="<?= h($content) ?>" />
         <?php endforeach; ?>
+        <?= $this->fetch('meta') ?>
+        <link rel="dns-prefetch" href="//ajax.googleapis.com" />
+        <link rel="icon" type="image/png" href="/img/favicon.png" />
         <?php
+            $cssFiles = [
+                '/font-awesome/css/all.min.css',
+                'toastui-editor-dark.min.css',
+                'toastui-editor-only.min.css',
+            ];
+            echo $this->Html->css($cssFiles);
+            echo $this->Html->css('style');
             $scriptFiles = [
+                '/js/popper.min.js',
+                '/js/bootstrap.min.js',
                 '/js/comment.js',
                 '/js/flash-message.js',
                 '/js/messages.js',
@@ -59,11 +62,10 @@ $ogTags = isset($ogTags) ? array_merge($defaultOgTags, $ogTags) : $defaultOgTags
                 '/js/suggested.js',
                 '/js/thought.js',
                 '/js/thoughtword-index.js',
-                '/js/user-index.js'
+                '/js/user-index.js',
+                '/js/toastui-editor-all.min.js',
             ];
-            foreach ($scriptFiles as $scriptFile) {
-                echo $this->Html->script($scriptFile);
-            }
+            echo $this->Html->script($scriptFiles);
         ?>
     </head>
     <body>
