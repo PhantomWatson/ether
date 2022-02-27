@@ -83,8 +83,9 @@ services:
     volumes:
       - ..:${PHP_APP_DIR}
       - ../logs/docker/php:${PHP_ROOT_DIR}/logs
-      - ./php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini
-      - ./php-fpm/90-xdebug.ini:/etc/php/7.4/fpm/conf.d/90-xdebug.ini
+      #- ../logs/docker/xdebug.log:/usr/local/etc/logs/xdebug.log
+      - ./php-fpm/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
+      - ./php-fpm/90-xdebug.ini:/usr/local/etc/php/conf.d/90-xdebug.ini
     depends_on:
       - apache
       - mysql
