@@ -427,7 +427,7 @@ body.popup_active {
     border: 1px solid #FFF;
     display: inline-block;
     height: 20px;
-    line-height: 20px;
+    line-height: 23px;
     text-align: center;
     width: 20px;
 
@@ -1175,6 +1175,14 @@ body.popup_active {
         img {
             height: 10px;
             width: 10px;
+        }
+
+        &[title="Phantom"] {
+            text-align: center;
+            height: 15px;
+            width: 15px;
+            font-size: 10px;
+            line-height: 15px;
         }
     }
 

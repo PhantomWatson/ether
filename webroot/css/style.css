@@ -11792,7 +11792,7 @@ body.popup_active #content_outer {
   border: 1px solid #FFF;
   display: inline-block;
   height: 20px;
-  line-height: 20px;
+  line-height: 23px;
   text-align: center;
   width: 20px;
 }
@@ -12392,6 +12392,13 @@ body.popup_active #abc_thoughts_shortcuts .nav-tabs > li.active > a {
 #recent .colorbox img {
   height: 10px;
   width: 10px;
+}
+#recent .colorbox[title=Phantom] {
+  text-align: center;
+  height: 15px;
+  width: 15px;
+  font-size: 10px;
+  line-height: 15px;
 }
 #recent .info {
   color: #ccc;
