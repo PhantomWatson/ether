@@ -48,7 +48,7 @@
 		}
 	},
 	"scripts" : {
-		"post-install-cmd" : "App\\Console\\Installer::postInstall",
+		"post-install-cmd" : "App\\Console\\Installer::postInstall"
 	},
 	"minimum-stability" : "dev",
 	"prefer-stable" : true,
