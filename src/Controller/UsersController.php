@@ -123,30 +123,7 @@ class UsersController extends AppController
     public function login()
     {
         if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
-            if ($user) {
-                $this->Auth->setUser($user);
-                if ($this->Auth->authenticationProvider()->needsPasswordRehash()) {
-                    $user = $this->Users->get($this->Auth->user('id'));
-                    $user->password = $this->request->getData('password');
-                    $user->password_version = 3;
-                    $this->Users->save($user);
-                }
-
-                // Remember login in cookie
-                $this->Cookie->configKey('CookieAuth', [
-                    'expires' => '+1 year',
-                    'httpOnly' => true
-                ]);
-                $this->Cookie->write('CookieAuth', [
-                    'email' => $this->request->getData('email'),
-                    'password' => $this->request->getData('password')
-                ]);
-
-                return $this->redirect($this->Auth->redirectUrl());
-            } else {
-                $this->Flash->error('Email or password is incorrect');
-            }
+            $this->_login();
         }
         $this->set([
             'title_for_layout' => 'Log in'
@@ -410,9 +387,18 @@ class UsersController extends AppController
         ]);
 
         if ($this->Users->save($user)) {
-            $this->Flash->success('Your account has been registered. You may now log in.');
+            // Copy new_password to password so login will work
+            $this->request = $this->request->withData('password', $this->request->getData('new_password'));
 
-            return $this->redirect(['action' => 'login']);
+            $loginResult = $this->_login();
+            if ($loginResult) {
+                $this->Flash->success('Your account has been registered, and you\'ve been logged in. Welcome!');
+
+                return $loginResult;
+            }
+
+            $this->Flash->success('Your account has been registered, and you can now log in. Welcome!');
+            $this->redirect('/login');
         }
 
         $errorMsg = print_r($user->getErrors(), true);
@@ -436,5 +422,40 @@ class UsersController extends AppController
         } while ($isTaken);
 
         return $randomColor;
+    }
+
+    /**
+     * Logs the user in with request data and returns a redirect if successful
+     *
+     * @return \Cake\Http\Response|null
+     */
+    private function _login()
+    {
+        $user = $this->Auth->identify();
+        if ($user) {
+            $this->Auth->setUser($user);
+            if ($this->Auth->authenticationProvider()->needsPasswordRehash()) {
+                $user = $this->Users->get($this->Auth->user('id'));
+                $user->password = $this->request->getData('password');
+                $user->password_version = 3;
+                $this->Users->save($user);
+            }
+
+            // Remember login in cookie
+            $this->Cookie->configKey('CookieAuth', [
+                'expires' => '+1 year',
+                'httpOnly' => true
+            ]);
+            $this->Cookie->write('CookieAuth', [
+                'email' => $this->request->getData('email'),
+                'password' => $this->request->getData('password')
+            ]);
+
+            return $this->redirect($this->Auth->redirectUrl());
+        }
+
+        $this->Flash->error('Email or password is incorrect');
+
+        return null;
     }
 }
