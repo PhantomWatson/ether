@@ -2,8 +2,24 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
+ * @var string $title_for_layout
  */
+
+use Cake\Core\Configure;
+
+$this->Html->script('https://www.google.com/recaptcha/api.js', ['block' => true]);
+$this->Html->script('/jscolor/jscolor.js', ['block' => true]);
 ?>
+<?php $this->append('buffered_js'); ?>
+    registration.init();
+<?php $this->end(); ?>
+
+<script>
+    function onSubmit(token) {
+        document.getElementById('register').submit();
+    }
+</script>
+
 <div id="content_title">
     <h1>
         <?= $title_for_layout ?>
@@ -12,7 +28,7 @@
 
 <div class="content_box">
     <?php
-        echo $this->Form->create($user);
+        echo $this->Form->create($user, ['id' => 'register']);
         echo $this->Form->control(
             'email',
             [
@@ -65,13 +81,6 @@
         <label>
             Human?
         </label>
-        <?php
-            try {
-                echo $this->Recaptcha->display();
-            } catch (Exception $e) {
-                echo '<div class="error-message">Error displaying CAPTCHA challenge</div>';
-            }
-        ?>
         <?php if (isset($recaptchaError)): ?>
             <div class="error-message">
                 Invalid CAPTCHA response. Please try again.
@@ -82,13 +91,13 @@
     <?php
         echo $this->Form->submit(
             'Register',
-            ['class' => 'btn btn-primary']
+            [
+                'class' => 'btn btn-primary g-recaptcha',
+                'data-sitekey' => Configure::read('Recaptcha.sitekey'),
+                'data-callback' => 'onSubmit',
+                'data-action' => 'submit',
+            ]
         );
         echo $this->Form->end();
     ?>
 </div>
-
-<?php $this->Html->script('/jscolor/jscolor.js', ['block' => true]); ?>
-<?php $this->append('buffered_js'); ?>
-    registration.init();
-<?php $this->end(); ?>

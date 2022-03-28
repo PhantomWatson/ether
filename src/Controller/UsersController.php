@@ -2,20 +2,20 @@
 namespace App\Controller;
 
 use App\Color\Color;
+use App\Model\Entity\User;
 use App\Model\Table\MessagesTable;
 use App\Model\Table\UsersTable;
+use Cake\Core\Configure;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Exception;
-use Recaptcha\Controller\Component\RecaptchaComponent;
 
 /**
  * Users Controller
  *
  * @property UsersTable $Users
  * @property MessagesTable $Messages
- * @property RecaptchaComponent $Recaptcha
  */
 class UsersController extends AppController
 {
@@ -37,10 +37,6 @@ class UsersController extends AppController
             'resetPassword',
             'view'
         ]);
-
-        if ($this->request->getParam('action') === 'register') {
-            $this->loadComponent('Recaptcha.Recaptcha');
-        }
 
         $this->loadComponent('RequestHandler');
     }
@@ -96,51 +92,18 @@ class UsersController extends AppController
     public function register()
     {
         $user = $this->Users->newEntity();
+        $this->set([
+            'title_for_layout' => 'Register Account',
+            'user' => $user
+        ]);
+
         if ($this->request->is('post')) {
-            if ($this->Recaptcha->verify()) {
-                $user = $this->Users->patchEntity($user, $this->request->getData());
-
-                // Clean email and color
-                $cleanEmail = trim($user->email);
-                $cleanEmail = strtolower($cleanEmail);
-                $cleanColor = strtolower($user->color);
-                $cleanColor = preg_replace("/[^a-z0-9]/", '', $cleanColor);
-
-                if (!$this->Users->colorIsTaken($cleanColor)) {
-                    $user->set([
-                        'password' => $this->request->getData('new_password'),
-                        'email' => $cleanEmail,
-                        'color' => $cleanColor,
-                        'password_version' => 3,
-                        'is_admin' => 0
-                    ]);
-
-                    if ($this->Users->save($user)) {
-                        $this->Flash->success('Your account has been registered. You may now log in.');
-
-                        return $this->redirect(['action' => 'login']);
-                    } else {
-                        $this->Flash->error('There was an error registering your account. Please try again.');
-                    }
-                } else {
-                    $this->Flash->error(
-                        "Sorry, the color #$cleanColor is already taken. You could try tweaking that color slightly " .
-                        'and seeing if the new color is available, or you could pick a completely different color.'
-                    );
-                }
-            } else {
-                $this->set('recaptchaError', true);
+            if ($this->verifyCaptcha()) {
+                return $this->processRegister($user);
             }
+            $this->set('recaptchaError', true);
         } else {
-            // Select a random available color
-            do {
-                $randomColor = '';
-                for ($n = 1; $n <= 3; $n++) {
-                    $randomColor .= str_pad(dechex(rand(0, 250)), 2, '0', STR_PAD_LEFT);
-                }
-                $isTaken = $this->Users->colorIsTaken($randomColor);
-            } while ($isTaken);
-            $this->request = $this->request->withData('color', $randomColor);
+            $this->request = $this->request->withData('color', $this->getRandomColor());
             $this->set('randomColor', true);
         }
 
@@ -148,11 +111,6 @@ class UsersController extends AppController
          * is bounced back to the page by a validation error */
         $this->request = $this->request->withData('new_password', null);
         $this->request = $this->request->withData('confirm_password', null);
-
-        $this->set([
-            'title_for_layout' => 'Register Account',
-            'user' => $user
-        ]);
 
         return null;
     }
@@ -383,5 +341,100 @@ class UsersController extends AppController
         $this->view($color);
 
         return $this->render('view');
+    }
+
+    /**
+     * Returns a boolean indicating if the last CAPTCHA response is valid and shows a Flash error message if not
+     *
+     * @return bool
+     */
+    private function verifyCaptcha(): bool
+    {
+        $response = $this->request->getData('g-recaptcha-response');
+        $url = 'https://www.google.com/recaptcha/api/siteverify';
+        $secret = Configure::read('Recaptcha.secret');
+        $postData = compact('secret', 'response');
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        $resultJson = json_decode($result, true);
+
+        if ($resultJson['success'] ?? false) {
+            return true;
+        }
+
+        $errorMsg = isset($resultJson['error-codes'])
+            ? implode('; ', $resultJson['error-codes'])
+            : 'There was an error processing your CAPTCHA challenge';
+        $this->Flash->error($errorMsg);
+
+        return false;
+    }
+
+    /**
+     * Processes a registration attempt, assuming that CAPTCHA challenge has been passed
+     *
+     * @param \App\Model\Entity\User $user
+     * @return \Cake\Http\Response|null
+     */
+    private function processRegister(User $user): ?Response
+    {
+        $user = $this->Users->patchEntity($user, $this->request->getData());
+
+        // Clean email and color
+        $cleanEmail = trim($user->email);
+        $cleanEmail = strtolower($cleanEmail);
+        $cleanColor = strtolower($user->color);
+        $cleanColor = preg_replace("/[^a-z0-9]/", '', $cleanColor);
+
+        if ($this->Users->colorIsTaken($cleanColor)) {
+            $this->Flash->error(
+                "Sorry, the color #$cleanColor is already taken. You could try tweaking that color slightly " .
+                'and seeing if the new color is available, or you could pick a completely different color.'
+            );
+
+            return null;
+        }
+
+        $user->set([
+            'password' => $this->request->getData('new_password'),
+            'email' => $cleanEmail,
+            'color' => $cleanColor,
+            'password_version' => 3,
+            'is_admin' => 0
+        ]);
+
+        if ($this->Users->save($user)) {
+            $this->Flash->success('Your account has been registered. You may now log in.');
+
+            return $this->redirect(['action' => 'login']);
+        }
+
+        $errorMsg = print_r($user->getErrors(), true);
+        $this->Flash->error('There was an error registering your account. Please try again. Details: ' . $errorMsg);
+        return null;
+    }
+
+    /**
+     * Returns a random available color
+     *
+     * @return string
+     */
+    private function getRandomColor(): string
+    {
+        do {
+            $randomColor = '';
+            for ($n = 1; $n <= 3; $n++) {
+                $randomColor .= str_pad(dechex(rand(0, 250)), 2, '0', STR_PAD_LEFT);
+            }
+            $isTaken = $this->Users->colorIsTaken($randomColor);
+        } while ($isTaken);
+
+        return $randomColor;
     }
 }
