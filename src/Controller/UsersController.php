@@ -406,8 +406,15 @@ class UsersController extends AppController
             $this->redirect('/login');
         }
 
-        $errorMsg = print_r($user->getErrors(), true);
-        $this->Flash->error('There was an error registering your account. Please try again. Details: ' . $errorMsg);
+        $errorsMsgs = [];
+        foreach ($user->getErrors() as $field => $errors) {
+            $errorsMsgs = array_merge($errorsMsgs, array_values($errors));
+        }
+
+        $this->Flash->error(
+            'There was an error registering your account. Please try again. Details: '
+            . implode('; ', $errorsMsgs)
+        );
         return null;
     }
 
