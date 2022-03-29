@@ -16,6 +16,7 @@ use Exception;
  *
  * @property UsersTable $Users
  * @property MessagesTable $Messages
+ * @property \App\Model\Table\ThoughtsTable $Thoughts
  */
 class UsersController extends AppController
 {
@@ -94,23 +95,24 @@ class UsersController extends AppController
         $user = $this->Users->newEntity();
         $this->set([
             'title_for_layout' => 'Register Account',
-            'user' => $user
+            'user' => $user,
         ]);
 
         if ($this->request->is('post')) {
-            if ($this->verifyCaptcha()) {
+            if ($this->verifyForegroundCaptcha() && $this->verifyBackgroundCaptcha()) {
                 return $this->processRegister($user);
             }
-            $this->set('recaptchaError', true);
-        } else {
-            $this->request = $this->request->withData('color', $this->getRandomColor());
-            $this->set('randomColor', true);
+
+            /* So the password fields aren't filled out automatically when the user
+             * is bounced back to the page by a validation error */
+            $this->request = $this->request->withData('new_password', null);
+            $this->request = $this->request->withData('confirm_password', null);
+
+            return null;
         }
 
-        /* So the password fields aren't filled out automatically when the user
-         * is bounced back to the page by a validation error */
-        $this->request = $this->request->withData('new_password', null);
-        $this->request = $this->request->withData('confirm_password', null);
+        $this->request = $this->request->withData('color', $this->getRandomColor());
+        $this->set('randomColor', true);
 
         return null;
     }
@@ -325,7 +327,7 @@ class UsersController extends AppController
      *
      * @return bool
      */
-    private function verifyCaptcha(): bool
+    private function verifyBackgroundCaptcha(): bool
     {
         $response = $this->request->getData('g-recaptcha-response');
         $url = 'https://www.google.com/recaptcha/api/siteverify';
@@ -345,9 +347,12 @@ class UsersController extends AppController
             return true;
         }
 
-        $errorMsg = isset($resultJson['error-codes'])
-            ? implode('; ', $resultJson['error-codes'])
-            : 'There was an error processing your CAPTCHA challenge';
+        $errorMsg = 'The background spam bot detection system has flagged your request as being suspicious. ' .
+            'Please try again later, or try using a normal browsing session instead of private/incognito mode, or '.
+            'hit up the <a href="/contact">contact page</a> for assistance.';
+        $errorMsg .= isset($resultJson['error-codes'])
+            ? ' Details: ' . implode('; ', $resultJson['error-codes'])
+            : '';
         $this->Flash->error($errorMsg);
 
         return false;
@@ -457,5 +462,31 @@ class UsersController extends AppController
         $this->Flash->error('Email or password is incorrect');
 
         return null;
+    }
+
+    /**
+     * Returns TRUE if the last user-input CAPTCHA response is valid and shows a Flash error message otherwise
+     *
+     * @return bool
+     */
+    private function verifyForegroundCaptcha(): bool
+    {
+        $this->loadModel('Thoughts');
+
+        $mostRecent = $this->Thoughts->getThoughtwordWithMostRecentActivity();
+
+        $input = trim(strtolower($this->request->getData('thoughtword-captcha')));
+        $valid = $mostRecent == $input;
+
+        if ($valid) {
+            return true;
+        }
+
+        $this->Flash->error(
+            'That wasn\'t the most recent thoughtword to be written to. Try copying and pasting it from the front page.'
+            . " $mostRecent != $input"
+        );
+
+        return false;
     }
 }

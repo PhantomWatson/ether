@@ -309,13 +309,20 @@ class ThoughtsTable extends Table
     public function findRecentActivity(Query $query, array $options)
     {
         $combinedQuery = $this->getThoughtsAndComments();
-        $limit = 10;
-        $offset = $query->clause('offset');
+
+        $limit = $query->clause('limit') ?? 10;
         $direction = isset($_GET['direction']) ? strtolower($_GET['direction']) : 'desc';
         if (! in_array($direction, ['asc', 'desc'])) {
             throw new BadRequestException('Invalid sorting direction');
         }
-        $combinedQuery->epilog("ORDER BY created $direction LIMIT $limit OFFSET $offset");
+        $epilogue = "ORDER BY created $direction LIMIT $limit";
+
+        $offset = $query->clause('offset');
+        if ($offset) {
+            $epilogue .= " OFFSET $offset";
+        }
+
+        $combinedQuery->epilog($epilogue);
         $combinedQuery->counter(function ($query) {
             $comments = TableRegistry::getTableLocator()->get('Comments');
 
@@ -865,5 +872,15 @@ class ThoughtsTable extends Table
         $results = $this->find('withQuestions')->select(['id'])->toArray();
 
         return Hash::extract($results, '{n}.id');
+    }
+
+    /**
+     * Returns the thoughtword that most recently received a thought or a comment
+     *
+     * @return string
+     */
+    public function getThoughtwordWithMostRecentActivity(): string
+    {
+        return $this->find('recentActivity')->all()->first()->thought_word;
     }
 }

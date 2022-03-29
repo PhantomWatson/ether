@@ -26,9 +26,34 @@ $this->Html->script('/jscolor/jscolor.js', ['block' => true]);
     </h1>
 </div>
 
+<?= $this->Form->create($user, ['id' => 'register']) ?>
+<div class="content_box">
+    <div class="form-group required">
+        <label for="thoughtword-captcha">
+            <strong>
+                Spam Bot Check
+            </strong>
+            <br />
+            Check the "Recent" section of the front page and enter <strong>the most recent thoughtword</strong> to have
+            a thought or comment added to it.
+        </label>
+        <input type="text" id="thoughtword-captcha" name="thoughtword-captcha" class="form-control"
+               required="required" />
+        <?php if ($captchaError ?? false): ?>
+            <div class="error-message">
+                Invalid response. Please check the front page and try again.
+            </div>
+        <?php endif; ?>
+        <p class="footnote">
+            Ether gets a lot of spam bots trying to register accounts, so this is a check to confirm that you're
+            a real person. Just go to the front page and look for the first word under "Recent". Need help? Try the
+            <?= $this->Html->link('contact page', ['controller' => 'Pages', 'action' => 'contact']) ?>.
+        </p>
+    </div>
+</div>
+
 <div class="content_box">
     <?php
-        echo $this->Form->create($user, ['id' => 'register']);
         echo $this->Form->control(
             'email',
             [
@@ -77,17 +102,6 @@ $this->Html->script('/jscolor/jscolor.js', ['block' => true]);
         <?php endif; ?>
     </div>
 
-    <div class="input">
-        <label>
-            Human?
-        </label>
-        <?php if (isset($recaptchaError)): ?>
-            <div class="error-message">
-                Invalid CAPTCHA response. Please try again.
-            </div>
-        <?php endif; ?>
-    </div>
-
     <?php
         echo $this->Form->submit(
             'Register',
@@ -98,6 +112,6 @@ $this->Html->script('/jscolor/jscolor.js', ['block' => true]);
                 'data-action' => 'submit',
             ]
         );
-        echo $this->Form->end();
     ?>
 </div>
+<?= $this->Form->end() ?>

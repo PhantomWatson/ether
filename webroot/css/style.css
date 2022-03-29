@@ -11497,6 +11497,9 @@ form .footnote {
   color: #CCC;
   font-size: 70%;
 }
+form .footnote:last-child {
+  margin-bottom: 0;
+}
 
 .error-message {
   color: #F00;
@@ -11817,6 +11820,13 @@ body.popup_active #content_outer {
   margin-right: auto;
   padding: 10px;
   width: 500px;
+}
+.content_box .form-group:last-child {
+  margin-bottom: 0;
+}
+
+.content_box + .content_box {
+  margin-top: 30px;
 }
 
 #overlaid {
