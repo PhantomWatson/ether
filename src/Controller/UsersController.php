@@ -103,10 +103,7 @@ class UsersController extends AppController
                 return $this->processRegister($user);
             }
 
-            /* So the password fields aren't filled out automatically when the user
-             * is bounced back to the page by a validation error */
-            $this->request = $this->request->withData('new_password', null);
-            $this->request = $this->request->withData('confirm_password', null);
+            $this->clearPassword();
 
             return null;
         }
@@ -379,6 +376,7 @@ class UsersController extends AppController
                 "Sorry, the color #$cleanColor is already taken. You could try tweaking that color slightly " .
                 'and seeing if the new color is available, or you could pick a completely different color.'
             );
+            $this->clearPassword();
 
             return null;
         }
@@ -407,7 +405,7 @@ class UsersController extends AppController
         }
 
         $errorsMsgs = [];
-        foreach ($user->getErrors() as $field => $errors) {
+        foreach ($user->getErrors() as $errors) {
             $errorsMsgs = array_merge($errorsMsgs, array_values($errors));
         }
 
@@ -415,6 +413,7 @@ class UsersController extends AppController
             'There was an error registering your account. Please try again. Details: '
             . implode('; ', $errorsMsgs)
         );
+        $this->clearPassword();
         return null;
     }
 
@@ -495,5 +494,17 @@ class UsersController extends AppController
         );
 
         return false;
+    }
+
+    /**
+     * So the password fields aren't filled out automatically when the user
+     * is bounced back to the page by a validation error
+     *
+     * @return void
+     */
+    private function clearPassword(): void
+    {
+        $this->request = $this->request->withData('new_password', null);
+        $this->request = $this->request->withData('confirm_password', null);
     }
 }
