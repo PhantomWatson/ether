@@ -16,7 +16,13 @@ $this->Html->script('/jscolor/jscolor.js', ['block' => true]);
 
 <script>
     function onSubmit(token) {
-        document.getElementById('register').submit();
+        const form = document.getElementById('register');
+        if (form.checkValidity()) {
+            form.submit();
+        } else {
+            grecaptcha.reset();
+            form.reportValidity();
+        }
     }
 </script>
 
