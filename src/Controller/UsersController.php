@@ -490,7 +490,6 @@ class UsersController extends AppController
 
         $this->Flash->error(
             'That wasn\'t the most recent thoughtword to be written to. Try copying and pasting it from the front page.'
-            . " $mostRecent != $input"
         );
 
         return false;
