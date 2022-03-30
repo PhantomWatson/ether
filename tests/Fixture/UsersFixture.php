@@ -1,13 +1,11 @@
 <?php
 namespace App\Test\Fixture;
 
-use Cake\TestSuite\Fixture\TestFixture;
-
 /**
  * UsersFixture
  *
  */
-class UsersFixture extends TestFixture
+class UsersFixture extends AppFixture
 {
 
     /**
@@ -41,30 +39,56 @@ class UsersFixture extends TestFixture
         ],
     ];
 
+    public $defaultData = [
+        'password' => 'Lorem ipsum dolor sit amet',
+        'password_version' => 1,
+        'is_admin' => 0,
+        'email' => 'Lorem ipsum dolor sit amet',
+        'color' => 'Lore',
+        'messageNotification' => 1,
+        'profile' => 'Lorem ipsum dolor sit amet.',
+        'acceptMessages' => 1,
+        'emailUpdates' => 1,
+        'created' => '2015-01-15 07:20:47',
+        'modified' => '2015-01-15 07:20:47'
+    ];
+
+    const HAS_SENT_MESSAGES = 1;
+    const HAS_RECEIVED_MESSAGES = 2;
+    const HAS_COMMENTS = 3;
+    const HAS_THOUGHTS = 4;
+    const HAS_PROFILE = 5;
+    const NO_ACTIVITY_AND_OLD = 6;
+    const NO_ACTIVITY_AND_RECENT = 7;
+
     /**
      * Records
      *
      * @var array
      */
-    public $records = [
-        [
-            'id' => 1,
-            'username' => 'Lorem ipsum dolor sit amet',
-            'password' => 'Lorem ipsum dolor sit amet',
-            'password_version' => 1,
-            'userid' => 'Lorem ipsum dolor sit amet',
-            'userlevel' => 1,
-            'is_admin' => 1,
-            'email' => 'Lorem ipsum dolor sit amet',
-            'timestamp' => 1,
-            'color' => 'Lore',
-            'messageNotification' => 1,
-            'profile' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-            'acceptMessages' => 1,
-            'emailUpdates' => 1,
-            'newMessages' => 1,
-            'created' => '2015-01-15 07:20:47',
-            'modified' => '2015-01-15 07:20:47'
-        ],
-    ];
+    public $records = [];
+
+    public function init()
+    {
+        parent::init();
+
+        $this->addRecord(['id' => self::HAS_SENT_MESSAGES]);
+        $this->addRecord(['id' => self::HAS_RECEIVED_MESSAGES]);
+        $this->addRecord(['id' => self::HAS_COMMENTS]);
+        $this->addRecord(['id' => self::HAS_THOUGHTS]);
+        $this->addRecord([
+            'id' => self::HAS_PROFILE,
+            'profile' => 'Lorem ipsum',
+        ]);
+        $this->addRecord([
+            'id' => self::NO_ACTIVITY_AND_OLD,
+            'created' => new \DateTime('-7 months'),
+            'profile' => '',
+        ]);
+        $this->addRecord([
+            'id' => self::NO_ACTIVITY_AND_RECENT,
+            'created' => new \DateTime('-1 day'),
+            'profile' => '',
+        ]);
+    }
 }

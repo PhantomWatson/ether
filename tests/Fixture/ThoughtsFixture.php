@@ -1,13 +1,11 @@
 <?php
 namespace App\Test\Fixture;
 
-use Cake\TestSuite\Fixture\TestFixture;
-
 /**
  * ThoughtsFixture
  *
  */
-class ThoughtsFixture extends TestFixture
+class ThoughtsFixture extends AppFixture
 {
 
     /**
@@ -44,21 +42,30 @@ class ThoughtsFixture extends TestFixture
      *
      * @var array
      */
-    public $records = [
-        [
-            'id' => 1,
-            'user_id' => 1,
-            'word' => 'testword',
-            'thought' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-            'color' => 'Lore',
-            'time' => 1,
-            'edited' => 1,
-            'comments_enabled' => 1,
-            'formatted_thought' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-            'cacheTimestamp' => 1,
-            'anonymous' => 1,
-            'created' => '2015-01-15 07:20:25',
-            'modified' => '2015-01-15 07:20:25'
-        ],
+    public $records = [];
+
+    public $defaultData = [
+        'user_id' => 1,
+        'word' => 'testword',
+        'thought' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+        'color' => 'Lore',
+        'time' => 1,
+        'edited' => 1,
+        'comments_enabled' => 1,
+        'formatted_thought' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+        'cacheTimestamp' => 1,
+        'anonymous' => 1,
+        'created' => '2015-01-15 07:20:25',
+        'modified' => '2015-01-15 07:20:25'
     ];
+
+    public function init()
+    {
+        parent::init();
+
+        $this->addRecord([
+            'id' => 1,
+            'user_id' => UsersFixture::HAS_THOUGHTS
+        ]);
+    }
 }

@@ -2,6 +2,8 @@
 namespace App\Model\Table;
 
 use Cake\Collection\Collection;
+use Cake\Database\Expression\QueryExpression;
+use Cake\Http\Exception\BadRequestException;
 use Cake\Http\Exception\InternalErrorException;
 use Cake\Mailer\Email;
 use Cake\ORM\Query;
@@ -46,6 +48,14 @@ class UsersTable extends Table
         ]);
         $this->hasMany('Thoughts', [
             'foreignKey' => 'user_id'
+        ]);
+        $this->hasMany('SentMessages', [
+            'foreignKey' => 'sender_id',
+            'className' => 'Messages',
+        ]);
+        $this->hasMany('ReceivedMessages', [
+            'foreignKey' => 'recipient_id',
+            'className' => 'Messages',
         ]);
     }
 
@@ -422,5 +432,40 @@ class UsersTable extends Table
     public function getPasswordResetHash($userId, $timestamp)
     {
         return Security::hash($userId.$timestamp, 'sha1', true);
+    }
+
+    /**
+     * Fetches users with no evidence of their interaction with the site
+     *
+     * @param Query $query
+     * @return Query
+     * @throws BadRequestException
+     */
+    public function findInactive(Query $query)
+    {
+        return $query
+            ->notMatching('Thoughts')
+            ->notMatching('Comments')
+            ->notMatching('SentMessages')
+            ->notMatching('ReceivedMessages')
+            ->where([
+                'profile' => '',
+                'is_admin' => false,
+            ]);
+    }
+
+    /**
+     * Returns a set of inactive users that registered > $gracePeriod ago
+     *
+     * @return \Cake\Datasource\ResultSetInterface|\App\Model\Entity\User[]
+     */
+    public function getInactiveUsersToPrune($gracePeriod = '6 months')
+    {
+        return $this
+            ->find('inactive')
+            ->where(function (QueryExpression $exp) use ($gracePeriod) {
+                return $exp->lte('Users.created', new \DateTime("-$gracePeriod"));
+            })
+            ->all();
     }
 }

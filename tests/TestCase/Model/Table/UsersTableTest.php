@@ -1,6 +1,7 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
+use App\Test\Fixture\UsersFixture;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
@@ -18,7 +19,8 @@ class UsersTableTest extends TestCase
     public $fixtures = [
         'Users' => 'app.Users',
         'Comments' => 'app.Comments',
-        'Thoughts' => 'app.Thoughts'
+        'Thoughts' => 'app.Thoughts',
+        'Messages' => 'app.Messages',
     ];
 
     /**
@@ -73,5 +75,31 @@ class UsersTableTest extends TestCase
     public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    public function testGetInactiveUsersToPrune()
+    {
+        $usersTable = TableRegistry::getTableLocator()->get('Users');
+        $users = $usersTable->getInactiveUsersToPrune();
+        $userIds = array_map(function ($user) {
+            return $user->id;
+        }, $users->toArray());
+
+        $includedUsers = [UsersFixture::NO_ACTIVITY_AND_OLD];
+        foreach ($includedUsers as $includedUser) {
+            $this->assertContains($includedUser, $userIds, 'Expected user was not included');
+        }
+
+        $excludedUsers = [
+            UsersFixture::HAS_SENT_MESSAGES,
+            UsersFixture::HAS_RECEIVED_MESSAGES,
+            UsersFixture::HAS_COMMENTS,
+            UsersFixture::HAS_THOUGHTS,
+            UsersFixture::HAS_PROFILE,
+            UsersFixture::NO_ACTIVITY_AND_RECENT,
+        ];
+        foreach ($excludedUsers as $excludedUser) {
+            $this->assertNotContains($excludedUser, $userIds, 'User was included in error');
+        }
     }
 }

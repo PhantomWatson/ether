@@ -1,13 +1,11 @@
 <?php
 namespace App\Test\Fixture;
 
-use Cake\TestSuite\Fixture\TestFixture;
-
 /**
  * MessagesFixture
  *
  */
-class MessagesFixture extends TestFixture
+class MessagesFixture extends AppFixture
 {
 
     /**
@@ -38,27 +36,40 @@ class MessagesFixture extends TestFixture
         ],
     ];
 
+    public $defaultData = [
+        'recipient' => 'Lore',
+        'recipient_id' => 1,
+        'availableToRecipient' => 1,
+        'sender' => 'Lore',
+        'sender_id' => 1,
+        'availableToSender' => 1,
+        'status' => 1,
+        'timeSent' => 1,
+        'message' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+        'parsedTextCache' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+        'cacheTimestamp' => 1,
+        'created' => '2015-01-15 07:20:13',
+        'modified' => '2015-01-15 07:20:13'
+    ];
+
     /**
      * Records
      *
      * @var array
      */
-    public $records = [
-        [
+    public $records = [];
+
+    public function init()
+    {
+        parent::init();
+
+        $this->addRecord([
             'id' => 1,
-            'recipient' => 'Lore',
-            'recipient_id' => 1,
-            'availableToRecipient' => 1,
-            'sender' => 'Lore',
-            'sender_id' => 1,
-            'availableToSender' => 1,
-            'status' => 1,
-            'timeSent' => 1,
-            'message' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-            'parsedTextCache' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-            'cacheTimestamp' => 1,
-            'created' => '2015-01-15 07:20:13',
-            'modified' => '2015-01-15 07:20:13'
-        ],
-    ];
+            'sender_id' => UsersFixture::HAS_SENT_MESSAGES,
+        ]);
+        $this->addRecord([
+            'id' => 2,
+            'recipient_id' => UsersFixture::HAS_RECEIVED_MESSAGES,
+        ]);
+    }
 }
