@@ -5,6 +5,7 @@ use App\Color\Color;
 use App\Model\Entity\Thought;
 use App\Model\Table\ThoughtsTable;
 use App\Model\Table\UsersTable;
+use Cake\Cache\Cache;
 use Cake\Datasource\ResultSetInterface;
 use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
@@ -65,7 +66,9 @@ class PagesController extends AppController
     public function about()
     {
         $usersTable = TableRegistry::getTableLocator()->get('Users');
-        $stats = $this->getStats();
+        $stats = Cache::remember('stats', function () {
+            return $this->getStats();
+        }, 'long');
 
         $this->set([
             'title_for_layout' => 'About Ether',
