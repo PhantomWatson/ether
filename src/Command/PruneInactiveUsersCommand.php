@@ -32,7 +32,7 @@ class PruneInactiveUsersCommand extends Command
      *
      * @param \Cake\Console\Arguments $args The command arguments.
      * @param \Cake\Console\ConsoleIo $io The console io
-     * @return null|int The exit code or null for success
+     * @return void
      */
     public function execute(Arguments $args, ConsoleIo $io)
     {
@@ -41,5 +41,38 @@ class PruneInactiveUsersCommand extends Command
         $users = $usersTable->getInactiveUsersToPrune();
         $count = $users->count();
         $io->out($count . __n(' user', ' users', $count) . ' found');
+
+        if (!$count) {
+            return;
+        }
+
+        $choice = $io->askChoice(
+            'Are you sure you want to delete these users? A backup before this is suggested.',
+            ['y', 'n'],
+            'n'
+        );
+        if ($choice != 'y') {
+            return;
+        }
+
+        $progress = $io->helper('Progress');
+        $progress->init([
+            'total' => $count,
+            'width' => 20,
+        ]);
+        foreach ($users as $user) {
+            if (!$usersTable->delete($user)) {
+                $io->error(sprintf(
+                    'Error deleting user #%s. Details:',
+                    $user->id
+                ));
+                $io->out(print_r($user->getErrors(), true));
+                return;
+            }
+            $progress->increment(1);
+            $progress->draw();
+        }
+
+        $io->success('Done');
     }
 }
