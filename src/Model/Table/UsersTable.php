@@ -366,6 +366,38 @@ class UsersTable extends Table
     }
 
     /**
+     * Returns the number of users who have posted comments but not thoughts or sent messages
+     *
+     * @return int
+     */
+    public function getOnlyPostedCommentsCount(): int
+    {
+        // Couldn't manage to accomplish this with a single query :(
+        $usersWithThoughts = $this
+            ->find()
+            ->select(['Users.id'])
+            ->distinct('Users.id')
+            ->matching('Thoughts');
+        $usersWithSendMessages = $this
+            ->find()
+            ->select(['Users.id'])
+            ->distinct('Users.id')
+            ->matching('SentMessages');
+
+        return $this
+            ->find()
+            ->select(['Users.id'])
+            ->distinct(['Users.id'])
+            ->matching('Comments')
+            ->where(function (QueryExpression $exp) use ($usersWithThoughts, $usersWithSendMessages) {
+                return $exp
+                    ->notIn('Users.id', Hash::extract($usersWithThoughts->toArray(), '{n}.id'))
+                    ->notIn('Users.id', Hash::extract($usersWithSendMessages->toArray(), '{n}.id'));
+            })
+            ->count();
+    }
+
+    /**
      * Removs slashes that were a leftover of the anti-injection-attack strategy of the olllllld Ether
      */
     public function overhaulStripSlashes()

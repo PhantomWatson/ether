@@ -118,6 +118,10 @@ class PagesController extends AppController
             $usersTable->getOnlyPostedThoughtsCount(),
             $totalThinkers
         );
+        $stats['Thinkers who have only posted comments'] = $this->getThinkerPercent(
+            $usersTable->getOnlyPostedCommentsCount(),
+            $totalThinkers
+        );
         $usersMessagesEnabled = $usersTable->find('all')
             ->where(['acceptMessages' => 1])
             ->count();
