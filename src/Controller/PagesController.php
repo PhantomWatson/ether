@@ -110,17 +110,21 @@ class PagesController extends AppController
         $usersTable = TableRegistry::getTableLocator()->get('Users');
         $totalThinkers = $usersTable->find('all')->count();
         $stats['Thinkers'] = $totalThinkers;
-        $stats['Thinkers who have posted thoughts'] = round(
-            ($usersTable->getActiveThinkerCount() / $totalThinkers) * 100,
-            2
-        ) . '%';
+        $stats['Thinkers who have posted thoughts'] = $this->getThinkerPercent(
+            $usersTable->getActiveThinkerCount(),
+            $totalThinkers
+        );
+        $stats['Thinkers who have only posted thoughts'] = $this->getThinkerPercent(
+            $usersTable->getOnlyPostedThoughtsCount(),
+            $totalThinkers
+        );
         $usersMessagesEnabled = $usersTable->find('all')
             ->where(['acceptMessages' => 1])
             ->count();
-        $stats['Thinkers who accept messages'] = round(
-            ($usersMessagesEnabled / $totalThinkers) * 100,
-            2
-        ) . '%';
+        $stats['Thinkers who accept messages'] = $this->getThinkerPercent(
+            $usersMessagesEnabled,
+            $totalThinkers
+        );
 
         $this->set([
             'title_for_layout' => 'About Ether',
@@ -128,6 +132,16 @@ class PagesController extends AppController
             'thinkerCount' => $usersTable->getActiveThinkerCount(),
             'stats' => $stats
         ]);
+    }
+
+    /**
+     * @param int $count
+     * @param int $total
+     * @return string
+     */
+    private function getThinkerPercent($count, $total)
+    {
+        return round(($count / $total) * 100, 2) . '%';
     }
 
     /**

@@ -10,6 +10,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Routing\Router;
+use Cake\Utility\Hash;
 use Cake\Utility\Security;
 use Cake\Validation\Validator;
 use League\HTMLToMarkdown\HtmlConverter;
@@ -330,6 +331,38 @@ class UsersTable extends Table
     public function getActiveThinkerCount()
     {
         return $this->Thoughts->find('all')->select(['user_id'])->distinct(['user_id'])->count();
+    }
+
+    /**
+     * Returns the number of users who have posted thoughts but not comments or sent messages
+     *
+     * @return int
+     */
+    public function getOnlyPostedThoughtsCount(): int
+    {
+        // Couldn't manage to accomplish this with a single query :(
+        $usersWithComments = $this
+            ->find()
+            ->select(['Users.id'])
+            ->distinct('Users.id')
+            ->matching('Comments');
+        $usersWithSendMessages = $this
+            ->find()
+            ->select(['Users.id'])
+            ->distinct('Users.id')
+            ->matching('SentMessages');
+
+        return $this
+            ->find()
+            ->select(['Users.id'])
+            ->distinct(['Users.id'])
+            ->matching('Thoughts')
+            ->where(function (QueryExpression $exp) use ($usersWithComments, $usersWithSendMessages) {
+                return $exp
+                    ->notIn('Users.id', Hash::extract($usersWithComments->toArray(), '{n}.id'))
+                    ->notIn('Users.id', Hash::extract($usersWithSendMessages->toArray(), '{n}.id'));
+            })
+            ->count();
     }
 
     /**

@@ -1,6 +1,8 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var string $title_for_layout
+ * @var array $stats
  */
 ?>
 <div id="content_title">
