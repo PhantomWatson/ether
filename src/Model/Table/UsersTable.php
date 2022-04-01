@@ -430,6 +430,43 @@ class UsersTable extends Table
     }
 
     /**
+     * Returns the number of inactive users
+     *
+     * @return int
+     */
+    public function getInactiveCount(): int
+    {
+        // Couldn't manage to accomplish this with a single query :(
+        $usersWithThoughts = $this
+            ->find()
+            ->select(['Users.id'])
+            ->distinct('Users.id')
+            ->matching('Thoughts');
+        $usersWithComments = $this
+            ->find()
+            ->select(['Users.id'])
+            ->distinct('Users.id')
+            ->matching('Comments');
+        $usersWithSentMessages = $this
+            ->find()
+            ->select(['Users.id'])
+            ->distinct('Users.id')
+            ->matching('SentMessages');
+
+        return $this
+            ->find()
+            ->select(['Users.id'])
+            ->distinct(['Users.id'])
+            ->where(function (QueryExpression $exp) use ($usersWithThoughts, $usersWithComments, $usersWithSentMessages) {
+                return $exp
+                    ->notIn('Users.id', Hash::extract($usersWithThoughts->toArray(), '{n}.id'))
+                    ->notIn('Users.id', Hash::extract($usersWithComments->toArray(), '{n}.id'))
+                    ->notIn('Users.id', Hash::extract($usersWithSentMessages->toArray(), '{n}.id'));
+            })
+            ->count();
+    }
+
+    /**
      * Removs slashes that were a leftover of the anti-injection-attack strategy of the olllllld Ether
      */
     public function overhaulStripSlashes()

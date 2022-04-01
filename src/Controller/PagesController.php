@@ -129,16 +129,20 @@ class PagesController extends AppController
             $usersTable->getActiveThinkerCount(),
             $totalThinkers
         );
-        $stats['Thinkers who have only posted thoughts'] = $this->getThinkerPercent(
+        $stats['Thinkers who have <em>only</em> posted thoughts'] = $this->getThinkerPercent(
             $usersTable->getOnlyPostedThoughtsCount(),
             $totalThinkers
         );
-        $stats['Thinkers who have only posted comments'] = $this->getThinkerPercent(
+        $stats['Thinkers who have <em>only</em> posted comments'] = $this->getThinkerPercent(
             $usersTable->getOnlyPostedCommentsCount(),
             $totalThinkers
         );
-        $stats['Thinkers who have only sent messages'] = $this->getThinkerPercent(
+        $stats['Thinkers who have <em>only</em> sent messages'] = $this->getThinkerPercent(
             $usersTable->getOnlySentMessagesCount(),
+            $totalThinkers
+        );
+        $stats['Thinkers who haven\'t written anything'] = $this->getThinkerPercent(
+            $usersTable->getInactiveCount(),
             $totalThinkers
         );
         $usersMessagesEnabled = $usersTable->find('all')
