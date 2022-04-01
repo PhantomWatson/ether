@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var string $title_for_layout
  * @var array $stats
+ * @var int $thinkerCount
  */
 ?>
 <div id="content_title">
@@ -41,7 +42,7 @@
         <section>
             <p>
                 Here, people share Thoughts. Each Thought is located under a single word that it relates to, and each Thinker is identified by only a unique color.
-                Ether has collected <?= number_format($thoughtCount) ?> Thoughts from <?= number_format($thinkerCount) ?> Thinkers since 2006.
+                Ether has collected <?= $stats['Thoughts'] ?> Thoughts from <?= number_format($thinkerCount) ?> Thinkers since 2006.
             </p>
         </section>
 

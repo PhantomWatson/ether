@@ -64,6 +64,21 @@ class PagesController extends AppController
      */
     public function about()
     {
+        $usersTable = TableRegistry::getTableLocator()->get('Users');
+        $stats = $this->getStats();
+
+        $this->set([
+            'title_for_layout' => 'About Ether',
+            'thinkerCount' => $usersTable->getActiveThinkerCount(),
+            'stats' => $stats
+        ]);
+    }
+
+    /**
+     * @return array
+     */
+    private function getStats(): array
+    {
         $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
         $totalThoughts = $thoughtsTable->find('all')->count();
         $stats['Thoughts'] = number_format($totalThoughts);
@@ -80,10 +95,10 @@ class PagesController extends AppController
         $thoughtsCommentsEnabled = $thoughtsTable->find('all')
             ->where(['comments_enabled' => 1])
             ->count();
-        $stats['Thoughts with comments enabled'] = round(
-            ($thoughtsCommentsEnabled / $totalThoughts) * 100,
-            2
-        ) . '%';
+        $stats['Thoughts with comments enabled'] = $this->getThinkerPercent(
+            $thoughtsCommentsEnabled,
+            $totalThoughts
+        );
 
         /** @var Thought $mostPopularWord */
         $mostPopularWord = $thoughtsTable->find('all')
@@ -122,6 +137,10 @@ class PagesController extends AppController
             $usersTable->getOnlyPostedCommentsCount(),
             $totalThinkers
         );
+        $stats['Thinkers who have only sent messages'] = $this->getThinkerPercent(
+            $usersTable->getOnlySentMessagesCount(),
+            $totalThinkers
+        );
         $usersMessagesEnabled = $usersTable->find('all')
             ->where(['acceptMessages' => 1])
             ->count();
@@ -130,12 +149,7 @@ class PagesController extends AppController
             $totalThinkers
         );
 
-        $this->set([
-            'title_for_layout' => 'About Ether',
-            'thoughtCount' => $totalThoughts,
-            'thinkerCount' => $usersTable->getActiveThinkerCount(),
-            'stats' => $stats
-        ]);
+        return $stats;
     }
 
     /**
