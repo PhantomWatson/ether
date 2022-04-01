@@ -463,9 +463,16 @@ class UsersTable extends Table
     {
         return $this
             ->find('inactive')
-            ->where(function (QueryExpression $exp) use ($gracePeriod) {
-                return $exp->lte('Users.created', new \DateTime("-$gracePeriod"));
-            })
+            ->where([
+                'OR' => [
+                    function (QueryExpression $exp) use ($gracePeriod) {
+                        return $exp->lte('Users.created', new \DateTime("-$gracePeriod"));
+                    },
+                    function (QueryExpression $exp) {
+                        return $exp->isNull('Users.created');
+                    },
+                ]
+            ])
             ->all();
     }
 }
