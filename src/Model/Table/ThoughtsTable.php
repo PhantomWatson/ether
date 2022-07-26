@@ -125,10 +125,10 @@ class ThoughtsTable extends Table
             $populatedThoughtwords = $this
                 ->find('all')
                 ->select(['word'])
+                ->where(['hidden' => false])
                 ->distinct(['word'])
                 ->order(['word' => 'ASC'])
                 ->extract('word')
-                ->where(['hidden' => false])
                 ->toArray();
             $populatedThoughtwordHash = md5(serialize($populatedThoughtwords));
             Cache::write('populatedThoughtwordHash', $populatedThoughtwordHash);
