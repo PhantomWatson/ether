@@ -66,11 +66,14 @@ class CommentsTable extends Table
                     $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
                     /** @var \App\Model\Entity\Thought $thought Thought record */
                     $thought = $thoughtsTable->find()
-                        ->select(['comments_enabled'])
+                        ->select([
+                            'comments_enabled',
+                            'hidden',
+                        ])
                         ->where(['id' => $value])
                         ->first();
 
-                    return $thought && $thought->comments_enabled;
+                    return $thought && $thought->comments_enabled && !$thought->hidden;
                 },
                 'message' => 'That thought has comments disabled'
             ]);

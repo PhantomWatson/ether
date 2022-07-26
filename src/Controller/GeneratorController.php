@@ -72,6 +72,7 @@ class GeneratorController extends AppController
         return Cache::remember('generatorSource', function () {
             $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
             $thoughts = $thoughtsTable->find('all')
+                ->where(['hidden' => false])
                 ->select(['thought'])
                 ->toArray();
             $thoughts = Hash::extract($thoughts, '{n}.thought');

@@ -128,6 +128,7 @@ class ThoughtsTable extends Table
                 ->distinct(['word'])
                 ->order(['word' => 'ASC'])
                 ->extract('word')
+                ->where(['hidden' => false])
                 ->toArray();
             $populatedThoughtwordHash = md5(serialize($populatedThoughtwords));
             Cache::write('populatedThoughtwordHash', $populatedThoughtwordHash);
@@ -172,6 +173,7 @@ class ThoughtsTable extends Table
                     'word',
                     'count' => $this->find()->func()->count('*')
                 ])
+                ->where(['hidden' => false])
                 ->group('word')
                 ->order(['count' => 'DESC']);
             if ($limit) {
@@ -195,6 +197,7 @@ class ThoughtsTable extends Table
             ->find('all')
             ->select(['word'])
             ->distinct(['word'])
+            ->where(['hidden' => false])
             ->count();
     }
 
@@ -209,6 +212,7 @@ class ThoughtsTable extends Table
         $thought = $this->find('all')
             ->select(['word'])
             ->order('RAND()')
+            ->where(['hidden' => false])
             ->first();
 
         return $thought->word;
@@ -228,7 +232,10 @@ class ThoughtsTable extends Table
         /** @var Thought $thought */
         $thought = $this->find('all')
             ->select(['id', 'word', 'thought', 'formatted_thought', 'anonymous', 'formatting_key'])
-            ->where(['Thoughts.id' => $thoughtId])
+            ->where([
+                'Thoughts.id' => $thoughtId,
+                'Thoughts.hidden' => false,
+            ])
             ->contain([
                 'Users' => function ($q) {
                     /** @var Query $q */
@@ -349,6 +356,7 @@ class ThoughtsTable extends Table
                 'thought_anonymous' => 'Thoughts.anonymous',
                 'comment_id' => 0
             ])
+            ->where(['Thoughts.hidden' => false])
             ->contain([
                 'Users' => [
                     'fields' => ['id', 'color']
@@ -373,7 +381,7 @@ class ThoughtsTable extends Table
             ->join([
                 'table' => 'thoughts',
                 'alias' => 'Thoughts',
-                'conditions' => 'Comments.thought_id = Thoughts.id'
+                'conditions' => 'Comments.thought_id = Thoughts.id AND Thoughts.hidden = 0'
             ]);
 
         return $thoughtsQuery->unionAll($commentsQuery);
@@ -430,7 +438,10 @@ class ThoughtsTable extends Table
                 'anonymous',
                 'created',
                 'modified'])
-            ->where(['word' => $word])
+            ->where([
+                'word' => $word,
+                'hidden' => false,
+            ])
             ->order(['Thoughts.created' => 'DESC'])
             ->contain([
                 'Users' => function ($q) {
@@ -632,7 +643,13 @@ class ThoughtsTable extends Table
 
     public function getPopulation($word)
     {
-        return $this->find('all')->where(['word' => $word])->count();
+        return $this
+            ->find('all')
+            ->where([
+                'hidden' => false,
+                'word' => $word,
+            ])
+            ->count();
     }
 
     /**
@@ -729,11 +746,17 @@ class ThoughtsTable extends Table
         }
     }
 
+    /**
+     * Returns a list of all non-hidden thoughts
+     *
+     * @return array
+     */
     public function getAllIds()
     {
         return Cache::remember('allThoughtIds', function () {
             return $this->find('list')
                 ->select(['id'])
+                ->where(['hidden' => false])
                 ->toArray();
         }, 'long');
     }
@@ -772,6 +795,7 @@ class ThoughtsTable extends Table
     {
         $ids = $this->find('list')
             ->select(['id'])
+            ->where(['hidden' => false])
             ->order('rand()')
             ->limit($limit)
             ->toArray();
@@ -857,9 +881,13 @@ class ThoughtsTable extends Table
      */
     public function findWithQuestions(Query $query, array $options)
     {
-        return $query->where(function (QueryExpression $exp) {
-            return $exp->like('thought', '%?%');
-        });
+        return $query
+            ->where(['hidden' => false])
+            ->where(function (QueryExpression $exp) {
+                return $exp
+                    ->like('thought', '%?%');
+            }
+        );
     }
 
     /**

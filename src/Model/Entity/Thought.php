@@ -17,6 +17,7 @@ use Cake\I18n\Time;
  * @property string $formatted_thought
  * @property string $formatting_key
  * @property bool $anonymous
+ * @property bool $hidden
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $modified
  * @property \Cake\I18n\FrozenTime $formatted
@@ -37,6 +38,7 @@ class Thought extends Entity
         'thought' => true,
         'comments_enabled' => true,
         'anonymous' => true,
+        'hidden' => true,
     ];
     public $max_thoughtword_length = 30;
 
