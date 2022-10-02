@@ -37,7 +37,9 @@ RUN docker-php-ext-install mysqli
 
 RUN install-php-extensions @composer
 
-RUN pecl install xdebug && docker-php-ext-enable xdebug
+# Temporarily disabled because some error was preventing this from working
+# (or at least working at the same time another site's containers were running)
+#RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
 
