@@ -58,6 +58,7 @@ services:
       - HOST=${HOST}
       - PHP_APP_DIR=${PHP_APP_DIR}
       - PHP_IP=${PHP_IP}
+      - PHP_LISTENING_PORT=${PHP_LISTENING_PORT}
       - WEB_GROUP=${WEB_GROUP}
       - WEB_USER=${WEB_USER}
     volumes:
@@ -99,6 +100,7 @@ services:
       - MYSQL_IP=${MYSQL_IP}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_ROOT_USER=${MYSQL_ROOT_USER}
+      - PHP_LISTENING_PORT=${PHP_LISTENING_PORT}
       - PHP_ROOT_DIR=${PHP_ROOT_DIR}
       - WEB_GROUP=${WEB_GROUP}
       - WEB_USER=${WEB_USER}
