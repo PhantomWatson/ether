@@ -79,7 +79,7 @@ services:
         - WEB_USER=${WEB_USER}
     container_name: ${COMPOSE_PROJECT_NAME}_php
     expose:
-      - 9000
+      - ${PHP_LISTENING_PORT}
       - 9003 # XDebug
     working_dir: ${PHP_APP_DIR}
     volumes:

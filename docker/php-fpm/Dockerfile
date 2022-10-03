@@ -8,7 +8,7 @@ COPY www.conf ${PHP_ROOT_DIR}/php-fpm.d/www.conf
 
 RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 
-EXPOSE 9000
+EXPOSE ${PHP_LISTENING_PORT}
 
 #RUN apt-get update \
 #    && apt-get -y --no-install-recommends install  php7.4-mysql php7.4-intl php7.4-mbstring php7.4-sqlite3\
