@@ -1,7 +1,13 @@
 <?php
 /**
- * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Thought $newThought
  * @var \App\Model\Entity\Thought[]|\Cake\Collection\CollectionInterface $thoughts
+ * @var \App\View\AppView $this
+ * @var bool $loggedIn
+ * @var int|null $userId
+ * @var string $formattingKey
+ * @var string $title_for_layout
+ * @var string $word
  */
 ?>
 <div class="tw_thoughts">
@@ -71,23 +77,6 @@
             </div>
         </div>
     <?php else: ?>
-        <div class="row">
-            <div id="newthoughtadd" class="col-sm-12" style="display: none;">
-                <div>
-                    <div class="content_box">
-                        <?= $this->element('Thoughts/form', compact('thought')) ?>
-                    </div>
-                    <div class="newthoughtbutton">
-                        <a href="#" id="cancel_thought">
-                            Cancel
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="newthoughtview"></div>
-
 
         <?php foreach ($thoughts as $thought): ?>
             <div class="row thoughtrow" id="t<?= $thought['id'] ?>">

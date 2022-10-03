@@ -218,16 +218,11 @@ class ThoughtsController extends AppController
             $this->viewBuilder()->setLayout('ajax');
         }
 
-        // Used by the 'add a thought' form
-        $thought = $this->Thoughts->newEntity();
-        $thought->word = $word;
-
         $this->set([
-            'title_for_layout' => ucwords($word),
-            'thought' => $thought,
-            'thoughts' => $thoughts,
-            'word' => $word,
             'formattingKey' => $this->Thoughts->getPopulatedThoughtwordHash(),
+            'thoughts' => $thoughts,
+            'title_for_layout' => ucwords($word),
+            'word' => $word,
         ]);
         if ($thoughts) {
             $this->set([
