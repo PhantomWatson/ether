@@ -56,3 +56,6 @@ composer.phar
 
 # Docker
 /database/*
+
+# Other
+/webroot/audio/*
