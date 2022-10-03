@@ -52,6 +52,7 @@ composer.phar
 /config/app_local.php
 /config/app_local.production.php
 /config/Migrations/schema-dump-default.lock
+/config/Google/*
 
 # Docker
 /database/*
