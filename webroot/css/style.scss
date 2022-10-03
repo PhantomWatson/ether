@@ -1849,3 +1849,36 @@ blockquote {
     margin: 14px 0;
     padding: 0 16px;
 }
+
+#audio-container {
+    background-color: #000;
+    bottom: 0;
+    left: 0;
+    padding: 1em;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+}
+
+#audio {
+    vertical-align: middle;
+}
+
+#audio-close {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin: 1em;
+    outline: inherit;
+    vertical-align: middle;
+
+    i::before {
+        font-size: 2em;
+    }
+}
+
+.audio-loading {
+    font-size: 1.25em;
+}

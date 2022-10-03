@@ -437,7 +437,9 @@ class ThoughtsTable extends Table
                 'formatting_key',
                 'anonymous',
                 'created',
-                'modified'])
+                'modified',
+                'tts',
+            ])
             ->where([
                 'word' => $word,
                 'hidden' => false,
