@@ -52,11 +52,17 @@ class ThoughtsController extends AppController
         $thought = $thoughtsTable->get($thoughtId);
 
         // Audio file exists
-        if ($thought->tts) {
+        if ($thought->tts && file_exists(TTS::PATH . $thought->tts)) {
             $filename = $thought->tts;
 
         // Generate audio file
         } else {
+            // Filename is in DB but file is missing; clear DB field
+            if ($thought->tts && !file_exists(TTS::PATH . $thought->tts)) {
+                $thoughtsTable->patchEntity($thought, ['tts' => null]);
+                $thoughtsTable->save($thought);
+            }
+
             $filename = (new TTS())->generate($thought->thought, (string)$thoughtId);
             $thought = $thoughtsTable->patchEntity($thought, ['tts' => $filename]);
             $thoughtsTable->save($thought);
