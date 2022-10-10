@@ -3,6 +3,7 @@ namespace App\Controller\Api;
 
 use App\Controller\AppController;
 use App\Model\Entity\Thought;
+use App\PhpMp3;
 use App\TTS;
 use Cake\ORM\TableRegistry;
 use Exception;
@@ -12,7 +13,6 @@ use Exception;
  */
 class ThoughtsController extends AppController
 {
-
     /**
      * Initialize method
      *
@@ -59,7 +59,39 @@ class ThoughtsController extends AppController
         } else {
             $tts = new TTS();
             $text = $thought->thought;
-            $filename = $tts->generate($text, $thoughtId);
+
+            // Text is under the input limit
+            if (mb_strlen($text) < TTS::INPUT_LIMIT) {
+                $filename = $tts->generate($text, (string)$thoughtId);
+
+            // Text is over the limit; make multiple audio files and combine them
+            } else {
+                $partFilePaths = [];
+                $partNum = 1;
+                $words = explode(' ', $text);
+                do {
+                    $partText = '';
+                    while ($words && mb_strlen($partText . $words[0]) < TTS::INPUT_LIMIT) {
+                        $word = array_shift($words);
+                        $partText .= $word . ' ';
+                    }
+                    $partFilePaths[] = TTS::PATH . $tts->generate($partText, "$thoughtId.$partNum");
+                    $partNum++;
+                } while ($words);
+
+                // Combine files
+                $filename = $thoughtId . TTS::EXTENSION;
+                $combinedFilepath = TTS::PATH . $filename;
+                file_put_contents($combinedFilepath, '');
+                (new PhpMp3())->multiJoin($combinedFilepath, $partFilePaths);
+
+                // Cleanup
+                foreach ($partFilePaths as $filePath) {
+                    unlink($filePath);
+                }
+            }
+
+            // Save filename to thought
             $thought = $thoughtsTable->patchEntity($thought, ['tts' => $filename]);
             $thoughtsTable->save($thought);
         }

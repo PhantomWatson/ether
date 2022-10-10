@@ -3,6 +3,8 @@
 namespace App;
 
 use Cake\Core\Configure;
+use Cake\Log\Log;
+use Exception;
 use Google\ApiCore\ApiException;
 use Google\ApiCore\ValidationException;
 use Google\Cloud\TextToSpeech\V1\AudioConfig;
@@ -13,43 +15,58 @@ use Google\Cloud\TextToSpeech\V1\VoiceSelectionParams;
 
 class TTS
 {
+    const EXTENSION = '.mp3';
+    const INPUT_LIMIT = 5000;
+    const PATH = WWW_ROOT . 'audio' . DS;
+
     /**
-     * @throws ApiException
-     * @throws \Exception
+     * @param string $text
+     * @param string $filename
      * @return string
+     * @throws ApiException
+     * @throws ValidationException
+     * @throws Exception
      */
-    public function generate($text, $filename): string
+    public function generate(string $text, string $filename): string
     {
         if (!$text) {
-            throw new \Exception('No text supplied');
+            throw new Exception('No text supplied');
         }
         if (!$filename) {
-            throw new \Exception('No filename given');
+            throw new Exception('No filename given');
         }
-        $extension = '.mp3';
-        $filepath = WWW_ROOT . 'audio' . DS . $filename . $extension;
+
+        $filename .= self::EXTENSION;
+        $filepath = self::PATH . $filename;
+
         if (file_exists($filepath)) {
-            throw new \Exception('File already exists');
+            throw new Exception('File already exists');
         }
 
         $input = new SynthesisInput();
         $input->setText($text);
 
-        $resp = $this->getClient()->synthesizeSpeech(
-            $input,
-            $this->getVoice(),
-            $this->getAudioConfig()
-        );
+        try {
+            $resp = $this->getClient()->synthesizeSpeech(
+                $input,
+                $this->getVoice(),
+                $this->getAudioConfig()
+            );
+        } catch (ApiException $e) {
+            Log::error("Error synthesizing TTS file $filename");
+            Log::error($e->getMessage());
+            throw $e;
+        }
 
         file_put_contents($filepath, $resp->getAudioContent());
 
-        return $filename . $extension;
+        return $filename;
     }
 
     /**
      * @throws ValidationException
      */
-    private function getClient()
+    private function getClient(): TextToSpeechClient
     {
         return new TextToSpeechClient([
             'credentials' => json_decode(
@@ -59,7 +76,10 @@ class TTS
         ]);
     }
 
-    private function getVoice()
+    /**
+     * @return VoiceSelectionParams
+     */
+    private function getVoice(): VoiceSelectionParams
     {
         $voice = new VoiceSelectionParams();
         $voice->setLanguageCode('en-US');
@@ -67,11 +87,13 @@ class TTS
         return $voice;
     }
 
-    private function getAudioConfig()
+    /**
+     * @return AudioConfig
+     */
+    private function getAudioConfig(): AudioConfig
     {
         $audioConfig = new AudioConfig();
         $audioConfig->setAudioEncoding(AudioEncoding::MP3);
         return $audioConfig;
     }
-
 }
