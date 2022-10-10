@@ -21,7 +21,7 @@ class TTS
 
     /**
      * @param string $text
-     * @param string $filename
+     * @param string $filename without extension
      * @return string
      * @throws ApiException
      * @throws ValidationException
@@ -34,6 +34,11 @@ class TTS
         }
         if (!$filename) {
             throw new Exception('No filename given');
+        }
+
+        // Text is over the limit; make multiple audio files and combine them
+        if (mb_strlen($text) >= TTS::INPUT_LIMIT) {
+            return $this->generateOversized($text, $filename);
         }
 
         $filename .= self::EXTENSION;
@@ -95,5 +100,43 @@ class TTS
         $audioConfig = new AudioConfig();
         $audioConfig->setAudioEncoding(AudioEncoding::MP3);
         return $audioConfig;
+    }
+
+    /**
+     * Generates an oversized TTS file by creating multiple smaller files and combining them together
+     *
+     * @param string $text
+     * @param string $filename without extension
+     * @return string
+     * @throws ApiException
+     * @throws ValidationException
+     */
+    public function generateOversized(string $text, string $filename): string
+    {
+        $partFilePaths = [];
+        $partNum = 1;
+        $words = explode(' ', $text);
+        do {
+            $partText = '';
+            while ($words && mb_strlen($partText . $words[0]) < TTS::INPUT_LIMIT) {
+                $word = array_shift($words);
+                $partText .= $word . ' ';
+            }
+            $partFilePaths[] = TTS::PATH . $this->generate($partText, "$filename.$partNum");
+            $partNum++;
+        } while ($words);
+
+        // Combine files
+        $filename = $filename . TTS::EXTENSION;
+        $combinedFilepath = TTS::PATH . $filename;
+        file_put_contents($combinedFilepath, '');
+        (new PhpMp3())->multiJoin($combinedFilepath, $partFilePaths);
+
+        // Cleanup
+        foreach ($partFilePaths as $filePath) {
+            unlink($filePath);
+        }
+
+        return $filename;
     }
 }

@@ -57,41 +57,7 @@ class ThoughtsController extends AppController
 
         // Generate audio file
         } else {
-            $tts = new TTS();
-            $text = $thought->thought;
-
-            // Text is under the input limit
-            if (mb_strlen($text) < TTS::INPUT_LIMIT) {
-                $filename = $tts->generate($text, (string)$thoughtId);
-
-            // Text is over the limit; make multiple audio files and combine them
-            } else {
-                $partFilePaths = [];
-                $partNum = 1;
-                $words = explode(' ', $text);
-                do {
-                    $partText = '';
-                    while ($words && mb_strlen($partText . $words[0]) < TTS::INPUT_LIMIT) {
-                        $word = array_shift($words);
-                        $partText .= $word . ' ';
-                    }
-                    $partFilePaths[] = TTS::PATH . $tts->generate($partText, "$thoughtId.$partNum");
-                    $partNum++;
-                } while ($words);
-
-                // Combine files
-                $filename = $thoughtId . TTS::EXTENSION;
-                $combinedFilepath = TTS::PATH . $filename;
-                file_put_contents($combinedFilepath, '');
-                (new PhpMp3())->multiJoin($combinedFilepath, $partFilePaths);
-
-                // Cleanup
-                foreach ($partFilePaths as $filePath) {
-                    unlink($filePath);
-                }
-            }
-
-            // Save filename to thought
+            $filename = (new TTS())->generate($thought->thought, (string)$thoughtId);
             $thought = $thoughtsTable->patchEntity($thought, ['tts' => $filename]);
             $thoughtsTable->save($thought);
         }
