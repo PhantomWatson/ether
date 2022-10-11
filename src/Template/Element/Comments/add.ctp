@@ -39,36 +39,22 @@ $this->Form->setTemplates([
     </div>
 <?php endif; ?>
 
-<div class="row">
-    <div class="col-md-3 offset-md-8 text-left">
-        <?php if ($thought['anonymous'] && $thought['user_id'] === $userId): ?>
-            <div class="anonymous-comment-toggler">
-                <?= $this->Form->radio(
-                    'anonymous',
-                    [
-                        [
-                            'value' => 1,
-                            'text' => 'Comment anonymously',
-                            'id' => 'thought-' . $thought['id'] . '-comment-anonymous'
-                        ],
-                        [
-                            'value' => 0,
-                            'text' => 'Comment as your color',
-                            'id' => 'thought-' . $thought['id'] . '-comment-nonymous'
-                        ]
-                    ],
-                    ['value' => 1]
-                ) ?>
-            </div>
-        <?php endif; ?>
-        <?= $this->Form->submit(
-            'Post comment',
-            ['class' => 'btn btn-primary']
-        ) ?>
-        <a href="#" class="cancel_comment" data-thought-id="<?= $thought['id'] ?>">
-            Cancel
-        </a>
-    </div>
+<div class="comment-form-actions">
+    <?php if ($thought['anonymous'] && $thought['user_id'] === $userId): ?>
+        <div class="anonymous-comment-toggler">
+            <label for="thought-<?= $thought['id'] ?>-comment-anonymous" title="Comment anonymously vs. with your color">
+                <input type="checkbox" value="1" name="anonymous" id="thought-<?= $thought['id'] ?>-comment-anonymous" />
+                Comment anonymously
+            </label>
+        </div>
+    <?php endif; ?>
+    <?= $this->Form->submit(
+        'Post comment',
+        ['class' => 'btn btn-primary', 'div' => false]
+    ) ?>
+    <a href="#" class="btn btn-link" data-thought-id="<?= $thought['id'] ?>">
+        Cancel
+    </a>
 </div>
 
 <?= $this->Form->end() ?>

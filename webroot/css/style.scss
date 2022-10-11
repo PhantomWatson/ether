@@ -415,17 +415,16 @@ body.popup_active {
 }
 
 .add_comment {
+    font-size: 1rem;
     margin: 10px 10px 0 10px;
-    text-align: right;
 
     textarea {
+        margin-bottom: 1em;
         width: 100%;
     }
 
     a {
         color: #BBB;
-        font-size: 60%;
-        text-transform: uppercase;
 
         &:hover {
             color: #FFF;
@@ -434,16 +433,26 @@ body.popup_active {
     }
 
     .anonymous-comment-toggler {
+        margin-bottom: 1em;
+
         label {
             display: inline-block;
             font-weight: normal;
-            margin-left: 0.5em;
         }
 
         input[type='radio']:checked + label {
             font-weight: bold;
         }
     }
+
+    div.submit {
+        display: inline;
+    }
+}
+
+.comment-form-actions {
+    @extend .float-end;
+    margin-bottom: 1em;
 }
 
 .readmore {

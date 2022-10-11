@@ -6913,7 +6913,7 @@ textarea.form-control-lg {
   float: left !important;
 }
 
-.float-end {
+.float-end, .comment-form-actions {
   float: right !important;
 }
 
@@ -11424,28 +11424,36 @@ body.popup_active #content_outer {
 }
 
 .add_comment {
+  font-size: 1rem;
   margin: 10px 10px 0 10px;
-  text-align: right;
 }
 .add_comment textarea {
+  margin-bottom: 1em;
   width: 100%;
 }
 .add_comment a {
   color: #BBB;
-  font-size: 60%;
-  text-transform: uppercase;
 }
 .add_comment a:hover {
   color: #FFF;
   text-decoration: none;
 }
+.add_comment .anonymous-comment-toggler {
+  margin-bottom: 1em;
+}
 .add_comment .anonymous-comment-toggler label {
   display: inline-block;
   font-weight: normal;
-  margin-left: 0.5em;
 }
 .add_comment .anonymous-comment-toggler input[type=radio]:checked + label {
   font-weight: bold;
+}
+.add_comment div.submit {
+  display: inline;
+}
+
+.comment-form-actions {
+  margin-bottom: 1em;
 }
 
 .readmore {
