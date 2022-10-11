@@ -11296,7 +11296,7 @@ label[for=header-search-input] {
 }
 .navbar-nav > li > a {
   border: none;
-  line-height: auto;
+  line-height: inherit;
 }
 
 #content_outer {
