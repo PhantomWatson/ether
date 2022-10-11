@@ -60,3 +60,5 @@ composer.phar
 
 # Other
 /webroot/audio/*
+.ftpquota
+webroot/error_log
