@@ -45,7 +45,7 @@ class TTS
         $filepath = self::PATH . $filename;
 
         if (file_exists($filepath)) {
-            throw new Exception('File already exists');
+            return $filename;
         }
 
         $input = new SynthesisInput();

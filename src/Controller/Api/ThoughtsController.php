@@ -52,13 +52,13 @@ class ThoughtsController extends AppController
         $thought = $thoughtsTable->get($thoughtId);
 
         // Audio file exists
-        if ($thought->tts && file_exists(TTS::PATH . $thought->tts)) {
+        if ($this->ttsFileExists($thought)) {
             $filename = $thought->tts;
 
         // Generate audio file
         } else {
             // Filename is in DB but file is missing; clear DB field
-            if ($thought->tts && !file_exists(TTS::PATH . $thought->tts)) {
+            if ($thought->tts) {
                 $thoughtsTable->patchEntity($thought, ['tts' => null]);
                 $thoughtsTable->save($thought);
             }
@@ -72,5 +72,14 @@ class ThoughtsController extends AppController
         $this->set('_serialize', ['filename']);
 
         $this->RequestHandler->renderAs($this, 'json');
+    }
+
+    /**
+     * @param \App\Model\Entity\Thought $thought
+     * @return bool
+     */
+    private function ttsFileExists(Thought $thought): bool
+    {
+        return $thought->tts && file_exists(TTS::PATH . $thought->tts);
     }
 }
