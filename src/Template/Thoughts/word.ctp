@@ -145,7 +145,7 @@
     </button>
 </div>
 
-<script src="/js/tts.js"></script>
+<?= $this->Html->script('tts') ?>
 <?php $this->append('buffered_js'); ?>
     new TTS();
 <?php $this->end(); ?>
