@@ -11359,6 +11359,21 @@ body.popup_active #content_outer {
   padding-left: 5px;
 }
 
+.thought-actions {
+  font-size: 1.2em;
+  margin-top: 1em;
+}
+.thought-actions li {
+  margin-bottom: 0.5em;
+}
+
+.thought-action-icon {
+  display: inline-block;
+  font-size: 1.2em;
+  text-align: center;
+  width: 1.5em;
+}
+
 .comments {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   line-height: 150%;
@@ -12248,7 +12263,7 @@ pre.cake-error {
 }
 .tw_thoughts .meta {
   font-size: 80%;
-  margin-bottom: 15px;
+  margin-bottom: 70px;
 }
 .tw_thoughts .meta .colorbox {
   height: 30px;

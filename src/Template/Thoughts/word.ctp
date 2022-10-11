@@ -92,34 +92,41 @@
                             $timeAgo = $this->Time->abbreviatedTimeAgoInWords($thought['created']);
                             echo str_replace(',', ',<br class="hidden-xs" />', $timeAgo);
                         ?>
-                        <br />
-                        <?= $this->Html->link(
-                            'Link <span class="visually-hidden">to this thought</span>',
-                            [
-                                'controller' => 'Thoughts',
-                                'action' => 'word',
-                                $word,
-                                '#' => 't' . $thought['id']
-                            ],
-                            ['escape' => false]
-                        ) ?>
-                        <br />
-                        <a data-tts="<?= $thought['tts'] ?>" data-thought-id="<?= $thought['id'] ?>" href="#" class="listenButton">
-                            Listen
-                        </a>
-                        <?php if ($userId == $thought['user']['id']): ?>
-                            <br />
-                            <?= $this->Html->link(
-                                'Edit',
-                                ['controller' => 'Thoughts', 'action' => 'edit', $thought['id']]
-                            ) ?>
-                            <br />
-                            <?= $this->Form->postLink(
-                                'Delete',
-                                ['controller' => 'Thoughts', 'action' => 'delete', $thought['id']],
-                                ['confirm' => 'Are you sure that you want to remove this thought?']
-                            ) ?>
-                        <?php endif; ?>
+                        <ul class="thought-actions list-unstyled">
+                            <li>
+                                <?= $this->Html->link(
+                                    '<i class="fa-solid fa-link thought-action-icon"></i> Link <span class="visually-hidden">to this thought</span>',
+                                    [
+                                        'controller' => 'Thoughts',
+                                        'action' => 'word',
+                                        $word,
+                                        '#' => 't' . $thought['id']
+                                    ],
+                                    ['escape' => false]
+                                ) ?>
+                            </li>
+                            <li>
+                                <a data-tts="<?= $thought['tts'] ?>" data-thought-id="<?= $thought['id'] ?>" href="#" class="listenButton">
+                                    <i class="fa-solid fa-play thought-action-icon"></i> Listen
+                                </a>
+                            </li>
+                            <?php if ($userId == $thought['user']['id']): ?>
+                                <li>
+                                    <?= $this->Html->link(
+                                        '<i class="fa-solid fa-pencil thought-action-icon"></i> Edit',
+                                        ['controller' => 'Thoughts', 'action' => 'edit', $thought['id']],
+                                        ['escape' => false]
+                                    ) ?>
+                                </li>
+                                <li>
+                                    <?= $this->Form->postLink(
+                                        '<i class="fa-solid fa-trash-can thought-action-icon"></i> Delete',
+                                        ['controller' => 'Thoughts', 'action' => 'delete', $thought['id']],
+                                        ['confirm' => 'Are you sure that you want to remove this thought?', 'escape' => false]
+                                    ) ?>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
                     </div>
                 </div>
                 <div class="col-sm-8">
