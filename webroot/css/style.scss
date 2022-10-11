@@ -347,6 +347,10 @@ body.popup_active {
     li {
         margin-bottom: 0.5em;
     }
+
+    a {
+        white-space: nowrap;
+    }
 }
 
 .thought-action-icon {

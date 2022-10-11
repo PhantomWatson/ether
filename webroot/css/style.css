@@ -11366,6 +11366,9 @@ body.popup_active #content_outer {
 .thought-actions li {
   margin-bottom: 0.5em;
 }
+.thought-actions a {
+  white-space: nowrap;
+}
 
 .thought-action-icon {
   display: inline-block;
