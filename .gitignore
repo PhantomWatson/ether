@@ -51,6 +51,7 @@ composer.phar
 /config/recaptcha.php
 /config/app_local.php
 /config/app_local.production.php
+/config/app_local.dev.php
 /config/Migrations/schema-dump-default.lock
 /config/Google/*
 
