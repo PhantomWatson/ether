@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var array $thought
  */
 ?>
 <div class="thought" data-formatting-key="<?= $thought['formatting_key'] ?>" data-thought-id="<?= $thought['id'] ?>">
@@ -19,7 +20,7 @@
             <div class="post" id="newcomment<?= $thought['id'] ?>button">
                 <?php if ($this->request->getSession()->check('Auth.User.id')): ?>
                     <a href="#" class="add_comment" data-thought-id="<?= $thought['id'] ?>">
-                        Leave Comment
+                        <i class="fa-solid fa-comment"></i> Leave Comment
                     </a>
                 <?php else: ?>
                     <?= $this->Html->link(
