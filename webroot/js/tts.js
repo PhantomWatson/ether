@@ -43,9 +43,38 @@ class TTS {
                 if (filename) {
                     openAudio(filename);
                 } else {
-                    alert('Sorry, there was an error loading the audio for that thought. :(')
+                    this.modal(
+                        'Sorry, there was an error loading the audio for that thought. '
+                        + 'Our text-to-speech service might be temporarily down. Please try again later or '
+                        + '<a href="/contact">contact Phantom</a> to let him know something\'s wrong.'
+                    );
                 }
             });
         });
+    }
+
+    modal(msg) {
+        const modal = this.createElementFromHTML(document.getElementById('modal-template').innerHTML);
+        modal.id = 'tts-modal';
+        console.log(modal);
+        modal.querySelector('.modal-body p').innerHTML = msg;
+        modal.querySelector('.modal-title').innerHTML = 'Whoops';
+        document.querySelector('body').appendChild(modal);
+        const bsModal = new bootstrap.Modal(modal);
+        bsModal.show();
+    }
+
+    /**
+     * https://stackoverflow.com/a/494348/52530
+     *
+     * @param htmlString
+     * @returns {ChildNode}
+     */
+    createElementFromHTML(htmlString) {
+        const div = document.createElement('div');
+        div.innerHTML = htmlString.trim();
+
+        // Change this to div.childNodes to support multiple top-level nodes.
+        return div.firstChild;
     }
 }

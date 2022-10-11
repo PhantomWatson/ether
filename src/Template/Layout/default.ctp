@@ -85,6 +85,24 @@ $ogTags = isset($ogTags) ? array_merge($defaultOgTags, $ogTags) : $defaultOgTags
 
         <?= $this->element('footer') ?>
 
+        <template id="modal-template">
+            <div class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Blarp darp</p>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
         <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="/js/jquery-1.9.1.min.js"><\/script>')</script>
