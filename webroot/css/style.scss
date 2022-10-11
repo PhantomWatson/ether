@@ -342,14 +342,23 @@ body.popup_active {
 
 .thought-actions {
     font-size: 1.2em;
-    margin-top: 1em;
+    margin-bottom: 0;
+    text-align: right;
 
     li {
+        display: inline-block;
         margin-bottom: 0.5em;
+        margin-right: 1em;
     }
 
     a {
         white-space: nowrap;
+    }
+}
+
+.thought-meta {
+    > div {
+        vertical-align: middle;
     }
 }
 
@@ -451,10 +460,11 @@ body.popup_active {
     border-radius: 2px;
     border: 1px solid #FFF;
     display: inline-block;
-    height: 20px;
+    height: 2em;
     line-height: 23px;
     text-align: center;
-    width: 20px;
+    vertical-align: bottom;
+    width: 2em;
 
     img {
         border: 0;
@@ -1461,17 +1471,6 @@ pre.cake-error {
 .tw_thoughts {
     h1 {
         text-align: center;
-    }
-
-    .meta {
-        font-size: 80%;
-        margin-bottom: 15px;
-
-        .colorbox {
-            height: 30px;
-            line-height: 30px;
-            width: 30px;
-        }
     }
 
     .thoughtrow {
