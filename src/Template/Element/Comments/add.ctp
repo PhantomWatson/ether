@@ -52,7 +52,7 @@ $this->Form->setTemplates([
         'Post comment',
         ['class' => 'btn btn-primary', 'div' => false]
     ) ?>
-    <a href="#" class="btn btn-link" data-thought-id="<?= $thought['id'] ?>">
+    <a href="#" class="btn btn-link cancel_comment" data-thought-id="<?= $thought['id'] ?>">
         Cancel
     </a>
 </div>
