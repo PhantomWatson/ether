@@ -1911,3 +1911,25 @@ blockquote {
 .audio-loading {
     font-size: 1.25em;
 }
+
+#news {
+    margin-bottom: $section-vertical-margin;
+
+    > div {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 1em;
+    }
+
+    .fa-circle-info {
+        color: $linkColor;
+    }
+
+    .listenButton {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 2px;
+    }
+
+    .byline {
+        text-align: right;
+    }
+}

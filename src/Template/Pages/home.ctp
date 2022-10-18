@@ -46,6 +46,21 @@
     </div>
 </div>
 
+<div class="row" id="news">
+    <div class="col-sm-8 offset-sm-2">
+        <strong>
+            <i class="fa-solid fa-circle-info"></i> New thing:
+        </strong>
+        Look for the new
+        <strong class="listenButton"><i class="fa-solid fa-play thought-action-icon"></i> Listen</strong>
+        button. It'll read each thought to you so you can rest your eyes or use them to look at other things, like
+        <a href="https://imgur.com/gallery/PZmQcma">this lovely picture</a> that I took outside of my house.
+        <div class="byline">
+            <em>Love, Phantom</em>
+        </div>
+    </div>
+</div>
+
 <div id="recent">
     <h2>
         Recent

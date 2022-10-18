@@ -12648,4 +12648,22 @@ blockquote {
   font-size: 1.25em;
 }
 
+#news {
+  margin-bottom: 30px;
+}
+#news > div {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 1em;
+}
+#news .fa-circle-info {
+  color: #a88dbf;
+}
+#news .listenButton {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 2px;
+}
+#news .byline {
+  text-align: right;
+}
+
 /*# sourceMappingURL=style.css.map */
