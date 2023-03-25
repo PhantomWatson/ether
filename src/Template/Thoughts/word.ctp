@@ -101,27 +101,37 @@
                                             $word,
                                             '#' => 't' . $thought['id']
                                         ],
-                                        ['escape' => false]
+                                        [
+                                            'escape' => false,
+                                            'class' => 'btn btn-sm btn-link',
+                                        ]
                                     ) ?>
                                 </li>
                                 <li>
-                                    <a data-tts="<?= $thought['tts'] ?>" data-thought-id="<?= $thought['id'] ?>" href="#" class="listenButton">
+                                    <button data-tts="<?= $thought['tts'] ?>" data-thought-id="<?= $thought['id'] ?>" class="listenButton btn btn-sm btn-link">
                                         <i class="fa-solid fa-play thought-action-icon"></i> Listen
-                                    </a>
+                                    </button>
                                 </li>
                                 <?php if ($userId == $thought['user']['id']): ?>
                                     <li>
                                         <?= $this->Html->link(
                                             '<i class="fa-solid fa-pencil thought-action-icon"></i> Edit',
                                             ['controller' => 'Thoughts', 'action' => 'edit', $thought['id']],
-                                            ['escape' => false]
+                                            [
+                                                'escape' => false,
+                                                'class' => 'btn btn-sm btn-link',
+                                            ]
                                         ) ?>
                                     </li>
                                     <li>
                                         <?= $this->Form->postLink(
                                             '<i class="fa-solid fa-trash-can thought-action-icon"></i> Delete',
                                             ['controller' => 'Thoughts', 'action' => 'delete', $thought['id']],
-                                            ['confirm' => 'Are you sure that you want to remove this thought?', 'escape' => false]
+                                            [
+                                                'confirm' => 'Are you sure that you want to remove this thought?',
+                                                'escape' => false,
+                                                'class' => 'btn btn-sm btn-link',
+                                            ]
                                         ) ?>
                                     </li>
                                 <?php endif; ?>

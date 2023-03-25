@@ -48,7 +48,7 @@ class TTS {
     }
 
     async buttonOnClick(event) {
-        const button = event.target;
+        const button = event.target.closest('button');
         let filename = button.dataset.tts ? button.dataset.tts : await this.generateFile(button);
         if (filename) {
             this.openAudio(filename);
