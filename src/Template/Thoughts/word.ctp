@@ -103,12 +103,12 @@
                                         ],
                                         [
                                             'escape' => false,
-                                            'class' => 'btn btn-sm btn-link',
+                                            'class' => 'btn btn-link',
                                         ]
                                     ) ?>
                                 </li>
                                 <li>
-                                    <button data-tts="<?= $thought['tts'] ?>" data-thought-id="<?= $thought['id'] ?>" class="listenButton btn btn-sm btn-link">
+                                    <button data-tts="<?= $thought['tts'] ?>" data-thought-id="<?= $thought['id'] ?>" class="listenButton btn btn-link">
                                         <i class="fa-solid fa-play thought-action-icon"></i> Listen
                                     </button>
                                 </li>
@@ -119,7 +119,7 @@
                                             ['controller' => 'Thoughts', 'action' => 'edit', $thought['id']],
                                             [
                                                 'escape' => false,
-                                                'class' => 'btn btn-sm btn-link',
+                                                'class' => 'btn btn-link',
                                             ]
                                         ) ?>
                                     </li>
@@ -130,7 +130,7 @@
                                             [
                                                 'confirm' => 'Are you sure that you want to remove this thought?',
                                                 'escape' => false,
-                                                'class' => 'btn btn-sm btn-link',
+                                                'class' => 'btn btn-link',
                                             ]
                                         ) ?>
                                     </li>
