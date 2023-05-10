@@ -18,7 +18,7 @@ $goToUrl = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
                 aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbar-collapse">
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbar-collapse">
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <?= $this->Html->link(
