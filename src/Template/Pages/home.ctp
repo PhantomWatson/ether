@@ -47,29 +47,29 @@ $features = [
                     Random Thought:
                 </h3>
                 <span class="word">
-                <?= $this->Html->link(
-                    $randomThought->word,
-                    [
-                        'controller' => 'Thoughts',
-                        'action' => 'word',
+                    <?= $this->Html->link(
                         $randomThought->word,
-                        '#' => 't' . $randomThought['id']
-                    ]
-                ) ?>
-            </span>
+                        [
+                            'controller' => 'Thoughts',
+                            'action' => 'word',
+                            $randomThought->word,
+                            '#' => 't' . $randomThought['id']
+                        ]
+                    ) ?>
+                </span>
                 <br />
                 <span class="thought_excerpt"><?= $randomThought->formatted_thought ?></span>
                 <span class="byline">
-                <?php if ($randomThought->anonymous): ?>
-                    thought anonymously
-                <?php else: ?>
-                    thought by
-                    <?= $this->element('colorbox', [
-                        'color' => $randomThought->user['color'],
-                        'anonymous' => $randomThought->anonymous
-                    ]) ?>
-                <?php endif; ?>
-            </span>
+                    <?php if ($randomThought->anonymous): ?>
+                        thought anonymously
+                    <?php else: ?>
+                        thought by
+                        <?= $this->element('colorbox', [
+                            'color' => $randomThought->user['color'],
+                            'anonymous' => $randomThought->anonymous
+                        ]) ?>
+                    <?php endif; ?>
+                </span>
             <?php endif; ?>
         </div>
     </div>
