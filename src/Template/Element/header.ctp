@@ -9,15 +9,15 @@ $goToUrl = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
 ?>
 <nav class="navbar fixed-top navbar-dark navbar-expand-md" id="header">
     <div class="container-fluid">
-        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse"
-                aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <a href="/" id="site_title">
             <h1>
                 Ether
             </h1>
         </a>
+        <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse"
+                aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbar-collapse">
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
