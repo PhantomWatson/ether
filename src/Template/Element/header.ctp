@@ -154,9 +154,6 @@ $goToUrl = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
                         ['class' => 'nav-link']
                     ) ?>
                 </li>
-                <li class="nav-item">
-
-                </li>
             </ul>
             <form class="d-flex" role="search" action="<?= $goToUrl ?>" method="post" id="header-search">
                 <input class="form-control" type="search" aria-label="Go to thoughtword..."
