@@ -15,6 +15,7 @@ $linkColor: #a88dbf;
 $MessagesLighterBgColor: #151515;
 $section-vertical-margin: 30px;
 $table-bg: transparent;
+$card-bg: #1a1a1a;
 
 $btn-link-color: $linkColor;
 $btn-close-color: #fff;
@@ -192,11 +193,6 @@ label[for='header-search-input'] {
         letter-spacing: 9px;
         margin: 0;
         text-shadow: -2px -2px #000000;
-    }
-
-    .subtitle {
-        display: block;
-        font-size: 14px;
     }
 }
 
@@ -1925,12 +1921,32 @@ blockquote {
         color: $linkColor;
     }
 
+    .byline {
+        text-align: right;
+    }
+}
+
+#features {
+    h1 {
+
+    }
+
     .listenButton {
         border: 1px solid rgba(255, 255, 255, 0.2);
         padding: 2px;
     }
 
-    .byline {
-        text-align: right;
+    h5 {
+        border-bottom: 1px solid #555;
+        padding-bottom: 0.25em;
+
+        i {
+            margin-right: 0.25em;
+        }
+    }
+
+    .card {
+        background-color: #000;
+        margin-bottom: 1em;
     }
 }
