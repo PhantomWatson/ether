@@ -5,7 +5,7 @@
 	"type" : "project",
 	"license" : "proprietary",
 	"require" : {
-		"php" : ">=7.2",
+		"php" : ">=7.4",
 		"cakephp/cakephp" : "^3.8",
 		"cakephp/migrations" : "^2.0.0",
 		"cakephp/plugin-installer" : "^1.0",
