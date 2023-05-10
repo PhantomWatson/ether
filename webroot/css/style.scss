@@ -1557,8 +1557,10 @@ pre.cake-error {
 
     .byline {
         color: #bbb;
+        display: block;
         font-size: 80%;
         margin-left: 10px;
+        text-align: right;
     }
 
     .colorbox {

@@ -12348,8 +12348,10 @@ pre.cake-error {
 }
 #frontpage_random_thought .byline {
   color: #bbb;
+  display: block;
   font-size: 80%;
   margin-left: 10px;
+  text-align: right;
 }
 #frontpage_random_thought .colorbox {
   height: 15px;
