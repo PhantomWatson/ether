@@ -57,7 +57,7 @@ $goToUrl = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
                         </li>
                         <li>
                             <?= $this->Html->link(
-                                'Generator',
+                                'Thought Generator',
                                 ['controller' => 'Generator', 'action' => 'index'],
                                 ['class' => 'dropdown-item']
                             ) ?>
