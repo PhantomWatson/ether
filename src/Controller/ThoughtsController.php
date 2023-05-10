@@ -377,7 +377,7 @@ class ThoughtsController extends AppController
             }
         }
         $this->set([
-            'title_for_layout' => 'Questions',
+            'title_for_layout' => 'Question Abstractor',
             'questions' => $questions
         ]);
     }

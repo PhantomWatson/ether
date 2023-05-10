@@ -64,7 +64,7 @@ $goToUrl = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
                         </li>
                         <li>
                             <?= $this->Html->link(
-                                'Questions',
+                                'Question Abstractor',
                                 ['controller' => 'Thoughts', 'action' => 'questions'],
                                 ['class' => 'dropdown-item']
                             ) ?>

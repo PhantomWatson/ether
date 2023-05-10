@@ -11,7 +11,9 @@
 </div>
 
 <p>
-    A random selection of questions (or questionlike strings) asked by the Thinkers of Ether.
+    The Question Abstractor pulls a random selection of questions (or things that look like questions) from Thoughts.
+    Read, marvel, enjoy, and consider following the question to its Thought of origin and leaving a comment with an
+    answer.
 </p>
 
 <?php $markdownHelper = $this->loadHelper('Gourmet/CommonMark.CommonMark'); ?>
