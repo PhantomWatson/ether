@@ -30,7 +30,7 @@ class AppController extends Controller
      * @throws Exception
      * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
         $this->loadComponent('Cookie');
         $this->loadComponent('Flash');
@@ -77,7 +77,7 @@ class AppController extends Controller
      * @param Event $event Event object
      * @return void
      */
-    public function beforeFilter(Event $event)
+    public function beforeFilter(\Cake\Event\EventInterface $event)
     {
         $authError = $this->Auth->user('id')
             ? 'Sorry, you do not have access to that location.'
@@ -101,7 +101,7 @@ class AppController extends Controller
      * @param Event $event Event object
      * @return void
      */
-    public function beforeRender(Event $event)
+    public function beforeRender(\Cake\Event\EventInterface $event)
     {
         $userId = $this->Auth->user('id');
         /** @var MessagesTable $messagesTable */

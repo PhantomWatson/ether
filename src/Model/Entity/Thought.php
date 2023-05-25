@@ -78,7 +78,7 @@ class Thought extends Entity
     protected function _getQuestions()
     {
         $questions = [];
-        $sentences = preg_split('/(?<=[.?!])\s+(?=[a-z])/i', $this->_properties['thought']);
+        $sentences = preg_split('/(?<=[.?!])\s+(?=[a-z])/i', $this->_fields['thought']);
         foreach ($sentences as $sentence) {
             if (strpos($sentence, '?') === strlen($sentence) - 1) {
                 $questions[] = $sentence;

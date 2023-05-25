@@ -26,7 +26,7 @@ class OverhaulController extends AppController
      * @throws Exception
      * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
         $this->Auth->allow();

@@ -12,7 +12,7 @@ class ErrorController extends AppController
      * @return void
      * @throws Exception
      */
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
     }
@@ -23,7 +23,7 @@ class ErrorController extends AppController
      * @param Event $event Event.
      * @return void
      */
-    public function beforeRender(Event $event)
+    public function beforeRender(\Cake\Event\EventInterface $event)
     {
         $this->viewBuilder()->setTemplatePath('Error');
         parent::beforeRender($event);
