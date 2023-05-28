@@ -57,7 +57,6 @@ class Application extends BaseApplication
         }
 
         try {
-            $this->addPlugin('Xety/Cake3CookieAuth');
             $this->addPlugin('Setup');
         } catch (MissingPluginException $e) {
             // Do not halt if the plugin is missing
