@@ -703,52 +703,6 @@ class ThoughtsTable extends Table
     }
 
     /**
-     * Removes slashes that were a leftover of the anti-injection-attack strategy of the olllllld Ether
-     *
-     * @return void
-     */
-    public function overhaulStripSlashes()
-    {
-        $thoughts = $this->find('all')
-            ->select(['id', 'thought'])
-            ->where(['thought LIKE' => '%\\\\%'])
-            ->order(['id' => 'ASC']);
-        foreach ($thoughts as $thought) {
-            echo $thought->thought;
-            $fixed = stripslashes($thought->thought);
-            $thought->thought = $fixed;
-            $this->save($thought);
-            echo " => $fixed<br />";
-        }
-    }
-
-    public function overhaulToMarkdown()
-    {
-        $field = 'thought';
-        $results = $this->find('all')
-            ->select(['id', $field])
-            ->where([
-                "$field LIKE" => '%<%',
-                'markdown' => false
-            ])
-            ->order(['id' => 'ASC']);
-        if ($results->count() == 0) {
-            echo "No {$field}s to convert";
-        }
-        foreach ($results as $result) {
-            $converter = new HtmlConverter(['strip_tags' => false]);
-            $markdown = $converter->convert($result->$field);
-            $result->$field = $markdown;
-            $result->markdown = true;
-            if ($this->save($result)) {
-                echo "Converted $field #$result->id<br />";
-            } else {
-                echo "ERROR converting $field #$result->id<br />";
-            }
-        }
-    }
-
-    /**
      * Returns a list of all non-hidden thoughts
      *
      * @return array

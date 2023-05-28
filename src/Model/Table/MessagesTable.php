@@ -294,50 +294,6 @@ class MessagesTable extends Table
             ->count();
     }
 
-    /**
-     * Removs slashes that were a leftover of the anti-injection-attack strategy of the olllllld Ether
-     */
-    public function overhaulStripSlashes()
-    {
-        $messages = $this->find('all')
-            ->select(['id', 'message'])
-            ->where(['message LIKE' => '%\\\\%'])
-            ->order(['id' => 'ASC']);
-        foreach ($messages as $message) {
-            echo $message->message;
-            $fixed = stripslashes($message->message);
-            $message->message = $fixed;
-            $this->save($message);
-            echo " => $fixed<br />";
-        }
-    }
-
-    public function overhaulToMarkdown()
-    {
-        $field = 'message';
-        $results = $this->find('all')
-            ->select(['id', $field])
-            ->where([
-                "$field LIKE" => '%<%',
-                'markdown' => false
-            ])
-            ->order(['id' => 'ASC']);
-        if ($results->count() == 0) {
-            echo "No {$field}s to convert";
-        }
-        foreach ($results as $result) {
-            $converter = new HtmlConverter(['strip_tags' => false]);
-            $markdown = $converter->convert($result->$field);
-            $result->$field = $markdown;
-            $result->markdown = true;
-            if ($this->save($result)) {
-                echo "Converted $field #$result->id<br />";
-            } else {
-                echo "ERROR converting $field #$result->id<br />";
-            }
-        }
-    }
-
     public function sendNotificationEmail($senderId, $recipientId, $message)
     {
         $usersTable = TableRegistry::getTableLocator()->get('Users');
