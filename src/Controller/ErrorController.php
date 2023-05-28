@@ -14,6 +14,7 @@ class ErrorController extends AppController
      */
     public function initialize(): void
     {
+        $this->loadComponent('RequestHandler');
         parent::initialize();
     }
 
@@ -25,7 +26,7 @@ class ErrorController extends AppController
      */
     public function beforeRender(\Cake\Event\EventInterface $event)
     {
-        $this->viewBuilder()->setTemplatePath('Error');
         parent::beforeRender($event);
+        $this->viewBuilder()->setTemplatePath('Error');
     }
 }

@@ -32,6 +32,7 @@ class AppController extends Controller
      */
     public function initialize(): void
     {
+        $this->loadComponent('RequestHandler');
         $this->loadComponent('Cookie');
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
