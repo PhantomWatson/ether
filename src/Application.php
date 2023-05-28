@@ -57,7 +57,6 @@ class Application extends BaseApplication
         }
 
         try {
-            $this->addPlugin('Gourmet/CommonMark');
             $this->addPlugin('Xety/Cake3CookieAuth');
             $this->addPlugin('Setup');
         } catch (MissingPluginException $e) {
@@ -134,7 +133,6 @@ class Application extends BaseApplication
     protected function bootstrapCli(): void
     {
         $this->addOptionalPlugin('Bake');
-        $this->addPlugin('IdeHelper');
         $this->addPlugin('Migrations');
 
         // Load more plugins here

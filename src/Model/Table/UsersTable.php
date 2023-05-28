@@ -13,7 +13,6 @@ use Cake\Routing\Router;
 use Cake\Utility\Hash;
 use Cake\Utility\Security;
 use Cake\Validation\Validator;
-use League\HTMLToMarkdown\HtmlConverter;
 
 /**
  * Users Model
