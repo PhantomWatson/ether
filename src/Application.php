@@ -78,12 +78,12 @@ class Application extends BaseApplication
     /**
      * Setup the middleware queue your application will use.
      *
-     * @param \Cake\Http\MiddlewareQueue $middlewareQueue The middleware queue to setup.
+     * @param \Cake\Http\MiddlewareQueue $middleware The middleware queue to setup.
      * @return \Cake\Http\MiddlewareQueue The updated middleware queue.
      */
-    public function middleware(MiddlewareQueue $middlewareQueue): MiddlewareQueue
+    public function middleware($middleware): MiddlewareQueue
     {
-        $middlewareQueue
+        $middleware
             // Catch any exceptions in the lower layers,
             // and make an error page/response
             ->add(new ErrorHandlerMiddleware(Configure::read('Error')))
@@ -110,7 +110,7 @@ class Application extends BaseApplication
                 'httponly' => true,
             ]));
 
-        return $middlewareQueue;
+        return $middleware;
     }
 
     /**
