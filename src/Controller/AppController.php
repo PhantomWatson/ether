@@ -34,7 +34,6 @@ class AppController extends Controller
     public function initialize(): void
     {
         $this->loadComponent('RequestHandler');
-        $this->loadComponent('Cookie');
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
             'loginAction' => [
@@ -96,7 +95,7 @@ class AppController extends Controller
             if ($user) {
                 $this->Auth->setUser($user);
             } else {
-                $this->response = $this->response->withExpiredCookie(new Cookie('CookieAuth'));
+                $this->setResponse($this->getResponse()->withExpiredCookie(new Cookie('CookieAuth')));
             }
         }
 

@@ -6,6 +6,7 @@ use App\Model\Entity\User;
 use App\Model\Table\MessagesTable;
 use App\Model\Table\UsersTable;
 use Cake\Core\Configure;
+use Cake\Http\Cookie\Cookie;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
@@ -190,16 +191,7 @@ class UsersController extends AppController
             $user->password = $this->request->getData('new_password');
             $user->password_version = 3;
             if ($this->Users->save($user)) {
-                // Remember new credentials in cookie
-                $this->Cookie->configKey('CookieAuth', [
-                    'expires' => '+1 year',
-                    'httpOnly' => true
-                ]);
-                $this->Cookie->write('CookieAuth', [
-                    'email' => $user->email,
-                    'password' => $this->request->getData('new_password')
-                ]);
-
+                $this->setAuthCookie($user->email, $this->getRequest()->getData('new_password'));
                 $this->Flash->success('Your password has been changed.');
             } else {
                 $this->Flash->error('There was an error changing your password. Please try again.');
@@ -221,6 +213,18 @@ class UsersController extends AppController
                 $this->Flash->error('There was an error updating your account settings.');
             }
         }
+    }
+
+    private function setAuthCookie($email, $password)
+    {
+        $cookie = (new Cookie(
+            'CookieAuth',
+            ['email' => $email, 'password' => $password]
+        ))
+            ->withExpiry(new \DateTime('+1 year'))
+            ->withHttpOnly(true)
+            ->withSecure(true);
+        $this->setResponse($this->getResponse()->withCookie($cookie));
     }
 
     /**
@@ -452,15 +456,7 @@ class UsersController extends AppController
                 $this->Users->save($user);
             }
 
-            // Remember login in cookie
-            $this->Cookie->configKey('CookieAuth', [
-                'expires' => '+1 year',
-                'httpOnly' => true
-            ]);
-            $this->Cookie->write('CookieAuth', [
-                'email' => $this->request->getData('email'),
-                'password' => $this->request->getData('password')
-            ]);
+            $this->setAuthCookie($this->request->getData('email'), $this->request->getData('password'));
 
             return $this->redirect($this->Auth->redirectUrl());
         }
