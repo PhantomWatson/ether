@@ -18,6 +18,14 @@ class FlashComponent extends Component
     }
 
     /**
+     * @return \Cake\Http\Session
+     */
+    private function getSession(): \Cake\Http\Session
+    {
+        return $this->getController()->getRequest()->getSession();
+    }
+
+    /**
      * Adds a flash message / variable dump
      *
      * @param string $message Message (or variable to be dumped)
@@ -26,7 +34,7 @@ class FlashComponent extends Component
      */
     public function set($message, $class = 'notification')
     {
-        $storedMessages = $this->getController()->request->getSession()->read('FlashMessage');
+        $storedMessages = $this->getSession()->read('FlashMessage');
 
         // Handle the $options parameter passed by the Authentication component
         if (is_array($class)) {
@@ -38,7 +46,7 @@ class FlashComponent extends Component
         }
 
         $storedMessages[] = compact('message', 'class');
-        $this->getController()->request->getSession()->write('FlashMessage', $storedMessages);
+        $this->getSession()->write('FlashMessage', $storedMessages);
     }
 
     /**
@@ -92,18 +100,18 @@ class FlashComponent extends Component
      */
     private function __prepareFlashMessages()
     {
-        $storedMessages = $this->getController()->request->getSession()->read('FlashMessage');
+        $storedMessages = $this->getSession()->read('FlashMessage');
         $storedMessages = $storedMessages ? $storedMessages : [];
-        $this->getController()->request->getSession()->delete('FlashMessage');
+        $this->getSession()->delete('FlashMessage');
 
         // Add auth error messages
-        $authError = $this->getController()->request->getSession()->read('Message.auth');
+        $authError = $this->getSession()->read('Message.auth');
         if ($authError) {
             $storedMessages[] = [
                 'message' => $authError['message'],
                 'class' => 'danger'
             ];
-            $this->getController()->request->getSession()->delete('Message.auth');
+            $this->getSession()->delete('Message.auth');
         }
 
         // Process variable dumping and convert classes to Bootstrap alert class suffixes
@@ -124,6 +132,6 @@ class FlashComponent extends Component
             }
         }
 
-        $this->_registry->getController()->set('flashMessages', $storedMessages);
+        $this->getController()->set('flashMessages', $storedMessages);
     }
 }
