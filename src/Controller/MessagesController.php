@@ -87,7 +87,7 @@ class MessagesController extends AppController
 
             $errorMsg = null;
             $msgSent = false;
-            $message = $this->Messages->newEntity();
+            $message = $this->Messages->newEmptyEntity();
             $message = $this->Messages->patchEntity($message, $data);
             if ($message->getErrors()) {
                 $errors = Hash::flatten($message->getErrors());
@@ -160,7 +160,7 @@ class MessagesController extends AppController
             'titleForLayout' => 'Messages with Thinker #' . $penpalColor,
             'penpalColor' => $penpal->color,
             'penpalAcceptsMessages' => $this->Users->acceptsMessages($penpalId),
-            'messageEntity' => $this->Messages->newEntity()
+            'messageEntity' => $this->Messages->newEmptyEntity()
         ]);
 
         return null;

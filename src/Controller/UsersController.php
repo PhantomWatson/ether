@@ -82,7 +82,7 @@ class UsersController extends AppController
         }
 
         if ($user['acceptMessages']) {
-            $this->set('messageEntity', $this->Messages->newEntity());
+            $this->set('messageEntity', $this->Messages->newEmptyEntity());
         }
     }
 
@@ -93,7 +93,7 @@ class UsersController extends AppController
      */
     public function register()
     {
-        $user = $this->Users->newEntity();
+        $user = $this->Users->newEmptyEntity();
         $this->set([
             'title_for_layout' => 'Register Account',
             'user' => $user,
@@ -234,7 +234,7 @@ class UsersController extends AppController
      */
     public function forgotPassword()
     {
-        $user = $this->Users->newEntity();
+        $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $email = $this->request->getData('email');
             $email = strtolower(trim($email));
@@ -308,7 +308,7 @@ class UsersController extends AppController
         $this->set([
             'email' => $email,
             'titleForLayout' => 'Reset Password',
-            'user' => $this->Users->newEntity()
+            'user' => $this->Users->newEmptyEntity()
         ]);
 
         return null;

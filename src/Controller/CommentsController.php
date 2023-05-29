@@ -34,7 +34,7 @@ class CommentsController extends AppController
      */
     public function add()
     {
-        $comment = $this->Comments->newEntity();
+        $comment = $this->Comments->newEmptyEntity();
         if ($this->request->is('post')) {
             $comment = $this->Comments->patchEntity($comment, $this->request->getData());
             $comment->user_id = $this->Auth->user('id');

@@ -80,7 +80,7 @@ class ThoughtsController extends AppController
      */
     public function add()
     {
-        $thought = $this->Thoughts->newEntity();
+        $thought = $this->Thoughts->newEmptyEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
             $data['user_id'] = $this->Auth->user('id');
