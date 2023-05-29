@@ -34,7 +34,6 @@ use League\CommonMark\CommonMarkConverter;
  * @method Thought[] patchEntities($entities, array $data, array $options = [])
  * @method Thought findOrCreate($search, callable $callback = null, $options = [])
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
- * @mixin \Gourmet\CommonMark\Model\Behavior\CommonMarkBehavior
  */
 class ThoughtsTable extends Table
 {
@@ -59,7 +58,6 @@ class ThoughtsTable extends Table
         $this->hasMany('Comments', [
             'foreignKey' => 'thought_id'
         ]);
-        $this->addBehavior('Gourmet/CommonMark.CommonMark');
     }
 
     /**
