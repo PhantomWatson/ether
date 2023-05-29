@@ -19,6 +19,7 @@ use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use EtherMarkov\EtherMarkovChain;
 use League\CommonMark\CommonMarkConverter;
+use League\CommonMark\Exception\CommonMarkException;
 
 /**
  * Thoughts Model
@@ -495,13 +496,16 @@ class ThoughtsTable extends Table
         return $thought;
     }
 
+    /**
+     * @throws CommonMarkException
+     */
     public function parseMarkdown($input)
     {
         $converter = new CommonMarkConverter([
             'html_input' => 'strip',
             'allow_unsafe_links' => false,
         ]);
-        return $converter->convertToHtml($input);
+        return $converter->convert($input);
     }
 
     public function stripTags($input, $allTags = false)
