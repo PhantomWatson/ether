@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var \App\Model\Entity\User $user
  */
 ?>
 <div id="content_title">
@@ -11,7 +12,7 @@
 
 <div class="content_box">
     <?php
-        echo $this->Form->create('User');
+        echo $this->Form->create($user);
         echo $this->Form->control(
             'email',
             [

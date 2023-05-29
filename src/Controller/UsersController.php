@@ -126,7 +126,8 @@ class UsersController extends AppController
             $this->_login();
         }
         $this->set([
-            'title_for_layout' => 'Log in'
+            'title_for_layout' => 'Log in',
+            'user' => $this->Users->newEmptyEntity()
         ]);
 
         return null;
