@@ -17,10 +17,6 @@ use Exception;
  */
 class PagesController extends AppController
 {
-    public $helpers = [
-        'Paginator' => []
-    ];
-
     public $paginate = [
         'finder' => [
             'recentActivity' => []
@@ -38,6 +34,7 @@ class PagesController extends AppController
         parent::initialize();
         $this->loadComponent('Paginator');
         $this->loadComponent('RequestHandler');
+
         $this->Auth->allow();
     }
 

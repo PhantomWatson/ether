@@ -37,5 +37,8 @@ class AppView extends View
      */
     public function initialize(): void
     {
+        $this->loadHelper('Paginator');
+        $this->loadHelper('Time', ['className' => 'EtherTime']);
+        $this->loadHelper('Form', ['templates' => 'ether_form']);
     }
 }
