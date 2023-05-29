@@ -502,9 +502,11 @@ class UsersController extends AppController
     {
         $this->request = $this->request->withData('new_password', null);
         $this->request = $this->request->withData('confirm_password', null);
-        if ($this->viewVars['user'] ?? false) {
-            $this->viewVars['user']->new_password = null;
-            $this->viewVars['user']->confirm_password = null;
+        if ($this->viewBuilder()->hasVar('user')) {
+            $user = $this->Users->newEmptyEntity();
+            $user->new_password = null;
+            $user->confirm_password = null;
+            $this->viewBuilder()->setVar('user', $user);
         }
     }
 }
