@@ -8,6 +8,7 @@ $config = [
 
     'Security' => [
         'salt' => '',
+        'cookieKey' => '',
     ],
 
     'EmailTransport' => [

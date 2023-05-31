@@ -21,6 +21,8 @@ use Exception;
  */
 class UsersController extends AppController
 {
+    const COOKIE_AUTH_KEY = 'CookieAuth';
+
     /**
      * Initialize method
      *
@@ -118,7 +120,7 @@ class UsersController extends AppController
     /**
      * Renders /users/login
      *
-     * @return Response|null
+     * @return void
      */
     public function login()
     {
@@ -129,8 +131,6 @@ class UsersController extends AppController
             'title_for_layout' => 'Log in',
             'user' => $this->Users->newEmptyEntity()
         ]);
-
-        return null;
     }
 
     /**
@@ -162,7 +162,7 @@ class UsersController extends AppController
     /**
      * Renders /users/settings
      *
-     * @return void
+     * @return Response|null
      */
     public function settings()
     {
@@ -174,7 +174,7 @@ class UsersController extends AppController
         ]);
 
         if (! ($this->request->is('post') || $this->request->is('put'))) {
-            return;
+            return null;
         }
 
         $user = $this->Users->patchEntity($user, $this->request->getData(), [
@@ -182,7 +182,7 @@ class UsersController extends AppController
         ]);
         if ($user->getErrors()) {
             $this->Flash->error('Please correct the indicated '.__n('error', 'errors', count($user->getErrors())).' before continuing.');
-            return;
+            return null;
         }
 
         $action = $this->request->getData('action');
@@ -192,11 +192,11 @@ class UsersController extends AppController
             $user->password = $this->request->getData('new_password');
             $user->password_version = 3;
             if ($this->Users->save($user)) {
-                $this->setAuthCookie($user->email, $this->getRequest()->getData('new_password'));
                 $this->Flash->success('Your password has been changed.');
-            } else {
-                $this->Flash->error('There was an error changing your password. Please try again.');
+                $cookie = $this->getAuthCookie($user->email, $this->getRequest()->getData('new_password'));
+                return $this->getResponse()->withCookie($cookie);
             }
+            $this->Flash->error('There was an error changing your password. Please try again.');
 
         // Introspection
         } elseif ($action == 'introspection') {
@@ -214,18 +214,24 @@ class UsersController extends AppController
                 $this->Flash->error('There was an error updating your account settings.');
             }
         }
+        return null;
     }
 
-    private function setAuthCookie($email, $password)
+    private function getAuthCookie($email, $password): Cookie
     {
         $cookie = (new Cookie(
-            'CookieAuth',
-            ['email' => $email, 'password' => $password]
+            self::COOKIE_AUTH_KEY,
+            compact('email', 'password')
         ))
             ->withExpiry(new \DateTime('+1 year'))
-            ->withHttpOnly(true)
-            ->withSecure(true);
-        $this->setResponse($this->getResponse()->withCookie($cookie));
+            ->withHttpOnly(true);
+
+        // Avoid secure on localhost to avoid needing self-signed certificate
+        if (!Configure::read('debug')) {
+            $cookie = $cookie->withSecure(true);
+        }
+
+        return $cookie;
     }
 
     /**
@@ -443,7 +449,7 @@ class UsersController extends AppController
     /**
      * Logs the user in with request data and returns a redirect if successful
      *
-     * @return \Cake\Http\Response|null
+     * @return void
      */
     private function _login()
     {
@@ -457,14 +463,17 @@ class UsersController extends AppController
                 $this->Users->save($user);
             }
 
-            $this->setAuthCookie($this->request->getData('email'), $this->request->getData('password'));
-
-            return $this->redirect($this->Auth->redirectUrl());
+            $cookie = $this->getAuthCookie(
+                $this->getRequest()->getData('email'),
+                $this->getRequest()->getData('password')
+            );
+            $this->response = $this
+                ->redirect($this->Auth->redirectUrl())
+                ->withCookie($cookie);
+            return;
         }
 
         $this->Flash->error('Email or password is incorrect');
-
-        return null;
     }
 
     /**
