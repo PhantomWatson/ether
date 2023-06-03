@@ -253,14 +253,9 @@ class UsersController extends AppController
             } else {
                 $userId = $this->Users->getIdWithEmail($email);
                 if ($userId) {
-                    if ($this->Users->sendPasswordResetEmail($userId)) {
-                        $this->Flash->success('You did it! The email goblins should be delivering a link to reset your password forthwith.');
+                    $this->Flash->success('You did it! The email goblins should be delivering a link to reset your password forthwith.');
 
-                        return $this->redirect('/');
-                    } else {
-                        $msg = 'There was an error sending your password-resetting email. I swear this never happens. :(';
-                        $this->Flash->error($msg);
-                    }
+                    return $this->redirect('/');
                 } else {
                     $msg = 'I couldn\'t find an account registered with the email address <strong>'.$email.'</strong>. ';
                     $msg .= 'Please make sure you spelled it correctly.';

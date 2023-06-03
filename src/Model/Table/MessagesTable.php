@@ -1,8 +1,9 @@
 <?php
 namespace App\Model\Table;
 
+use App\Application;
 use App\Model\Entity\Message;
-use Cake\Mailer\Email;
+use Cake\Mailer\Mailer;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -293,27 +294,38 @@ class MessagesTable extends Table
             ->count();
     }
 
-    public function sendNotificationEmail($senderId, $recipientId, $message)
+    /**
+     * @param int $senderId
+     * @param int $recipientId
+     * @param string $message
+     * @return void
+     */
+    public function sendNotificationEmail($senderId, $recipientId, $message): array
     {
+        /** @var UsersTable $usersTable */
         $usersTable = TableRegistry::getTableLocator()->get('Users');
         $recipient = $usersTable->get($recipientId);
         $sender = $usersTable->get($senderId);
 
-        $email = new Email('new_message');
-        $email->setTo($recipient->email);
-        $email->setSubject('Ether: Message from #'.$sender->color);
-        $email->setViewVars([
-            'senderId' => $senderId,
-            'senderColor' => $sender->color,
-            'message' => $message,
-            'loginUrl' => Router::url(['controller' => 'Users', 'action' => 'login'], true),
-            'messageUrl' => Router::url(['controller' => 'Messages', 'action' => 'index', $sender->color], true),
-            'accountUrl' => Router::url(['controller' => 'Users', 'action' => 'settings'], true),
-            'siteUrl' => Router::url('/', true)
-        ]);
-        $email->setTemplate('new_message');
-        $email->setLayout('default');
-        $email->setEmailFormat('both');
-        return $email->send();
+        $mailer = new Mailer();
+        $mailer
+            ->setEmailFormat(\Cake\Mailer\Message::MESSAGE_BOTH)
+            ->setTo($recipient->email)
+            ->setFrom(Application::EMAIL_FROM)
+            ->setSender(Application::EMAIL_FROM)
+            ->setSubject('Ether: Message from #'.$sender->color)
+            ->viewBuilder()
+                ->setLayout('default')
+                ->setTemplate('new_message')
+                ->setVars([
+                    'senderId' => $senderId,
+                    'senderColor' => $sender->color,
+                    'message' => $message,
+                    'loginUrl' => Router::url(['controller' => 'Users', 'action' => 'login'], true),
+                    'messageUrl' => Router::url(['controller' => 'Messages', 'action' => 'index', $sender->color], true),
+                    'accountUrl' => Router::url(['controller' => 'Users', 'action' => 'settings'], true),
+                    'siteUrl' => Router::url('/', true)
+                ]);
+        $mailer->deliver();
     }
 }

@@ -1,11 +1,13 @@
 <?php
 namespace App\Model\Table;
 
+use App\Application;
 use Cake\Collection\Collection;
 use Cake\Database\Expression\QueryExpression;
 use Cake\Http\Exception\BadRequestException;
 use Cake\Http\Exception\InternalErrorException;
 use Cake\Mailer\Email;
+use Cake\Mailer\Mailer;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -486,7 +488,7 @@ class UsersTable extends Table
      * 24 hours to give the user access to /users/resetPassword
      *
      * @param int $userId User ID
-     * @return array
+     * @return void
      */
     public function sendPasswordResetEmail($userId)
     {
@@ -500,15 +502,21 @@ class UsersTable extends Table
             $hash
         ], true);
         $siteUrl = Router::url('/', true);
-        $email = new Email('reset_password');
         $user = $this->get($userId);
-        $email->setTo($user->email);
-        $email->setViewVars(compact(
-            'resetUrl',
-            'siteUrl'
-        ));
-
-        return $email->send();
+        $mailer = new Mailer();
+        $mailer
+            ->setEmailFormat(\Cake\Mailer\Message::MESSAGE_BOTH)
+            ->setTo($user->email)
+            ->setFrom(Application::EMAIL_FROM)
+            ->setSender(Application::EMAIL_FROM)
+            ->setSubject('Ether Account Password Reset')
+            ->viewBuilder()
+                ->setTemplate('reset_password')
+                ->setVars(compact(
+                    'resetUrl',
+                    'siteUrl'
+                ));
+        $mailer->deliver();
     }
 
     /**

@@ -39,6 +39,8 @@ use Cake\Routing\Middleware\RoutingMiddleware;
  */
 class Application extends BaseApplication
 {
+    const EMAIL_FROM = ['no-reply@theether.com' => 'Ether'];
+
     /**
      * Load all the application configuration and bootstrap logic.
      *
