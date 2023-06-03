@@ -2,9 +2,9 @@
 namespace App\Model\Entity;
 
 use App\Model\Table\ThoughtsTable;
+use Cake\I18n\FrozenTime;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
-use Cake\I18n\Time;
 
 /**
  * Thought Entity.
@@ -59,7 +59,7 @@ class Thought extends Entity
         $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
         $hash = $thoughtsTable->getPopulatedThoughtwordHash();
         $this->set('formatting_key', $hash);
-        $this->set('formatted', Time::now());
+        $this->set('formatted', FrozenTime::now());
         return $formattedThought;
     }
 

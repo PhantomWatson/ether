@@ -10,7 +10,6 @@ use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
-use League\HTMLToMarkdown\HtmlConverter;
 
 /**
  * Messages Model

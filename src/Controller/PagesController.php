@@ -45,12 +45,13 @@ class PagesController extends AppController
      */
     public function home()
     {
-        $this->loadModel('Thoughts');
-        $randomThought = $this->Thoughts->getRandomThought();
-        $randomThought = $this->Thoughts->excerpt($randomThought);
+        /** @var ThoughtsTable $thoughtsTable */
+        $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
+        $randomThought = $thoughtsTable->getRandomThought();
+        $randomThought = $thoughtsTable->excerpt($randomThought);
         $this->set([
-            'recentActivity' => $this->paginate($this->Thoughts),
-            'cloud' => $this->Thoughts->getCloud(),
+            'recentActivity' => $this->paginate($thoughtsTable),
+            'cloud' => $thoughtsTable->getCloud(),
             'randomThought' => $randomThought
         ]);
     }

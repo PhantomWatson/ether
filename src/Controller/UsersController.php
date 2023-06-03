@@ -4,12 +4,14 @@ namespace App\Controller;
 use App\Color\Color;
 use App\Model\Entity\User;
 use App\Model\Table\MessagesTable;
+use App\Model\Table\ThoughtsTable;
 use App\Model\Table\UsersTable;
 use Cake\Core\Configure;
 use Cake\Http\Cookie\Cookie;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
+use Cake\ORM\TableRegistry;
 use Exception;
 
 /**
@@ -68,7 +70,8 @@ class UsersController extends AppController
     public function view($color = null)
     {
         $user = $this->Users->getProfileInfo($color);
-        $this->loadModel('Messages');
+        /** @var MessagesTable $messagesTable */
+        $messagesTable = TableRegistry::getTableLocator()->get('Messages');
         $this->set([
             'title_for_layout' => "Thinker #$color",
             'user' => $user,
@@ -80,11 +83,11 @@ class UsersController extends AppController
         $userId = $this->Auth->user('id');
         $selectedUserId = $this->Users->getIdFromColor($color);
         if ($userId) {
-            $this->set('messagesCount', $this->Messages->getConversationCount($userId, $selectedUserId));
+            $this->set('messagesCount', $messagesTable->getConversationCount($userId, $selectedUserId));
         }
 
         if ($user['acceptMessages']) {
-            $this->set('messageEntity', $this->Messages->newEmptyEntity());
+            $this->set('messageEntity', $messagesTable->newEmptyEntity());
         }
     }
 
@@ -483,9 +486,10 @@ class UsersController extends AppController
      */
     private function verifyForegroundCaptcha(): bool
     {
-        $this->loadModel('Thoughts');
+        /** @var ThoughtsTable $thoughtsTable */
+        $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
 
-        $mostRecent = $this->Thoughts->getThoughtwordWithMostRecentActivity();
+        $mostRecent = $thoughtsTable->getThoughtwordWithMostRecentActivity();
 
         $input = trim(strtolower($this->request->getData('thoughtword-captcha')));
         $valid = $mostRecent == $input;
