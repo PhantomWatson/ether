@@ -78,12 +78,12 @@ class Application extends BaseApplication
     /**
      * Setup the middleware queue your application will use.
      *
-     * @param \Cake\Http\MiddlewareQueue $middleware The middleware queue to setup.
+     * @param \Cake\Http\MiddlewareQueue $middlewareQueue The middleware queue to setup.
      * @return \Cake\Http\MiddlewareQueue The updated middleware queue.
      */
-    public function middleware($middleware): MiddlewareQueue
+    public function middleware($middlewareQueue): MiddlewareQueue
     {
-        $middleware
+        $middlewareQueue
             // Catch any exceptions in the lower layers,
             // and make an error page/response
             ->add(new ErrorHandlerMiddleware(Configure::read('Error')))
@@ -114,7 +114,7 @@ class Application extends BaseApplication
                 Configure::read('Security.cookieKey')
             ));
 
-        return $middleware;
+        return $middlewareQueue;
     }
 
     /**
