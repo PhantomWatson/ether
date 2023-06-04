@@ -8,13 +8,7 @@
     <div class="offset-sm-2 col-sm-8">
         <?= $this->Form->create(
             $thought,
-            [
-                'url' => [
-                    'controller' => 'Thoughts',
-                    'action' => $this->request->getParam('action') == 'edit' ? 'edit' : 'add'
-                ],
-                'id' => 'ThoughtAddForm'
-            ]
+            ['id' => 'ThoughtAddForm']
         ) ?>
 
         <?php if (isset($suggestedThoughtwords)): ?>
