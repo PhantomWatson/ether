@@ -106,15 +106,25 @@ class Application extends BaseApplication
             // https://book.cakephp.org/4/en/controllers/middleware.html#body-parser-middleware
             ->add(new BodyParserMiddleware())
 
-            // Cross Site Request Forgery (CSRF) Protection Middleware
-            // https://book.cakephp.org/4/en/security/csrf.html#cross-site-request-forgery-csrf-middleware
-            ->add(new CsrfProtectionMiddleware([
-                'httponly' => true,
-            ]))
             ->add(new EncryptedCookieMiddleware(
                 [UsersController::COOKIE_AUTH_KEY],
                 Configure::read('Security.cookieKey')
             ));
+
+        $csrf = new CsrfProtectionMiddleware([
+            'httponly' => true,
+        ]);
+        $csrf->skipCheckCallback(function ($request) {
+            $path = $request->getParam('controller') . '/' . $request->getParam('action');
+            switch ($path) {
+                case 'Thoughts/word':
+                    return true;
+                default:
+                    return false;
+            }
+        });
+
+        $middlewareQueue->add($csrf);
 
         return $middlewareQueue;
     }
