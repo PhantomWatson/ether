@@ -15,7 +15,6 @@
 		"google/cloud-text-to-speech": "^1.4",
 		"league/commonmark": "*",
 		"mobiledetect/mobiledetectlib": "^3.74",
-		"oyejorge/less.php": "~1.5",
 		"phantomwatson/ether-markov": "*",
 		"twbs/bootstrap": "^5.1.3"
 	},
