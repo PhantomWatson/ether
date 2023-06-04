@@ -660,16 +660,16 @@
         },
         {
             "name": "google/cloud-text-to-speech",
-            "version": "v1.5.6",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-cloud-php-text-to-speech.git",
-                "reference": "7d5e235e8ec53cac274feb066c830942587b23b3"
+                "reference": "ed0f5a6d0dcd669d0db904d5ec6d2ae7d2a17334"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-cloud-php-text-to-speech/zipball/7d5e235e8ec53cac274feb066c830942587b23b3",
-                "reference": "7d5e235e8ec53cac274feb066c830942587b23b3",
+                "url": "https://api.github.com/repos/googleapis/google-cloud-php-text-to-speech/zipball/ed0f5a6d0dcd669d0db904d5ec6d2ae7d2a17334",
+                "reference": "ed0f5a6d0dcd669d0db904d5ec6d2ae7d2a17334",
                 "shasum": ""
             },
             "require": {
@@ -705,9 +705,9 @@
             ],
             "description": "Cloud Text-to-Speech Client for PHP",
             "support": {
-                "source": "https://github.com/googleapis/google-cloud-php-text-to-speech/tree/v1.5.6"
+                "source": "https://github.com/googleapis/google-cloud-php-text-to-speech/tree/v1.6.0"
             },
-            "time": "2023-05-12T17:54:11+00:00"
+            "time": "2023-06-02T23:56:27+00:00"
         },
         {
             "name": "google/common-protos",
@@ -3750,16 +3750,16 @@
         },
         {
             "name": "twbs/bootstrap",
-            "version": "v5.2.3",
+            "version": "v5.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "cb021439c683d9805e2864c58095b92d405e9b11"
+                "reference": "60098ac499d30aa50575b0b7137391c06ef25429"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/cb021439c683d9805e2864c58095b92d405e9b11",
-                "reference": "cb021439c683d9805e2864c58095b92d405e9b11",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/60098ac499d30aa50575b0b7137391c06ef25429",
+                "reference": "60098ac499d30aa50575b0b7137391c06ef25429",
                 "shasum": ""
             },
             "replace": {
@@ -3794,9 +3794,9 @@
             ],
             "support": {
                 "issues": "https://github.com/twbs/bootstrap/issues",
-                "source": "https://github.com/twbs/bootstrap/tree/v5.2.3"
+                "source": "https://github.com/twbs/bootstrap/tree/v5.3.0"
             },
-            "time": "2022-11-21T18:19:01+00:00"
+            "time": "2023-05-30T15:15:55+00:00"
         }
     ],
     "packages-dev": [
