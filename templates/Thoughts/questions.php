@@ -1,8 +1,13 @@
 <?php
 /**
- * @var \Gourmet\CommonMark\View\Helper\CommonMarkHelper $markdownHelper
  * @var \App\View\AppView $this
+ * @var string $title_for_layout
+ * @var array $questions
+ *
  */
+
+/** @var \App\Model\Table\ThoughtsTable $thoughtsTable */
+$thoughtsTable = \Cake\ORM\TableRegistry::getTableLocator()->get('Thoughts');
 ?>
 <div id="content_title">
     <h1>
@@ -16,14 +21,12 @@
     answer.
 </p>
 
-<?php $markdownHelper = $this->loadHelper('Gourmet/CommonMark.CommonMark'); ?>
-
 <ul id="questions">
     <?php foreach ($questions as $question): ?>
         <li>
             <span class="question">
                 <?php
-                    $formattedQuestion = $markdownHelper->convertToHtml($question['question']);
+                    $formattedQuestion = $thoughtsTable->parseMarkdown($question['question']);
                     echo str_replace(['<p>', '</p>'], '', $formattedQuestion);
                 ?>
             </span>
