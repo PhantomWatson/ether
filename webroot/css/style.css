@@ -12334,7 +12334,7 @@ select.form-control:focus {
   display: inline-block;
   margin-left: 1rem;
   margin-right: 0.5rem;
-  padding: 0 4px;
+  padding: 0 1em;
   width: 200px;
 }
 
