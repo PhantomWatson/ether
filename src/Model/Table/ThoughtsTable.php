@@ -497,15 +497,17 @@ class ThoughtsTable extends Table
     }
 
     /**
+     * @param string $input
      * @throws CommonMarkException
+     * @return string
      */
-    public function parseMarkdown($input)
+    public function parseMarkdown(string $input): string
     {
         $converter = new CommonMarkConverter([
             'html_input' => 'strip',
             'allow_unsafe_links' => false,
         ]);
-        return $converter->convert($input);
+        return (string) $converter->convert($input);
     }
 
     public function stripTags($input, $allTags = false)
