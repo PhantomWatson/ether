@@ -176,15 +176,26 @@ class UsersController extends AppController
             'user' => $user
         ]);
 
-        if (! ($this->request->is('post') || $this->request->is('put'))) {
+        if (!$this->request->is(['post', 'put'])) {
             return null;
         }
 
         $user = $this->Users->patchEntity($user, $this->request->getData(), [
-            'fieldList' => ['new_password', 'confirm_password', 'password', 'profile', 'acceptMessages', 'messageNotification', 'emailUpdates']
+            'fieldList' => [
+                'new_password',
+                'confirm_password',
+                'password',
+                'profile',
+                'acceptMessages',
+                'messageNotification',
+                'emailUpdates',
+            ]
         ]);
-        if ($user->getErrors()) {
-            $this->Flash->error('Please correct the indicated '.__n('error', 'errors', count($user->getErrors())).' before continuing.');
+        if ($user->hasErrors()) {
+            $this->Flash->error(sprintf(
+                'Please correct the indicated %s before continuing.',
+                __n('error', 'errors', count($user->getErrors()))
+            ));
             return null;
         }
 
