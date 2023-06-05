@@ -165,7 +165,7 @@ class UsersController extends AppController
     /**
      * Renders /users/settings
      *
-     * @return Response|null
+     * @return void
      */
     public function settings()
     {
@@ -177,7 +177,7 @@ class UsersController extends AppController
         ]);
 
         if (!$this->request->is(['post', 'put'])) {
-            return null;
+            return;
         }
 
         $user = $this->Users->patchEntity($user, $this->request->getData(), [
@@ -196,7 +196,7 @@ class UsersController extends AppController
                 'Please correct the indicated %s before continuing.',
                 __n('error', 'errors', count($user->getErrors()))
             ));
-            return null;
+            return;
         }
 
         $action = $this->request->getData('action');
@@ -205,10 +205,12 @@ class UsersController extends AppController
         if ($action == 'change_password') {
             $user->password = $this->request->getData('new_password');
             $user->password_version = 3;
+
             if ($this->Users->save($user)) {
                 $this->Flash->success('Your password has been changed.');
                 $cookie = $this->getAuthCookie($user->email, $this->getRequest()->getData('new_password'));
-                return $this->getResponse()->withCookie($cookie);
+                $this->setResponse($this->getResponse()->withCookie($cookie));
+                return;
             }
             $this->Flash->error('There was an error changing your password. Please try again.');
 
@@ -228,7 +230,7 @@ class UsersController extends AppController
                 $this->Flash->error('There was an error updating your account settings.');
             }
         }
-        return null;
+        return;
     }
 
     private function getAuthCookie($email, $password): Cookie
