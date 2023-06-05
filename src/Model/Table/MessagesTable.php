@@ -129,11 +129,11 @@ class MessagesTable extends Table
     {
         $query = $this->find('all');
         /** @var Message[] $newestMessages */
-        $newestMessages = $query
+        $query
             ->select([
                 'Messages.sender_id',
                 'Messages.recipient_id',
-                'created' => $query->func()->max('Messages.created')
+                'created' => $query->func()->max('Messages.created', ['datetime'])
             ])
             ->distinct(['Messages.sender_id', 'Messages.recipient_id'])
             ->contain([
@@ -150,8 +150,8 @@ class MessagesTable extends Table
                     'Messages.recipient_id' => $userId
                 ]
             ])
-            ->order(['created' => 'DESC'])
-            ->all();
+            ->order(['created' => 'DESC']);
+        $newestMessages = $query->all();
 
         $conversations = [];
         foreach ($newestMessages as $newestMessage) {
@@ -169,7 +169,6 @@ class MessagesTable extends Table
                 ->where([
                     'sender_id' => $newestMessage['sender']['id'],
                     'recipient_id' => $newestMessage['recipient']['id'],
-                    'created' => $newestMessage['created'],
                 ])
                 ->order(['created' => 'DESC'])
                 ->first();
