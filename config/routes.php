@@ -25,15 +25,15 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/reset-password/*', ['controller' => 'Users', 'action' => 'resetPassword']);
         $builder->connect('/settings', ['controller' => 'Users', 'action' => 'settings']);
         $builder->connect('/thinkers', ['controller' => 'Users', 'action' => 'index']);
-        $builder->connect('/thinker/:color', ['controller' => 'Users', 'action' => 'view'], ['pass' => ['color']]);
+        $builder->connect('/thinker/{color}', ['controller' => 'Users', 'action' => 'view'], ['pass' => ['color']]);
         $builder->connect('/my-profile', ['controller' => 'Users', 'action' => 'myProfile']);
 
         // Thoughts
-        $builder->connect('/t/:word/*', ['controller' => 'Thoughts', 'action' => 'word'], ['pass' => ['word']]);
+        $builder->connect('/t/{word}/*', ['controller' => 'Thoughts', 'action' => 'word'], ['pass' => ['word']]);
         $builder->connect('/questions', ['controller' => 'Thoughts', 'action' => 'questions']);
 
         // Messages
-        $builder->connect('/messages/with/:color', ['controller' => 'Messages', 'action' => 'index'], ['pass' => ['color']]);
+        $builder->connect('/messages/with/{color}', ['controller' => 'Messages', 'action' => 'index'], ['pass' => ['color']]);
 
         // Colors
         $builder->connect('/color-names', ['controller' => 'Colors', 'action' => 'colorNames']);
