@@ -33,7 +33,6 @@ class MessagesController extends AppController
     {
         parent::initialize();
         $this->loadComponent('RequestHandler');
-        $this->loadComponent('Paginator');
     }
 
     /**
