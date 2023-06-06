@@ -40,6 +40,7 @@ class ThoughtsTable extends Table
 {
 
     public $maxThoughtwordLength = 30;
+    const MIN_THOUGHT_LENGTH = 20;
 
     /**
      * Initialize method
@@ -85,7 +86,7 @@ class ThoughtsTable extends Table
         $validator
             ->scalar('thought')
             ->requirePresence('thought', 'create')
-            ->minLength('thought', 20, 'That thought is way too short! Please enter at least 20 characters.');
+            ->minLength('thought', self::MIN_THOUGHT_LENGTH, 'That thought is way too short! Please enter at least ' . self::MIN_THOUGHT_LENGTH . ' characters.');
 
         $validator
             ->scalar('comments_enabled')

@@ -3,6 +3,9 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Thought $thought
  */
+
+use App\Model\Table\ThoughtsTable;
+
 ?>
 <div class="row">
     <div class="offset-sm-2 col-sm-8">
@@ -47,8 +50,17 @@
         ) ?>
 
         <label class="control-label" for="thought-rich-text-editor">Thought</label>
-        <div id="thought-rich-text-editor"></div>
-        <textarea id="input-thought-body" name="thought"><?= $thought->thought ?></textarea>
+        <div class="has-validation">
+            <div id="thought-rich-text-editor"></div>
+            <div id="thought-validation" class="invalid-feedback"></div>
+        </div>
+        <?= $this->Form->textarea(
+            'thought',
+            [
+                'id' => 'input-thought-body',
+                'aria-describedby' => 'thought-validation'
+            ]
+        ) ?>
 
         <div>
             <p id="options-header">
@@ -84,5 +96,7 @@
         toastui,
         DOMPurify,
         markdown: <?= json_encode($thought->thought ?? '') ?>,
+        minLength: <?= ThoughtsTable::MIN_THOUGHT_LENGTH ?>,
+        maxLength: 100000,
     });
 </script>

@@ -85,10 +85,11 @@ class ThoughtsController extends AppController
             $data = $this->request->getData();
             $data['user_id'] = $this->Auth->user('id');
             $thought = $this->Thoughts->patchEntity($thought, $data);
-            if ($thought->getErrors()) {
+            if ($thought->hasErrors()) {
                 $this->Flash->error(sprintf(
-                    'Please correct the indicated %s before continuing.',
-                    __n('error', 'errors', count($thought->getErrors()))
+                    'Please correct the indicated %s before continuing. Details: %s',
+                    __n('error', 'errors', count($thought->getErrors())),
+                    print_r($thought->getErrors(), true),
                 ));
             } elseif ($this->Thoughts->save($thought)) {
                 $event = new Event('Model.Thought.created', $this, ['entity' => $thought]);

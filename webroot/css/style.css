@@ -13820,4 +13820,8 @@ blockquote {
   margin-bottom: 1em;
 }
 
+#thought-form-errors {
+  color: #D00;
+}
+
 /*# sourceMappingURL=style.css.map */
