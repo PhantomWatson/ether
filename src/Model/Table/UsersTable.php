@@ -477,7 +477,7 @@ class UsersTable extends Table
             ->select(['id'])
             ->where(['email' => $email])
             ->limit(1);
-        if ($user->isEmpty()) {
+        if ($user->count() === 0) {
             return null;
         }
         return $user->first()->id;

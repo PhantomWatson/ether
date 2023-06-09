@@ -69,7 +69,7 @@ class ThoughtsController extends AppController
         }
 
         $this->set(compact('filename'));
-        $this->set('_serialize', ['filename']);
+        $this->viewBuilder()->setOption('serialize', 'filename');
 
         $this->RequestHandler->renderAs($this, 'json');
     }

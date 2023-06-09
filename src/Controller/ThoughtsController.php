@@ -258,12 +258,12 @@ class ThoughtsController extends AppController
     public function refreshFormatting($thoughtId)
     {
         $this->viewBuilder()->setLayout('json');
+        $this->viewBuilder()->setOption('serialize', 'result');
 
         try {
             $thought = $this->Thoughts->get($thoughtId);
         } catch (RecordNotFoundException $e) {
             $this->set([
-                '_serialize' => ['result'],
                 'result' => [
                     'success' => false,
                     'update' => false
@@ -275,7 +275,6 @@ class ThoughtsController extends AppController
         $formattingKey = $this->Thoughts->getPopulatedThoughtwordHash();
         if ($formattingKey == $thought->formatting_key) {
             $this->set([
-                '_serialize' => ['result'],
                 'result' => [
                     'success' => true,
                     'update' => false
@@ -289,7 +288,6 @@ class ThoughtsController extends AppController
         $this->Thoughts->save($thought);
 
         $this->set([
-            '_serialize' => ['result'],
             'result' => [
                 'success' => true,
                 'update' => true,
@@ -309,7 +307,7 @@ class ThoughtsController extends AppController
     {
         $suggestedWords = $this->Thoughts->getSuggestedWords($count);
         $this->set('suggestedWords', $suggestedWords);
-        $this->set('_serialize', ['suggestedWords']);
+        $this->viewBuilder()->setOption('serialize', 'suggestedWords');
     }
 
     /**

@@ -157,9 +157,9 @@ class UsersController extends AppController
         $this->viewBuilder()->setClassName('Json');
 
         $this->set([
-            'available' => !$this->Users->colorIsTaken($color),
-            '_serialize' => ['available']
+            'available' => !$this->Users->colorIsTaken($color)
         ]);
+        $this->viewBuilder()->setOption('serialize', 'available');
     }
 
     /**

@@ -127,6 +127,7 @@ class ThoughtsTable extends Table
                 ->where(['hidden' => false])
                 ->distinct(['word'])
                 ->order(['word' => 'ASC'])
+                ->all()
                 ->extract('word')
                 ->toArray();
             $populatedThoughtwordHash = md5(serialize($populatedThoughtwords));
