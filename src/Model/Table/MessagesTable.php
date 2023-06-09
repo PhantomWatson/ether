@@ -299,7 +299,7 @@ class MessagesTable extends Table
      * @param string $message
      * @return void
      */
-    public function sendNotificationEmail($senderId, $recipientId, $message): array
+    public function sendNotificationEmail($senderId, $recipientId, $message)
     {
         /** @var UsersTable $usersTable */
         $usersTable = TableRegistry::getTableLocator()->get('Users');
