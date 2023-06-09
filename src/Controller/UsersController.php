@@ -266,6 +266,7 @@ class UsersController extends AppController
             } else {
                 $userId = $this->Users->getIdWithEmail($email);
                 if ($userId) {
+                    $this->Users->sendPasswordResetEmail($userId);
                     $this->Flash->success('You did it! The email goblins should be delivering a link to reset your password forthwith.');
 
                     return $this->redirect('/');
