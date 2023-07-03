@@ -154,7 +154,7 @@ class MessagesController extends AppController
             // This isn't JSON, but the 'json' template returns JUST the content and nothing else, like we need
             $this->viewBuilder()->setLayout('json');
 
-            return $this->render(DS . 'Element' . DS . 'Messages' . DS . 'conversation');
+            return $this->render(DS . 'element' . DS . 'Messages' . DS . 'conversation');
         }
 
         $this->set([
