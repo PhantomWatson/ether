@@ -67,7 +67,7 @@ class ColorsController extends AppController
             throw new NotFoundException($msg);
         }
 
-        $this->set(['name' => $name]);
-        $this->viewBuilder()->setOption('serialize', 'name');
+        $this->set(['result' => ['name' => $name]]);
+        $this->viewBuilder()->setOption('serialize', 'result');
     }
 }
