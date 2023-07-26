@@ -266,6 +266,12 @@
                             Writing that is unrelated to its Thoughtword
                         </li>
                         <li>
+                            Attacks against marginalized groups (racism, homophobia, transphobia, misogyny, etc.)
+                        </li>
+                        <li>
+                            Libellous remarks about actual, identified people
+                        </li>
+                        <li>
                             Gratuitous profanity or gratuitous graphic depictions of sex or violence
                         </li>
                         <li>
@@ -278,9 +284,6 @@
                             Making reference to other Thoughts or Thinkers in Ether (comments and messages are better for this)
                         </li>
                         <li>
-                            Libellous remarks about actual, identified people
-                        </li>
-                        <li>
                             Advertising
                         </li>
                         <li>
@@ -290,7 +293,8 @@
                             Terrible spelling, grammar, punctuation, etc.
                         </li>
                     </ul>
-                    Also, Ether is currently an English-language-only website.
+                    Any content deemed to be harmful to anyone or to the benevolent and welcoming mission of Ether may
+                    be removed. Also, Ether is currently an English-language-only website.
                 </dd>
 
                 <dt>
