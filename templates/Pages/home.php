@@ -91,27 +91,29 @@ $features = [
         <?php endforeach; ?>
     </div>
 
-    <div class="row" id="features">
-        <div class="col-lg-6 col-md-8 col-12 mx-auto">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        Sponsoring Darkness Dreaming
-                    </h5>
-                    <p class="card-text">
-                        <a href="http://darknessdreaming.com/" style="float: right; margin-left: 1em;">
-                            <img src="/img/darkness-dreaming.thumb.png" alt="Cover of Darkness Dreaming, issue 3" />
-                        </a>
-                        Ether is the proud sponsor of the third issue of
-                        <a href="http://darknessdreaming.com/">Darkness Dreaming</a>,
-                        a magazine dedicated to strange and dark writing and visual art, created by the
-                        talented <a href="http://lydiaburris.com/">Lydia Burris</a>, and available in print
-                        or as a digital download. Check it out!
-                    </p>
+    <?php if (strtotime('now') < strtotime('November 1, 2023')): ?>
+        <div class="row" id="features">
+            <div class="col-lg-6 col-md-8 col-12 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Sponsoring Darkness Dreaming
+                        </h5>
+                        <p class="card-text">
+                            <a href="http://darknessdreaming.com/" style="float: right; margin-left: 1em;">
+                                <img src="/img/darkness-dreaming.thumb.png" alt="Cover of Darkness Dreaming, issue 3" />
+                            </a>
+                            Ether is the proud sponsor of the third issue of
+                            <a href="http://darknessdreaming.com/">Darkness Dreaming</a>,
+                            a magazine dedicated to strange and dark writing and visual art, created by the
+                            talented <a href="http://lydiaburris.com/">Lydia Burris</a>, and available in print
+                            or as a digital download. Check it out!
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    <?php endif; ?>
 </div>
 
 <div id="recent">
