@@ -6,6 +6,16 @@
 
 $features = [
     [
+        'title' => '<i class="fa-solid fa-book"></i> Sponsoring Darkness Dreaming',
+        'body' => '
+            Ether is the proud sponsor of the third issue of
+            <a href="http://darknessdreaming.com/">Darkness Dreaming</a>,
+            a magazine dedicated to strange and dark writing and visual art, created by the
+            talented <a href="http://lydiaburris.com/">Lydia Burris</a>, and available in print
+            or as a digital download. Check it out!
+        ',
+    ],
+    [
         'title' => '<i class="fa-solid fa-volume-high"></i> Listen',
         'body' => 'Look for the new
             <strong class="listenButton"><i class="fa-solid fa-play thought-action-icon"></i> Listen</strong>
@@ -18,7 +28,13 @@ $features = [
             ['controller' => 'Generator', 'action' => 'index'],
             ['escape' => false],
         ),
-        'body' => 'Generate a profound, confusing, and grammatically-questionable stream-of-consciousness based on existing Thoughts!',
+        'body' =>
+            $this->Html->link(
+                'Use the new Thought Generator',
+                ['controller' => 'Generator', 'action' => 'index'],
+                ['escape' => false],
+            ) . ' to get a profound, confusing, and grammatically-questionable stream-of-consciousness based on existing Thoughts!
+        ',
     ],
     [
         'title' =>  $this->Html->link(
@@ -26,7 +42,13 @@ $features = [
             ['controller' => 'Thoughts', 'action' => 'questions'],
             ['escape' => false],
         ),
-        'body' => 'What are Thinkers asking about? Do you wonder the same thing? Do you know the answers?',
+        'body' =>
+            'What are Thinkers asking about? Do you wonder the same thing? Do you know the answers? Behold, ' .
+            $this->Html->link(
+                'the Question Abstractor',
+                ['controller' => 'Thoughts', 'action' => 'questions'],
+                ['escape' => false],
+            ) . '!',
     ],
 ];
 
@@ -75,8 +97,8 @@ $features = [
     </div>
 
     <div class="row" id="features">
-        <?php foreach ($features as $feature): ?>
-            <div class="col-sm-<?= floor(12 / count($features)) ?>">
+        <?php foreach ($features as $n => $feature): ?>
+            <div class="col <?= $n ? 'visually-hidden' : '' ?>" data-feature-key="<?= $n ?>">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">
@@ -90,30 +112,16 @@ $features = [
             </div>
         <?php endforeach; ?>
     </div>
-
-    <?php if (strtotime('now') < strtotime('November 1, 2023')): ?>
-        <div class="row" id="features">
-            <div class="col-lg-6 col-md-8 col-12 mx-auto">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            Sponsoring Darkness Dreaming
-                        </h5>
-                        <p class="card-text">
-                            <a href="http://darknessdreaming.com/" style="float: right; margin-left: 1em;">
-                                <img src="/img/darkness-dreaming.thumb.png" alt="Cover of Darkness Dreaming, issue 3" />
-                            </a>
-                            Ether is the proud sponsor of the third issue of
-                            <a href="http://darknessdreaming.com/">Darkness Dreaming</a>,
-                            a magazine dedicated to strange and dark writing and visual art, created by the
-                            talented <a href="http://lydiaburris.com/">Lydia Burris</a>, and available in print
-                            or as a digital download. Check it out!
-                        </p>
-                    </div>
-                </div>
-            </div>
+    <div class="row" id="features-controls">
+        <div class="col text-end">
+            New stuff:
+            <?php foreach ($features as $n => $feature): ?>
+                <button data-feature-key="<?= $n ?>" class="btn btn-link btn-sm">
+                    <?= $n + 1 ?>
+                </button>
+            <?php endforeach; ?>
         </div>
-    <?php endif; ?>
+    </div>
 </div>
 
 <div id="recent">
@@ -138,3 +146,19 @@ $features = [
         <?php endif; ?>
     <?php endif; ?>
 </div>
+
+<script>
+    const buttons = document.querySelectorAll('#features-controls button');
+    buttons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+            // Hide all
+            const shown = document.querySelector('#features .col:not(.visually-hidden)');
+            shown.classList.add('visually-hidden');
+
+            // Show selected
+            const key = event.target.dataset.featureKey;
+            const selected = document.querySelector('#features .col[data-feature-key="' + key + '"]');
+            selected.classList.remove('visually-hidden');
+        });
+    });
+</script>
