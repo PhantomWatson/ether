@@ -63,23 +63,22 @@ $features = [
                 is a thought repository
             </h3>
         </div>
-        <div class="col-sm-8" id="frontpage_random_thought">
+        <div class="col-sm-8 card" id="frontpage_random_thought">
             <?php if ($randomThought): ?>
                 <h3>
                     Random Thought:
-                </h3>
-                <span class="word">
-                    <?= $this->Html->link(
-                        $randomThought->word,
-                        [
-                            'controller' => 'Thoughts',
-                            'action' => 'word',
+                    <span class="word">
+                        <?= $this->Html->link(
                             $randomThought->word,
-                            '#' => 't' . $randomThought['id']
-                        ]
-                    ) ?>
-                </span>
-                <br />
+                            [
+                                'controller' => 'Thoughts',
+                                'action' => 'word',
+                                $randomThought->word,
+                                '#' => 't' . $randomThought['id']
+                            ]
+                        ) ?>
+                    </span>
+                </h3>
                 <span class="thought_excerpt"><?= $randomThought->formatted_thought ?></span>
                 <span class="byline">
                     <?php if ($randomThought->anonymous): ?>
