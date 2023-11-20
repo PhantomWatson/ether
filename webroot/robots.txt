@@ -1,2 +1,5 @@
 User-Agent: *
-Disallow:
+Disallow: /generator/getSource
+Disallow: /users/checkColorAvailability/
+Disallow: /colors/name/
+Disallow: /api/thoughts/tts/
