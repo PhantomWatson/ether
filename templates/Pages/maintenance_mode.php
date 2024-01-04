@@ -9,7 +9,7 @@
     </h1>
 </div>
 
-<p class="alert alert-warning">
-    Hang tight! Ether is underdoing maintenance at the moment and needs to be in read-only mode until some updates
-    are finished.
+<p>
+    Ether needs to be offline for a little while until some maintenance gets finished up. This probably won't last
+    longer than 24 hours, so check back again soon. 🖤
 </p>
