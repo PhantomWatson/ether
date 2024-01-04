@@ -5,6 +5,8 @@ use App\Controller\AppController;
 use App\Model\Entity\Thought;
 use App\PhpMp3;
 use App\TTS;
+use Cake\Core\Configure;
+use Cake\Http\Response;
 use Cake\ORM\TableRegistry;
 use Exception;
 
@@ -44,9 +46,15 @@ class ThoughtsController extends AppController
      *
      * @throws \Google\ApiCore\ApiException
      * @throws \Google\ApiCore\ValidationException
+     * @return Response|null
      */
     public function tts($thoughtId)
     {
+        $isMaintenanceMode = Configure::read('maintenanceMode');
+        if ($isMaintenanceMode) {
+            return $this->response->withStatus(503);
+        }
+
         $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
         /** @var Thought $thought */
         $thought = $thoughtsTable->get($thoughtId);
@@ -72,6 +80,8 @@ class ThoughtsController extends AppController
         $this->viewBuilder()->setOption('serialize', 'filename');
 
         $this->RequestHandler->renderAs($this, 'json');
+
+        return null;
     }
 
     /**

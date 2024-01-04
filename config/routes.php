@@ -16,6 +16,7 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/privacy', ['controller' => 'Pages', 'action' => 'privacy']);
         $builder->connect('/contact', ['controller' => 'Pages', 'action' => 'contact']);
         $builder->connect('/stats', ['controller' => 'Pages', 'action' => 'stats']);
+        $builder->connect('/maintenance', ['controller' => 'Pages', 'action' => 'maintenanceMode']);
 
         // Users
         $builder->connect('/login', ['controller' => 'Users', 'action' => 'login']);

@@ -8,6 +8,7 @@ use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\Http\Cookie\Cookie;
+use Cake\Http\Response;
 use Cake\ORM\TableRegistry;
 use Exception;
 
@@ -71,10 +72,19 @@ class AppController extends Controller
      * beforeFilter callback
      *
      * @param Event $event Event object
-     * @return void
+     * @return Response|null
      */
     public function beforeFilter(\Cake\Event\EventInterface $event)
     {
+        $isMaintenanceMode = Configure::read('maintenanceMode');
+        $alreadyRedirected = $this->getRequest()->getParam('action') == 'maintenanceMode';
+        if ($isMaintenanceMode && !$alreadyRedirected) {
+            return $this->redirect([
+                'controller' => 'Pages',
+                'action' => 'maintenanceMode',
+            ]);
+        }
+
         $authError = $this->Auth->user('id')
             ? 'Sorry, you do not have access to that location.'
             : 'Please <a href="/login">log in</a> before you try that.';
@@ -94,6 +104,8 @@ class AppController extends Controller
         if (!$this->Auth->user()) {
             $this->Auth->setConfig('authError', 'You\'ll need to log in before accessing that page');
         }
+
+        return null;
     }
 
     /**

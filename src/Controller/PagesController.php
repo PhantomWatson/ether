@@ -240,4 +240,11 @@ class PagesController extends AppController
             'title_for_layout' => 'Color Names'
         ]);
     }
+
+    public function maintenanceMode(): void
+    {
+        $this->set([
+            'title_for_layout' => 'Hang tight! We\'re undergoing maintenance.'
+        ]);
+    }
 }
