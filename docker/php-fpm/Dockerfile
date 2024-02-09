@@ -39,9 +39,9 @@ RUN install-php-extensions @composer
 # (or at least working at the same time another site's containers were running)
 #RUN pecl install xdebug && docker-php-ext-enable xdebug
 
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash
 
-RUN apt-get install nodejs
+RUN apt-get install -y nodejs
 
 RUN npm install -g grunt
 
