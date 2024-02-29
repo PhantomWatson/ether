@@ -61,7 +61,7 @@ class GeneratorController extends AppController
         $this->set('source', $thoughts);
         $this->viewBuilder()->setLayout('json');
         $this->viewBuilder()->setClassName('Json');
-        $this->viewBuilder()->setOption('serialize', 'source');
+        $this->viewBuilder()->setOption('serialize', ['source']);
     }
 
     /**
