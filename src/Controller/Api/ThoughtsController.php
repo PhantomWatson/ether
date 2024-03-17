@@ -3,11 +3,11 @@ namespace App\Controller\Api;
 
 use App\Controller\AppController;
 use App\Model\Entity\Thought;
-use App\PhpMp3;
 use App\TTS;
 use Cake\Core\Configure;
 use Cake\Http\Response;
 use Cake\ORM\TableRegistry;
+use Cake\View\JsonView;
 use Exception;
 
 /**
@@ -15,6 +15,11 @@ use Exception;
  */
 class ThoughtsController extends AppController
 {
+    public function viewClasses(): array
+    {
+        return [JsonView::class];
+    }
+
     /**
      * Initialize method
      *
@@ -77,9 +82,9 @@ class ThoughtsController extends AppController
         }
 
         $this->set(compact('filename'));
-        $this->viewBuilder()->setOption('serialize', 'filename');
-
-        $this->RequestHandler->renderAs($this, 'json');
+        $this->viewBuilder()
+            ->setOption('serialize', ['filename'])
+            ->setClassName('Json');
 
         return null;
     }
