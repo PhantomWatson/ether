@@ -127,7 +127,9 @@ return static function (RouteBuilder $routes) {
         foreach ($paths as $path) {
             $builder->connect("/$path/*", $botCatcher);
         }
+
         $files = [
+            '.env',
             'admin.php',
             'admin/index.php',
             'admin/login.asp',
@@ -177,6 +179,20 @@ return static function (RouteBuilder $routes) {
         ];
         foreach ($files as $file) {
             $builder->connect("/$file", $botCatcher);
+        }
+
+        $lastParts = [
+            '.env',
+        ];
+        foreach ($lastParts as $lastPart) {
+            $builder->connect(
+                ":wildcard/$lastPart",
+                $botCatcher,
+                [
+                    'pass' => ['wildcard'],
+                    'wildcard' => '.+'
+                ]
+            );
         }
 
         $builder->fallbacks();
