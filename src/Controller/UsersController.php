@@ -414,15 +414,13 @@ class UsersController extends AppController
             // Copy new_password to password so login will work
             $this->request = $this->request->withData('password', $this->request->getData('new_password'));
 
-            $loginResult = $this->_login();
-            if ($loginResult) {
+            if ($this->_login()) {
                 $this->Flash->success('Your account has been registered, and you\'ve been logged in. Welcome!');
-
-                return $loginResult;
+                return null;
             }
 
             $this->Flash->success('Your account has been registered, and you can now log in. Welcome!');
-            $this->redirect('/login');
+            return $this->redirect('/login');
         }
 
         $errorsMsgs = [];
@@ -457,9 +455,9 @@ class UsersController extends AppController
     }
 
     /**
-     * Logs the user in with request data and returns a redirect if successful
+     * Logs the user in with request data and sets a redirect if successful
      *
-     * @return void
+     * @return bool
      */
     private function _login()
     {
@@ -480,10 +478,11 @@ class UsersController extends AppController
             $this->response = $this
                 ->redirect($this->Auth->redirectUrl())
                 ->withCookie($cookie);
-            return;
+            return true;
         }
 
         $this->Flash->error('Email or password is incorrect');
+        return false;
     }
 
     /**
