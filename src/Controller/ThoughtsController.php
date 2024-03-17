@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Model\Entity\Thought;
 use App\Model\Table\ThoughtsTable;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Event\Event;
@@ -80,7 +81,9 @@ class ThoughtsController extends AppController
      */
     public function add()
     {
+        /** @var Thought $thought */
         $thought = $this->Thoughts->newEmptyEntity();
+        $thought->word = $this->getRequest()->getParam('word');
         if ($this->request->is('post')) {
             $data = $this->request->getData();
             $data['user_id'] = $this->Auth->user('id');

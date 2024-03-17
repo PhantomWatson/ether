@@ -32,6 +32,7 @@ return static function (RouteBuilder $routes) {
         // Thoughts
         $builder->connect('/t/{word}/*', ['controller' => 'Thoughts', 'action' => 'word'], ['pass' => ['word']]);
         $builder->connect('/questions', ['controller' => 'Thoughts', 'action' => 'questions']);
+        $builder->connect('/thoughts/add/{word}', ['controller' => 'Thoughts', 'action' => 'add'], ['pass' => ['word']]);
 
         // Messages
         $builder->connect('/messages/with/{color}', ['controller' => 'Messages', 'action' => 'index'], ['pass' => ['color']]);
