@@ -415,8 +415,11 @@ body.popup_active {
     font-size: 1rem;
     margin: 10px 10px 0 10px;
 
-    textarea {
+    .form-group {
         margin-bottom: 1em;
+    }
+
+    textarea {
         width: 100%;
     }
 
