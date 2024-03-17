@@ -61,7 +61,10 @@ class CommentsController extends AppController
      */
     public function refreshFormatting($commentId)
     {
-        $this->viewBuilder()->setLayout('json');
+        $this->viewBuilder()
+            ->setLayout('json')
+            ->setTemplate('/Thoughts/refresh_formatting');
+
         /** @var ThoughtsTable $thoughtsTable */
         $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
 
@@ -101,7 +104,5 @@ class CommentsController extends AppController
                 'formattedThought' => $formattedComment
             ]
         ]);
-
-        return $this->render('/Thoughts/refresh_formatting');
     }
 }
