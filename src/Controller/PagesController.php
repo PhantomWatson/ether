@@ -247,4 +247,10 @@ class PagesController extends AppController
             'title_for_layout' => 'Hang tight! We\'re undergoing maintenance.'
         ]);
     }
+
+    public function sumner()
+    {
+        $this->viewBuilder()->setLayout('sumner');
+        $this->viewBuilder()->setTemplate('blank');
+    }
 }
