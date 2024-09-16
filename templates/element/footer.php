@@ -3,6 +3,7 @@
         'Bitey_Chicken',
     ];
     $capslock = [
+        'DreadfulStar',
         'Wocket',
     ];
     $fullRandomImgs = range(1, 17);
