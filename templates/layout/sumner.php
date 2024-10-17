@@ -73,7 +73,7 @@
     $posts = [];
     $posts[] = [POSTER_HANNAH => "Does anyone know the rules for the upcoming 5K? Last year there was a lot of confusion."];
     $posts[] = [POSTER_NERD => "I did a show about last year's run and interviewed Judy and that tangible clot of whispers that was the acting deputy mayor. <a href=\"#\">Click here</a> to download an MP3."];
-    $posts[] = [POSTER_PHANTOM => "What are you confused about? I think if you sign up to run, they send you all the rules."];
+    $posts[] = [POSTER_PHANTOM => "What are you confused about? I think if you sign up to run, they send you all the rules.<br />Maybe call City Hall? 938-786-3674"];
     $posts[] = [POSTER_ANGIE => "I ran last year and they didn't tell me about how we'd have to lean really far forward and kind of climb up the ground because normal running stopped working."];
     $posts[] = [POSTER_SKADI => "i watched it and like 1 out of 10 ppl was QWOPing around like they forgot how legs worked. tryna skoot forward and landing on the back of thr heads n shit. embarasing. y did that only happen to some ppl and not others?"];
     $posts[] = [POSTER_HOLE => "IT'S DANGEROUS TO RUN TOO CLOSE TO ANY MYSTERIOUS PIT IN THE OUTSKIRTS OF TOWN. ANY CITIZEN FED TO THE HOLE WILL NOT BE RETURNED. DO NOT ATTEMPT A RESCUE."];
