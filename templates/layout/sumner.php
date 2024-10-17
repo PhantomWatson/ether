@@ -157,7 +157,7 @@
                     + New Message
                 </button>
 
-                <input type="search" placeholder="Search thread..." style="float: right;" />
+                <input type="search" placeholder="Search thread..." style="float: right; padding: 2px;" />
             </div>
             <?php
                 $actions = ob_get_contents();
