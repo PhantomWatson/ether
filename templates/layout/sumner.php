@@ -14,7 +14,7 @@
             ],
             POSTER_NERD => [
                 'img' => 'poster-nerd.jpg',
-                'title' => 'Veteral Poster',
+                'title' => 'Veteran Poster',
             ],
             POSTER_ANGIE => [
                 'img' => 'poster-angie.png',
