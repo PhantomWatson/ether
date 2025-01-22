@@ -1,14 +1,14 @@
 <?php
 namespace App\View\Helper;
 
-use Cake\I18n\Time;
+use Cake\I18n\FrozenTime;
 use Cake\View\Helper\TimeHelper;
 
 class EtherTimeHelper extends TimeHelper
 {
     public function abbreviatedTimeAgoInWords($time)
     {
-        $time = new Time($time);
+        $time = new FrozenTime($time);
         $timeAgo = $time->timeAgoInWords(['end' => '+100 years']);
         if (strpos($timeAgo, ',') !== false) {
             $firstCommaPos = strpos($timeAgo, ',');

@@ -1,38 +1,43 @@
-var registration = {
-    color_avail_request: null,
-    color_name_request: null,
+const registration = {
+    currentlyRequesting: null,
+    colorNameRequest: null,
+    abortController: null,
 
-    init: function () {
-        var myPicker = new jscolor.color(document.getElementById('color_hex'), {
-            hash: false
-        });
+    init: async function () {
+        this.abortController = new AbortController();
+        const colorHex = document.getElementById('color_hex');
+        new jscolor.color(colorHex, {hash: false});
 
-        $('#color_hex').change(function () {
-            if (registration.validateColor()) {
-                registration.checkColorAvailability();
-                registration.getColorName();
+        colorHex.addEventListener('change', async () => {
+            if (this.validateColor()) {
+                await this.checkColorAvailability();
+                await this.getColorName();
             }
         });
 
-        $('#UserRegisterForm').submit(function (event) {
-            if (! registration.validateColor()) {
+        const form = document.getElementById('register');
+        form.addEventListener('submit', (event) => {
+            if (!this.validateColor()) {
                 alert('Please select a valid color.');
-                return false;
+                event.preventDefault();
             }
-            return true;
         });
 
-        registration.getColorName();
+        await this.getColorName();
+    },
+
+    getColor: function () {
+        return document.getElementById('color_hex').value;
     },
 
     validateColor: function () {
-        var chosen_color = $('#color_hex').val();
+        const chosenColor = this.getColor();
 
         // Validate color
-        var pattern = new RegExp('^[0-9A-F]{6}$', 'i');
-        if (! pattern.test(chosen_color)) {
-            var error_message = 'Bad news. ' + chosen_color + ' is not a valid hexadecimal color.';
-            this.showColorFeedback(error_message, 'error');
+        const pattern = new RegExp('^[0-9A-F]{6}$', 'i');
+        if (!pattern.test(chosenColor)) {
+            const errorMessage = 'Bad news. ' + chosenColor + ' is not a valid hexadecimal color.';
+            this.showColorFeedback(errorMessage, 'error');
             return false;
         }
 
@@ -40,83 +45,70 @@ var registration = {
     },
 
     showColorFeedback: function (message, className) {
-        var msgContainer = $('#reg_color_input').find('.evaluation_message');
-        if (message === msgContainer.html()) {
+        const msgContainer = document.querySelector('#reg_color_input .evaluation_message');
+        if (message === msgContainer.textContent) {
             return;
         }
-        if (msgContainer.is(':empty')) {
-            msgContainer.hide();
-            msgContainer.html(message);
-            msgContainer.removeClass('success error');
-            msgContainer.addClass(className);
-            msgContainer.slideDown(500);
-        } else {
-            msgContainer.fadeOut(100, function () {
-                msgContainer.html(message);
-                msgContainer.removeClass('success error');
-                msgContainer.addClass(className);
-                msgContainer.fadeIn(500);
+
+        msgContainer.textContent = message;
+        msgContainer.classList.remove('success');
+        msgContainer.classList.remove('error');
+        msgContainer.classList.add(className);
+        msgContainer.style.display = 'inline';
+    },
+
+    checkColorAvailability: async function () {
+        if (this.currentlyRequesting) {
+            this.abortController.abort();
+        }
+
+        this.currentlyRequesting = true;
+        const color = this.getColor();
+        const message = 'Checking to see if that color is available...';
+        this.showColorFeedback(message, null);
+        try {
+            let response = await fetch('/users/checkColorAvailability/' + color, {
+                signal: this.abortController.signal,
             });
-        }
-    },
-
-    checkColorAvailability: function () {
-        var color = $('#color_hex').val();
-        if (this.color_avail_request !== null) {
-            this.color_avail_request.abort();
-        }
-        this.color_avail_request = $.ajax({
-            url: '/users/checkColorAvailability/' + color,
-            dataType: 'json',
-            beforeSend: function () {
-                var message = 'Checking to see if that color is available...';
-                registration.showColorFeedback(message, null);
-            },
-            success: function (data) {
-                if (! data.hasOwnProperty('available') || typeof(data.available) !== 'boolean') {
-                    registration.showColorFeedback('There was an error checking the availability of that color.', null);
-                } else if (data.available === true) {
-                    registration.showColorFeedback('This color is available! :)', 'success');
-                } else if (data.available === false) {
-                    registration.showColorFeedback('This color is already taken. :(', 'error');
-                }
-            },
-            error: function () {
-                registration.showColorFeedback('There was an error checking the availability of that color.', null);
-            },
-            complete: function () {
-                registration.color_avail_request = null;
+            const data = await response.json();
+            if (!data.hasOwnProperty('available') || typeof(data.available) !== 'boolean') {
+                this.showColorFeedback('There was an error checking the availability of that color.', null);
+            } else if (data.available === true) {
+                this.showColorFeedback('This color is available! :)', 'success');
+            } else if (data.available === false) {
+                this.showColorFeedback('This color is already taken. :(', 'error');
             }
-        });
+            this.currentlyRequesting = false;
+        } catch (err) {
+            this.currentlyRequesting = false;
+            if (err.name === 'AbortError') {
+                // Do nothing
+                return;
+            }
+            this.showColorFeedback('There was an error checking the availability of that color.', null);
+            throw err;
+        }
     },
 
-    getColorName: function () {
-        var color = $('#color_hex').val();
-        if (this.color_name_request !== null) {
-            this.color_name_request.abort();
+    getColorName: async function () {
+        if (this.colorNameRequest !== null) {
+            this.colorNameRequest.abort();
         }
-        var colorLabel = $('#reg_color_input').find('label');
-        this.color_name_request = $.ajax({
-            url: '/colors/name/' + color,
-            dataType: 'json',
-            beforeSend: function () {
-                colorLabel.html('Color: <img src="/img/loading_small.gif" class="loading" alt="Loading..." />');
-            },
-            success: function (data) {
-                if (! data.hasOwnProperty('name')) {
-                    colorLabel.html('Color');
-                    console.log('Error retrieving color name');
-                } else {
-                    colorLabel.html('Color: "' + data.name + '"');
-                }
-            },
-            error: function () {
-                colorLabel.html('Color');
+        const colorLabel = document.querySelector('#reg_color_input label');
+        colorLabel.innerHTML = 'Color: <img src="/img/loading_small.gif" class="loading" alt="Loading..." />';
+        try {
+            let response = await fetch('/colors/name/' + this.getColor());
+            let data = await response.json();
+            console.log(data);
+            if (!data.hasOwnProperty('name')) {
+                colorLabel.innerHTML = 'Color';
                 console.log('Error retrieving color name');
-            },
-            complete: function () {
-                registration.color_name_request = null;
+            } else {
+                colorLabel.innerHTML = 'Color: "' + data.name + '"';
             }
-        });
+        } catch (error) {
+            colorLabel.innerHTML = 'Color';
+            console.log('Error retrieving color name');
+        }
     }
 };

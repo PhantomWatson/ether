@@ -1,11 +1,13 @@
 <?php
 namespace App\Model\Table;
 
+use App\Application;
 use Cake\Collection\Collection;
 use Cake\Database\Expression\QueryExpression;
 use Cake\Http\Exception\BadRequestException;
 use Cake\Http\Exception\InternalErrorException;
 use Cake\Mailer\Email;
+use Cake\Mailer\Mailer;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -13,7 +15,6 @@ use Cake\Routing\Router;
 use Cake\Utility\Hash;
 use Cake\Utility\Security;
 use Cake\Validation\Validator;
-use League\HTMLToMarkdown\HtmlConverter;
 
 /**
  * Users Model
@@ -38,7 +39,7 @@ class UsersTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         $this->setTable('users');
         $this->setDisplayField('id');
@@ -66,7 +67,7 @@ class UsersTable extends Table
      * @param \Cake\Validation\Validator $validator instance
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): \Cake\Validation\Validator
     {
         $validator
             ->scalar('id')
@@ -138,7 +139,7 @@ class UsersTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): \Cake\ORM\RulesChecker
     {
         $rules->add($rules->isUnique(['email'], [
             'message' => 'Someone already registered with this email address. Probably you, I guess.'
@@ -467,50 +468,6 @@ class UsersTable extends Table
     }
 
     /**
-     * Removs slashes that were a leftover of the anti-injection-attack strategy of the olllllld Ether
-     */
-    public function overhaulStripSlashes()
-    {
-        $users = $this->find('all')
-            ->select(['id', 'profile'])
-            ->where(['profile LIKE' => '%\\\\%'])
-            ->order(['id' => 'ASC']);
-        foreach ($users as $user) {
-            echo $user->profile;
-            $fixed = stripslashes($user->profile);
-            $user->profile = $fixed;
-            $this->save($user);
-            echo " => $fixed<br />";
-        }
-    }
-
-    public function overhaulToMarkdown()
-    {
-        $field = 'profile';
-        $results = $this->find('all')
-            ->select(['id', $field])
-            ->where([
-                "$field LIKE" => '%<%',
-                'markdown' => false
-            ])
-            ->order(['id' => 'ASC']);
-        if ($results->count() == 0) {
-            echo "No {$field}s to convert";
-        }
-        foreach ($results as $result) {
-            $converter = new HtmlConverter(['strip_tags' => false]);
-            $markdown = $converter->convert($result->$field);
-            $result->$field = $markdown;
-            $result->markdown = true;
-            if ($this->save($result)) {
-                echo "Converted $field #$result->id<br />";
-            } else {
-                echo "ERROR converting $field #$result->id<br />";
-            }
-        }
-    }
-
-    /**
      * @param string $email
      * @return int|null
      */
@@ -520,7 +477,7 @@ class UsersTable extends Table
             ->select(['id'])
             ->where(['email' => $email])
             ->limit(1);
-        if ($user->isEmpty()) {
+        if ($user->count() === 0) {
             return null;
         }
         return $user->first()->id;
@@ -531,7 +488,7 @@ class UsersTable extends Table
      * 24 hours to give the user access to /users/resetPassword
      *
      * @param int $userId User ID
-     * @return array
+     * @return void
      */
     public function sendPasswordResetEmail($userId)
     {
@@ -545,15 +502,21 @@ class UsersTable extends Table
             $hash
         ], true);
         $siteUrl = Router::url('/', true);
-        $email = new Email('reset_password');
         $user = $this->get($userId);
-        $email->setTo($user->email);
-        $email->setViewVars(compact(
-            'resetUrl',
-            'siteUrl'
-        ));
-
-        return $email->send();
+        $mailer = new Mailer();
+        $mailer
+            ->setEmailFormat(\Cake\Mailer\Message::MESSAGE_BOTH)
+            ->setTo($user->email)
+            ->setFrom(Application::EMAIL_FROM)
+            ->setSender(Application::EMAIL_FROM)
+            ->setSubject('Ether Account Password Reset')
+            ->viewBuilder()
+                ->setTemplate('reset_password')
+                ->setVars(compact(
+                    'resetUrl',
+                    'siteUrl'
+                ));
+        $mailer->deliver();
     }
 
     /**

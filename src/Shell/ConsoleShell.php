@@ -63,7 +63,7 @@ class ConsoleShell extends Shell
      *
      * @return ConsoleOptionParser
      */
-    public function getOptionParser()
+    public function getOptionParser(): ConsoleOptionParser
     {
         $parser = new ConsoleOptionParser('console', false);
         $parser->setDescription(

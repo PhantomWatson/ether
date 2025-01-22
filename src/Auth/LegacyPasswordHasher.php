@@ -11,7 +11,7 @@ class LegacyPasswordHasher extends AbstractPasswordHasher
         return md5($password);
     }
 
-    public function check($password, $hashedPassword)
+    public function check($password, $hashedPassword): bool
     {
         return md5($password) === $hashedPassword;
     }

@@ -12,7 +12,7 @@ use Cake\View\View;
  */
 class EtherTimeHelperTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $View = new View();

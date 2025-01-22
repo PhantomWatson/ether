@@ -12,7 +12,7 @@ use Cake\Cache\Cache;
 class ThoughtListener implements EventListenerInterface
 {
 
-    public function implementedEvents()
+    public function implementedEvents(): array
     {
         return [
             'Model.Thought.created' => [

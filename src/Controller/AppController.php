@@ -7,6 +7,8 @@ use App\Model\Table\MessagesTable;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Event\Event;
+use Cake\Http\Cookie\Cookie;
+use Cake\Http\Response;
 use Cake\ORM\TableRegistry;
 use Exception;
 
@@ -15,24 +17,15 @@ use Exception;
  */
 class AppController extends Controller
 {
-    public $helpers = [
-        'Time' => [
-            'className' => 'EtherTime'
-        ],
-        'Form' => [
-            'templates' => 'ether_form'
-        ]
-    ];
-
     /**
      * Initialize function
      *
      * @throws Exception
      * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
-        $this->loadComponent('Cookie');
+        $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
             'loginAction' => [
@@ -51,10 +44,14 @@ class AppController extends Controller
                         'hashers' => ['Default', 'Legacy']
                     ]
                 ],
-                'Xety/Cake3CookieAuth.Cookie' => [
-                    'fields' => ['username' => 'email']
-                ]
+                'Cookie' => [
+                    'fields' => [
+                        'username' => 'email',
+                        'password' => 'password',
+                    ],
+                ],
             ],
+            'authError' => 'You are not authorized to view this page',
             'authorize' => ['Controller']
         ]);
         $this->set('debug', Configure::read('debug'));
@@ -75,24 +72,40 @@ class AppController extends Controller
      * beforeFilter callback
      *
      * @param Event $event Event object
-     * @return void
+     * @return Response|null
      */
-    public function beforeFilter(Event $event)
+    public function beforeFilter(\Cake\Event\EventInterface $event)
     {
+        $isMaintenanceMode = Configure::read('maintenanceMode');
+        $alreadyRedirected = $this->getRequest()->getParam('action') == 'maintenanceMode';
+        if ($isMaintenanceMode && !$alreadyRedirected) {
+            return $this->redirect([
+                'controller' => 'Pages',
+                'action' => 'maintenanceMode',
+            ]);
+        }
+
         $authError = $this->Auth->user('id')
             ? 'Sorry, you do not have access to that location.'
             : 'Please <a href="/login">log in</a> before you try that.';
         $this->Auth->setConfig('authError', $authError);
 
         // Automatically login
-        if (! $this->Auth->user() && $this->Cookie->read('CookieAuth')) {
+        if (!$this->Auth->user() && $this->getRequest()->getCookie('CookieAuth')) {
             $user = $this->Auth->identify();
             if ($user) {
                 $this->Auth->setUser($user);
             } else {
-                $this->Cookie->delete('CookieAuth');
+                $this->setResponse($this->getResponse()->withExpiredCookie(new Cookie('CookieAuth')));
             }
         }
+
+        // Replace "You are not authorized" error message with login prompt message if user is not logged in
+        if (!$this->Auth->user()) {
+            $this->Auth->setConfig('authError', 'You\'ll need to log in before accessing that page');
+        }
+
+        return null;
     }
 
     /**
@@ -101,7 +114,7 @@ class AppController extends Controller
      * @param Event $event Event object
      * @return void
      */
-    public function beforeRender(Event $event)
+    public function beforeRender(\Cake\Event\EventInterface $event)
     {
         $userId = $this->Auth->user('id');
         /** @var MessagesTable $messagesTable */

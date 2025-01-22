@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Model\Entity\Thought;
 use App\Model\Table\ThoughtsTable;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Event\Event;
@@ -24,7 +25,7 @@ class ThoughtsController extends AppController
      * @return void
      * @throws Exception
      */
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
         $this->Auth->allow([
@@ -80,15 +81,18 @@ class ThoughtsController extends AppController
      */
     public function add()
     {
-        $thought = $this->Thoughts->newEntity();
+        /** @var Thought $thought */
+        $thought = $this->Thoughts->newEmptyEntity();
+        $thought->word = $this->getRequest()->getParam('word');
         if ($this->request->is('post')) {
             $data = $this->request->getData();
             $data['user_id'] = $this->Auth->user('id');
             $thought = $this->Thoughts->patchEntity($thought, $data);
-            if ($thought->getErrors()) {
+            if ($thought->hasErrors()) {
                 $this->Flash->error(sprintf(
-                    'Please correct the indicated %s before continuing.',
-                    __n('error', 'errors', count($thought->getErrors()))
+                    'Please correct the indicated %s before continuing. Details: %s',
+                    __n('error', 'errors', count($thought->getErrors())),
+                    print_r($thought->getErrors(), true),
                 ));
             } elseif ($this->Thoughts->save($thought)) {
                 $event = new Event('Model.Thought.created', $this, ['entity' => $thought]);
@@ -257,12 +261,12 @@ class ThoughtsController extends AppController
     public function refreshFormatting($thoughtId)
     {
         $this->viewBuilder()->setLayout('json');
+        $this->viewBuilder()->setOption('serialize', 'result');
 
         try {
             $thought = $this->Thoughts->get($thoughtId);
         } catch (RecordNotFoundException $e) {
             $this->set([
-                '_serialize' => ['result'],
                 'result' => [
                     'success' => false,
                     'update' => false
@@ -274,7 +278,6 @@ class ThoughtsController extends AppController
         $formattingKey = $this->Thoughts->getPopulatedThoughtwordHash();
         if ($formattingKey == $thought->formatting_key) {
             $this->set([
-                '_serialize' => ['result'],
                 'result' => [
                     'success' => true,
                     'update' => false
@@ -288,7 +291,6 @@ class ThoughtsController extends AppController
         $this->Thoughts->save($thought);
 
         $this->set([
-            '_serialize' => ['result'],
             'result' => [
                 'success' => true,
                 'update' => true,
@@ -308,7 +310,7 @@ class ThoughtsController extends AppController
     {
         $suggestedWords = $this->Thoughts->getSuggestedWords($count);
         $this->set('suggestedWords', $suggestedWords);
-        $this->set('_serialize', ['suggestedWords']);
+        $this->viewBuilder()->setOption('serialize', 'suggestedWords');
     }
 
     /**

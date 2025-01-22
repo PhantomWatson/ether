@@ -18,7 +18,7 @@ class ColorsController extends AppController
      * @return void
      * @throws Exception
      */
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
         $this->loadComponent('RequestHandler');
@@ -67,9 +67,7 @@ class ColorsController extends AppController
             throw new NotFoundException($msg);
         }
 
-        $this->set([
-            'name' => $name,
-            '_serialize' => ['name']
-        ]);
+        $this->set(['result' => ['name' => $name]]);
+        $this->viewBuilder()->setOption('serialize', 'result');
     }
 }

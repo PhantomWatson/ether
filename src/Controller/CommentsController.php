@@ -21,7 +21,7 @@ class CommentsController extends AppController
      * @return void
      * @throws Exception
      */
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
         $this->Auth->allow(['refreshFormatting']);
@@ -34,7 +34,7 @@ class CommentsController extends AppController
      */
     public function add()
     {
-        $comment = $this->Comments->newEntity();
+        $comment = $this->Comments->newEmptyEntity();
         if ($this->request->is('post')) {
             $comment = $this->Comments->patchEntity($comment, $this->request->getData());
             $comment->user_id = $this->Auth->user('id');
@@ -61,7 +61,10 @@ class CommentsController extends AppController
      */
     public function refreshFormatting($commentId)
     {
-        $this->viewBuilder()->setLayout('json');
+        $this->viewBuilder()
+            ->setLayout('json')
+            ->setTemplate('/Thoughts/refresh_formatting');
+
         /** @var ThoughtsTable $thoughtsTable */
         $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
 
@@ -101,7 +104,5 @@ class CommentsController extends AppController
                 'formattedThought' => $formattedComment
             ]
         ]);
-
-        return $this->render('/Thoughts/refresh_formatting');
     }
 }

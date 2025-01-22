@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Model\Table\MessagesTable;
 use App\Model\Table\UsersTable;
 use Cake\Http\Response;
+use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 use Exception;
 
@@ -28,11 +29,10 @@ class MessagesController extends AppController
      * @return void
      * @throws Exception
      */
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
         $this->loadComponent('RequestHandler');
-        $this->loadComponent('Paginator');
     }
 
     /**
@@ -44,7 +44,6 @@ class MessagesController extends AppController
     public function index($penpalColor = null)
     {
         $userId = $this->Auth->user('id');
-        $this->loadModel('Users');
         $this->set([
             'title_for_layout' => 'Messages',
             'conversations' => $this->Messages->getConversationsIndex($userId),
@@ -78,8 +77,9 @@ class MessagesController extends AppController
     {
         if ($this->request->is('post')) {
             // Gather data
-            $this->loadModel('Users');
-            $recipientId = $this->Users->getIdFromColor($this->request->getData('recipient'));
+            /** @var UsersTable $usersTable */
+            $usersTable = TableRegistry::getTableLocator()->get('Users');
+            $recipientId = $usersTable->getIdFromColor($this->request->getData('recipient'));
             $data = $this->request->getData();
             $data['recipient_id'] = $recipientId;
             $data['sender_id'] = $this->Auth->user('id');
@@ -87,7 +87,7 @@ class MessagesController extends AppController
 
             $errorMsg = null;
             $msgSent = false;
-            $message = $this->Messages->newEntity();
+            $message = $this->Messages->newEmptyEntity();
             $message = $this->Messages->patchEntity($message, $data);
             if ($message->getErrors()) {
                 $errors = Hash::flatten($message->getErrors());
@@ -95,7 +95,7 @@ class MessagesController extends AppController
             } elseif ($this->Messages->save($message)) {
                 $msgSent = true;
                 $senderId = $this->Auth->user('id');
-                if ($this->Users->acceptsMessages($recipientId)) {
+                if ($usersTable->acceptsMessages($recipientId)) {
                     $this->Messages->sendNotificationEmail($senderId, $recipientId, $message);
                 }
             } else {
@@ -131,9 +131,10 @@ class MessagesController extends AppController
     public function conversation($penpalColor = null)
     {
         $userId = $this->Auth->user('id');
-        $this->loadModel('Users');
-        $penpalId = $this->Users->getIdFromColor($penpalColor);
-        $penpal = $this->Users->get($penpalId);
+        /** @var UsersTable $usersTable */
+        $usersTable = TableRegistry::getTableLocator()->get('Users');
+        $penpalId = $usersTable->getIdFromColor($penpalColor);
+        $penpal = $usersTable->get($penpalId);
         $query = $this->Messages->getConversation($userId, $penpalId);
         if (isset($_GET['full'])) {
             $messages = $query->toArray();
@@ -153,14 +154,14 @@ class MessagesController extends AppController
             // This isn't JSON, but the 'json' template returns JUST the content and nothing else, like we need
             $this->viewBuilder()->setLayout('json');
 
-            return $this->render(DS . 'Element' . DS . 'Messages' . DS . 'conversation');
+            return $this->render(DS . 'element' . DS . 'Messages' . DS . 'conversation');
         }
 
         $this->set([
             'titleForLayout' => 'Messages with Thinker #' . $penpalColor,
             'penpalColor' => $penpal->color,
-            'penpalAcceptsMessages' => $this->Users->acceptsMessages($penpalId),
-            'messageEntity' => $this->Messages->newEntity()
+            'penpalAcceptsMessages' => $usersTable->acceptsMessages($penpalId),
+            'messageEntity' => $this->Messages->newEmptyEntity()
         ]);
 
         return null;

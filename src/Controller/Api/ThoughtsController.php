@@ -3,9 +3,11 @@ namespace App\Controller\Api;
 
 use App\Controller\AppController;
 use App\Model\Entity\Thought;
-use App\PhpMp3;
 use App\TTS;
+use Cake\Core\Configure;
+use Cake\Http\Response;
 use Cake\ORM\TableRegistry;
+use Cake\View\JsonView;
 use Exception;
 
 /**
@@ -13,13 +15,18 @@ use Exception;
  */
 class ThoughtsController extends AppController
 {
+    public function viewClasses(): array
+    {
+        return [JsonView::class];
+    }
+
     /**
      * Initialize method
      *
      * @return void
      * @throws Exception
      */
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
         $this->Auth->allow([
@@ -44,9 +51,15 @@ class ThoughtsController extends AppController
      *
      * @throws \Google\ApiCore\ApiException
      * @throws \Google\ApiCore\ValidationException
+     * @return Response|null
      */
     public function tts($thoughtId)
     {
+        $isMaintenanceMode = Configure::read('maintenanceMode');
+        if ($isMaintenanceMode) {
+            return $this->response->withStatus(503);
+        }
+
         $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
         /** @var Thought $thought */
         $thought = $thoughtsTable->get($thoughtId);
@@ -69,9 +82,11 @@ class ThoughtsController extends AppController
         }
 
         $this->set(compact('filename'));
-        $this->set('_serialize', ['filename']);
+        $this->viewBuilder()
+            ->setOption('serialize', ['filename'])
+            ->setClassName('Json');
 
-        $this->RequestHandler->renderAs($this, 'json');
+        return null;
     }
 
     /**

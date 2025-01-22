@@ -1,8 +1,9 @@
 <?php
 namespace App\Model\Table;
 
+use App\Application;
 use App\Model\Entity\Message;
-use Cake\Mailer\Email;
+use Cake\Mailer\Mailer;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -10,7 +11,6 @@ use Cake\ORM\TableRegistry;
 use Cake\Routing\Router;
 use Cake\Utility\Text;
 use Cake\Validation\Validator;
-use League\HTMLToMarkdown\HtmlConverter;
 
 /**
  * Messages Model
@@ -35,7 +35,7 @@ class MessagesTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         $this->setTable('messages');
         $this->setDisplayField('id');
@@ -57,7 +57,7 @@ class MessagesTable extends Table
      * @param \Cake\Validation\Validator $validator instance
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): \Cake\Validation\Validator
     {
         $validator
             ->scalar('id')
@@ -101,7 +101,7 @@ class MessagesTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): \Cake\ORM\RulesChecker
     {
         $rules->add($rules->existsIn(['recipient_id'], 'Recipients'));
         $rules->add($rules->existsIn(['sender_id'], 'Senders'));
@@ -129,11 +129,11 @@ class MessagesTable extends Table
     {
         $query = $this->find('all');
         /** @var Message[] $newestMessages */
-        $newestMessages = $query
+        $query
             ->select([
                 'Messages.sender_id',
                 'Messages.recipient_id',
-                'created' => $query->func()->max('Messages.created')
+                'created' => $query->func()->max('Messages.created', ['datetime'])
             ])
             ->distinct(['Messages.sender_id', 'Messages.recipient_id'])
             ->contain([
@@ -150,8 +150,8 @@ class MessagesTable extends Table
                     'Messages.recipient_id' => $userId
                 ]
             ])
-            ->order(['created' => 'DESC'])
-            ->all();
+            ->order(['created' => 'DESC']);
+        $newestMessages = $query->all();
 
         $conversations = [];
         foreach ($newestMessages as $newestMessage) {
@@ -169,7 +169,6 @@ class MessagesTable extends Table
                 ->where([
                     'sender_id' => $newestMessage['sender']['id'],
                     'recipient_id' => $newestMessage['recipient']['id'],
-                    'created' => $newestMessage['created'],
                 ])
                 ->order(['created' => 'DESC'])
                 ->first();
@@ -295,70 +294,37 @@ class MessagesTable extends Table
     }
 
     /**
-     * Removs slashes that were a leftover of the anti-injection-attack strategy of the olllllld Ether
+     * @param int $senderId
+     * @param int $recipientId
+     * @param string $message
+     * @return void
      */
-    public function overhaulStripSlashes()
-    {
-        $messages = $this->find('all')
-            ->select(['id', 'message'])
-            ->where(['message LIKE' => '%\\\\%'])
-            ->order(['id' => 'ASC']);
-        foreach ($messages as $message) {
-            echo $message->message;
-            $fixed = stripslashes($message->message);
-            $message->message = $fixed;
-            $this->save($message);
-            echo " => $fixed<br />";
-        }
-    }
-
-    public function overhaulToMarkdown()
-    {
-        $field = 'message';
-        $results = $this->find('all')
-            ->select(['id', $field])
-            ->where([
-                "$field LIKE" => '%<%',
-                'markdown' => false
-            ])
-            ->order(['id' => 'ASC']);
-        if ($results->count() == 0) {
-            echo "No {$field}s to convert";
-        }
-        foreach ($results as $result) {
-            $converter = new HtmlConverter(['strip_tags' => false]);
-            $markdown = $converter->convert($result->$field);
-            $result->$field = $markdown;
-            $result->markdown = true;
-            if ($this->save($result)) {
-                echo "Converted $field #$result->id<br />";
-            } else {
-                echo "ERROR converting $field #$result->id<br />";
-            }
-        }
-    }
-
     public function sendNotificationEmail($senderId, $recipientId, $message)
     {
+        /** @var UsersTable $usersTable */
         $usersTable = TableRegistry::getTableLocator()->get('Users');
         $recipient = $usersTable->get($recipientId);
         $sender = $usersTable->get($senderId);
 
-        $email = new Email('new_message');
-        $email->setTo($recipient->email);
-        $email->setSubject('Ether: Message from #'.$sender->color);
-        $email->setViewVars([
-            'senderId' => $senderId,
-            'senderColor' => $sender->color,
-            'message' => $message,
-            'loginUrl' => Router::url(['controller' => 'Users', 'action' => 'login'], true),
-            'messageUrl' => Router::url(['controller' => 'Messages', 'action' => 'index', $sender->color], true),
-            'accountUrl' => Router::url(['controller' => 'Users', 'action' => 'settings'], true),
-            'siteUrl' => Router::url('/', true)
-        ]);
-        $email->setTemplate('new_message');
-        $email->setLayout('default');
-        $email->setEmailFormat('both');
-        return $email->send();
+        $mailer = new Mailer();
+        $mailer
+            ->setEmailFormat(\Cake\Mailer\Message::MESSAGE_BOTH)
+            ->setTo($recipient->email)
+            ->setFrom(Application::EMAIL_FROM)
+            ->setSender(Application::EMAIL_FROM)
+            ->setSubject('Ether: Message from #'.$sender->color)
+            ->viewBuilder()
+                ->setLayout('default')
+                ->setTemplate('new_message')
+                ->setVars([
+                    'senderId' => $senderId,
+                    'senderColor' => $sender->color,
+                    'message' => $message,
+                    'loginUrl' => Router::url(['controller' => 'Users', 'action' => 'login'], true),
+                    'messageUrl' => Router::url(['controller' => 'Messages', 'action' => 'index', $sender->color], true),
+                    'accountUrl' => Router::url(['controller' => 'Users', 'action' => 'settings'], true),
+                    'siteUrl' => Router::url('/', true)
+                ]);
+        $mailer->deliver();
     }
 }

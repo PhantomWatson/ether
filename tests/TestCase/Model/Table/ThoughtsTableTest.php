@@ -26,7 +26,7 @@ class ThoughtsTableTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $config = TableRegistry::exists('Thoughts') ? [] : ['className' => 'App\Model\Table\ThoughtsTable'];
@@ -38,7 +38,7 @@ class ThoughtsTableTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->Thoughts);
 

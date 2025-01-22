@@ -15,7 +15,7 @@ class GeneratorController extends AppController
      *
      * @throws Exception
      */
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
         $this->Auth->allow();
@@ -60,6 +60,8 @@ class GeneratorController extends AppController
         $thoughts = $this->getGeneratorSourceData();
         $this->set('source', $thoughts);
         $this->viewBuilder()->setLayout('json');
+        $this->viewBuilder()->setClassName('Json');
+        $this->viewBuilder()->setOption('serialize', ['source']);
     }
 
     /**

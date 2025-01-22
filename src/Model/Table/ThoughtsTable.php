@@ -19,7 +19,7 @@ use Cake\Utility\Text;
 use Cake\Validation\Validator;
 use EtherMarkov\EtherMarkovChain;
 use League\CommonMark\CommonMarkConverter;
-use League\HTMLToMarkdown\HtmlConverter;
+use League\CommonMark\Exception\CommonMarkException;
 
 /**
  * Thoughts Model
@@ -35,12 +35,12 @@ use League\HTMLToMarkdown\HtmlConverter;
  * @method Thought[] patchEntities($entities, array $data, array $options = [])
  * @method Thought findOrCreate($search, callable $callback = null, $options = [])
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
- * @mixin \Gourmet\CommonMark\Model\Behavior\CommonMarkBehavior
  */
 class ThoughtsTable extends Table
 {
 
     public $maxThoughtwordLength = 30;
+    const MIN_THOUGHT_LENGTH = 20;
 
     /**
      * Initialize method
@@ -48,7 +48,7 @@ class ThoughtsTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         $this->setTable('thoughts');
         $this->setDisplayField('id');
@@ -60,7 +60,6 @@ class ThoughtsTable extends Table
         $this->hasMany('Comments', [
             'foreignKey' => 'thought_id'
         ]);
-        $this->addBehavior('Gourmet/CommonMark.CommonMark');
     }
 
     /**
@@ -69,7 +68,7 @@ class ThoughtsTable extends Table
      * @param \Cake\Validation\Validator $validator instance
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): \Cake\Validation\Validator
     {
         $validator
             ->scalar('id')
@@ -87,7 +86,7 @@ class ThoughtsTable extends Table
         $validator
             ->scalar('thought')
             ->requirePresence('thought', 'create')
-            ->minLength('thought', 20, 'That thought is way too short! Please enter at least 20 characters.');
+            ->minLength('thought', self::MIN_THOUGHT_LENGTH, 'That thought is way too short! Please enter at least ' . self::MIN_THOUGHT_LENGTH . ' characters.');
 
         $validator
             ->scalar('comments_enabled')
@@ -107,7 +106,7 @@ class ThoughtsTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): \Cake\ORM\RulesChecker
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
 
@@ -128,6 +127,7 @@ class ThoughtsTable extends Table
                 ->where(['hidden' => false])
                 ->distinct(['word'])
                 ->order(['word' => 'ASC'])
+                ->all()
                 ->extract('word')
                 ->toArray();
             $populatedThoughtwordHash = md5(serialize($populatedThoughtwords));
@@ -498,10 +498,18 @@ class ThoughtsTable extends Table
         return $thought;
     }
 
-    public function parseMarkdown($input)
+    /**
+     * @param string $input
+     * @throws CommonMarkException
+     * @return string
+     */
+    public function parseMarkdown(string $input): string
     {
-        $converter = new CommonMarkConverter();
-        return $converter->convertToHtml($input);
+        $converter = new CommonMarkConverter([
+            'html_input' => 'strip',
+            'allow_unsafe_links' => false,
+        ]);
+        return (string) $converter->convert($input);
     }
 
     public function stripTags($input, $allTags = false)
@@ -625,7 +633,7 @@ class ThoughtsTable extends Table
         return $output;
     }
 
-    public function afterDelete($event, $entity, $options = [])
+    public function afterDelete(\Cake\Event\EventInterface $event, $entity, $options = [])
     {
         $event = new Event('Model.Thought.deleted', $this, compact('entity', 'options'));
         $this->getEventManager()->dispatch($event);
@@ -699,52 +707,6 @@ class ThoughtsTable extends Table
             // Thoughts.formatting_key automatically set by Thought::_setFormattedThought()
             $this->save($thought);
             Log::write('info', 'Refreshed formatting for thought '.$thought->id);
-        }
-    }
-
-    /**
-     * Removes slashes that were a leftover of the anti-injection-attack strategy of the olllllld Ether
-     *
-     * @return void
-     */
-    public function overhaulStripSlashes()
-    {
-        $thoughts = $this->find('all')
-            ->select(['id', 'thought'])
-            ->where(['thought LIKE' => '%\\\\%'])
-            ->order(['id' => 'ASC']);
-        foreach ($thoughts as $thought) {
-            echo $thought->thought;
-            $fixed = stripslashes($thought->thought);
-            $thought->thought = $fixed;
-            $this->save($thought);
-            echo " => $fixed<br />";
-        }
-    }
-
-    public function overhaulToMarkdown()
-    {
-        $field = 'thought';
-        $results = $this->find('all')
-            ->select(['id', $field])
-            ->where([
-                "$field LIKE" => '%<%',
-                'markdown' => false
-            ])
-            ->order(['id' => 'ASC']);
-        if ($results->count() == 0) {
-            echo "No {$field}s to convert";
-        }
-        foreach ($results as $result) {
-            $converter = new HtmlConverter(['strip_tags' => false]);
-            $markdown = $converter->convert($result->$field);
-            $result->$field = $markdown;
-            $result->markdown = true;
-            if ($this->save($result)) {
-                echo "Converted $field #$result->id<br />";
-            } else {
-                echo "ERROR converting $field #$result->id<br />";
-            }
         }
     }
 

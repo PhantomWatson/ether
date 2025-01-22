@@ -148,7 +148,7 @@ select {
     display: inline-block;
     margin-left: 1rem;
     margin-right: .5rem;
-    padding: 0 4px;
+    padding: 0 1em;
     width: 200px;
 }
 
@@ -415,8 +415,11 @@ body.popup_active {
     font-size: 1rem;
     margin: 10px 10px 0 10px;
 
-    textarea {
+    .form-group {
         margin-bottom: 1em;
+    }
+
+    textarea {
         width: 100%;
     }
 
@@ -1550,8 +1553,14 @@ pre.cake-error {
 }
 
 #frontpage_random_thought {
+    background-color: black;
+    padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+
+    h3 {
+        margin-bottom: 0.5em;
+    }
+
     .word {
-        font-size: 120%;
         text-transform: capitalize;
     }
 
@@ -1560,6 +1569,7 @@ pre.cake-error {
         display: block;
         font-size: 80%;
         margin-left: 10px;
+        margin-top: 0.5em;
         text-align: right;
     }
 
@@ -1929,10 +1939,6 @@ blockquote {
 }
 
 #features {
-    h1 {
-
-    }
-
     .listenButton {
         border: 1px solid rgba(255, 255, 255, 0.2);
         padding: 2px;
@@ -1949,6 +1955,9 @@ blockquote {
 
     .card {
         background-color: #000;
-        margin-bottom: 1em;
     }
+}
+
+#thought-form-errors {
+    color: $FontColorError;
 }

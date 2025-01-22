@@ -4,11 +4,14 @@ namespace App\Controller;
 use App\Color\Color;
 use App\Model\Entity\User;
 use App\Model\Table\MessagesTable;
+use App\Model\Table\ThoughtsTable;
 use App\Model\Table\UsersTable;
 use Cake\Core\Configure;
+use Cake\Http\Cookie\Cookie;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
+use Cake\ORM\TableRegistry;
 use Exception;
 
 /**
@@ -20,13 +23,15 @@ use Exception;
  */
 class UsersController extends AppController
 {
+    const COOKIE_AUTH_KEY = 'CookieAuth';
+
     /**
      * Initialize method
      *
      * @return void
      * @throws Exception
      */
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
         $this->Auth->allow([
@@ -65,7 +70,8 @@ class UsersController extends AppController
     public function view($color = null)
     {
         $user = $this->Users->getProfileInfo($color);
-        $this->loadModel('Messages');
+        /** @var MessagesTable $messagesTable */
+        $messagesTable = TableRegistry::getTableLocator()->get('Messages');
         $this->set([
             'title_for_layout' => "Thinker #$color",
             'user' => $user,
@@ -77,11 +83,11 @@ class UsersController extends AppController
         $userId = $this->Auth->user('id');
         $selectedUserId = $this->Users->getIdFromColor($color);
         if ($userId) {
-            $this->set('messagesCount', $this->Messages->getConversationCount($userId, $selectedUserId));
+            $this->set('messagesCount', $messagesTable->getConversationCount($userId, $selectedUserId));
         }
 
         if ($user['acceptMessages']) {
-            $this->set('messageEntity', $this->Messages->newEntity());
+            $this->set('messageEntity', $messagesTable->newEmptyEntity());
         }
     }
 
@@ -92,7 +98,7 @@ class UsersController extends AppController
      */
     public function register()
     {
-        $user = $this->Users->newEntity();
+        $user = $this->Users->newEmptyEntity();
         $this->set([
             'title_for_layout' => 'Register Account',
             'user' => $user,
@@ -117,7 +123,7 @@ class UsersController extends AppController
     /**
      * Renders /users/login
      *
-     * @return Response|null
+     * @return void
      */
     public function login()
     {
@@ -125,10 +131,9 @@ class UsersController extends AppController
             $this->_login();
         }
         $this->set([
-            'title_for_layout' => 'Log in'
+            'title_for_layout' => 'Log in',
+            'user' => $this->Users->newEmptyEntity()
         ]);
-
-        return null;
     }
 
     /**
@@ -151,10 +156,8 @@ class UsersController extends AppController
     {
         $this->viewBuilder()->setClassName('Json');
 
-        $this->set([
-            'available' => !$this->Users->colorIsTaken($color),
-            '_serialize' => ['available']
-        ]);
+        $this->set(['result' => ['available' => !$this->Users->colorIsTaken($color)]]);
+        $this->viewBuilder()->setOption('serialize', 'result');
     }
 
     /**
@@ -171,15 +174,26 @@ class UsersController extends AppController
             'user' => $user
         ]);
 
-        if (! ($this->request->is('post') || $this->request->is('put'))) {
+        if (!$this->request->is(['post', 'put'])) {
             return;
         }
 
         $user = $this->Users->patchEntity($user, $this->request->getData(), [
-            'fieldList' => ['new_password', 'confirm_password', 'password', 'profile', 'acceptMessages', 'messageNotification', 'emailUpdates']
+            'fieldList' => [
+                'new_password',
+                'confirm_password',
+                'password',
+                'profile',
+                'acceptMessages',
+                'messageNotification',
+                'emailUpdates',
+            ]
         ]);
-        if ($user->getErrors()) {
-            $this->Flash->error('Please correct the indicated '.__n('error', 'errors', count($user->getErrors())).' before continuing.');
+        if ($user->hasErrors()) {
+            $this->Flash->error(sprintf(
+                'Please correct the indicated %s before continuing.',
+                __n('error', 'errors', count($user->getErrors()))
+            ));
             return;
         }
 
@@ -189,21 +203,14 @@ class UsersController extends AppController
         if ($action == 'change_password') {
             $user->password = $this->request->getData('new_password');
             $user->password_version = 3;
-            if ($this->Users->save($user)) {
-                // Remember new credentials in cookie
-                $this->Cookie->configKey('CookieAuth', [
-                    'expires' => '+1 year',
-                    'httpOnly' => true
-                ]);
-                $this->Cookie->write('CookieAuth', [
-                    'email' => $user->email,
-                    'password' => $this->request->getData('new_password')
-                ]);
 
+            if ($this->Users->save($user)) {
                 $this->Flash->success('Your password has been changed.');
-            } else {
-                $this->Flash->error('There was an error changing your password. Please try again.');
+                $cookie = $this->getAuthCookie($user->email, $this->getRequest()->getData('new_password'));
+                $this->setResponse($this->getResponse()->withCookie($cookie));
+                return;
             }
+            $this->Flash->error('There was an error changing your password. Please try again.');
 
         // Introspection
         } elseif ($action == 'introspection') {
@@ -221,6 +228,24 @@ class UsersController extends AppController
                 $this->Flash->error('There was an error updating your account settings.');
             }
         }
+        return;
+    }
+
+    private function getAuthCookie($email, $password): Cookie
+    {
+        $cookie = (new Cookie(
+            self::COOKIE_AUTH_KEY,
+            compact('email', 'password')
+        ))
+            ->withExpiry(new \DateTime('+1 year'))
+            ->withHttpOnly(true);
+
+        // Avoid secure on localhost to avoid needing self-signed certificate
+        if (!Configure::read('debug')) {
+            $cookie = $cookie->withSecure(true);
+        }
+
+        return $cookie;
     }
 
     /**
@@ -230,7 +255,7 @@ class UsersController extends AppController
      */
     public function forgotPassword()
     {
-        $user = $this->Users->newEntity();
+        $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $email = $this->request->getData('email');
             $email = strtolower(trim($email));
@@ -239,14 +264,10 @@ class UsersController extends AppController
             } else {
                 $userId = $this->Users->getIdWithEmail($email);
                 if ($userId) {
-                    if ($this->Users->sendPasswordResetEmail($userId)) {
-                        $this->Flash->success('You did it! The email goblins should be delivering a link to reset your password forthwith.');
+                    $this->Users->sendPasswordResetEmail($userId);
+                    $this->Flash->success('You did it! The email goblins should be delivering a link to reset your password forthwith.');
 
-                        return $this->redirect('/');
-                    } else {
-                        $msg = 'There was an error sending your password-resetting email. I swear this never happens. :(';
-                        $this->Flash->error($msg);
-                    }
+                    return $this->redirect('/');
                 } else {
                     $msg = 'I couldn\'t find an account registered with the email address <strong>'.$email.'</strong>. ';
                     $msg .= 'Please make sure you spelled it correctly.';
@@ -304,7 +325,7 @@ class UsersController extends AppController
         $this->set([
             'email' => $email,
             'titleForLayout' => 'Reset Password',
-            'user' => $this->Users->newEntity()
+            'user' => $this->Users->newEmptyEntity()
         ]);
 
         return null;
@@ -393,15 +414,13 @@ class UsersController extends AppController
             // Copy new_password to password so login will work
             $this->request = $this->request->withData('password', $this->request->getData('new_password'));
 
-            $loginResult = $this->_login();
-            if ($loginResult) {
+            if ($this->_login()) {
                 $this->Flash->success('Your account has been registered, and you\'ve been logged in. Welcome!');
-
-                return $loginResult;
+                return null;
             }
 
             $this->Flash->success('Your account has been registered, and you can now log in. Welcome!');
-            $this->redirect('/login');
+            return $this->redirect('/login');
         }
 
         $errorsMsgs = [];
@@ -436,9 +455,9 @@ class UsersController extends AppController
     }
 
     /**
-     * Logs the user in with request data and returns a redirect if successful
+     * Logs the user in with request data and sets a redirect if successful
      *
-     * @return \Cake\Http\Response|null
+     * @return bool
      */
     private function _login()
     {
@@ -452,22 +471,18 @@ class UsersController extends AppController
                 $this->Users->save($user);
             }
 
-            // Remember login in cookie
-            $this->Cookie->configKey('CookieAuth', [
-                'expires' => '+1 year',
-                'httpOnly' => true
-            ]);
-            $this->Cookie->write('CookieAuth', [
-                'email' => $this->request->getData('email'),
-                'password' => $this->request->getData('password')
-            ]);
-
-            return $this->redirect($this->Auth->redirectUrl());
+            $cookie = $this->getAuthCookie(
+                $this->getRequest()->getData('email'),
+                $this->getRequest()->getData('password')
+            );
+            $this->response = $this
+                ->redirect($this->Auth->redirectUrl())
+                ->withCookie($cookie);
+            return true;
         }
 
         $this->Flash->error('Email or password is incorrect');
-
-        return null;
+        return false;
     }
 
     /**
@@ -477,9 +492,10 @@ class UsersController extends AppController
      */
     private function verifyForegroundCaptcha(): bool
     {
-        $this->loadModel('Thoughts');
+        /** @var ThoughtsTable $thoughtsTable */
+        $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
 
-        $mostRecent = $this->Thoughts->getThoughtwordWithMostRecentActivity();
+        $mostRecent = $thoughtsTable->getThoughtwordWithMostRecentActivity();
 
         $input = trim(strtolower($this->request->getData('thoughtword-captcha')));
         $valid = $mostRecent == $input;
@@ -505,9 +521,11 @@ class UsersController extends AppController
     {
         $this->request = $this->request->withData('new_password', null);
         $this->request = $this->request->withData('confirm_password', null);
-        if ($this->viewVars['user'] ?? false) {
-            $this->viewVars['user']->new_password = null;
-            $this->viewVars['user']->confirm_password = null;
+        if ($this->viewBuilder()->hasVar('user')) {
+            $user = $this->Users->newEmptyEntity();
+            $user->new_password = null;
+            $user->confirm_password = null;
+            $this->viewBuilder()->setVar('user', $user);
         }
     }
 }

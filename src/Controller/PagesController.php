@@ -17,10 +17,6 @@ use Exception;
  */
 class PagesController extends AppController
 {
-    public $helpers = [
-        'Paginator' => []
-    ];
-
     public $paginate = [
         'finder' => [
             'recentActivity' => []
@@ -33,11 +29,11 @@ class PagesController extends AppController
      * @throws Exception
      * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
         parent::initialize();
-        $this->loadComponent('Paginator');
         $this->loadComponent('RequestHandler');
+
         $this->Auth->allow();
     }
 
@@ -48,12 +44,13 @@ class PagesController extends AppController
      */
     public function home()
     {
-        $this->loadModel('Thoughts');
-        $randomThought = $this->Thoughts->getRandomThought();
-        $randomThought = $this->Thoughts->excerpt($randomThought);
+        /** @var ThoughtsTable $thoughtsTable */
+        $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
+        $randomThought = $thoughtsTable->getRandomThought();
+        $randomThought = $thoughtsTable->excerpt($randomThought);
         $this->set([
-            'recentActivity' => $this->paginate($this->Thoughts),
-            'cloud' => $this->Thoughts->getCloud(),
+            'recentActivity' => $this->paginate($thoughtsTable),
+            'cloud' => $thoughtsTable->getCloud(),
             'randomThought' => $randomThought
         ]);
     }
@@ -242,5 +239,18 @@ class PagesController extends AppController
             'colors' => $Color->getClosestXkcdColors($hexCodes),
             'title_for_layout' => 'Color Names'
         ]);
+    }
+
+    public function maintenanceMode(): void
+    {
+        $this->set([
+            'title_for_layout' => 'Hang tight! We\'re undergoing maintenance.'
+        ]);
+    }
+
+    public function sumner()
+    {
+        $this->viewBuilder()->setLayout('sumner');
+        $this->viewBuilder()->setTemplate('blank');
     }
 }
