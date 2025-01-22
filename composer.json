@@ -16,8 +16,9 @@
 		"league/commonmark": "*",
 		"mobiledetect/mobiledetectlib": "^3.74",
 		"phantomwatson/ether-markov": "*",
-		"twbs/bootstrap": "^5.1.3"
-	},
+		"twbs/bootstrap": "^5.1.3",
+        "alek13/slack": "^2.0"
+    },
 	"require-dev" : {
         "cakephp/bake": "^2.6",
         "cakephp/cakephp-codesniffer": "^4.5",
