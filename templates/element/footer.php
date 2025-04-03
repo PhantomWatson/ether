@@ -1,11 +1,6 @@
 <?php
-    $gangsta = [
-        'Bitey_Chicken',
-    ];
-    $capslock = [
-        'DreadfulStar',
-        'Wocket',
-    ];
+    $gangsta = [];
+    $capslock = [];
     $fullRandomImgs = range(1, 17);
     $randomImgs = $fullRandomImgs;
     $fullRandomTitles = [
