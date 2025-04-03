@@ -21,56 +21,62 @@
             Patreon Supporters
         </h2>
     </div>
-    <div class="row gx-5">
-        <div class="col patron-category" id="gangstacaps-patrons">
-            <div>
-                <h3>
-                    <img src="/img/gangsta/flame.gif" alt="HELLA RADICAL FYRE" class="d-none d-md-inline"
-                         title="Watch out, this website might be too EDGY for you" />
-                    gAnGsTa CaPs sUpPoRtErS
-                    <img src="/img/gangsta/flame.gif" alt="MORE HELLA RADICAL FYRE" class="d-none d-md-inline"
-                         title="If you're not too scared, join my radical webring" />
-                </h3>
-                <ul class="unstyled">
-                    <?php foreach ($gangsta as $supporter): ?>
-                        <?php
-                        if (!$randomImgs) {
-                            $randomImgs = $fullRandomImgs;
-                        }
-                        $key = array_rand($randomImgs);
-                        $imgNum = $randomImgs[$key];
-                        unset($randomImgs[$key]);
+    <?php if ($gangsta || $capslock): ?>
+        <div class="row gx-5">
+            <?php if ($gangsta): ?>
+                <div class="col patron-category" id="gangstacaps-patrons">
+                    <div>
+                        <h3>
+                            <img src="/img/gangsta/flame.gif" alt="HELLA RADICAL FYRE" class="d-none d-md-inline"
+                                 title="Watch out, this website might be too EDGY for you" />
+                            gAnGsTa CaPs sUpPoRtErS
+                            <img src="/img/gangsta/flame.gif" alt="MORE HELLA RADICAL FYRE" class="d-none d-md-inline"
+                                 title="If you're not too scared, join my radical webring" />
+                        </h3>
+                        <ul class="unstyled">
+                            <?php foreach ($gangsta as $supporter): ?>
+                                <?php
+                                if (!$randomImgs) {
+                                    $randomImgs = $fullRandomImgs;
+                                }
+                                $key = array_rand($randomImgs);
+                                $imgNum = $randomImgs[$key];
+                                unset($randomImgs[$key]);
 
-                        if (!$randomTitles) {
-                            $randomTitles = $fullRandomTitles;
-                        }
-                        $key = array_rand($randomTitles);
-                        $title = $randomTitles[$key];
-                        unset($randomTitles[$key]);
-                        ?>
-                        <li>
-                            <?= $supporter ?>
-                            <img src="/img/gangsta/random/<?= $imgNum ?>.gif" alt="IS HELLA RADICAL" title="<?= $title ?>" />
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
+                                if (!$randomTitles) {
+                                    $randomTitles = $fullRandomTitles;
+                                }
+                                $key = array_rand($randomTitles);
+                                $title = $randomTitles[$key];
+                                unset($randomTitles[$key]);
+                                ?>
+                                <li>
+                                    <?= $supporter ?>
+                                    <img src="/img/gangsta/random/<?= $imgNum ?>.gif" alt="IS HELLA RADICAL" title="<?= $title ?>" />
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <?php if ($capslock): ?>
+                <div class="col patron-category" id="capslock-patrons">
+                    <div>
+                        <h3>
+                            CAPSLOCK SUPPORTERS
+                        </h3>
+                        <ul class="unstyled">
+                            <?php foreach ($capslock as $supporter): ?>
+                                <li>
+                                    <?= $supporter ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
-        <div class="col patron-category" id="capslock-patrons">
-            <div>
-                <h3>
-                    CAPSLOCK SUPPORTERS
-                </h3>
-                <ul class="unstyled">
-                    <?php foreach ($capslock as $supporter): ?>
-                        <li>
-                            <?= $supporter ?>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <?php endif; ?>
     <p id="patreon-info">
         Support Ether by
         <a href="https://www.patreon.com/the_ether">
