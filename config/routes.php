@@ -187,7 +187,7 @@ return static function (RouteBuilder $routes) {
         ];
         foreach ($lastParts as $lastPart) {
             $builder->connect(
-                ":wildcard/$lastPart",
+                "{wildcard}/$lastPart",
                 $botCatcher,
                 [
                     'pass' => ['wildcard'],
