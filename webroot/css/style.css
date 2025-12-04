@@ -13150,19 +13150,14 @@ body.popup_active #abc_thoughts_shortcuts .nav-tabs > li.active > a {
   text-decoration: underline;
 }
 #recent .colorbox {
-  height: 10px;
-  width: 10px;
-}
-#recent .colorbox img {
-  height: 10px;
-  width: 10px;
+  height: 15px;
+  vertical-align: baseline;
+  width: 15px;
 }
 #recent .colorbox[title=Phantom] {
+  font-size: 90%;
+  line-height: 1em;
   text-align: center;
-  height: 15px;
-  width: 15px;
-  font-size: 10px;
-  line-height: 15px;
 }
 #recent .info {
   color: #ccc;
