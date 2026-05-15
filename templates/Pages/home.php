@@ -6,6 +6,13 @@
 
 $features = [
     [
+        'title' => '<i class="fa-solid fa-cake-candles"></i> Ether Celebrates Its 20th Anniversary',
+        'body' => '
+            Over the two decades that Ether has been providing a platform for your thoughts, it\'s grown into an incredible collection of thousands of dreams, memories, fears, hopes, and musings. From the bottom of my heart, I thank our hundreds of thinkers for being a part of this weird, wonderful experiment. Your contributions to our thought repository, your feedback, and your help in spreading the word about this strange online writing community have all helped it develop into a welcoming home for folks like us and made it worth continuing into its third decade.
+            <br /><em>With love, Phantom Watson</em>
+        ',
+    ],
+    [
         'title' => '<i class="fa-solid fa-book"></i> Sponsoring Darkness Dreaming',
         'body' => '
             Ether is the proud sponsor of the third issue of
