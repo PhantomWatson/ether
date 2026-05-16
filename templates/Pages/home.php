@@ -4,6 +4,8 @@
  * @var \App\Model\Entity\Thought $randomThought
  */
 
+$animate = true;
+
 $features = [
     [
         'title' => '<i class="fa-solid fa-cake-candles"></i> Ether Celebrates Its 20th Anniversary',
@@ -136,15 +138,15 @@ $features = [
     </h2>
     <?= $this->element('Thoughts' . DS . 'recent') ?>
 </div>
-<div class="cloud <?= isset($_GET['animate']) ? 'animate_hide' : '' ?>" id="frontpage_cloud">
+<div class="cloud <?= $animate ? 'animate_hide' : '' ?>" id="frontpage_cloud">
     <?php if (empty($cloud)): ?>
         <p>
             Sorry, we couldn't find any thoughts in the database.
             <br />That's probably a bad sign. :(
         </p>
     <?php else: ?>
-        <?= $this->element('cloud', ['words' => $cloud, 'animate' => isset($_GET['animate'])]) ?>
-        <?php if (isset($_GET['animate'])): ?>
+        <?= $this->element('cloud', ['words' => $cloud, 'animate' => $animate]) ?>
+        <?php if ($animate): ?>
             <script>
                 let cloud = document.getElementById('frontpage_cloud');
                 cloud.className = 'cloud animate_show';
