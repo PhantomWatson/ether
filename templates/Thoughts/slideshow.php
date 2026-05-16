@@ -8,6 +8,7 @@ $interval = 30; // seconds
 
 <style>
     :root {
+        --slideshow-stage-top: 100px;
         --slideshow-controls-bottom: 2rem;
         --slideshow-controls-height: 3.25rem;
         --slideshow-controls-gap: 1rem;
@@ -15,7 +16,7 @@ $interval = 30; // seconds
 
     #slideshow-stage {
         position: fixed;
-        inset: 0 0 calc(var(--slideshow-controls-bottom) + var(--slideshow-controls-height) + var(--slideshow-controls-gap)) 0;
+        inset: var(--slideshow-stage-top) 0 calc(var(--slideshow-controls-bottom) + var(--slideshow-controls-height) + var(--slideshow-controls-gap)) 0;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -28,7 +29,7 @@ $interval = 30; // seconds
         background: #000;
         border-radius: 12px;
         box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
-        height: min(680px, 80vh, calc(100vh - var(--slideshow-controls-bottom) - var(--slideshow-controls-height) - var(--slideshow-controls-gap) - 2rem));
+        height: min(680px, 80vh, calc(100vh - var(--slideshow-stage-top) - var(--slideshow-controls-bottom) - var(--slideshow-controls-height) - var(--slideshow-controls-gap) - 2rem));
         overflow: hidden;
         padding: 1.25rem;
         position: relative;
