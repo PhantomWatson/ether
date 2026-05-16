@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  */
 $animate = true;
+$interval = 30; // seconds
 ?>
 
 <style>
@@ -50,6 +51,46 @@ $animate = true;
         font-weight: 600;
     }
 
+    #slideshow-controls {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 19;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .slideshow-control-button,
+    #slideshow-timer {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: rgba(0, 0, 0, 0.7);
+        background: rgba(255, 255, 255, 0.9);
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;
+        min-width: 4rem;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .slideshow-control-button {
+        border: 0;
+        cursor: pointer;
+    }
+
+    .slideshow-control-button:hover,
+    .slideshow-control-button:focus {
+        background: rgba(255, 255, 255, 1);
+        color: rgba(0, 0, 0, 0.85);
+    }
+
+    .slideshow-control-button:focus {
+        outline: 2px solid rgba(0, 0, 0, 0.35);
+        outline-offset: 2px;
+    }
+
     .thought .body {
         font-size: 2rem;
     }
@@ -75,13 +116,70 @@ $animate = true;
     </div>
 </div>
 
+<div id="slideshow-controls">
+    <button id="slideshow-pause" class="slideshow-control-button" type="button" aria-pressed="false">
+        <i class="fas fa-pause"></i>
+    </button>
+    <div id="slideshow-timer" aria-live="polite"><?= $interval ?></div>
+    <button id="slideshow-next" class="slideshow-control-button" type="button">
+        <i class="fas fa-arrow-right"></i>
+    </button>
+</div>
+
 <script>
     (() => {
-        const refreshIntervalMs = 30000;
+        const refreshIntervalMs = <?= $interval ?>000;
         const thoughtApiUrl = '/api/thoughts/slideshow';
         const panes = Array.from(document.querySelectorAll('.slideshow-pane'));
+        const timerDisplay = document.getElementById('slideshow-timer');
+        const pauseButton = document.getElementById('slideshow-pause');
+        const nextButton = document.getElementById('slideshow-next');
+        const refreshIntervalSeconds = refreshIntervalMs / 1000;
         let activePaneIndex = 0;
         let isLoading = false;
+        let isPaused = false;
+        let secondsRemaining = refreshIntervalSeconds;
+        let timerIntervalId = null;
+
+        function updateTimerDisplay() {
+            timerDisplay.textContent = `${Math.max(0, secondsRemaining)}`;
+        }
+
+        function stopTimer() {
+            if (timerIntervalId !== null) {
+                clearInterval(timerIntervalId);
+                timerIntervalId = null;
+            }
+        }
+
+        function startTimer() {
+            stopTimer();
+
+            if (isPaused) {
+                return;
+            }
+
+            timerIntervalId = setInterval(() => {
+                secondsRemaining = Math.max(0, secondsRemaining - 1);
+                updateTimerDisplay();
+
+                if (secondsRemaining <= 0) {
+                    stopTimer();
+                    fetchThought();
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            secondsRemaining = refreshIntervalSeconds;
+            updateTimerDisplay();
+            startTimer();
+        }
+
+        function updatePauseButton() {
+            pauseButton.innerHTML = isPaused ? '<i class="fas fa-play"></i>' : '<i class="fas fa-pause"></i>';
+            pauseButton.setAttribute('aria-pressed', isPaused ? 'true' : 'false');
+        }
 
         function escapeHtml(text) {
             return String(text)
@@ -123,13 +221,6 @@ $animate = true;
                     <div class="body">${formattedThought}</div>
                 </div>
             `;
-            // return `
-            //     <div class="thought">
-            //         <div class="body">
-            //             ${formattedThought}
-            //         </div>
-            //     </div>
-            // `;
         }
 
         function crossfadeTo(html) {
@@ -146,6 +237,7 @@ $animate = true;
             activePane.setAttribute('aria-hidden', 'true');
 
             activePaneIndex = nextPaneIndex;
+            resetTimer();
         }
 
         async function fetchThought() {
@@ -154,6 +246,7 @@ $animate = true;
             }
 
             isLoading = true;
+            stopTimer();
             try {
                 const response = await fetch(thoughtApiUrl, {
                     headers: {
@@ -176,6 +269,24 @@ $animate = true;
             }
         }
 
+        pauseButton.addEventListener('click', () => {
+            isPaused = !isPaused;
+            updatePauseButton();
+
+            if (isPaused) {
+                stopTimer();
+                return;
+            }
+
+            startTimer();
+        });
+
+        nextButton.addEventListener('click', () => {
+            secondsRemaining = refreshIntervalSeconds;
+            updateTimerDisplay();
+            fetchThought();
+        });
+
         if (<?= $animate ? 'true' : 'false' ?>) {
             setTimeout(() => {
                 const cloud = document.getElementById('frontpage_cloud');
@@ -183,7 +294,8 @@ $animate = true;
             }, 100);
         }
 
+        updateTimerDisplay();
+        updatePauseButton();
         fetchThought();
-        setInterval(fetchThought, refreshIntervalMs);
     })();
 </script>
