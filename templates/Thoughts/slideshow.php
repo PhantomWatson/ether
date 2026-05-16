@@ -57,7 +57,7 @@ $interval = 30; // seconds
     }
 
     .slideshow-thought-meta {
-        font-size: 2rem;
+        font-size: 1.75rem;
         margin-bottom: 0.75rem;
         text-align: center;
     }
@@ -224,7 +224,7 @@ $interval = 30; // seconds
             } else {
                 colorBox = `<div class="colorbox" style="background-color: #${color};" title="Thinker #${color}"></div>`;
             }
-            const date = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(new Date(thought.created));
+            const date = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).format(new Date(thought.created));
 
             return `
                 <div class="slideshow-thought-meta">
