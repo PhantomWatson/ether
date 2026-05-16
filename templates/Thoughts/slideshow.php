@@ -7,19 +7,33 @@ $interval = 30; // seconds
 ?>
 
 <style>
+    :root {
+        --slideshow-controls-bottom: 2rem;
+        --slideshow-controls-height: 3.25rem;
+        --slideshow-controls-gap: 1rem;
+    }
+
+    #slideshow-stage {
+        position: fixed;
+        inset: 0 0 calc(var(--slideshow-controls-bottom) + var(--slideshow-controls-height) + var(--slideshow-controls-gap)) 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        z-index: 20;
+        pointer-events: none;
+    }
+
     #slideshow-thought-container {
         background: #000;
         border-radius: 12px;
         box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
-        height: min(680px, 80vh);
-        left: 50%;
+        height: min(680px, 80vh, calc(100vh - var(--slideshow-controls-bottom) - var(--slideshow-controls-height) - var(--slideshow-controls-gap) - 2rem));
         overflow: hidden;
         padding: 1.25rem;
-        position: fixed;
-        top: 50%;
-        transform: translate(-50%, -50%);
+        position: relative;
+        pointer-events: auto;
         width: 92vw;
-        z-index: 20;
     }
 
     #slideshow-thought-content {
@@ -53,10 +67,10 @@ $interval = 30; // seconds
 
     #slideshow-controls {
         position: fixed;
-        bottom: 2rem;
+        bottom: var(--slideshow-controls-bottom);
         left: 50%;
         transform: translateX(-50%);
-        z-index: 19;
+        z-index: 21;
         display: flex;
         align-items: center;
         gap: 1rem;
@@ -107,12 +121,14 @@ $interval = 30; // seconds
     <?php endif; ?>
 </div>
 
-<div id="slideshow-thought-container">
-    <div id="slideshow-thought-content">
-        <div class="slideshow-pane is-active" data-pane="0">
-            <p>Loading thought...</p>
+<div id="slideshow-stage">
+    <div id="slideshow-thought-container">
+        <div id="slideshow-thought-content">
+            <div class="slideshow-pane is-active" data-pane="0">
+                <p>Loading thought...</p>
+            </div>
+            <div class="slideshow-pane" data-pane="1" aria-hidden="true"></div>
         </div>
-        <div class="slideshow-pane" data-pane="1" aria-hidden="true"></div>
     </div>
 </div>
 
