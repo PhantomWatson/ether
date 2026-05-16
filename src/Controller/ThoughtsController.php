@@ -9,6 +9,7 @@ use Cake\Http\Exception\BadRequestException;
 use Cake\Http\Response;
 use Cake\Network\Exception\InternalErrorException;
 use Cake\Network\Exception\NotFoundException;
+use Cake\ORM\TableRegistry;
 use Exception;
 
 /**
@@ -34,6 +35,7 @@ class ThoughtsController extends AppController
             'random',
             'recent',
             'refreshFormatting',
+            'slideshow',
             'suggested',
             'word'
         ]);
@@ -381,6 +383,15 @@ class ThoughtsController extends AppController
         $this->set([
             'title_for_layout' => 'Question Abstractor',
             'questions' => $questions
+        ]);
+    }
+
+    public function slideshow(): void
+    {
+//        $this->viewBuilder()->setLayout('ajax');
+        $this->set([
+            'title_for_layout' => 'Ether Slideshow',
+            'cloud' => $this->Thoughts->getCloud(),
         ]);
     }
 }

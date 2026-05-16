@@ -30,6 +30,7 @@ class ThoughtsController extends AppController
     {
         parent::initialize();
         $this->Auth->allow([
+            'slideshow',
             'tts',
         ]);
         $this->loadComponent('RequestHandler');
@@ -96,5 +97,21 @@ class ThoughtsController extends AppController
     private function ttsFileExists(Thought $thought): bool
     {
         return $thought->tts && file_exists(TTS::PATH . $thought->tts);
+    }
+
+    public function slideshow(): void
+    {
+        $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
+
+        /** @var Thought $thought */
+        $thought = $thoughtsTable->getRandomThought();
+
+        $this->set([
+            'formattingKey' => $thoughtsTable->getPopulatedThoughtwordHash(),
+            'thought' => $thought,
+        ]);
+        $this->viewBuilder()
+            ->setOption('serialize', ['formattingKey', 'thought'])
+            ->setClassName('Json');
     }
 }

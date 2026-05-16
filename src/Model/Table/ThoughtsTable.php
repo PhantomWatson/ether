@@ -231,7 +231,7 @@ class ThoughtsTable extends Table
 
         /** @var Thought $thought */
         $thought = $this->find('all')
-            ->select(['id', 'word', 'thought', 'formatted_thought', 'anonymous', 'formatting_key'])
+            ->select(['id', 'word', 'thought', 'formatted_thought', 'anonymous', 'formatting_key', 'created'])
             ->where([
                 'Thoughts.id' => $thoughtId,
                 'Thoughts.hidden' => false,
