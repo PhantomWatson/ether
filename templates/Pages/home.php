@@ -148,8 +148,10 @@ $features = [
         <?= $this->element('cloud', ['words' => $cloud, 'animate' => $animate]) ?>
         <?php if ($animate): ?>
             <script>
-                let cloud = document.getElementById('frontpage_cloud');
-                cloud.className = 'cloud animate_show';
+                setTimeout(() => {
+                    let cloud = document.getElementById('frontpage_cloud');
+                    cloud.className = 'cloud animate_show';
+                }, 100);
             </script>
         <?php endif; ?>
     <?php endif; ?>
