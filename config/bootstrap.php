@@ -221,12 +221,3 @@ TypeFactory::map('time', StringType::class);
 //Inflector::rules('plural', ['/^(inflect)or$/i' => '\1ables']);
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
-
-/**
- * Event listeners
- */
-use App\Event\ThoughtListener;
-$ThoughtListener = new ThoughtListener();
-
-use Cake\Event\EventManager;
-EventManager::instance()->on($ThoughtListener);
