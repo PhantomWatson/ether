@@ -11,9 +11,9 @@ use Cake\ORM\TableRegistry;
  *
  * @property \App\Model\Entity\Comment[] $comments
  * @property \App\Model\Entity\User $user
- * @property \Cake\I18n\FrozenTime $created
- * @property \Cake\I18n\FrozenTime $formatted
- * @property \Cake\I18n\FrozenTime $modified
+ * @property \Cake\I18n\DateTime $created
+ * @property \Cake\I18n\DateTime $formatted
+ * @property \Cake\I18n\DateTime $modified
  * @property bool $anonymous
  * @property bool $comments_enabled
  * @property bool $hidden
@@ -33,7 +33,7 @@ class Thought extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'user_id' => true,
         'word' => true,
         'thought' => true,
@@ -59,7 +59,7 @@ class Thought extends Entity
         $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
         $hash = $thoughtsTable->getPopulatedThoughtwordHash();
         $this->set('formatting_key', $hash);
-        $this->set('formatted', FrozenTime::now());
+        $this->set('formatted', \Cake\I18n\DateTime::now());
         return $formattedThought;
     }
 

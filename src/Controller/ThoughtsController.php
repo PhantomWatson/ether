@@ -133,9 +133,7 @@ class ThoughtsController extends AppController
      */
     public function edit($id = null)
     {
-        $thought = $this->Thoughts->get($id, [
-            'contain' => []
-        ]);
+        $thought = $this->Thoughts->get($id, contain: []);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $thought = $this->Thoughts->patchEntity($thought, $this->request->getData(), [
                 'fieldList' => ['word', 'thought', 'comments_enabled', 'anonymous']

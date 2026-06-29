@@ -126,7 +126,7 @@ class ThoughtsTable extends Table
                 ->select(['word'])
                 ->where(['hidden' => false])
                 ->distinct(['word'])
-                ->order(['word' => 'ASC'])
+                ->orderBy(['word' => 'ASC'])
                 ->all()
                 ->extract('word')
                 ->toArray();
@@ -165,17 +165,16 @@ class ThoughtsTable extends Table
     public function getCloud($limit = false)
     {
         return Cache::remember('thoughtwordCloud', function () use ($limit) {
-            $query = $this->find('list', [
-                    'keyField' => 'word',
-                    'valueField' => 'count'
-                ])
+            $query = $this->find('list',
+            keyField: 'word',
+            valueField: 'count')
                 ->select([
                     'word',
                     'count' => $this->find()->func()->count('*')
                 ])
                 ->where(['hidden' => false])
-                ->group('word')
-                ->order(['count' => 'DESC']);
+                ->groupBy('word')
+                ->orderBy(['count' => 'DESC']);
             if ($limit) {
                 $query->limit($limit);
             }
@@ -211,7 +210,7 @@ class ThoughtsTable extends Table
         /** @var Thought $thought */
         $thought = $this->find('all')
             ->select(['word'])
-            ->order('RAND()')
+            ->orderBy('RAND()')
             ->where(['hidden' => false])
             ->first();
 
@@ -414,7 +413,7 @@ class ThoughtsTable extends Table
         $results = $this
             ->findByUserIdAndThought($userId, $thought)
             ->select(['id'])
-            ->order(['Thought.created' => 'DESC'])
+            ->orderBy(['Thought.created' => 'DESC'])
             ->first()
             ->toArray();
         return isset($results['Thought']['id']) ? $results['Thought']['id'] : false;
@@ -444,7 +443,7 @@ class ThoughtsTable extends Table
                 'word' => $word,
                 'hidden' => false,
             ])
-            ->order(['Thoughts.created' => 'DESC'])
+            ->orderBy(['Thoughts.created' => 'DESC'])
             ->contain([
                 'Users' => function ($q) {
                     /** @var Query $q */
@@ -471,7 +470,7 @@ class ThoughtsTable extends Table
                                 return $q->select(['id', 'color']);
                             }
                         ])
-                        ->order(['Comments.created' => 'ASC']);
+                        ->orderBy(['Comments.created' => 'ASC']);
                 },
             ])
             ->toArray();
@@ -641,9 +640,7 @@ class ThoughtsTable extends Table
 
     public function getAuthorId($thoughtId)
     {
-        return $this->get($thoughtId, [
-            'fields' => ['user_id']
-        ])->user_id;
+        return $this->get($thoughtId, fields: ['user_id'])->user_id;
     }
 
     public function getCount()
@@ -685,7 +682,7 @@ class ThoughtsTable extends Table
                 ]
             ])
             ->limit($limit)
-            ->order(['created' => 'DESC']);
+            ->orderBy(['created' => 'DESC']);
     }
 
     /**
@@ -733,7 +730,7 @@ class ThoughtsTable extends Table
                 'user_id' => $userId,
                 'anonymous' => false
             ])
-            ->order('rand()')
+            ->orderBy('rand()')
             ->toArray();
         $thoughts = $this->find('all')
             ->select(['thought'])
@@ -760,7 +757,7 @@ class ThoughtsTable extends Table
         $ids = $this->find('list')
             ->select(['id'])
             ->where(['hidden' => false])
-            ->order('rand()')
+            ->orderBy('rand()')
             ->limit($limit)
             ->toArray();
         $thoughts = $this->find('all')

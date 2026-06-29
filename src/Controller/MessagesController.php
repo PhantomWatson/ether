@@ -16,7 +16,7 @@ use Exception;
  */
 class MessagesController extends AppController
 {
-    public $paginate = [
+    public array $paginate = [
         'limit' => 10,
         'order' => [
             'Messages.created' => 'DESC'
@@ -60,9 +60,7 @@ class MessagesController extends AppController
      */
     public function view($id = null)
     {
-        $message = $this->Messages->get($id, [
-            'contain' => ['Recipients', 'Senders']
-        ]);
+        $message = $this->Messages->get($id, contain: ['Recipients', 'Senders']);
         $this->set('message', $message);
     }
 

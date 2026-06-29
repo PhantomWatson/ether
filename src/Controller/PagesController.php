@@ -17,7 +17,7 @@ use Exception;
  */
 class PagesController extends AppController
 {
-    public $paginate = [
+    public array $paginate = [
         'finder' => [
             'recentActivity' => []
         ]
@@ -86,7 +86,7 @@ class PagesController extends AppController
         /** @var Thought $firstThought */
         $firstThought = $thoughtsTable->find('all')
             ->select(['created'])
-            ->order(['created' => 'ASC'])
+            ->orderBy(['created' => 'ASC'])
             ->first();
         $stats['First thought posted'] = $firstThought
             ->created
@@ -106,8 +106,8 @@ class PagesController extends AppController
                 'word',
                 'count' => $thoughtsTable->find()->func()->count('*')
             ])
-            ->group('word')
-            ->order(['count' => 'DESC'])
+            ->groupBy('word')
+            ->orderBy(['count' => 'DESC'])
             ->first();
         $url = Router::url(['controller' => 'Thoughts', 'action' => 'word', $mostPopularWord->word]);
         $stats['Most thought-about thoughtword'] = sprintf(

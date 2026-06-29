@@ -182,7 +182,7 @@ class UsersTable extends Table
                     return $q
                         ->select(['id', 'word', 'user_id'])
                         ->where(['anonymous' => false])
-                        ->order([
+                        ->orderBy([
                             'word' => 'ASC',
                             'created' => 'DESC'
                         ]);
@@ -217,7 +217,7 @@ class UsersTable extends Table
                 'count' => $this->find()->func()->count('Thoughts.id')
             ])
             ->matching('Thoughts')
-            ->group(['Users.id'])
+            ->groupBy(['Users.id'])
             ->having(['count >' => 0])
             ->enableHydration(false);
         $collection = new Collection($result);

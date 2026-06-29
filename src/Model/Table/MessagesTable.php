@@ -150,7 +150,7 @@ class MessagesTable extends Table
                     'Messages.recipient_id' => $userId
                 ]
             ])
-            ->order(['created' => 'DESC']);
+            ->orderBy(['created' => 'DESC']);
         $newestMessages = $query->all();
 
         $conversations = [];
@@ -170,7 +170,7 @@ class MessagesTable extends Table
                     'sender_id' => $newestMessage['sender']['id'],
                     'recipient_id' => $newestMessage['recipient']['id'],
                 ])
-                ->order(['created' => 'DESC'])
+                ->orderBy(['created' => 'DESC'])
                 ->first();
 
             $conversations[$otherUserId] = [
@@ -226,7 +226,7 @@ class MessagesTable extends Table
                     return $q->select(['id', 'color']);
                 }
             ])
-            ->order(['Messages.created' => 'ASC']);
+            ->orderBy(['Messages.created' => 'ASC']);
     }
 
     /**

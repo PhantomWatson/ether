@@ -17,8 +17,8 @@ use Cake\Auth\DefaultPasswordHasher;
  * @property string $profile
  * @property int $acceptMessages
  * @property int $emailUpdates
- * @property \Cake\I18n\FrozenTime $created
- * @property \Cake\I18n\FrozenTime $modified
+ * @property \Cake\I18n\DateTime $created
+ * @property \Cake\I18n\DateTime $modified
  * @property \App\Model\Entity\Comment[] $comments
  * @property \App\Model\Entity\Thought[] $thoughts
  */
@@ -30,7 +30,7 @@ class User extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
+    protected array $_accessible = [
         'password' => true,
         'password_version' => true,
         'is_admin' => true,
