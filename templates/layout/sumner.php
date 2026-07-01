@@ -1,4 +1,9 @@
 <?php
+/**
+ * @var \App\View\AppView $this
+ * @var mixed $name
+ * @var mixed $posterContent
+ */
     const POSTER_PHANTOM = 'Hub Bub';
     const POSTER_NERD = '@thesumnerforgepodcast';
     const POSTER_ANGIE = 'Morning Glory';

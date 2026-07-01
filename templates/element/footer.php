@@ -1,4 +1,7 @@
 <?php
+/**
+ * @var \App\View\AppView $this
+ */
     $gangsta = [];
     $capslock = [];
     $fullRandomImgs = range(1, 17);

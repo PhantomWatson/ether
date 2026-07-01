@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Thought $thought
+ * @var mixed $suggestedThoughtwords
  */
 
 use App\Model\Table\ThoughtsTable;

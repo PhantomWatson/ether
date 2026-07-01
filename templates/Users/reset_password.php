@@ -2,6 +2,8 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
+ * @var string $email
+ * @var string $titleForLayout
  */
 ?>
 <div class="page-header">

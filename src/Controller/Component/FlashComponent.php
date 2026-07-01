@@ -4,6 +4,9 @@ namespace App\Controller\Component;
 use Cake\Controller\Component;
 use Cake\Event\Event;
 
+/**
+ * @method \App\Controller\AppController getController()
+ */
 class FlashComponent extends Component
 {
     /**

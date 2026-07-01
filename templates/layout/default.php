@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var array $ogTags
+ * @var mixed $titleForLayout
  */
 
 $title = 'Ether - Thought Repository';

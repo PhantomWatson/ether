@@ -2,6 +2,7 @@
 /**
  * @var \Gourmet\CommonMark\View\Helper\CommonMarkHelper $markdownHelper
  * @var \App\View\AppView $this
+ * @var string $title_for_layout
  */
 ?>
 <div id="content_title">

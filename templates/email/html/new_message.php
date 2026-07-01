@@ -2,6 +2,10 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Message $message
+ * @var mixed $accountUrl
+ * @var mixed $loginUrl
+ * @var mixed $messageUrl
+ * @var string $senderColor
  */
 ?>
 <p>

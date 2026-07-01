@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var array $words
  * @var bool $animate
+ * @var mixed $count
  */
 
 use Cake\Cache\Cache;

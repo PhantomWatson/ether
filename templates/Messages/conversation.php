@@ -5,6 +5,7 @@
  * @var string $penpalColor
  * @var boolean $penpalAcceptsMessages
  * @var \App\Model\Entity\Message $messageEntity
+ * @var mixed $messages
  */
 
 $pagingUsed = $this->Paginator->hasNext() || ($this->Paginator->hasPrev() && ! $this->request->is('ajax'));

@@ -1,6 +1,8 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var mixed $cloud
+ * @var mixed $cloud
  */
 $animate = true;
 $interval = 30; // seconds

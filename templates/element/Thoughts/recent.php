@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Thought[]|\App\Model\Entity\Comment[] $recentActivity
+ * @var object $appView
  */
 
 use App\View\AppView;

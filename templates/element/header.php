@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var int $newMessages
+ * @var mixed $loggedIn
  */
 
 use Cake\Routing\Router;

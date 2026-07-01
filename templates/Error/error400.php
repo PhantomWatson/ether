@@ -1,6 +1,9 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var object $error
+ * @var mixed $message
+ * @var mixed $url
  */
 use Cake\Core\Configure;
 

@@ -1,6 +1,10 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var mixed $anonymous
+ * @var mixed $class
+ * @var string $color
+ * @var mixed $colorboxId
  */
 
 $noLink = $noLink ?? false;

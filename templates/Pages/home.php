@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Thought $randomThought
+ * @var mixed $cloud
  */
 
 $animate = true;

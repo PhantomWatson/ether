@@ -1,6 +1,10 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var string $colorName
+ * @var mixed $messageEntity
+ * @var mixed $messagesCount
+ * @var array $user
  */
 ?>
 <div class="user_profile">

@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var array $thought
  * @var int $userId
+ * @var mixed $error_duplicate
  */
 // Modify the output of FormHelper::radio() so that <label>s appear adjacent to radio buttons instead of around them
 $this->Form->setTemplates([

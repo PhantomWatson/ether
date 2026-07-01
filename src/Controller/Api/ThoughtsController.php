@@ -12,6 +12,8 @@ use Exception;
 
 /**
  * Thoughts API Controller
+ *
+ * @property \App\Model\Table\ThoughtsTable $Thoughts
  */
 class ThoughtsController extends AppController
 {

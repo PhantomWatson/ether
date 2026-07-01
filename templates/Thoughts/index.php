@@ -1,6 +1,9 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var mixed $all
+ * @var mixed $categorized
+ * @var mixed $current
  */
     function letterLink($letter) {
         return '<a href="#abc_thoughts_'.($letter == '#' ? '0' : $letter).'">'.$letter.'</a> ';

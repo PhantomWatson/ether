@@ -15,7 +15,7 @@ use Exception;
 /**
  * Thoughts Controller
  *
- * @property ThoughtsTable $Thoughts
+ * @property \App\Model\Table\ThoughtsTable $Thoughts
  */
 class ThoughtsController extends AppController
 {

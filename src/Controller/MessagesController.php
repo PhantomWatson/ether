@@ -11,7 +11,7 @@ use Exception;
 /**
  * Messages Controller
  *
- * @property MessagesTable $Messages
+ * @property \App\Model\Table\MessagesTable $Messages
  * @property UsersTable $Users
  */
 class MessagesController extends AppController
@@ -55,7 +55,6 @@ class MessagesController extends AppController
      *
      * @param string|null $id Message id
      * @return void
-     * @throws \Cake\Network\Exception\NotFoundException
      */
     public function view($id = null)
     {

@@ -11,7 +11,7 @@ use Exception;
 /**
  * Comments Controller
  *
- * @property CommentsTable $Comments
+ * @property \App\Model\Table\CommentsTable $Comments
  */
 class CommentsController extends AppController
 {

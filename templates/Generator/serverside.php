@@ -1,6 +1,8 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var string $result
+ * @var string $titleForLayout
  */
 ?>
 <div id="content_title">

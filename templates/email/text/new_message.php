@@ -2,6 +2,10 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Message $message
+ * @var string $accountUrl
+ * @var string $loginUrl
+ * @var string $messageUrl
+ * @var string $senderColor
  */
 ?>
 You have received a new message from Thinker #<?= $senderColor ?>:

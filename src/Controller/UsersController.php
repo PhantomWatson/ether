@@ -17,7 +17,7 @@ use Exception;
 /**
  * Users Controller
  *
- * @property UsersTable $Users
+ * @property \App\Model\Table\UsersTable $Users
  * @property MessagesTable $Messages
  * @property \App\Model\Table\ThoughtsTable $Thoughts
  */

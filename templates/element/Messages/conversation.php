@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Message[]|\Cake\Collection\CollectionInterface $messages
+ * @var array $_GET
  */
     $this->Paginator->setTemplates([
         'nextActive' => '<div class="row convo_pagination"><div class="offset-sm-3 col-sm-6"><button class="btn btn-link" data-url="{{url}}">{{text}} <i class="fas fa-spinner fa-spin loading" title="Loading..."></i></button></div></div>',
