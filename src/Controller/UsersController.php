@@ -43,8 +43,6 @@ class UsersController extends AppController
             'resetPassword',
             'view'
         ]);
-
-        $this->loadComponent('RequestHandler');
     }
 
     /**

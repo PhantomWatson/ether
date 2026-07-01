@@ -33,7 +33,6 @@ class ThoughtsController extends AppController
             'slideshow',
             'tts',
         ]);
-        $this->loadComponent('RequestHandler');
     }
 
     /**

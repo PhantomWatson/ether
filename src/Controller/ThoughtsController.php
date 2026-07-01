@@ -39,7 +39,6 @@ class ThoughtsController extends AppController
             'suggested',
             'word'
         ]);
-        $this->loadComponent('RequestHandler');
     }
 
     /**
