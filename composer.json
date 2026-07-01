@@ -20,14 +20,15 @@
         "alek13/slack": "^2.0"
     },
 	"require-dev" : {
-        "cakephp/bake": "^3.6",
-        "cakephp/cakephp-codesniffer": "^5.3",
-        "cakephp/debug_kit": "^5.2",
-        "josegonzalez/dotenv": "^4.0",
-        "phpunit/phpunit": "^11.5.3 || ^12.1.3 || ^13.0",
-		"league/html-to-markdown" : "~4.0",
-		"psy/psysh" : "@stable"
-    },
+		"cakephp/bake": "^3.6",
+		"cakephp/cakephp-codesniffer": "^5.3",
+		"cakephp/debug_kit": "^5.2",
+		"dereuromark/cakephp-ide-helper": "^2.22",
+		"josegonzalez/dotenv": "^4.0",
+		"league/html-to-markdown": "~4.0",
+		"phpunit/phpunit": "^11.5.3 || ^12.1.3 || ^13.0",
+		"psy/psysh": "@stable"
+	},
 	"suggest" : {
 		"phpunit/phpunit" : "Allows automated tests to be run without system-wide install.",
 		"cakephp/cakephp-codesniffer" : "Allows to check the code against the coding standards used in CakePHP."
