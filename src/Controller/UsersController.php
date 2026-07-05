@@ -5,9 +5,8 @@ use App\Color\Color;
 use App\Model\Entity\User;
 use App\Model\Table\MessagesTable;
 use App\Model\Table\ThoughtsTable;
-use App\Model\Table\UsersTable;
+use Authentication\Identifier\PasswordIdentifier;
 use Cake\Core\Configure;
-use Cake\Http\Cookie\Cookie;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
@@ -34,7 +33,7 @@ class UsersController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        $this->Auth->allow([
+        $this->Authentication->allowUnauthenticated([
             'checkColorAvailability',
             'forgotPassword',
             'index',
@@ -78,7 +77,7 @@ class UsersController extends AppController
             'colorName' => (new Color())->getClosestXkcdColor($color)
         ]);
 
-        $userId = $this->Auth->user('id');
+        $userId = $this->Authentication->getIdentity()?->get('id');
         $selectedUserId = $this->Users->getIdFromColor($color);
         if ($userId) {
             $this->set('messagesCount', $messagesTable->getConversationCount($userId, $selectedUserId));
@@ -121,17 +120,24 @@ class UsersController extends AppController
     /**
      * Renders /users/login
      *
-     * @return void
+     * @return Response|null
      */
     public function login()
     {
         if ($this->request->is('post')) {
-            $this->_login();
+            $response = $this->processLogin();
+            if ($response) {
+                return $response;
+            }
+        } elseif ($this->request->getQuery('redirect')) {
+            $this->Flash->notification('You\'ll need to log in before accessing that page');
         }
         $this->set([
             'title_for_layout' => 'Log in',
             'user' => $this->Users->newEmptyEntity()
         ]);
+
+        return null;
     }
 
     /**
@@ -141,7 +147,7 @@ class UsersController extends AppController
      */
     public function logout()
     {
-        return $this->redirect($this->Auth->logout());
+        return $this->redirect($this->Authentication->logout());
     }
 
     /**
@@ -165,7 +171,7 @@ class UsersController extends AppController
      */
     public function settings()
     {
-        $userId = $this->Auth->user('id');
+        $userId = $this->Authentication->getIdentity()?->get('id');
         $user = $this->Users->get($userId);
         $this->set([
             'title_for_layout' => 'Settings',
@@ -204,8 +210,6 @@ class UsersController extends AppController
 
             if ($this->Users->save($user)) {
                 $this->Flash->success('Your password has been changed.');
-                $cookie = $this->getAuthCookie($user->email, $this->getRequest()->getData('new_password'));
-                $this->setResponse($this->getResponse()->withCookie($cookie));
                 return;
             }
             $this->Flash->error('There was an error changing your password. Please try again.');
@@ -227,23 +231,6 @@ class UsersController extends AppController
             }
         }
         return;
-    }
-
-    private function getAuthCookie($email, $password): Cookie
-    {
-        $cookie = (new Cookie(
-            self::COOKIE_AUTH_KEY,
-            compact('email', 'password')
-        ))
-            ->withExpiry(new \DateTime('+1 year'))
-            ->withHttpOnly(true);
-
-        // Avoid secure on localhost to avoid needing self-signed certificate
-        if (!Configure::read('debug')) {
-            $cookie = $cookie->withSecure(true);
-        }
-
-        return $cookie;
     }
 
     /**
@@ -331,7 +318,7 @@ class UsersController extends AppController
 
     public function myProfile()
     {
-        $color = $this->Auth->user('color');
+        $color = $this->Authentication->getIdentity()?->get('color');
 
         $this->view($color);
 
@@ -409,16 +396,10 @@ class UsersController extends AppController
         ]);
 
         if ($this->Users->save($user)) {
-            // Copy new_password to password so login will work
-            $this->request = $this->request->withData('password', $this->request->getData('new_password'));
+            $this->Authentication->setIdentity($user);
+            $this->Flash->success('Your account has been registered, and you\'ve been logged in. Welcome!');
 
-            if ($this->_login()) {
-                $this->Flash->success('Your account has been registered, and you\'ve been logged in. Welcome!');
-                return null;
-            }
-
-            $this->Flash->success('Your account has been registered, and you can now log in. Welcome!');
-            return $this->redirect('/login');
+            return null;
         }
 
         $errorsMsgs = [];
@@ -453,34 +434,28 @@ class UsersController extends AppController
     }
 
     /**
-     * Logs the user in with request data and sets a redirect if successful
+     * Checks the result of the login attempt made by the Form authenticator, rehashing the
+     * password if it was verified against a legacy hash, and redirects if successful
      *
-     * @return bool
+     * @return Response|null
      */
-    private function _login()
+    private function processLogin(): ?Response
     {
-        $user = $this->Auth->identify();
-        if ($user) {
-            $this->Auth->setUser($user);
-            if ($this->Auth->authenticationProvider()->needsPasswordRehash()) {
-                $user = $this->Users->get($this->Auth->user('id'));
-                $user->password = $this->request->getData('password');
-                $user->password_version = 3;
-                $this->Users->save($user);
-            }
+        if (!$this->Authentication->getResult()->isValid()) {
+            $this->Flash->error('Email or password is incorrect');
 
-            $cookie = $this->getAuthCookie(
-                $this->getRequest()->getData('email'),
-                $this->getRequest()->getData('password')
-            );
-            $this->response = $this
-                ->redirect($this->Auth->redirectUrl())
-                ->withCookie($cookie);
-            return true;
+            return null;
         }
 
-        $this->Flash->error('Email or password is incorrect');
-        return false;
+        $identifier = $this->Authentication->getAuthenticationService()->getIdentificationProvider();
+        if ($identifier instanceof PasswordIdentifier && $identifier->needsPasswordRehash()) {
+            $user = $this->Users->get($this->Authentication->getIdentity()->get('id'));
+            $user->password = $this->request->getData('password');
+            $user->password_version = 3;
+            $this->Users->save($user);
+        }
+
+        return $this->Authentication->redirectAfterLogin('/');
     }
 
     /**

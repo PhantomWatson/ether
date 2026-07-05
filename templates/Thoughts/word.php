@@ -29,7 +29,7 @@
                     ?>
                 </li>
                 <li>
-                    <?php if ($this->request->getSession()->check('Auth.User.id')): ?>
+                    <?php if ($loggedIn): ?>
                         <?= $this->Html->link(
                             'Add a thought',
                             ['controller' => 'Thoughts', 'action' => 'add', 'word' => $word]

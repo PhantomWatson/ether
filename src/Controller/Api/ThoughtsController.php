@@ -31,21 +31,7 @@ class ThoughtsController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        $this->Auth->allow([
-            'slideshow',
-            'tts',
-        ]);
-    }
-
-    /**
-     * isAuthorized() method
-     *
-     * @param array|null $user User array
-     * @return bool
-     */
-    public function isAuthorized($user = null): bool
-    {
-        return true;
+        $this->Authentication->disableIdentityCheck();
     }
 
     /**

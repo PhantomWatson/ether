@@ -107,16 +107,6 @@ class FlashComponent extends Component
         $storedMessages = $storedMessages ? $storedMessages : [];
         $this->getSession()->delete('FlashMessage');
 
-        // Add auth error messages
-        $authError = $this->getSession()->read('Message.auth');
-        if ($authError) {
-            $storedMessages[] = [
-                'message' => $authError['message'],
-                'class' => 'danger'
-            ];
-            $this->getSession()->delete('Message.auth');
-        }
-
         // Process variable dumping and convert classes to Bootstrap alert class suffixes
         foreach ($storedMessages as &$message) {
             switch ($message['class']) {

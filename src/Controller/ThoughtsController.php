@@ -29,7 +29,7 @@ class ThoughtsController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        $this->Auth->allow([
+        $this->Authentication->allowUnauthenticated([
             'index',
             'questions',
             'random',
@@ -42,23 +42,21 @@ class ThoughtsController extends AppController
     }
 
     /**
-     * isAuthorized() method
+     * Returns TRUE if the logged-in user is the thought's author, showing a Flash error message otherwise
      *
-     * @param array|null $user User array
+     * @param Thought $thought Thought entity
      * @return bool
      */
-    public function isAuthorized($user = null)
+    private function checkIsAuthor(Thought $thought): bool
     {
-        // Author-only actions
-        $authorOnlyActions = ['edit', 'delete'];
-        if (in_array($this->request->getParam('action'), $authorOnlyActions)) {
-            $passedParams = $this->request->getParam('pass');
-            $thoughtId = $passedParams ? $passedParams[0] : null;
-            $authorId = $this->Thoughts->getAuthorId($thoughtId);
-            return $user['id'] === $authorId;
+        $userId = $this->Authentication->getIdentity()?->get('id');
+        if ($thought->user_id === $userId) {
+            return true;
         }
 
-        return parent::isAuthorized();
+        $this->Flash->error('Sorry, you do not have access to that location.');
+
+        return false;
     }
 
     /**
@@ -87,7 +85,7 @@ class ThoughtsController extends AppController
         $thought->word = $this->getRequest()->getParam('word');
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $data['user_id'] = $this->Auth->user('id');
+            $data['user_id'] = $this->Authentication->getIdentity()?->get('id');
             $thought = $this->Thoughts->patchEntity($thought, $data);
             if ($thought->hasErrors()) {
                 $this->Flash->error(sprintf(
@@ -133,6 +131,9 @@ class ThoughtsController extends AppController
     public function edit($id = null)
     {
         $thought = $this->Thoughts->get($id, contain: []);
+        if (!$this->checkIsAuthor($thought)) {
+            return $this->redirect($this->request->referer());
+        }
         if ($this->request->is(['patch', 'post', 'put'])) {
             $thought = $this->Thoughts->patchEntity($thought, $this->request->getData(), [
                 'fieldList' => ['word', 'thought', 'comments_enabled', 'anonymous']
@@ -171,6 +172,9 @@ class ThoughtsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $thought = $this->Thoughts->get($id);
+        if (!$this->checkIsAuthor($thought)) {
+            return $this->redirect($this->request->referer());
+        }
         $word = $thought->word;
         if ($this->Thoughts->delete($thought)) {
             $this->Flash->success('The thought has been deleted.');

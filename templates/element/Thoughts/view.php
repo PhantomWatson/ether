@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var array $thought
+ * @var bool $loggedIn
  */
 ?>
 <div class="thought" data-formatting-key="<?= $thought['formatting_key'] ?>" data-thought-id="<?= $thought['id'] ?>">
@@ -18,7 +19,7 @@
                 <?= $this->element('Comments/add', ['thought' => $thought]) ?>
             </div>
             <div class="post" id="newcomment<?= $thought['id'] ?>button">
-                <?php if ($this->request->getSession()->check('Auth.User.id')): ?>
+                <?php if ($loggedIn): ?>
                     <a href="#" class="add_comment" data-thought-id="<?= $thought['id'] ?>">
                         <i class="fa-solid fa-comment"></i> Leave Comment
                     </a>

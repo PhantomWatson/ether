@@ -62,6 +62,7 @@ $this->Html->script('/jscolor/jscolor.js', ['block' => true]);
 
 <div class="content_box">
     <?php
+        echo $this->Form->hidden('remember_me', ['value' => 1]);
         echo $this->Form->control(
             'email',
             [

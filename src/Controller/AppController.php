@@ -1,19 +1,21 @@
 <?php
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Controller\Component\FlashComponent;
-use App\Model\Entity\User;
 use App\Model\Table\MessagesTable;
+use Authentication\Controller\Component\AuthenticationComponent;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
-use Cake\Event\Event;
-use Cake\Http\Cookie\Cookie;
+use Cake\Event\EventInterface;
 use Cake\Http\Response;
 use Cake\ORM\TableRegistry;
 use Exception;
 
 /**
  * @property FlashComponent $Flash
+ * @property AuthenticationComponent $Authentication
  */
 class AppController extends Controller
 {
@@ -26,54 +28,22 @@ class AppController extends Controller
     public function initialize(): void
     {
         $this->loadComponent('Flash');
-        $this->loadComponent('Auth', [
-            'loginAction' => [
-                'controller' => 'Users',
-                'action' => 'login'
-            ],
+        $this->loadComponent('Authentication.Authentication', [
             'logoutRedirect' => [
                 'controller' => 'Pages',
-                'action' => 'home'
+                'action' => 'home',
             ],
-            'authenticate' => [
-                'Form' => [
-                    'fields' => ['username' => 'email'],
-                    'passwordHasher' => [
-                        'className' => 'Fallback',
-                        'hashers' => ['Default', 'Legacy']
-                    ]
-                ],
-                'Cookie' => [
-                    'fields' => [
-                        'username' => 'email',
-                        'password' => 'password',
-                    ],
-                ],
-            ],
-            'authError' => 'You are not authorized to view this page',
-            'authorize' => ['Controller']
         ]);
         $this->set('debug', Configure::read('debug'));
     }
 
     /**
-     * Default isAuthorized method, which always returns TRUE, indicating that any logged-in user is authorized
-     *
-     * @param User|null $user User entity
-     * @return bool
-     */
-    public function isAuthorized($user = null)
-    {
-        return true;
-    }
-
-    /**
      * beforeFilter callback
      *
-     * @param Event $event Event object
+     * @param EventInterface $event Event object
      * @return Response|null
      */
-    public function beforeFilter(\Cake\Event\EventInterface $event)
+    public function beforeFilter(EventInterface $event): ?Response
     {
         $isMaintenanceMode = Configure::read('maintenanceMode');
         $alreadyRedirected = $this->getRequest()->getParam('action') == 'maintenanceMode';
@@ -84,43 +54,24 @@ class AppController extends Controller
             ]);
         }
 
-        $authError = $this->Auth->user('id')
-            ? 'Sorry, you do not have access to that location.'
-            : 'Please <a href="/login">log in</a> before you try that.';
-        $this->Auth->setConfig('authError', $authError);
-
-        // Automatically login
-        if (!$this->Auth->user() && $this->getRequest()->getCookie('CookieAuth')) {
-            $user = $this->Auth->identify();
-            if ($user) {
-                $this->Auth->setUser($user);
-            } else {
-                $this->setResponse($this->getResponse()->withExpiredCookie(new Cookie('CookieAuth')));
-            }
-        }
-
-        // Replace "You are not authorized" error message with login prompt message if user is not logged in
-        if (!$this->Auth->user()) {
-            $this->Auth->setConfig('authError', 'You\'ll need to log in before accessing that page');
-        }
-
         return null;
     }
 
     /**
      * beforeRender callback
      *
-     * @param Event $event Event object
+     * @param EventInterface $event Event object
      * @return void
      */
-    public function beforeRender(\Cake\Event\EventInterface $event)
+    public function beforeRender(EventInterface $event): void
     {
-        $userId = $this->Auth->user('id');
+        $identity = $this->Authentication->getIdentity();
+        $userId = $identity?->get('id');
         /** @var MessagesTable $messagesTable */
         $messagesTable = TableRegistry::getTableLocator()->get('Messages');
         $this->set([
             'userId' => $userId,
-            'userColor' => $this->Auth->user('color'),
+            'userColor' => $identity?->get('color'),
             'loggedIn' => $userId !== null,
             'newMessages' => $userId ? $messagesTable->getNewMessagesCount($userId) : 0
         ]);

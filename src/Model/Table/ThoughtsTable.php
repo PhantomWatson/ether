@@ -638,11 +638,6 @@ class ThoughtsTable extends Table
         $this->getEventManager()->dispatch($event);
     }
 
-    public function getAuthorId($thoughtId)
-    {
-        return $this->get($thoughtId, fields: ['user_id'])->user_id;
-    }
-
     public function getCount()
     {
         return $this->find('all')->count();

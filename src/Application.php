@@ -19,6 +19,12 @@ namespace App;
 use App\Controller\UsersController;
 use App\Event\ThoughtListener;
 use App\Middleware\HostHeaderMiddleware;
+use App\PasswordHasher\LegacyPasswordHasher;
+use Authentication\AuthenticationService;
+use Authentication\AuthenticationServiceInterface;
+use Authentication\AuthenticationServiceProviderInterface;
+use Authentication\Identifier\PasswordIdentifier;
+use Authentication\Middleware\AuthenticationMiddleware;
 use Cake\Core\Configure;
 use Cake\Core\ContainerInterface;
 use Cake\Datasource\FactoryLocator;
@@ -32,6 +38,8 @@ use Cake\Http\Middleware\EncryptedCookieMiddleware;
 use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
+use Cake\Routing\Router;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Application setup class.
@@ -39,7 +47,7 @@ use Cake\Routing\Middleware\RoutingMiddleware;
  * This defines the bootstrapping logic and middleware layers you
  * want to use in your application.
  */
-class Application extends BaseApplication
+class Application extends BaseApplication implements AuthenticationServiceProviderInterface
 {
     const EMAIL_FROM = ['no-reply@theether.com' => 'Ether'];
 
@@ -97,7 +105,11 @@ class Application extends BaseApplication
             ->add(new EncryptedCookieMiddleware(
                 [UsersController::COOKIE_AUTH_KEY],
                 Configure::read('Security.cookieKey')
-            ));
+            ))
+
+            // Authenticates users via session, remember-me cookie, and the login form.
+            // See Application::getAuthenticationService().
+            ->add(new AuthenticationMiddleware($this));
 
         $csrf = new CsrfProtectionMiddleware([
             'httponly' => true,
@@ -115,6 +127,63 @@ class Application extends BaseApplication
         $middlewareQueue->add($csrf);
 
         return $middlewareQueue;
+    }
+
+    /**
+     * Returns a service provider instance.
+     *
+     * @param \Psr\Http\Message\ServerRequestInterface $request Request
+     * @return \Authentication\AuthenticationServiceInterface
+     */
+    public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
+    {
+        $loginUrl = ['controller' => 'Users', 'action' => 'login'];
+        $registerUrl = ['controller' => 'Users', 'action' => 'register'];
+
+        $service = new AuthenticationService([
+            'unauthenticatedRedirect' => Router::url($loginUrl),
+            'queryParam' => 'redirect',
+        ]);
+
+        $fields = [
+            PasswordIdentifier::CREDENTIAL_USERNAME => 'email',
+            PasswordIdentifier::CREDENTIAL_PASSWORD => 'password',
+        ];
+
+        $service->loadAuthenticator('Authentication.Session');
+
+        // Logs users back in via the "CookieAuth" cookie set at login/registration.
+        $service->loadAuthenticator('Authentication.Cookie', [
+            'identifier' => [
+                'className' => 'Authentication.Password',
+                'fields' => $fields,
+            ],
+            'cookie' => [
+                'name' => UsersController::COOKIE_AUTH_KEY,
+            ],
+            'loginUrl' => [$loginUrl, $registerUrl],
+            'urlChecker' => 'Authentication.MultiUrl',
+        ]);
+
+        $service->loadAuthenticator('Authentication.Form', [
+            'identifier' => [
+                'className' => 'Authentication.Password',
+                'fields' => $fields,
+                // Accepts current bcrypt hashes as well as md5 hashes from
+                // accounts created before the site switched password schemes.
+                'passwordHasher' => [
+                    'className' => 'Authentication.Fallback',
+                    'hashers' => [
+                        'Authentication.Default',
+                        LegacyPasswordHasher::class,
+                    ],
+                ],
+            ],
+            'fields' => $fields,
+            'loginUrl' => $loginUrl,
+        ]);
+
+        return $service;
     }
 
     /**

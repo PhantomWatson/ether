@@ -24,7 +24,7 @@ class CommentsController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        $this->Auth->allow(['refreshFormatting']);
+        $this->Authentication->allowUnauthenticated(['refreshFormatting']);
     }
 
     /**
@@ -37,7 +37,7 @@ class CommentsController extends AppController
         $comment = $this->Comments->newEmptyEntity();
         if ($this->request->is('post')) {
             $comment = $this->Comments->patchEntity($comment, $this->request->getData());
-            $comment->user_id = $this->Auth->user('id');
+            $comment->user_id = $this->Authentication->getIdentity()?->get('id');
             if ($this->Comments->save($comment)) {
                 $this->Flash->success('Comment posted.');
                 $word = $this->Comments->Thoughts->get($this->request->getData('thought_id'))->word;

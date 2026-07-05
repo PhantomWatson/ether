@@ -33,7 +33,7 @@ class PagesController extends AppController
     {
         parent::initialize();
 
-        $this->Auth->allow();
+        $this->Authentication->disableIdentityCheck();
     }
 
     /**

@@ -16,4 +16,5 @@ return [
         'onlyCli' => true,
         'optional' => true,
     ],
+    'Authentication' => [],
 ];

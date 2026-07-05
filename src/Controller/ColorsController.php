@@ -21,7 +21,7 @@ class ColorsController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        $this->Auth->allow();
+        $this->Authentication->disableIdentityCheck();
         $this->Color = new Color();
     }
 

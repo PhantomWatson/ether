@@ -42,7 +42,7 @@ class MessagesController extends AppController
      */
     public function index($penpalColor = null)
     {
-        $userId = $this->Auth->user('id');
+        $userId = $this->Authentication->getIdentity()?->get('id');
         $this->set([
             'title_for_layout' => 'Messages',
             'conversations' => $this->Messages->getConversationsIndex($userId),
@@ -78,7 +78,7 @@ class MessagesController extends AppController
             $recipientId = $usersTable->getIdFromColor($this->request->getData('recipient'));
             $data = $this->request->getData();
             $data['recipient_id'] = $recipientId;
-            $data['sender_id'] = $this->Auth->user('id');
+            $data['sender_id'] = $this->Authentication->getIdentity()?->get('id');
             $data['message'] = trim($data['message']);
 
             $errorMsg = null;
@@ -90,7 +90,7 @@ class MessagesController extends AppController
                 $errorMsg = implode('<br />', $errors);
             } elseif ($this->Messages->save($message)) {
                 $msgSent = true;
-                $senderId = $this->Auth->user('id');
+                $senderId = $this->Authentication->getIdentity()?->get('id');
                 if ($usersTable->acceptsMessages($recipientId)) {
                     $this->Messages->sendNotificationEmail($senderId, $recipientId, $message);
                 }
@@ -126,7 +126,7 @@ class MessagesController extends AppController
      */
     public function conversation($penpalColor = null)
     {
-        $userId = $this->Auth->user('id');
+        $userId = $this->Authentication->getIdentity()?->get('id');
         /** @var UsersTable $usersTable */
         $usersTable = TableRegistry::getTableLocator()->get('Users');
         $penpalId = $usersTable->getIdFromColor($penpalColor);
