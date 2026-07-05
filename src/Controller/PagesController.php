@@ -17,12 +17,6 @@ use Exception;
  */
 class PagesController extends AppController
 {
-    public array $paginate = [
-        'finder' => [
-            'recentActivity' => []
-        ]
-    ];
-
     /**
      * Initialize method
      *
@@ -48,7 +42,7 @@ class PagesController extends AppController
         $randomThought = $thoughtsTable->getRandomThought();
         $randomThought = $thoughtsTable->excerpt($randomThought);
         $this->set([
-            'recentActivity' => $this->paginate($thoughtsTable),
+            'recentActivity' => $this->paginate($thoughtsTable, ['finder' => 'recentActivity']),
             'cloud' => $thoughtsTable->getCloud(),
             'randomThought' => $randomThought
         ]);
