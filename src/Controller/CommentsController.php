@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Model\Table\CommentsTable;
 use App\Model\Table\ThoughtsTable;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Response;

@@ -2,14 +2,12 @@
 namespace App\Controller;
 
 use App\Model\Entity\Thought;
-use App\Model\Table\ThoughtsTable;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Event\Event;
 use Cake\Http\Exception\BadRequestException;
 use Cake\Http\Response;
 use Cake\Network\Exception\InternalErrorException;
 use Cake\Network\Exception\NotFoundException;
-use Cake\ORM\TableRegistry;
 use Exception;
 
 /**

@@ -1,7 +1,6 @@
 <?php
 namespace App\View\Helper;
 
-use Cake\I18n\FrozenTime;
 use Cake\View\Helper\TimeHelper;
 
 class EtherTimeHelper extends TimeHelper

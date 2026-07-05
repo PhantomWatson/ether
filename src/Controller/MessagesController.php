@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 
-use App\Model\Table\MessagesTable;
 use App\Model\Table\UsersTable;
 use Cake\Http\Response;
 use Cake\ORM\TableRegistry;

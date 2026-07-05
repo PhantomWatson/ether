@@ -2,7 +2,6 @@
 namespace App\Model\Entity;
 
 use App\Model\Table\ThoughtsTable;
-use Cake\I18n\FrozenTime;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 
