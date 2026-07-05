@@ -40,7 +40,7 @@ class ThoughtsTable extends Table
 {
 
     public $maxThoughtwordLength = 30;
-    const MIN_THOUGHT_LENGTH = 20;
+    const int MIN_THOUGHT_LENGTH = 20;
 
     /**
      * Initialize method

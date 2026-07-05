@@ -15,9 +15,9 @@ use Google\Cloud\TextToSpeech\V1\VoiceSelectionParams;
 
 class TTS
 {
-    const EXTENSION = '.mp3';
-    const INPUT_LIMIT = 5000;
-    const PATH = WWW_ROOT . 'audio' . DS;
+    const string EXTENSION = '.mp3';
+    const int INPUT_LIMIT = 5000;
+    const string PATH = WWW_ROOT . 'audio' . DS;
 
     /**
      * @param string $text

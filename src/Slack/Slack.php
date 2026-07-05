@@ -16,12 +16,12 @@ class Slack
     /**
      * @var int RETRY_ATTEMPTS The number of times to retry a failed attempt to send a message
      */
-    public const RETRY_ATTEMPTS = 2;
+    public const int RETRY_ATTEMPTS = 2;
 
     /**
      * @var float DELAY_BETWEEN_ATTEMPTS The number of seconds to wait after each failed attempt
      */
-    public const DELAY_BETWEEN_ATTEMPTS = 1;
+    public const int DELAY_BETWEEN_ATTEMPTS = 1;
 
     /**
      * Sends an alert to slack about a new thought being posted

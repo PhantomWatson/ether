@@ -22,7 +22,7 @@ use Exception;
  */
 class UsersController extends AppController
 {
-    const COOKIE_AUTH_KEY = 'CookieAuth';
+    const string COOKIE_AUTH_KEY = 'CookieAuth';
 
     /**
      * Initialize method

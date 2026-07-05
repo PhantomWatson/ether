@@ -37,7 +37,7 @@ class Installer
      *
      * @var list<string>
      */
-    public const WRITABLE_DIRS = [
+    public const array WRITABLE_DIRS = [
         'logs',
         'tmp',
         'tmp/cache',

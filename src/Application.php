@@ -49,7 +49,7 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class Application extends BaseApplication implements AuthenticationServiceProviderInterface
 {
-    const EMAIL_FROM = ['no-reply@theether.com' => 'Ether'];
+    const array EMAIL_FROM = ['no-reply@theether.com' => 'Ether'];
 
     /**
      * Load all the application configuration and bootstrap logic.
