@@ -44,3 +44,4 @@ composer.phar
 /webroot/audio/*
 .ftpquota
 webroot/error_log
+/config/environment.php
