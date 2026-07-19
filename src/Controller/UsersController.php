@@ -400,9 +400,12 @@ class UsersController extends AppController
 
         if ($this->Users->save($user)) {
             $this->Authentication->setIdentity($user);
-            $this->Flash->success('Your account has been registered, and you\'ve been logged in. Welcome!');
+            $this->Flash->success(
+                'Your account has been registered, and you\'ve been logged in. Welcome! '
+                . 'Consider writing an "introspection" blurb, which will show up on your profile page.'
+            );
 
-            return null;
+            return $this->redirect(['controller' => 'Users', 'action' => 'settings']);
         }
 
         $errorsMsgs = [];
