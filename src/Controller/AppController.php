@@ -69,8 +69,14 @@ class AppController extends Controller
     {
         $identity = $this->Authentication->getIdentity();
         $userId = $identity?->get('id');
+
         /** @var MessagesTable $messagesTable */
         $messagesTable = TableRegistry::getTableLocator()->get('Messages');
+
+        if ($this->getEnvironment() == 'staging') {
+            $this->Flash->set('This is the staging environment for Ether, used for testing new features on a separate database.');
+        }
+
         $this->set([
             'userId' => $userId,
             'userColor' => $identity?->get('color'),
@@ -82,5 +88,15 @@ class AppController extends Controller
     protected function currentUser(): ?User
     {
         return $this->Authentication->getIdentity();
+    }
+
+    protected function getEnvironment(): string
+    {
+        if (file_exists(CONFIG . 'environment.php')) {
+            include(CONFIG . 'environment.php');
+            return getEnvironment();
+        }
+
+        return 'production';
     }
 }
