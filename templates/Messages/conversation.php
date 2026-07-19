@@ -8,6 +8,7 @@
  * @var mixed $messages
  */
 
+$this->Paginator->setPaginated($messages);
 $pagingUsed = $this->Paginator->hasNext() || ($this->Paginator->hasPrev() && ! $this->request->is('ajax'));
 ?>
 <div id="content_title">

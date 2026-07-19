@@ -125,22 +125,16 @@ class MessagesController extends AppController
      */
     public function conversation($penpalColor = null)
     {
-        $userId = $this->Authentication->getIdentity()?->get('id');
         /** @var UsersTable $usersTable */
         $usersTable = TableRegistry::getTableLocator()->get('Users');
         $penpalId = $usersTable->getIdFromColor($penpalColor);
         $penpal = $usersTable->get($penpalId);
-        $query = $this->Messages->getConversation($userId, $penpalId);
-        if (isset($_GET['full'])) {
-            $messages = $query->toArray();
-        } else {
-            $messages = $this->paginate($query)->toArray();
-            $messages = array_reverse($messages);
-        }
+
+        $userId = $this->currentUser()->id;
         $this->Messages->setConversationAsRead($userId, $penpalId);
 
         $this->set([
-            'messages' => $messages,
+            'messages' => $this->paginate($this->Messages->getConversation($userId, $penpalId)),
             'penpalId' => $penpalId
         ]);
 

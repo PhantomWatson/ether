@@ -9,13 +9,16 @@
     ]);
 
     $hasNext = $this->Paginator->hasNext() && ! ($this->request->is('ajax') && $_GET['dir'] == 'prev');
+
+    // Reverse messages so the newest message appears on the bottom
+    $messagesReversed = array_reverse($messages->toArray());
 ?>
 
 <?php if ($hasNext): ?>
     <?= $this->Paginator->next('Show older messages') ?>
 <?php endif; ?>
 
-<?php foreach ($messages as $message): ?>
+<?php foreach ($messagesReversed as $message): ?>
     <?= $this->element('Messages/message', [
         'message' => $message
     ]) ?>
