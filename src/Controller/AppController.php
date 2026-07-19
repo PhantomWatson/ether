@@ -47,8 +47,9 @@ class AppController extends Controller
     public function beforeFilter(EventInterface $event): ?Response
     {
         $isMaintenanceMode = Configure::read('maintenanceMode');
-        $alreadyRedirected = $this->getRequest()->getParam('action') == 'maintenanceMode';
-        if ($isMaintenanceMode && !$alreadyRedirected) {
+        $alreadyRedirected = $this->request->getParam('action') == 'maintenanceMode';
+        $bypass = $this->request->getQuery('bypass');
+        if ($isMaintenanceMode && !$alreadyRedirected && !$bypass) {
             return $this->redirect([
                 'controller' => 'Pages',
                 'action' => 'maintenanceMode',
