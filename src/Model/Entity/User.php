@@ -1,6 +1,8 @@
 <?php
 namespace App\Model\Entity;
 
+use ArrayAccess;
+use Authentication\IdentityInterface;
 use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Cake\ORM\Entity;
 
@@ -22,7 +24,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\Comment[] $comments
  * @property \App\Model\Entity\Thought[] $thoughts
  */
-class User extends Entity
+class User extends Entity implements IdentityInterface
 {
 
     /**
@@ -49,5 +51,15 @@ class User extends Entity
     protected function _setPassword($password)
     {
         return (new DefaultPasswordHasher)->hash($password);
+    }
+
+    public function getIdentifier(): array|string|int|null
+    {
+        return $this->id;
+    }
+
+    public function getOriginalData(): ArrayAccess|array
+    {
+        return $this;
     }
 }
