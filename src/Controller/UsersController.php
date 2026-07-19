@@ -332,6 +332,9 @@ class UsersController extends AppController
      */
     private function verifyBackgroundCaptcha(): bool
     {
+        if (Configure::read('debug')) {
+            return true;
+        }
         $response = $this->request->getData('g-recaptcha-response');
         $url = 'https://www.google.com/recaptcha/api/siteverify';
         $secret = Configure::read('Recaptcha.secret');
