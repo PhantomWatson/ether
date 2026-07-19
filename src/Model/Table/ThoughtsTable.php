@@ -316,19 +316,20 @@ class ThoughtsTable extends Table
     {
         $combinedQuery = $this->getThoughtsAndComments();
 
-        $limit = $query->clause('limit') ?? 10;
         $direction = isset($_GET['direction']) ? strtolower($_GET['direction']) : 'desc';
         if (! in_array($direction, ['asc', 'desc'])) {
             throw new BadRequestException('Invalid sorting direction');
         }
-        $epilogue = "ORDER BY created $direction LIMIT $limit";
+
+        $combinedQuery
+            ->orderBy(['created' => $direction])
+            ->limit($query->clause('limit') ?? 10);
 
         $offset = $query->clause('offset');
         if ($offset) {
-            $epilogue .= " OFFSET $offset";
+            $combinedQuery->offset($offset);
         }
 
-        $combinedQuery->epilog($epilogue);
         $combinedQuery->counter(function ($query) {
             $comments = TableRegistry::getTableLocator()->get('Comments');
 
@@ -383,7 +384,40 @@ class ThoughtsTable extends Table
                 'conditions' => 'Comments.thought_id = Thoughts.id AND Thoughts.hidden = 0'
             ]);
 
-        return $thoughtsQuery->unionAll($commentsQuery);
+        $unionQuery = $thoughtsQuery->unionAll($commentsQuery);
+
+        // unionAll() returns $thoughtsQuery itself with the comments query
+        // appended as a union part, so limit()/orderBy() calls made by
+        // callers (e.g. PaginatorComponent) would land on the thoughts
+        // branch alone rather than the combined result set. Wrapping the
+        // union as a subquery keeps later query modifications scoped to
+        // the full combined result. Fields are named explicitly (rather
+        // than selecting '*') because the ORM's entity hydration relies on
+        // the query's own select clause to know which columns to nest into
+        // properties like `user`.
+        $query = $this->selectQuery()
+            ->select([
+                'created' => 'combined.created',
+                'thought_id' => 'combined.thought_id',
+                'thought_word' => 'combined.thought_word',
+                'thought_anonymous' => 'combined.thought_anonymous',
+                'comment_id' => 'combined.comment_id',
+                'user__id' => 'combined.Users__id',
+                'user__color' => 'combined.Users__color',
+            ])
+            ->from(['combined' => $unionQuery], true);
+
+        $query->getSelectTypeMap()->setTypes([
+            'created' => 'datetime',
+            'thought_id' => 'integer',
+            'thought_word' => 'string',
+            'thought_anonymous' => 'boolean',
+            'comment_id' => 'integer',
+            'user__id' => 'integer',
+            'user__color' => 'string',
+        ]);
+
+        return $query;
     }
 
     /**
