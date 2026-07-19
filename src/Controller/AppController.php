@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Controller\Component\FlashComponent;
+use App\Model\Entity\User;
 use App\Model\Table\MessagesTable;
 use Authentication\Controller\Component\AuthenticationComponent;
 use Cake\Controller\Controller;
@@ -75,5 +76,10 @@ class AppController extends Controller
             'loggedIn' => $userId !== null,
             'newMessages' => $userId ? $messagesTable->getNewMessagesCount($userId) : 0
         ]);
+    }
+
+    protected function currentUser(): ?User
+    {
+        return $this->Authentication->getIdentity();
     }
 }
