@@ -79,7 +79,7 @@ class MessagesTable extends Table
 
         $validator
             ->scalar('sender_id')
-            ->numeric('sender_id', 'valid', ['rule' => 'numeric'])
+            ->numeric('sender_id')
             ->requirePresence('sender_id', 'create');
 
         $validator
