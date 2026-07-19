@@ -15,5 +15,5 @@
 </p>
 
 <p>
-    Or if Facebook's more your style, you can also send a message to <strong><a href="https://www.facebook.com/EtherThoughtRepository/">Ether's Facebook page</a></strong>.
+    Or if you'd rather use social media, you can send a message to <strong><a href="https://www.facebook.com/EtherThoughtRepository/">Ether's Facebook page</a> or <a href="https://bsky.app/profile/ether-thoughts.bsky.social">Ether's Bluesky account</a></strong>.
 </p>
