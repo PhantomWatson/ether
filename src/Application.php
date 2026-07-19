@@ -25,6 +25,7 @@ use Authentication\AuthenticationServiceInterface;
 use Authentication\AuthenticationServiceProviderInterface;
 use Authentication\Identifier\PasswordIdentifier;
 use Authentication\Middleware\AuthenticationMiddleware;
+use Authentication\UrlChecker\MultiUrlChecker;
 use Cake\Core\Configure;
 use Cake\Core\ContainerInterface;
 use Cake\Datasource\FactoryLocator;
@@ -158,11 +159,12 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
                 'className' => 'Authentication.Password',
                 'fields' => $fields,
             ],
+            'fields' => $fields,
             'cookie' => [
                 'name' => UsersController::COOKIE_AUTH_KEY,
             ],
             'loginUrl' => [$loginUrl, $registerUrl],
-            'urlChecker' => 'Authentication.MultiUrl',
+            'urlChecker' => MultiUrlChecker::class,
         ]);
 
         $service->loadAuthenticator('Authentication.Form', [
