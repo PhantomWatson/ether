@@ -6,8 +6,6 @@ use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Event\Event;
 use Cake\Http\Exception\BadRequestException;
 use Cake\Http\Response;
-use Cake\Network\Exception\InternalErrorException;
-use Cake\Network\Exception\NotFoundException;
 use Exception;
 
 /**
@@ -17,7 +15,6 @@ use Exception;
  */
 class ThoughtsController extends AppController
 {
-
     /**
      * Initialize method
      *
@@ -62,7 +59,7 @@ class ThoughtsController extends AppController
      *
      * @return void
      */
-    public function index()
+    public function index(): void
     {
         $this->set([
             'title_for_layout' => 'Thoughts',
@@ -74,9 +71,8 @@ class ThoughtsController extends AppController
      * Add method
      *
      * @return Response|null
-     * @throws InternalErrorException
      */
-    public function add()
+    public function add(): ?Response
     {
         /** @var Thought $thought */
         $thought = $this->Thoughts->newEmptyEntity();
@@ -95,15 +91,11 @@ class ThoughtsController extends AppController
                 $event = new Event('Model.Thought.created', $this, ['entity' => $thought]);
                 $this->getEventManager()->dispatch($event);
                 $this->Flash->success('Your thought has been thunk. Thanks for thinking that thought!');
-
                 return $this->redirect(['action' => 'word', $thought->word]);
-            } else {
-                $this->Flash->error('There was an error posting that thought. Please try again.');
             }
-        } else {
-            if ($this->request->getQuery('word') !== null) {
-                $thought->set('word', $this->request->getQuery('word'));
-            }
+            $this->Flash->error('There was an error posting that thought. Please try again.');
+        } elseif ($this->request->getQuery('word') !== null) {
+            $thought->set('word', $this->request->getQuery('word'));
         }
 
         if ($thought->word == null) {
@@ -124,11 +116,10 @@ class ThoughtsController extends AppController
      *
      * @param string|null $id Thought ID
      * @return Response|null
-     * @throws NotFoundException
      */
-    public function edit($id = null)
+    public function edit($id = null): ?Response
     {
-        $thought = $this->Thoughts->get($id, contain: []);
+        $thought = $this->Thoughts->get($id);
         if (!$this->checkIsAuthor($thought)) {
             return $this->redirect($this->request->referer());
         }
@@ -164,9 +155,8 @@ class ThoughtsController extends AppController
      *
      * @param string|null $id Thought id
      * @return Response|null
-     * @throws NotFoundException
      */
-    public function delete($id = null)
+    public function delete($id = null): ?Response
     {
         $this->request->allowMethod(['post', 'delete']);
         $thought = $this->Thoughts->get($id);
@@ -190,7 +180,7 @@ class ThoughtsController extends AppController
      *
      * @return void
      */
-    public function recent()
+    public function recent(): void
     {
         $this->paginate['Thoughts']['finder']['recentActivity'] = [];
         $this->viewBuilder()->setLayout('ajax');
@@ -204,7 +194,7 @@ class ThoughtsController extends AppController
      * @return Response|null
      * @throws BadRequestException
      */
-    public function word($word = null)
+    public function word($word = null): ?Response
     {
         if ($this->request->getData('word')) {
             $word = $this->request->getData('word');
@@ -247,7 +237,7 @@ class ThoughtsController extends AppController
      *
      * @return void
      */
-    public function random()
+    public function random(): void
     {
         $word = $this->Thoughts->getRandomPopulatedThoughtWord();
         $this->redirect(['action' => 'word', $word]);
@@ -259,7 +249,7 @@ class ThoughtsController extends AppController
      * @param int $thoughtId Thought ID
      * @return void
      */
-    public function refreshFormatting($thoughtId)
+    public function refreshFormatting($thoughtId): void
     {
         $this->viewBuilder()->setLayout('json');
         $this->viewBuilder()->setOption('serialize', 'result');
@@ -307,7 +297,7 @@ class ThoughtsController extends AppController
      * @param int $count Number of words returned
      * @return void
      */
-    public function suggested($count = 1)
+    public function suggested($count = 1): void
     {
         $suggestedWords = $this->Thoughts->getSuggestedWords($count);
         $this->set('suggestedWords', $suggestedWords);
@@ -319,7 +309,7 @@ class ThoughtsController extends AppController
      *
      * @return void
      */
-    public function questions()
+    public function questions(): void
     {
         $limit = 100;
         $minLength = 4;
@@ -387,7 +377,6 @@ class ThoughtsController extends AppController
 
     public function slideshow(): void
     {
-//        $this->viewBuilder()->setLayout('ajax');
         $this->set([
             'title_for_layout' => 'Ether Slideshow',
             'cloud' => $this->Thoughts->getCloud(),
