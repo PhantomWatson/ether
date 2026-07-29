@@ -117,8 +117,7 @@ class CommentsTable extends Table
     public function afterSave(Event $event, Comment $entity, $options): void
     {
         if ($entity->isNew()) {
-            $thought = $this->Thoughts->get($entity->thought_id);
-            CommentAlert::send($thought);
+            CommentAlert::send($entity);
         }
     }
 }

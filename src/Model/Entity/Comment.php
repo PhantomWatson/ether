@@ -12,7 +12,7 @@ use Cake\ORM\TableRegistry;
  * @property int $id
  * @property int $thought_id
  * @property int $user_id
- * @property string $comment
+ * @property string $comment The body of the comment
  * @property string $formatted_comment
  * @property string $formatting_key
  * @property \Cake\I18n\DateTime $created
