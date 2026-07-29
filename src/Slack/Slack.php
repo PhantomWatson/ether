@@ -74,7 +74,5 @@ class Slack
             $microseconds = (int)(self::DELAY_BETWEEN_ATTEMPTS * 1000000);
             usleep($microseconds);
         }
-
-        curl_close($curlHandle);
     }
 }

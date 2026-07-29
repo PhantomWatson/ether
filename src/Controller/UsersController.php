@@ -345,7 +345,6 @@ class UsersController extends AppController
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($postData));
         $result = curl_exec($ch);
-        curl_close($ch);
 
         $resultJson = json_decode($result, true);
 
