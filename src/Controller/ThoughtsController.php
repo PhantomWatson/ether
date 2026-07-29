@@ -190,11 +190,11 @@ class ThoughtsController extends AppController
     /**
      * Renders /thoughts/word
      *
-     * @param string|null $word Thoughtword
+     * @param string $word Thoughtword
      * @return Response|null
      * @throws BadRequestException
      */
-    public function word($word = null): ?Response
+    public function word(string $word = ''): ?Response
     {
         if ($this->request->getData('word')) {
             $word = $this->request->getData('word');
