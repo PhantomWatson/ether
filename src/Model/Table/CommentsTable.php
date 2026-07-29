@@ -1,6 +1,9 @@
 <?php
 namespace App\Model\Table;
 
+use App\Alert\CommentAlert;
+use App\Model\Entity\Comment;
+use Cake\Event\Event;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
@@ -109,5 +112,13 @@ class CommentsTable extends Table
         $rules->add($rules->existsIn(['thought_id'], 'Thoughts'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         return $rules;
+    }
+
+    public function afterSave(Event $event, Comment $entity, $options): void
+    {
+        if ($entity->isNew()) {
+            $thought = $this->Thoughts->get($entity->thought_id);
+            CommentAlert::send($thought);
+        }
     }
 }

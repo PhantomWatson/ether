@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
 
+use App\Alert\ThoughtAlert;
 use App\Model\Entity\Thought;
 use Cake\Cache\Cache;
 use Cake\Database\Expression\QueryExpression;
@@ -664,6 +665,13 @@ class ThoughtsTable extends Table
         }
 
         return $output;
+    }
+
+    public function afterSave(Event $event, Thought $entity, $options): void
+    {
+        if ($entity->isNew()) {
+            ThoughtAlert::send($entity);
+        }
     }
 
     public function afterDelete(\Cake\Event\EventInterface $event, $entity, $options = [])
