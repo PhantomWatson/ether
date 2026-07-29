@@ -100,7 +100,7 @@ class UsersTable extends Table
             ->notEmptyString('color')
             ->add('color', 'validColor', [
                 'rule' => function ($value) {
-                    return (boolean) preg_match('/^[a-fA-F0-9]{6}$/', $value);
+                    return (bool) preg_match('/^[a-fA-F0-9]{6}$/', $value);
                 },
                 'message' => 'That does not appear to be a valid hexadecimal color'
             ]);
@@ -318,7 +318,7 @@ class UsersTable extends Table
     public function acceptsMessages($userId)
     {
         $user = $this->get($userId);
-        return (boolean) $user->acceptMessages;
+        return (bool) $user->acceptMessages;
     }
 
     public function getIdFromColor($color)
