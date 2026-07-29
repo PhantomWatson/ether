@@ -95,12 +95,7 @@
                                 <li>
                                     <?= $this->Html->link(
                                         '<i class="fa-solid fa-link thought-action-icon"></i> Link <span class="visually-hidden">to this thought</span>',
-                                        [
-                                            'controller' => 'Thoughts',
-                                            'action' => 'word',
-                                            $word,
-                                            '#' => 't' . $thought['id']
-                                        ],
+                                        $thought->url,
                                         [
                                             'escape' => false,
                                             'class' => 'btn btn-link',

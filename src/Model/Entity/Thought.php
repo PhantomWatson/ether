@@ -4,6 +4,7 @@ namespace App\Model\Entity;
 use App\Model\Table\ThoughtsTable;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
+use Cake\Routing\Router;
 
 /**
  * Thought Entity.
@@ -20,9 +21,13 @@ use Cake\ORM\TableRegistry;
  * @property int $user_id
  * @property string $formatted_thought
  * @property string $formatting_key
- * @property string $thought
+ * @property string $thought The body of the thought
  * @property string $tts Text-to-speech audio filename
  * @property string $word
+ *
+ * Virtual fields
+ * @property string $url Full URL to the thought
+ * @property string[] $questions
  */
 class Thought extends Entity
 {
@@ -72,9 +77,9 @@ class Thought extends Entity
     /**
      * Returns all of the sentences that end with question marks in this thought
      *
-     * @return array
+     * @return string[]
      */
-    protected function _getQuestions()
+    protected function _getQuestions(): array
     {
         $questions = [];
         $sentences = preg_split('/(?<=[.?!])\s+(?=[a-z])/i', $this->_fields['thought']);
@@ -85,5 +90,15 @@ class Thought extends Entity
         }
 
         return $questions;
+    }
+
+    protected function _getUrl(): string
+    {
+        return Router::url([
+            'controller' => 'Thoughts',
+            'action' => 'word',
+            $this->word,
+            '#' => 't' . $this->id
+        ], true);
     }
 }
