@@ -427,7 +427,7 @@ class ThoughtsTable extends Table
      * @param string $word
      * @return string
      */
-    public function formatThoughtword($word)
+    public function formatThoughtword(string $word): string
     {
         $word = preg_replace('/[^a-zA-Z0-9]/', '', $word);
         if (strlen($word) > $this->maxThoughtwordLength) {
