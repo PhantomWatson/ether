@@ -76,7 +76,7 @@ class ThoughtsController extends AppController
     {
         /** @var Thought $thought */
         $thought = $this->Thoughts->newEmptyEntity();
-        $thought->word = $this->getRequest()->getParam('word');
+        $thought->word = $this->getRequest()->getQuery('word', '');
         if ($this->request->is('post')) {
             $data = $this->request->getData();
             $data['user_id'] = $this->Authentication->getIdentity()?->get('id');
