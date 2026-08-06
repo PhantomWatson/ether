@@ -13,7 +13,7 @@ class CommentAlert
         $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
         $thought = $thoughtsTable->get($comment->thought_id);
         $alert->addLine('Someone commented about "' . $thought->word . '": ' . $thought->url);
-        $alert->addLine('> ' . Text::truncate($comment->comment));
+        $alert->addQuote(Text::truncate($comment->comment));
         $alert->send(Alert::TYPE_POSTS);
     }
 }

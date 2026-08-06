@@ -2,6 +2,7 @@
 namespace App\Alert;
 
 use Cake\Core\Configure;
+use Cake\Utility\Text;
 
 class Alert {
     const string TYPE_ERRORS = 'errors';
@@ -18,6 +19,18 @@ class Alert {
     public function addLine($line)
     {
         $this->content .= $line . "\n";
+    }
+
+    /**
+     * Adds a string as a quote
+     *
+     * @param string $string
+     * @return void
+     */
+    public function addQuote(string $string): void
+    {
+        $lines = explode("\n", $string);
+        $this->addLine('> ' . implode("\n> ", $lines));
     }
 
     /**

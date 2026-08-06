@@ -11,7 +11,7 @@ class ThoughtAlert
         $alert = new Alert();
 
         $alert->addLine('Someone thought about "' . $thought->word . '": ' . $thought->url);
-        $alert->addLine('> ' . Text::truncate($thought->thought));
+        $alert->addQuote(Text::truncate($thought->thought));
         $alert->send(Alert::TYPE_POSTS);
     }
 }
