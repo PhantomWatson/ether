@@ -1,9 +1,11 @@
 <?php
 /**
- * @var \Gourmet\CommonMark\View\Helper\CommonMarkHelper $markdownHelper
  * @var \App\View\AppView $this
  * @var string $title_for_layout
  */
+
+use App\Model\Table\ThoughtsTable;
+
 ?>
 <div id="content_title">
     <h1>
@@ -17,7 +19,6 @@
 </p>
 
 <?php
-    $markdownHelper = $this->loadHelper('Gourmet/CommonMark.CommonMark');
     $examples = [
         'Italics and Bold' => "This is *italics*. \nSo is _this_.\nAnd both **this** and __this__ is bold.\n\nIf you want to mix bold and italics, *you can do it __like this__*.",
         'Line Breaks' => "Single line breaks\nare normally ignored.\n\nBut double line breaks aren't.\n\nIf you need a single line break, (two spaces go here -->)  \nend a line with two spaces before hitting return.",
@@ -46,7 +47,7 @@
             <pre><?= $example ?></pre>
             becomes...
             <div>
-                <?= $markdownHelper->convertToHtml($example) ?>
+                <?= ThoughtsTable::parseMarkdown($example) ?>
             </div>
         </div>
     </section>

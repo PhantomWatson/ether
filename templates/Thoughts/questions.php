@@ -3,11 +3,13 @@
  * @var \App\View\AppView $this
  * @var string $title_for_layout
  * @var array $questions
- *
+ * @var ThoughtsTable $thoughtsTable
  */
 
-/** @var \App\Model\Table\ThoughtsTable $thoughtsTable */
-$thoughtsTable = \Cake\ORM\TableRegistry::getTableLocator()->get('Thoughts');
+use App\Model\Table\ThoughtsTable;
+use Cake\ORM\TableRegistry;
+
+$thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
 ?>
 <div id="content_title">
     <h1>
@@ -26,7 +28,7 @@ $thoughtsTable = \Cake\ORM\TableRegistry::getTableLocator()->get('Thoughts');
         <li>
             <span class="question">
                 <?php
-                    $formattedQuestion = $thoughtsTable->parseMarkdown($question['question']);
+                    $formattedQuestion = ThoughtsTable::parseMarkdown($question['question']);
                     echo str_replace(['<p>', '</p>'], '', $formattedQuestion);
                 ?>
             </span>

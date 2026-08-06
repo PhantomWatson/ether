@@ -524,7 +524,7 @@ class ThoughtsTable extends Table
         $thought = $this->stripTags($thought, true);
 
         // Convert Markdown to HTML, then strip all tags not whitelisted
-        $thought = $this->parseMarkdown($thought);
+        $thought = self::parseMarkdown($thought);
         $thought = $this->stripTags($thought);
 
         $thought = $this->linkThoughtwords($thought);
@@ -533,17 +533,23 @@ class ThoughtsTable extends Table
     }
 
     /**
+     * Converts markdown into HTML
+     *
      * @param string $input
-     * @throws CommonMarkException
      * @return string
      */
-    public function parseMarkdown(string $input): string
+    public static function parseMarkdown(string $input): string
     {
-        $converter = new CommonMarkConverter([
-            'html_input' => 'strip',
-            'allow_unsafe_links' => false,
-        ]);
-        return (string) $converter->convert($input);
+        try {
+            $converter = new CommonMarkConverter([
+                'html_input' => 'strip',
+                'allow_unsafe_links' => false,
+            ]);
+            return (string) $converter->convert($input);
+        } catch (CommonMarkException $e) {
+            Log::error("Error parsing markdown: " . $e->getMessage() . ". Input: $input.");
+            return '(error parsing markdown)';
+        }
     }
 
     public function stripTags($input, $allTags = false)
@@ -785,7 +791,7 @@ class ThoughtsTable extends Table
         $chain = new EtherMarkovChain($sample, $blockSize);
         $chainLength = round($chainLength / $blockSize);
         $results = $chain->generate($chainLength);
-        $results = $this->parseMarkdown($results);
+        $results = self::parseMarkdown($results);
         return strip_tags($results);
     }
 
