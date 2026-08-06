@@ -2,6 +2,7 @@
 namespace App\Model\Table;
 
 use App\Application;
+use App\Model\Entity\User;
 use Cake\Collection\Collection;
 use Cake\Database\Expression\QueryExpression;
 use Cake\Http\Exception\BadRequestException;
@@ -163,12 +164,11 @@ class UsersTable extends Table
     /**
      * Returns an array of the data needed for a user's profile
      * @param string $color
-     * @return array
-     * @throws \Cake\Network\Exception\NotFoundException
+     * @return User|null
      */
-    public function getProfileInfo($color)
+    public function getProfileInfo(string $color): ?User
     {
-        $user = $this->findByColor($color)
+        return $this->findByColor($color)
             ->select([
                 'id',
                 'color',
@@ -181,6 +181,7 @@ class UsersTable extends Table
 
                     return $q
                         ->select(['id', 'word', 'user_id'])
+                        ->distinct(['word'])
                         ->where(['anonymous' => false])
                         ->orderBy([
                             'word' => 'ASC',
@@ -188,19 +189,7 @@ class UsersTable extends Table
                         ]);
                 }
             ])
-            ->first()
-            ->toArray();
-
-        $uniqueWords = [];
-        foreach ($user['thoughts'] as $k => $thought) {
-            if (in_array($thought['word'], $uniqueWords)) {
-                unset($user['thoughts'][$k]);
-            } else {
-                $uniqueWords[] = $thought['word'];
-            }
-        }
-
-        return $user;
+            ->first();
     }
 
     /**

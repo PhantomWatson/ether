@@ -4,17 +4,17 @@
  * @var string $colorName
  * @var mixed $messageEntity
  * @var mixed $messagesCount
- * @var array $user
+ * @var \App\Model\Entity\User $user
  */
 ?>
 <div class="user_profile">
     <div id="content_title">
         <h1>
             Thinker:
-            <?= $this->element('colorbox', ['color' => $user['color']]) ?>
+            <?= $this->element('colorbox', ['color' => $user->color]) ?>
         </h1>
         <p class="subtitle">
-            Color: #<?= $user['color'] ?>
+            Color: #<?= $user->color ?>
             <?php if ($colorName): ?>
                 <?= $this->Html->link(
                     '"' . $colorName . '"',
@@ -45,12 +45,12 @@
             <h2>
                 Introspection
             </h2>
-            <?php if (empty($user['profile'])): ?>
+            <?php if (empty($user->profile)): ?>
                 <em>
                     This Thinker has not yet introspected.
                 </em>
             <?php else: ?>
-                 <?= $user['profile'] ?>
+                 <?= $user->profile ?>
             <?php endif; ?>
         </div>
     </div>
@@ -60,16 +60,21 @@
             <h2>
                 Thoughts
             </h2>
-            <?php if (empty($user['thoughts'])): ?>
+            <?php if (empty($user->thoughts)): ?>
                 <em>
                     This Thinker has not yet thunk.
                 </em>
             <?php else: ?>
                 <div class="thoughtwords">
-                    <?php foreach ($user['thoughts'] as $thought): ?>
+                    <?php foreach ($user->thoughts as $thought): ?>
                         <?= $this->Html->link(
-                            $thought['word'],
-                            ['controller' => 'Thoughts', 'action' => 'word', $thought['word'], '#' => 't'.$thought['id']],
+                            $thought->word,
+                            [
+                                'controller' => 'Thoughts',
+                                'action' => 'word',
+                                $thought->word,
+                                '#' => "t$thought->id",
+                            ],
                             ['class' => 'thoughtword']
                         ) ?>
                     <?php endforeach; ?>
@@ -78,7 +83,7 @@
         </div>
     </div>
 
-    <?php if ((isset($messagesCount) && $messagesCount) || $user['acceptMessages']): ?>
+    <?php if ((isset($messagesCount) && $messagesCount) || $user->acceptMessages): ?>
         <div class="row">
             <div class="offset-sm-2 col-sm-8">
                 <h2>
@@ -90,18 +95,16 @@
                         [
                             'controller' => 'Messages',
                             'action' => 'conversation',
-                            $user['color']
+                            $user->color,
                         ]
                     ) ?>
                 <?php endif; ?>
-                <?php if ($user['acceptMessages']): ?>
+                <?php if ($user->acceptMessages): ?>
                     <div id="profile_send_message">
                         <?php
                             echo $this->Form->create(
                                 $messageEntity,
-                                [
-                                    'url' => ['controller' => 'Messages', 'action' => 'send']
-                                ]
+                                ['url' => ['controller' => 'Messages', 'action' => 'send']]
                             );
                             echo $this->Form->control(
                                 'message',
@@ -116,12 +119,12 @@
                                 'recipient',
                                 [
                                     'type' => 'hidden',
-                                    'value' => $user['color']
+                                    'value' => $user->color,
                                 ]
                             );
                             echo $this->Form->submit(
                                 'Send',
-                                ['class' => 'btn btn-primary']
+                                ['class' => 'btn btn-primary'],
                             );
                             echo $this->Form->end();
                         ?>

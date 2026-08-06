@@ -67,6 +67,10 @@ class UsersController extends AppController
     public function view($color = null)
     {
         $user = $this->Users->getProfileInfo($color);
+        if (!$user) {
+            throw new NotFoundException('That color isn\'t associated with any user');
+        }
+
         /** @var MessagesTable $messagesTable */
         $messagesTable = TableRegistry::getTableLocator()->get('Messages');
         $this->set([
@@ -83,7 +87,7 @@ class UsersController extends AppController
             $this->set('messagesCount', $messagesTable->getConversationCount($userId, $selectedUserId));
         }
 
-        if ($user['acceptMessages']) {
+        if ($user->acceptMessages) {
             $this->set('messageEntity', $messagesTable->newEmptyEntity());
         }
     }
