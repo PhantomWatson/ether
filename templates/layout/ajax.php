@@ -13,7 +13,7 @@ $path = $this->request->getUri()->getPath();
         <?= $this->fetch('buffered_js') ?>
         gtag('event', 'page_view', {
             page_title: <?= json_encode('AJAX - ' . ($titleForLayout ?? $path)) ?>,
-            page_location: <?= json_encode($urlBase . $path) ?>,
+            page_location: <?= json_encode($urlBase) ?>,
         });
     });
 </script>
