@@ -3,15 +3,17 @@
  * @var \App\View\AppView $this
  * @var string|null $titleForLayout
  */
+$urlBase = \Cake\Routing\Router::url('/', true);
+$path = $this->request->getUri()->getPath();
 ?>
 <?= $this->fetch('content') ?>
 
 <script>
     $(document).ready(function () {
         <?= $this->fetch('buffered_js') ?>
-        ga('send', 'pageview', {
-            'page': <?= json_encode($this->request->getUri()->getPath()) ?>,
-            'title': <?= json_encode($titleForLayout ?? '') ?>,
+        gtag('event', 'page_view', {
+            page_title: <?= json_encode('AJAX - ' . ($titleForLayout ?? $path)) ?>,
+            page_location: <?= json_encode($urlBase . $path) ?>,
         });
     });
 </script>
