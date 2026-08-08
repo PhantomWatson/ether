@@ -3,7 +3,7 @@
  * @var \App\View\AppView $this
  * @var string|null $titleForLayout
  */
-$urlBase = \Cake\Routing\Router::url('/', true);
+$urlBase = \Cake\Routing\Router::url(null, true);
 $path = $this->request->getUri()->getPath();
 ?>
 <?= $this->fetch('content') ?>
