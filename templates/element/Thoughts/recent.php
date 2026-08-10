@@ -20,17 +20,21 @@ function getInfo(AppView $appView, $action): string
         'noLink' => true,
     ]);
     $info .= $action->comment_id ? ' commented ' : ' thought ';
-    $timeAgo = $appView->Time->timeAgoInWords(
-        $action->created,
-        ['end' => '+100 years']
-    );
-    if (stripos($timeAgo, ',') !== false) {
-        $timeAgo = substr($timeAgo, 0, strpos($timeAgo, ','));
-        if (stripos($timeAgo, 'ago') === false) {
-            $timeAgo .= ' ago';
+    if ($action->created) {
+        $timeAgo = $appView->Time->timeAgoInWords(
+            $action->created,
+            ['end' => '+100 years']
+        );
+        if (stripos($timeAgo, ',') !== false) {
+            $timeAgo = substr($timeAgo, 0, strpos($timeAgo, ','));
+            if (stripos($timeAgo, 'ago') === false) {
+                $timeAgo .= ' ago';
+            }
         }
+        $info .= $timeAgo;
+    } else {
+        $info .= 'at some point';
     }
-    $info .= $timeAgo;
 
     return '<div class="info">' . $info . '</div>';
 }
