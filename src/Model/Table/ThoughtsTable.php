@@ -354,7 +354,7 @@ class ThoughtsTable extends Table
                 'created' => 'Thoughts.created',
                 'thought_id' => 'Thoughts.id',
                 'thought_word' => 'Thoughts.word',
-                'thought_anonymous' => 'Thoughts.anonymous',
+                'anonymous' => 'Thoughts.anonymous',
                 'comment_id' => 0
             ])
             ->where(['Thoughts.hidden' => false])
@@ -371,7 +371,7 @@ class ThoughtsTable extends Table
                 'created' => 'Comments.created',
                 'thought_id' => 'Thoughts.id',
                 'thought_word' => 'Thoughts.word',
-                'thought_anonymous' => 'Thoughts.anonymous',
+                'anonymous' => 'Comments.anonymous',
                 'comment_id' => 'Comments.id'
             ])
             ->contain([
@@ -401,7 +401,7 @@ class ThoughtsTable extends Table
                 'created' => 'combined.created',
                 'thought_id' => 'combined.thought_id',
                 'thought_word' => 'combined.thought_word',
-                'thought_anonymous' => 'combined.thought_anonymous',
+                'anonymous' => 'combined.anonymous',
                 'comment_id' => 'combined.comment_id',
                 'user__id' => 'combined.Users__id',
                 'user__color' => 'combined.Users__color',
@@ -412,7 +412,7 @@ class ThoughtsTable extends Table
             'created' => 'datetime',
             'thought_id' => 'integer',
             'thought_word' => 'string',
-            'thought_anonymous' => 'boolean',
+            'anonymous' => 'boolean',
             'comment_id' => 'integer',
             'user__id' => 'integer',
             'user__color' => 'string',
