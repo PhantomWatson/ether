@@ -458,7 +458,7 @@ class ThoughtsTable extends Table
      * @param string $word
      * @return \App\Model\Entity\Thought[]
      */
-    public function getFromWord($word)
+    public function getFromWord(string $word): array
     {
         return $this->find('all')
             ->select([
