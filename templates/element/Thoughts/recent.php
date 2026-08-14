@@ -16,7 +16,7 @@ function getInfo(AppView $appView, $action): string
 {
     $info = $appView->element('colorbox', [
         'color' => $action->user['color'],
-        'anonymous' => $action->thought_anonymous && ! $action->comment_id,
+        'anonymous' => $action->anonymous,
         'noLink' => true,
     ]);
     $info .= $action->comment_id ? ' commented ' : ' thought ';
