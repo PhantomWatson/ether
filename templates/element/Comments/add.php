@@ -1,7 +1,7 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var array $thought
+ * @var \App\Model\Entity\Thought $thought
  * @var int $userId
  * @var mixed $error_duplicate
  */
@@ -29,7 +29,7 @@ $this->Form->setTemplates([
 
 <?= $this->Form->hidden(
     'thought_id',
-    ['value' => $thought['id']]
+    ['value' => $thought->id]
 ) ?>
 
 <?php if (isset($error_duplicate) && $error_duplicate): ?>
@@ -41,10 +41,10 @@ $this->Form->setTemplates([
 <?php endif; ?>
 
 <div class="comment-form-actions">
-    <?php if ($thought['anonymous'] && $thought['user_id'] === $userId): ?>
+    <?php if ($thought->anonymous && $thought->user_id === $userId): ?>
         <div class="anonymous-comment-toggler">
-            <label for="thought-<?= $thought['id'] ?>-comment-anonymous" title="Comment anonymously vs. with your color">
-                <input type="checkbox" value="1" name="anonymous" id="thought-<?= $thought['id'] ?>-comment-anonymous" />
+            <label for="thought-<?= $thought->id ?>-comment-anonymous" title="Comment anonymously vs. with your color">
+                <input type="checkbox" value="1" name="anonymous" id="thought-<?= $thought->id ?>-comment-anonymous" />
                 Comment anonymously
             </label>
         </div>
@@ -53,7 +53,7 @@ $this->Form->setTemplates([
         'Post comment',
         ['class' => 'btn btn-primary', 'div' => false]
     ) ?>
-    <a href="#" class="btn btn-link cancel_comment" data-thought-id="<?= $thought['id'] ?>">
+    <a href="#" class="btn btn-link cancel_comment" data-thought-id="<?= $thought->id ?>">
         Cancel
     </a>
 </div>

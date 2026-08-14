@@ -1,26 +1,27 @@
 <?php
 /**
  * @var \App\View\AppView $this
- * @var array $thought
+ * @var \App\Model\Entity\Thought $thought
  * @var bool $loggedIn
  */
+
 ?>
-<div class="thought" data-formatting-key="<?= $thought['formatting_key'] ?>" data-thought-id="<?= $thought['id'] ?>">
+<div class="thought" data-formatting-key="<?= $thought->formatting_key ?>" data-thought-id="<?= $thought->id ?>">
     <div class="body">
-        <?= $thought['formatted_thought'] ?>
+        <?= $thought->formatted_thought ?>
     </div>
-    <?php if ($thought['comments_enabled']): ?>
+    <?php if ($thought->comments_enabled): ?>
         <div class="comments">
-            <?php foreach ($thought['comments'] as $comment): ?>
+            <?php foreach ($thought->comments as $comment): ?>
                 <?= $this->element('Comments/view', compact('comment')) ?>
             <?php endforeach; ?>
-            <div id="newcomment<?= $thought['id'] ?>view"></div>
-            <div id="newcomment<?= $thought['id'] ?>add" style="display: none;" class="add_comment">
+            <div id="newcomment<?= $thought->id ?>view"></div>
+            <div id="newcomment<?= $thought->id ?>add" style="display: none;" class="add_comment">
                 <?= $this->element('Comments/add', ['thought' => $thought]) ?>
             </div>
-            <div class="post" id="newcomment<?= $thought['id'] ?>button">
+            <div class="post" id="newcomment<?= $thought->id ?>button">
                 <?php if ($loggedIn): ?>
-                    <a href="#" class="add_comment" data-thought-id="<?= $thought['id'] ?>">
+                    <a href="#" class="add_comment" data-thought-id="<?= $thought->id ?>">
                         <i class="fa-solid fa-comment"></i> Leave Comment
                     </a>
                 <?php else: ?>
