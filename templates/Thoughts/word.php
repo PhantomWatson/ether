@@ -140,7 +140,7 @@
 
         <?php $this->append('buffered_js'); ?>
            thought.init({
-               formattingKey: '<?= $formattingKey ?>'
+               formattingKey: <?= json_encode($formattingKey) ?>,
            });
         <?php $this->end(); ?>
     <?php endif; ?>
