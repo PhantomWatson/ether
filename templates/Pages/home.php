@@ -5,9 +5,20 @@
  * @var mixed $cloud
  */
 
+use Cake\Routing\Router;
+
 $animate = true;
+$myThoughts = Router::url(['controller' => 'Thoughts', 'action' => 'myThoughts']);
 
 $features = [
+    [
+        'title' => '<i class="fa-solid fa-eye-slash"></i> Private thoughts and a new "My Thoughts" page',
+        'body' => '
+            You can now mark your thoughts as <em>private</em>, which hides them from everybody but you. You can also
+            view all of your thoughts on the new <a href="' . $myThoughts . '">My Thoughts</a> page. I hope you had a
+            nice summer, and if you didn\'t, I bet the autumn will be a nice change.
+        ',
+    ],
     [
         'title' => '<i class="fa-solid fa-cake-candles"></i> Ether Celebrates Its 20th Anniversary',
         'body' => '
