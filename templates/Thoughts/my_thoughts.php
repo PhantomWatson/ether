@@ -32,9 +32,10 @@ $count = count($thoughts);
         <thead>
             <tr>
                 <th>Thoughtword</th>
-                <th class="short-content">Comments</th>
-                <th class="short-content">Anonymous</th>
-                <th class="short-content">Private</th>
+                <?php /* The extra spacing counterbalances the always-present, sometimes-visible sorting indicator */ ?>
+                <th class="short-content">&nbsp; Comments</th>
+                <th class="short-content">&nbsp; Anonymous</th>
+                <th class="short-content">&nbsp; Private</th>
                 <th>When</th>
             </tr>
         </thead>
