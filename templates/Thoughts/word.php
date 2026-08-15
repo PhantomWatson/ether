@@ -87,24 +87,8 @@
             </div>
         <?php endforeach; ?>
 
-        <?php $this->append('buffered_js'); ?>
-           thought.init({
-               formattingKey: <?= json_encode($formattingKey) ?>,
-           });
-        <?php $this->end(); ?>
+        <?= $this->element('Thoughts/init_js', compact('formattingKey')) ?>
     <?php endif; ?>
 </div>
 
-<div id="audio-container" style="display: none;">
-    <audio autoplay controls id="audio">
-        <source src="" type="audio/mpeg" id="audio-source">
-    </audio>
-    <button id="audio-close">
-        <i class="fa-solid fa-xmark"></i>
-    </button>
-</div>
-
-<?= $this->Html->script('tts') ?>
-<?php $this->append('buffered_js'); ?>
-    new TTS();
-<?php $this->end(); ?>
+<?= $this->element('Thoughts/init_audio') ?>

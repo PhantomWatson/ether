@@ -415,9 +415,9 @@ class ThoughtsController extends AppController
         }
 
         $this->set([
-            'title_for_layout' => "Thought #$thought->id: $thought->word",
+            'formattingKey' => $this->Thoughts->getPopulatedThoughtwordHash(),
             'thought' => $thought,
-            'userId' => $this->currentUser()?->id
+            'title_for_layout' => "Thought #$thought->id: $thought->word",
         ]);
         return null;
     }
