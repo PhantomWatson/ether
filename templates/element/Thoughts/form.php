@@ -81,6 +81,13 @@ use App\Model\Table\ThoughtsTable;
                     'type' => 'checkbox'
                 ]
             ) ?>
+            <?= $this->Form->control(
+                'hidden',
+                [
+                    'label' => 'Make private (only you can see it)',
+                    'type' => 'checkbox'
+                ]
+            ) ?>
         </div>
 
         <?= $this->Form->submit(
