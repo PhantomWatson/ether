@@ -91,7 +91,7 @@ class ThoughtsController extends AppController
                 $event = new Event('Model.Thought.created', $this, ['entity' => $thought]);
                 $this->getEventManager()->dispatch($event);
                 $this->Flash->success('Your thought has been thunk. Thanks for thinking that thought!');
-                return $this->redirect(['action' => 'word', $thought->word]);
+                return $this->redirectToThought($thought);
             }
             $this->Flash->error('There was an error posting that thought. Please try again.');
         } elseif ($this->request->getQuery('word') !== null) {
@@ -109,6 +109,14 @@ class ThoughtsController extends AppController
         ]);
 
         return null;
+    }
+
+    private function redirectToThought(Thought $thought): Response
+    {
+        if ($thought->hidden) {
+            return $this->redirect(['action' => 'view', $thought->id]);
+        }
+        return $this->redirect(['action' => 'word', $thought->word]);
     }
 
     /**
@@ -136,8 +144,7 @@ class ThoughtsController extends AppController
                 $event = new Event('Model.Thought.updated', $this, ['entity' => $thought]);
                 $this->getEventManager()->dispatch($event);
                 $this->Flash->success('Your thought has been updated.');
-
-                return $this->redirect(['action' => 'word', $thought->word]);
+                return $this->redirectToThought($thought);
             } else {
                 $this->Flash->error('There was an error updating that thought. Please try again.');
             }
