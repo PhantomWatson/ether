@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Controller\Component\FlashComponent;
 use App\Model\Entity\User;
 use App\Model\Table\MessagesTable;
-use Authentication\Controller\Component\AuthenticationComponent;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Event\EventInterface;
@@ -15,8 +13,8 @@ use Cake\ORM\TableRegistry;
 use Exception;
 
 /**
- * @property FlashComponent $Flash
- * @property AuthenticationComponent $Authentication
+ * @property \App\Controller\Component\FlashComponent $Flash
+ * @property \Authentication\Controller\Component\AuthenticationComponent $Authentication
  */
 class AppController extends Controller
 {

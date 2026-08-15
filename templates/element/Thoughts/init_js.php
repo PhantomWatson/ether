@@ -1,6 +1,7 @@
 <?php
 /**
  * @var string $formattingKey
+ * @var \App\View\AppView $this
  */
 ?>
 <?php $this->append('buffered_js'); ?>

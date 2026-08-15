@@ -26,8 +26,8 @@ use League\CommonMark\Exception\CommonMarkException;
  * Thoughts Model
  *
  * @method Query findByUserIdAndThought($userId, $thought)
- * @property UsersTable|\Cake\ORM\Association\BelongsTo $Users
- * @property CommentsTable|\Cake\ORM\Association\HasMany $Comments
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\CommentsTable&\Cake\ORM\Association\HasMany $Comments
  * @method Thought get($primaryKey, $options = [])
  * @method Thought newEntity($data = null, array $options = [])
  * @method Thought[] newEntities(array $data, array $options = [])
@@ -36,6 +36,11 @@ use League\CommonMark\Exception\CommonMarkException;
  * @method Thought[] patchEntities($entities, array $data, array $options = [])
  * @method Thought findOrCreate($search, callable $callback = null, $options = [])
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @extends \Cake\ORM\Table<array{Timestamp: \Cake\ORM\Behavior\TimestampBehavior}, \App\Model\Entity\Thought>
+ * @method \App\Model\Entity\Thought[]|\Cake\Datasource\ResultSetInterface<int, \App\Model\Entity\Thought>|false saveMany(iterable $entities, array $options = [])
+ * @method \App\Model\Entity\Thought[]|\Cake\Datasource\ResultSetInterface<int, \App\Model\Entity\Thought> saveManyOrFail(iterable $entities, array $options = [])
+ * @method \App\Model\Entity\Thought[]|\Cake\Datasource\ResultSetInterface<int, \App\Model\Entity\Thought>|false deleteMany(iterable $entities, array $options = [])
+ * @method \App\Model\Entity\Thought[]|\Cake\Datasource\ResultSetInterface<int, \App\Model\Entity\Thought> deleteManyOrFail(iterable $entities, array $options = [])
  */
 class ThoughtsTable extends Table
 {

@@ -11,10 +11,10 @@ return [
     'Migrations' => [
         'onlyCli' => true,
     ],
+    'Authentication' => [],
     'IdeHelper' => [
         'onlyDebug' => true,
         'onlyCli' => true,
         'optional' => true,
     ],
-    'Authentication' => [],
 ];

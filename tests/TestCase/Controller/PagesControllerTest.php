@@ -5,6 +5,8 @@ use Cake\TestSuite\IntegrationTestCase;
 
 /**
  * App\Controller\PagesController Test Case
+ *
+ * @link \App\Controller\PagesController
  */
 class PagesControllerTest extends IntegrationTestCase
 {

@@ -10,19 +10,21 @@ use Cake\ORM\Entity;
  * User Entity.
  *
  * @property int $id
- * @property string $password
+ * @property string|null $password
  * @property int $password_version
  * @property bool $is_admin
  * @property string $email
  * @property string $color
  * @property int $messageNotification
- * @property string $profile
+ * @property string|null $profile
  * @property int $acceptMessages
  * @property int $emailUpdates
- * @property \Cake\I18n\DateTime $created
- * @property \Cake\I18n\DateTime $modified
+ * @property \Cake\I18n\DateTime|null $created
+ * @property \Cake\I18n\DateTime|null $modified
  * @property \App\Model\Entity\Comment[] $comments
  * @property \App\Model\Entity\Thought[] $thoughts
+ * @property \App\Model\Entity\Message[] $sent_messages
+ * @property \App\Model\Entity\Message[] $received_messages
  */
 class User extends Entity implements IdentityInterface
 {

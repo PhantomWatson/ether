@@ -5,6 +5,8 @@ use Cake\TestSuite\IntegrationTestCase;
 
 /**
  * App\Controller\MessagesController Test Case
+ *
+ * @link \App\Controller\MessagesController
  */
 class MessagesControllerTest extends IntegrationTestCase
 {

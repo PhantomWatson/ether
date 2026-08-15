@@ -20,8 +20,8 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  * @method Query findByColor($color)
- * @property \App\Model\Table\CommentsTable|\Cake\ORM\Association\HasMany $Comments
- * @property \App\Model\Table\ThoughtsTable|\Cake\ORM\Association\HasMany $Thoughts
+ * @property \App\Model\Table\CommentsTable&\Cake\ORM\Association\HasMany $Comments
+ * @property \App\Model\Table\ThoughtsTable&\Cake\ORM\Association\HasMany $Thoughts
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
  * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\User[] newEntities(array $data, array $options = [])
@@ -30,6 +30,13 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\User[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\User findOrCreate($search, callable $callback = null, $options = [])
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @extends \Cake\ORM\Table<array{Timestamp: \Cake\ORM\Behavior\TimestampBehavior}, \App\Model\Entity\User>
+ * @property \App\Model\Table\MessagesTable&\Cake\ORM\Association\HasMany $SentMessages
+ * @property \App\Model\Table\MessagesTable&\Cake\ORM\Association\HasMany $ReceivedMessages
+ * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface<int, \App\Model\Entity\User>|false saveMany(iterable $entities, array $options = [])
+ * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface<int, \App\Model\Entity\User> saveManyOrFail(iterable $entities, array $options = [])
+ * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface<int, \App\Model\Entity\User>|false deleteMany(iterable $entities, array $options = [])
+ * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface<int, \App\Model\Entity\User> deleteManyOrFail(iterable $entities, array $options = [])
  */
 class UsersTable extends Table
 {

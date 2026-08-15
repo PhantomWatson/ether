@@ -5,6 +5,8 @@ use Cake\TestSuite\IntegrationTestCase;
 
 /**
  * App\Controller\ThoughtsController Test Case
+ *
+ * @link \App\Controller\ThoughtsController
  */
 class ThoughtsControllerTest extends IntegrationTestCase
 {

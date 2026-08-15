@@ -2,6 +2,9 @@
 /**
  * @param \App\View\AjaxView $this
  * @param \App\Model\Entity\Thought $thoughts
+ * @var \App\View\AppView $this
+ * @var string $title_for_layout
+ * @var \App\Model\Entity\Thought[]|\Cake\Collection\CollectionInterface $thoughts
  */
 $count = count($thoughts);
 ?>

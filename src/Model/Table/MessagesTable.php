@@ -15,8 +15,8 @@ use Cake\Validation\Validator;
 /**
  * Messages Model
  *
- * @property UsersTable|\Cake\ORM\Association\BelongsTo $Recipients
- * @property UsersTable|\Cake\ORM\Association\BelongsTo $Senders
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Recipients
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Senders
  * @method Message get($primaryKey, $options = [])
  * @method Message newEntity($data = null, array $options = [])
  * @method Message[] newEntities(array $data, array $options = [])
@@ -25,6 +25,11 @@ use Cake\Validation\Validator;
  * @method Message[] patchEntities($entities, array $data, array $options = [])
  * @method Message findOrCreate($search, callable $callback = null, $options = [])
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @extends \Cake\ORM\Table<array{Timestamp: \Cake\ORM\Behavior\TimestampBehavior}, \App\Model\Entity\Message>
+ * @method \App\Model\Entity\Message[]|\Cake\Datasource\ResultSetInterface<int, \App\Model\Entity\Message>|false saveMany(iterable $entities, array $options = [])
+ * @method \App\Model\Entity\Message[]|\Cake\Datasource\ResultSetInterface<int, \App\Model\Entity\Message> saveManyOrFail(iterable $entities, array $options = [])
+ * @method \App\Model\Entity\Message[]|\Cake\Datasource\ResultSetInterface<int, \App\Model\Entity\Message>|false deleteMany(iterable $entities, array $options = [])
+ * @method \App\Model\Entity\Message[]|\Cake\Datasource\ResultSetInterface<int, \App\Model\Entity\Message> deleteManyOrFail(iterable $entities, array $options = [])
  */
 class MessagesTable extends Table
 {

@@ -10,24 +10,24 @@ use Cake\Routing\Router;
  * Thought Entity.
  *
  * @property \App\Model\Entity\Comment[] $comments
- * @property \App\Model\Entity\User $user
- * @property \Cake\I18n\DateTime $created
- * @property \Cake\I18n\DateTime $formatted
- * @property \Cake\I18n\DateTime $modified
+ * @property \App\Model\Entity\User|null $user
+ * @property \Cake\I18n\DateTime|null $created
+ * @property \Cake\I18n\DateTime|null $formatted
+ * @property \Cake\I18n\DateTime|null $modified
  * @property bool $anonymous
  * @property bool $comments_enabled
  * @property bool $hidden
  * @property int $id
- * @property int $user_id
- * @property string $formatted_thought
- * @property string $formatting_key
+ * @property int|null $user_id
+ * @property string|null $formatted_thought
+ * @property string|null $formatting_key
  * @property string $thought The body of the thought
  * @property string $tts Text-to-speech audio filename
  * @property string $word
  *
  * Virtual fields
  * @property string $url Full URL to the thought
- * @property string[] $questions
+ * @property-read string[] $questions
  */
 class Thought extends Entity
 {
@@ -78,6 +78,7 @@ class Thought extends Entity
      * Returns all of the sentences that end with question marks in this thought
      *
      * @return string[]
+     * @see \App\Model\Entity\Thought::$questions
      */
     protected function _getQuestions(): array
     {

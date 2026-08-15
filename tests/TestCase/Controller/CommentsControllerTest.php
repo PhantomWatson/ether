@@ -5,6 +5,8 @@ use Cake\TestSuite\IntegrationTestCase;
 
 /**
  * App\Controller\CommentsController Test Case
+ *
+ * @link \App\Controller\CommentsController
  */
 class CommentsControllerTest extends IntegrationTestCase
 {

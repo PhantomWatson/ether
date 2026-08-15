@@ -12,8 +12,8 @@ use Cake\Validation\Validator;
 /**
  * Comments Model
  *
- * @property \App\Model\Table\ThoughtsTable|\Cake\ORM\Association\BelongsTo $Thoughts
- * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\ThoughtsTable&\Cake\ORM\Association\BelongsTo $Thoughts
+ * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
  * @method \App\Model\Entity\Comment get($primaryKey, $options = [])
  * @method \App\Model\Entity\Comment newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\Comment[] newEntities(array $data, array $options = [])
@@ -22,6 +22,11 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Comment[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Comment findOrCreate($search, callable $callback = null, $options = [])
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @extends \Cake\ORM\Table<array{Timestamp: \Cake\ORM\Behavior\TimestampBehavior}, \App\Model\Entity\Comment>
+ * @method \App\Model\Entity\Comment[]|\Cake\Datasource\ResultSetInterface<int, \App\Model\Entity\Comment>|false saveMany(iterable $entities, array $options = [])
+ * @method \App\Model\Entity\Comment[]|\Cake\Datasource\ResultSetInterface<int, \App\Model\Entity\Comment> saveManyOrFail(iterable $entities, array $options = [])
+ * @method \App\Model\Entity\Comment[]|\Cake\Datasource\ResultSetInterface<int, \App\Model\Entity\Comment>|false deleteMany(iterable $entities, array $options = [])
+ * @method \App\Model\Entity\Comment[]|\Cake\Datasource\ResultSetInterface<int, \App\Model\Entity\Comment> deleteManyOrFail(iterable $entities, array $options = [])
  */
 class CommentsTable extends Table
 {

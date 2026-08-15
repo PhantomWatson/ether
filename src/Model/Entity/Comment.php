@@ -13,11 +13,11 @@ use Cake\ORM\TableRegistry;
  * @property int $thought_id
  * @property int $user_id
  * @property string $comment The body of the comment
- * @property string $formatted_comment
- * @property string $formatting_key
- * @property \Cake\I18n\DateTime $created
- * @property \Cake\I18n\DateTime $modified
- * @property \Cake\I18n\DateTime $formatted
+ * @property string|null $formatted_comment
+ * @property string|null $formatting_key
+ * @property \Cake\I18n\DateTime|null $created
+ * @property \Cake\I18n\DateTime|null $modified
+ * @property \Cake\I18n\DateTime|null $formatted
  * @property \App\Model\Entity\Thought $thought
  * @property \App\Model\Entity\User $user
  */

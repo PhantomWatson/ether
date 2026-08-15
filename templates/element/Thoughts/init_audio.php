@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
 <div id="audio-container" style="display: none;">
     <audio autoplay controls id="audio">
         <source src="" type="audio/mpeg" id="audio-source">

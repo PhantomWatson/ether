@@ -11,8 +11,8 @@ use Cake\ORM\Entity;
  * @property int $sender_id
  * @property string $message
  * @property bool $received
- * @property \Cake\I18n\DateTime $created
- * @property \Cake\I18n\DateTime $modified
+ * @property \Cake\I18n\DateTime|null $created
+ * @property \Cake\I18n\DateTime|null $modified
  * @property \App\Model\Entity\User $recipient
  * @property \App\Model\Entity\User $sender
  */
