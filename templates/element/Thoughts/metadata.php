@@ -17,16 +17,18 @@
     </div>
     <div class="col thought-actions">
         <ul class="list-unstyled">
-            <li>
-                <?= $this->Html->link(
-                    '<i class="fa-solid fa-link thought-action-icon"></i> Link <span class="visually-hidden">to this thought</span>',
-                    $thought->url,
-                    [
-                        'escape' => false,
-                        'class' => 'btn btn-link',
-                    ]
-                ) ?>
-            </li>
+            <?php if (!$thought->hidden): ?>
+                <li>
+                    <?= $this->Html->link(
+                        '<i class="fa-solid fa-link thought-action-icon"></i> Link <span class="visually-hidden">to this thought</span>',
+                        $thought->url,
+                        [
+                            'escape' => false,
+                            'class' => 'btn btn-link',
+                        ]
+                    ) ?>
+                </li>
+            <?php endif; ?>
             <li>
                 <button data-tts="<?= $thought->tts ?>" data-thought-id="<?= $thought->id ?>" class="listenButton btn btn-link">
                     <i class="fa-solid fa-play thought-action-icon"></i> Listen
