@@ -39,7 +39,7 @@ $count = count($thoughts);
             <?php foreach ($thoughts as $thought): ?>
                 <tr>
                     <td class="word">
-                        <?= $this->Html->link($thought->word, $thought->url) ?>
+                        <?= $this->Html->link($thought->word, ['action' => 'view', $thought->id]) ?>
                     </td>
                     <td class="short-content">
                         <?= $thought->total_comments ?: '' ?>

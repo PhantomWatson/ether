@@ -49,7 +49,7 @@ class ThoughtsController extends AppController
             return true;
         }
 
-        $this->Flash->error('Sorry, you do not have access to that location.');
+        $this->Flash->error('Sorry, you do not have access to that.');
 
         return false;
     }
@@ -405,5 +405,20 @@ class ThoughtsController extends AppController
             'title_for_layout' => 'My Thoughts',
             'thoughts' => $thoughts,
         ]);
+    }
+
+    public function view(int $thoughtId): ?Response
+    {
+        $thought = $this->Thoughts->get($thoughtId, contain: ['Users', 'Comments' => ['Users']]);
+        if ($thought->hidden && !$this->checkIsAuthor($thought)) {
+            return $this->redirect($this->request->referer());
+        }
+
+        $this->set([
+            'title_for_layout' => "Thought #$thought->id: $thought->word",
+            'thought' => $thought,
+            'userId' => $this->currentUser()?->id
+        ]);
+        return null;
     }
 }
