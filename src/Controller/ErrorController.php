@@ -32,7 +32,11 @@ class ErrorController extends AppController
      */
     public function initialize(): void
     {
-        // Only add parent::initialize() if you are confident your `AppController` is safe.
+        try {
+            parent::initialize();
+        } catch (\Exception $e) {
+            // Ignore exceptions during initialization to prevent infinite loops
+        }
     }
 
     /**
@@ -43,6 +47,7 @@ class ErrorController extends AppController
      */
     public function beforeFilter(EventInterface $event): ?\Cake\Http\Response
     {
+        return null;
     }
 
     /**
@@ -53,7 +58,12 @@ class ErrorController extends AppController
      */
     public function beforeRender(EventInterface $event): void
     {
-        parent::beforeRender($event);
+        try {
+            parent::beforeRender($event);
+        } catch (\Exception $e) {
+            // Ignore exceptions during beforeRender to prevent infinite loops
+        }
+
 
         $this->viewBuilder()->setTemplatePath('Error');
     }
