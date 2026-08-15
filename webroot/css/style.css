@@ -13783,6 +13783,9 @@ blockquote {
   margin: auto;
   max-width: 1000px;
 }
+.my-thoughts thead {
+  font-size: 120%;
+}
 .my-thoughts .short-content {
   text-align: center;
 }
@@ -13833,50 +13836,6 @@ blockquote {
 .sortable thead th:not(.no-sort).indicator-left[aria-sort=ascending]::before {
   color: inherit;
   content: "▴";
-}
-
-.sortableXXX {
-  --stripe-bg: #e4e4e4;
-  --stripe-color: #000;
-  --stripe-bg-odd: #fff;
-  --stripe-color-odd: #111;
-  --th-bg: #808080;
-  --th-color: #fff;
-  border-spacing: 0;
-}
-.sortableXXX.sticky thead th {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-.sortableXXX tbody tr {
-  background-color: var(--stripe-bg);
-  color: var(--stripe-color);
-}
-.sortableXXX tbody tr:nth-child(odd) {
-  background-color: var(--stripe-bg-odd);
-  color: var(--stripe-color-odd);
-}
-.sortableXXX thead th {
-  background: var(--th-bg);
-  color: var(--th-color);
-  font-weight: normal;
-  text-align: left;
-  text-transform: capitalize;
-  vertical-align: baseline;
-  white-space: nowrap;
-}
-.sortableXXX thead td:first-child,
-.sortableXXX thead th:first-child {
-  border-top-left-radius: 4px;
-}
-.sortableXXX thead td:last-child,
-.sortableXXX thead th:last-child {
-  border-top-right-radius: 4px;
-}
-.sortableXXX td,
-.sortableXXX th {
-  padding: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */
