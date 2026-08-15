@@ -32,7 +32,7 @@ $count = count($thoughts);
         <thead>
             <tr>
                 <th>Thoughtword</th>
-                <th>Comments</th>
+                <th class="short-content">Comments</th>
                 <th class="short-content">Anonymous</th>
                 <th class="short-content">Private</th>
                 <th>When</th>
