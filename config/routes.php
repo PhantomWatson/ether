@@ -35,6 +35,7 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/slideshow', ['controller' => 'Thoughts', 'action' => 'slideshow']);
         $builder->connect('/thoughts/add/{word}', ['controller' => 'Thoughts', 'action' => 'add'], ['pass' => ['word']]);
         $builder->connect('/thought/{id}', ['controller' => 'Thoughts', 'action' => 'view'], ['pass' => ['id']]);
+        $builder->connect('/my-thoughts', ['controller' => 'Thoughts', 'action' => 'myThoughts']);
 
         // Messages
         $builder->connect('/messages/with/{color}', ['controller' => 'Messages', 'action' => 'index'], ['pass' => ['color']]);
