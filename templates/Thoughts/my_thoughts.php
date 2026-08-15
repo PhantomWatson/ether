@@ -28,7 +28,7 @@ $count = count($thoughts);
         <?php endif; ?>
     </p>
 
-    <table class="table my-thoughts">
+    <table class="table my-thoughts sortable">
         <thead>
             <tr>
                 <th>Thoughtword</th>
@@ -44,22 +44,23 @@ $count = count($thoughts);
                     <td class="word">
                         <?= $this->Html->link($thought->word, ['action' => 'view', $thought->id]) ?>
                     </td>
-                    <td class="short-content">
+                    <td class="short-content" data-sort="<?= $thought->total_comments ?: 0 ?>">
                         <?= $thought->total_comments ?: '' ?>
                     </td>
-                    <td class="short-content">
+                    <td class="short-content" data-sort="<?= $thought->anonymous ? 1 : 0 ?>">
                         <?= $thought->anonymous ? '<i class="fa-solid fa-user-secret"></i>' : '' ?>
                     </td>
-                    <td class="short-content">
+                    <td class="short-content" data-sort="<?= $thought->hidden ? 1 : 0 ?>">
                         <?= $thought->hidden ? '<i class="fa-solid fa-eye-slash"></i>' : '' ?>
                     </td>
-                    <td class="when">
+                    <td class="when" data-sort="<?= $thought->created->getTimestamp() ?>">
                         <?= $thought->created->format('F j, Y') ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+    <script src="https://cdn.jsdelivr.net/gh/tofsjonas/sortable@latest/dist/sortable.min.js"></script>
 <?php else: ?>
     <p>
         You have not thunk any thoughts yet.

@@ -1970,3 +1970,132 @@ blockquote {
         white-space: nowrap;
     }
 }
+
+.sortable {
+    thead {
+        th {
+            &:not(.no-sort) {
+                cursor: pointer;
+                &::after,
+                &::before {
+                    transition: color 0.1s ease-in-out;
+                    font-size: 1.2em;
+                    color: transparent;
+                }
+
+                &::after {
+                    margin-left: 3px;
+                    content: '\025B8';
+                }
+                &:hover {
+                    &::after {
+                        color: inherit;
+                    }
+                }
+
+                &[aria-sort='descending'] {
+                    &::after {
+                        color: inherit;
+                        content: '\025BE';
+                    }
+                }
+
+                &[aria-sort='ascending'] {
+                    &::after {
+                        color: inherit;
+                        content: '\025B4';
+                    }
+                }
+                &.indicator-left {
+                    &::after {
+                        content: '';
+                    }
+                    &::before {
+                        margin-right: 3px;
+                        content: '\025B8';
+                    }
+
+                    &:hover {
+                        &::before {
+                            color: inherit;
+                        }
+                    }
+
+                    &[aria-sort='descending'] {
+                        &::before {
+                            color: inherit;
+                            content: '\025BE';
+                        }
+                    }
+
+                    &[aria-sort='ascending'] {
+                        &::before {
+                            color: inherit;
+                            content: '\025B4';
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.sortableXXX {
+    --stripe-bg: #e4e4e4;
+    --stripe-color: #000;
+    --stripe-bg-odd: #fff;
+    --stripe-color-odd: #111;
+    --th-bg: #808080;
+    --th-color: #fff;
+
+    border-spacing: 0;
+
+    &.sticky {
+        thead {
+            th {
+                position: sticky;
+                top: 0;
+                z-index: 1;
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            background-color: var(--stripe-bg);
+            color: var(--stripe-color);
+
+            &:nth-child(odd) {
+                background-color: var(--stripe-bg-odd);
+                color: var(--stripe-color-odd);
+            }
+        }
+    }
+
+    thead {
+        th {
+            background: var(--th-bg);
+            color: var(--th-color);
+            font-weight: normal;
+            text-align: left;
+            text-transform: capitalize;
+            vertical-align: baseline;
+            white-space: nowrap;
+        }
+
+        td,
+        th {
+            &:first-child {
+                border-top-left-radius: 4px;
+            }
+
+            &:last-child {
+                border-top-right-radius: 4px;
+            }
+        }
+    }
+    td,
+    th {
+        padding: 10px;
+    }
+}
