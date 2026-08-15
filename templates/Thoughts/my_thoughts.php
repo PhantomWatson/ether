@@ -29,6 +29,7 @@ $count = count($thoughts);
         <thead>
             <tr>
                 <th>Thoughtword</th>
+                <th>Comments</th>
                 <th>Anonymous</th>
                 <th>Private</th>
                 <th>When</th>
@@ -39,6 +40,9 @@ $count = count($thoughts);
                 <tr>
                     <td>
                         <?= $this->Html->link($thought->word, $thought->url) ?>
+                    </td>
+                    <td>
+                        <?= $thought->total_comments ?: '' ?>
                     </td>
                     <td>
                         <?= $thought->anonymous ? 'Yes' : 'No' ?>

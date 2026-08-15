@@ -385,10 +385,20 @@ class ThoughtsController extends AppController
 
     public function myThoughts(): void
     {
-        $thoughts = $this->Thoughts
-            ->find()
-            ->where(['user_id' => $this->currentUser()?->id])
-            ->orderByDesc('created')
+        $query = $this->Thoughts->find();
+        $thoughts = $query
+            ->leftJoinWith('Comments')
+            ->select([
+                'Thoughts.id',
+                'Thoughts.anonymous',
+                'Thoughts.created',
+                'Thoughts.hidden',
+                'Thoughts.word',
+                'total_comments' => $query->func()->count('Comments.id'),
+            ])
+            ->where(['Thoughts.user_id' => $this->currentUser()?->id])
+            ->orderByDesc('Thoughts.created')
+            ->groupBy('Thoughts.id')
             ->toArray();
 
         $this->set([
