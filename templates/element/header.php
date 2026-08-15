@@ -104,6 +104,13 @@ $goToUrl = Router::url(['controller' => 'Thoughts', 'action' => 'word']);
                             </li>
                             <li>
                                 <?= $this->Html->link(
+                                    'My Thoughts',
+                                    ['controller' => 'Thoughts', 'action' => 'myThoughts'],
+                                    ['class' => 'dropdown-item']
+                                ) ?>
+                            </li>
+                            <li>
+                                <?= $this->Html->link(
                                     'Settings',
                                     ['controller' => 'Users', 'action' => 'settings'],
                                     ['class' => 'dropdown-item']

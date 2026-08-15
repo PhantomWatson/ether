@@ -382,4 +382,18 @@ class ThoughtsController extends AppController
             'cloud' => $this->Thoughts->getCloud(),
         ]);
     }
+
+    public function myThoughts(): void
+    {
+        $thoughts = $this->Thoughts
+            ->find()
+            ->where(['user_id' => $this->currentUser()?->id])
+            ->orderByDesc('created')
+            ->toArray();
+
+        $this->set([
+            'title_for_layout' => 'My Thoughts',
+            'thoughts' => $thoughts,
+        ]);
+    }
 }
