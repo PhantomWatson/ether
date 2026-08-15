@@ -1955,3 +1955,18 @@ blockquote {
 #thought-form-errors {
     color: $FontColorError;
 }
+
+.my-thoughts {
+    margin: auto;
+    max-width: 1000px;
+
+    .short-content {
+        text-align: center;
+    }
+    .word {
+        text-overflow: ellipsis;
+    }
+    .when {
+        white-space: nowrap;
+    }
+}

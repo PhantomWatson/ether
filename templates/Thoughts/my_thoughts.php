@@ -25,32 +25,32 @@ $count = count($thoughts);
         <?php endif; ?>
     </p>
 
-    <table class="table">
+    <table class="table my-thoughts">
         <thead>
             <tr>
                 <th>Thoughtword</th>
                 <th>Comments</th>
-                <th>Anonymous</th>
-                <th>Private</th>
+                <th class="short-content">Anonymous</th>
+                <th class="short-content">Private</th>
                 <th>When</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($thoughts as $thought): ?>
                 <tr>
-                    <td>
+                    <td class="word">
                         <?= $this->Html->link($thought->word, $thought->url) ?>
                     </td>
-                    <td>
+                    <td class="short-content">
                         <?= $thought->total_comments ?: '' ?>
                     </td>
-                    <td>
-                        <?= $thought->anonymous ? 'Yes' : 'No' ?>
+                    <td class="short-content">
+                        <?= $thought->anonymous ? '<i class="fa-solid fa-user-secret"></i>' : '' ?>
                     </td>
-                    <td>
-                        <?= $thought->private ? 'Yes' : 'No' ?>
+                    <td class="short-content">
+                        <?= $thought->hidden ? '<i class="fa-solid fa-eye-slash"></i>' : '' ?>
                     </td>
-                    <td>
+                    <td class="when">
                         <?= $thought->created->format('F j, Y') ?>
                     </td>
                 </tr>
