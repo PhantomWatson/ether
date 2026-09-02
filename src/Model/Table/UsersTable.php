@@ -189,7 +189,10 @@ class UsersTable extends Table
                     return $q
                         ->select(['id', 'word', 'user_id'])
                         ->distinct(['word'])
-                        ->where(['anonymous' => false])
+                        ->where([
+                            'anonymous' => false,
+                            'hidden' => false,
+                        ])
                         ->orderBy([
                             'word' => 'ASC',
                             'created' => 'DESC'
