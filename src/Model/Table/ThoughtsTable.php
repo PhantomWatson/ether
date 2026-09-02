@@ -776,7 +776,8 @@ class ThoughtsTable extends Table
             ->select(['id'])
             ->where([
                 'user_id' => $userId,
-                'anonymous' => false
+                'anonymous' => false,
+                'hidden' => false,
             ])
             ->orderBy('rand()')
             ->toArray();
