@@ -118,6 +118,7 @@ class ThoughtwordCheck {
             return;
         }
         this.lastCheckedWord = word;
+        this.showLoading();
 
         const params = new URLSearchParams({ word });
         if (this.excludeThoughtId) {
@@ -156,6 +157,11 @@ class ThoughtwordCheck {
         } catch (error) {
             console.error('Error checking thoughtword usage:', error);
         }
+    }
+
+    showLoading() {
+        this.footnote.innerHTML = '<i class="fas fa-spinner fa-spin loading" title="Loading..."></i> Checking...';
+        this.footnote.hidden = false;
     }
 
     showNotFound() {
