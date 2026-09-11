@@ -44,8 +44,7 @@ use League\CommonMark\Exception\CommonMarkException;
  */
 class ThoughtsTable extends Table
 {
-
-    public $maxThoughtwordLength = 30;
+    const int MAX_THOUGHTWORD_LENGTH = 30;
     const int MIN_THOUGHT_LENGTH = 20;
 
     /**
@@ -435,8 +434,8 @@ class ThoughtsTable extends Table
     public function formatThoughtword(string $word): string
     {
         $word = preg_replace('/[^a-zA-Z0-9]/', '', $word);
-        if (strlen($word) > $this->maxThoughtwordLength) {
-            $word = substr($word, 0, $this->maxThoughtwordLength);
+        if (strlen($word) > self::MAX_THOUGHTWORD_LENGTH) {
+            $word = substr($word, 0, self::MAX_THOUGHTWORD_LENGTH);
         }
         return strtolower($word);
     }
@@ -668,8 +667,8 @@ class ThoughtsTable extends Table
                 continue;
             } elseif ($textChunk[0] == '<') {
                 $output .= $textChunk;
-            } elseif (strlen($textChunk) > $this->maxThoughtwordLength) {
-                $output .= chunk_split($textChunk, $this->maxThoughtwordLength, "<wbr />");
+            } elseif (strlen($textChunk) > self::MAX_THOUGHTWORD_LENGTH) {
+                $output .= chunk_split($textChunk, self::MAX_THOUGHTWORD_LENGTH, "<wbr />");
             } else {
                 $output .= $textChunk;
             }
@@ -705,6 +704,28 @@ class ThoughtsTable extends Table
                 'word' => $word,
             ])
             ->count();
+    }
+
+    /**
+     * Returns the number of non-hidden thoughts whose body contains $word
+     *
+     * @param string $word Word to search for
+     * @param int|null $excludeThoughtId ID of a thought to leave out of the count
+     * @return int
+     */
+    public function countContainingWord(string $word, ?int $excludeThoughtId = null): int
+    {
+        $query = $this
+            ->find('all')
+            ->where([
+                'Thoughts.hidden' => false,
+                'Thoughts.thought LIKE' => '%' . Thought::getCleanThoughtword($word) . '%',
+            ]);
+        if ($excludeThoughtId !== null) {
+            $query->where(['Thoughts.id !=' => $excludeThoughtId]);
+        }
+
+        return $query->count();
     }
 
     /**

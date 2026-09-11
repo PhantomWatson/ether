@@ -7,6 +7,8 @@
 
 use App\Model\Table\ThoughtsTable;
 
+$this->Html->script('/js/thoughtword-check.js', ['block' => 'script']);
+
 ?>
 <div class="row">
     <div class="offset-sm-2 col-sm-8">
@@ -99,7 +101,7 @@ use App\Model\Table\ThoughtsTable;
     </div>
 </div>
 
-<script>
+<?php $this->append('buffered_js'); ?>
     new ThoughtForm({
         toastui,
         DOMPurify,
@@ -107,4 +109,7 @@ use App\Model\Table\ThoughtsTable;
         minLength: <?= ThoughtsTable::MIN_THOUGHT_LENGTH ?>,
         maxLength: 100000,
     });
-</script>
+    new ThoughtwordCheck({
+        excludeThoughtId: <?= json_encode($thought->id ?? null) ?>,
+    });
+<?php $this->end(); ?>

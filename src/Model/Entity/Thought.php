@@ -102,4 +102,18 @@ class Thought extends Entity
             '#' => 't' . $this->id
         ], true);
     }
+
+    /**
+     * Returns a trimmed, lowercase thoughtword with non-alphanumeric characters removed
+     *
+     * @param $thoughtword
+     * @return string
+     */
+    public static function getCleanThoughtword($thoughtword): string
+    {
+        $thoughtword = trim($thoughtword);
+        $thoughtword = mb_strtolower($thoughtword);
+        $thoughtword = preg_replace('/[^a-z0-9]+/', '', $thoughtword);
+        return $thoughtword;
+    }
 }

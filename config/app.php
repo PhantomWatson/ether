@@ -133,6 +133,31 @@ return [
             'duration' => '+1 years',
             'url' => env('CACHE_CAKEMODEL_URL', null),
         ],
+
+        /*
+         * Stores the per-word thought/comment counts served by
+         * Api\WordsController::count() for 24 hours.
+         */
+        'wordSearch' => [
+            'className' => FileEngine::class,
+            'duration' => '+24 hours',
+            'path' => CACHE . 'word_search' . DS,
+            'prefix' => 'ether_word_search_',
+            'url' => env('CACHE_WORD_SEARCH_URL', null),
+        ],
+
+        /*
+         * Backs the rate limiter on Api\WordsController::count(). The entry
+         * lives for as long as the endpoint's minimum request interval, so a
+         * present key means the caller is still inside their cooldown.
+         */
+        'wordSearchRateLimit' => [
+            'className' => FileEngine::class,
+            'duration' => '+5 seconds',
+            'path' => CACHE . 'word_search' . DS,
+            'prefix' => 'ether_word_search_rate_limit_',
+            'url' => env('CACHE_WORD_SEARCH_RATE_LIMIT_URL', null),
+        ],
     ],
 
     /*

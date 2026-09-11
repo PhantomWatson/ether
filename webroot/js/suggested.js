@@ -5,7 +5,12 @@ class SuggestedWords {
             button.addEventListener('click', (event) => {
                 event.preventDefault();
                 const clickedButton = event.target;
-                document.getElementById('input-thought-word').value = clickedButton.innerHTML;
+                const wordInput = document.getElementById('input-thought-word');
+                wordInput.value = clickedButton.innerHTML;
+
+                // Have a clicked word trigger the "thoughtword check" process
+                wordInput.dispatchEvent(new Event('input', { bubbles: true }));
+
                 document.getElementById('input-thought-body').focus();
 
                 const selectedButtons = document.querySelectorAll('#suggested-words button.selected');

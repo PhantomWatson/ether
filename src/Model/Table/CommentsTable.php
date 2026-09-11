@@ -3,6 +3,7 @@ namespace App\Model\Table;
 
 use App\Alert\CommentAlert;
 use App\Model\Entity\Comment;
+use App\Model\Entity\Thought;
 use Cake\Event\Event;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -124,5 +125,29 @@ class CommentsTable extends Table
         if ($entity->isNew()) {
             CommentAlert::send($entity);
         }
+    }
+
+    /**
+     * Returns the number of comments whose body contains $word and which belong
+     * to a thought that is not hidden
+     *
+     * @param string $word Word to search for
+     * @param int|null $excludeThoughtId ID of a thought whose comments to leave out of the count
+     * @return int
+     */
+    public function countContainingWord(string $word, ?int $excludeThoughtId = null): int
+    {
+        $query = $this
+            ->find('all')
+            ->innerJoinWith('Thoughts')
+            ->where([
+                'Comments.comment LIKE' => '%' . Thought::getCleanThoughtword($word) . '%',
+                'Thoughts.hidden' => false,
+            ]);
+        if ($excludeThoughtId !== null) {
+            $query->where(['Comments.thought_id !=' => $excludeThoughtId]);
+        }
+
+        return $query->count();
     }
 }
