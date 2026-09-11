@@ -60,12 +60,35 @@ class ThoughtwordCheck {
         return footnote;
     }
 
-    updateFootnoteText() {
+    updateNotFoundText() {
         const word = this.getNormalizedWord();
         this.footnote.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> '
             + `The word "${word}" wasn't found in any thoughts or comments. `
             + 'You can still use it, but nothing will link to it. '
             + 'Consider using a more common word to make it easier for people to find this thought.';
+    }
+
+    /**
+     * @param {number} count
+     * @param {string} singular
+     * @param {string} plural
+     * @returns {string}
+     */
+    pluralize(count, singular, plural) {
+        const formattedCount = new Intl.NumberFormat().format(count);
+        return `${formattedCount} ${count === 1 ? singular : plural}`;
+    }
+
+    /**
+     * @param {{thoughts: number, comments: number}} data
+     */
+    updateFoundText(data) {
+        const thoughts = data.thoughts ? this.pluralize(data.thoughts, 'thought', 'thoughts') : '';
+        const comments = data.comments ? this.pluralize(data.comments, 'comment', 'comments') : '';
+        const and = (thoughts && comments) ? 'and' : '';
+        const word = this.getNormalizedWord();
+        this.footnote.innerHTML = '<i class="fa-solid fa-thumbs-up"></i> '
+            + `The word "${word}" is used in ${thoughts} ${and} ${comments}.`;
     }
 
     /**
@@ -126,17 +149,22 @@ class ThoughtwordCheck {
             }
 
             if (data.total === 0) {
-                this.show();
+                this.showNotFound();
             } else {
-                this.hide();
+                this.showFound(data);
             }
         } catch (error) {
             console.error('Error checking thoughtword usage:', error);
         }
     }
 
-    show() {
-        this.updateFootnoteText();
+    showNotFound() {
+        this.updateNotFoundText();
+        this.footnote.hidden = false;
+    }
+
+    showFound(data) {
+        this.updateFoundText(data);
         this.footnote.hidden = false;
     }
 
