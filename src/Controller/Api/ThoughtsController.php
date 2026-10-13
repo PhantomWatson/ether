@@ -5,6 +5,7 @@ use App\Controller\AppController;
 use App\Model\Entity\Thought;
 use App\TTS;
 use Cake\Core\Configure;
+use Cake\Http\Exception\BadRequestException;
 use Cake\Http\Response;
 use Cake\ORM\TableRegistry;
 use Cake\View\JsonView;
@@ -37,15 +38,20 @@ class ThoughtsController extends AppController
     /**
      * Endpoint for generating a text-to-speech file (or finding an existing one) and returning the filename
      *
+     * @param int|null $thoughtId
      * @throws \Google\ApiCore\ApiException
      * @throws \Google\ApiCore\ValidationException
      * @return Response|null
      */
-    public function tts($thoughtId)
+    public function tts(?int $thoughtId = null)
     {
         $isMaintenanceMode = Configure::read('maintenanceMode');
         if ($isMaintenanceMode) {
             return $this->response->withStatus(503);
+        }
+
+        if (!$thoughtId) {
+            throw new BadRequestException('Missing thought ID');
         }
 
         $thoughtsTable = TableRegistry::getTableLocator()->get('Thoughts');
