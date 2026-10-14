@@ -38,12 +38,12 @@ class ThoughtsController extends AppController
     /**
      * Endpoint for generating a text-to-speech file (or finding an existing one) and returning the filename
      *
-     * @param int|null $thoughtId
+     * @param int|string $thoughtId
      * @throws \Google\ApiCore\ApiException
      * @throws \Google\ApiCore\ValidationException
      * @return Response|null
      */
-    public function tts(?int $thoughtId = null)
+    public function tts(int|string $thoughtId = 0)
     {
         $isMaintenanceMode = Configure::read('maintenanceMode');
         if ($isMaintenanceMode) {
