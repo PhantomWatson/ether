@@ -50,7 +50,7 @@ class ThoughtsController extends AppController
             return $this->response->withStatus(503);
         }
 
-        if (!$thoughtId) {
+        if (!$thoughtId || !is_numeric($thoughtId)) {
             throw new BadRequestException('Missing thought ID');
         }
 
