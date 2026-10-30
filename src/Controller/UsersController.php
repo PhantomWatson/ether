@@ -7,6 +7,7 @@ use App\Model\Table\MessagesTable;
 use App\Model\Table\ThoughtsTable;
 use Authentication\Identifier\PasswordIdentifier;
 use Cake\Core\Configure;
+use Cake\Http\Exception\BadRequestException;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
@@ -164,7 +165,11 @@ class UsersController extends AppController
     {
         $this->viewBuilder()->setClassName('Json');
 
-        $this->set(['result' => ['available' => !$this->Users->colorIsTaken($color)]]);
+        if ($color === null) {
+            throw new BadRequestException('Missing color');
+        }
+
+        $this->set(['result' => ['available' => !$this->Users->colorIsTaken((string)$color)]]);
         $this->viewBuilder()->setOption('serialize', 'result');
     }
 
