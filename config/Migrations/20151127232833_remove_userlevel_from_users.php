@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveUserlevelFromUsers extends AbstractMigration
+class RemoveUserlevelFromUsers extends \Migrations\BaseMigration
 {
     public function change()
     {

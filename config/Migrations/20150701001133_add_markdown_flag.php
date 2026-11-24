@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class AddMarkdownFlag extends AbstractMigration
+class AddMarkdownFlag extends \Migrations\BaseMigration
 {
     public function change()
     {

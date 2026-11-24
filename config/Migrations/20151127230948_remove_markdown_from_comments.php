@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveMarkdownFromComments extends AbstractMigration
+class RemoveMarkdownFromComments extends \Migrations\BaseMigration
 {
     public function change()
     {

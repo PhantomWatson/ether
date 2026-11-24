@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveAvailableToSenderFromMessages extends AbstractMigration
+class RemoveAvailableToSenderFromMessages extends \Migrations\BaseMigration
 {
     public function change()
     {

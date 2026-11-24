@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class AddFormattedToThoughts extends AbstractMigration
+class AddFormattedToThoughts extends \Migrations\BaseMigration
 {
     public function change()
     {

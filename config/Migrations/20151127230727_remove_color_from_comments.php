@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveColorFromComments extends AbstractMigration
+class RemoveColorFromComments extends \Migrations\BaseMigration
 {
     public function change()
     {

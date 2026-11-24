@@ -1,7 +1,7 @@
 <?php
 use Migrations\AbstractMigration;
 
-class AddTtsToThoughts extends AbstractMigration
+class AddTtsToThoughts extends \Migrations\BaseMigration
 {
     /**
      * Change Method.

@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveMarkdownFromThoughts extends AbstractMigration
+class RemoveMarkdownFromThoughts extends \Migrations\BaseMigration
 {
     public function change()
     {

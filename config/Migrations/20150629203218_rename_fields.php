@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RenameFields extends AbstractMigration
+class RenameFields extends \Migrations\BaseMigration
 {
     public function up()
     {

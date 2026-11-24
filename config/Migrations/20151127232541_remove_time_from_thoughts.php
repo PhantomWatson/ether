@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveTimeFromThoughts extends AbstractMigration
+class RemoveTimeFromThoughts extends \Migrations\BaseMigration
 {
     public function change()
     {

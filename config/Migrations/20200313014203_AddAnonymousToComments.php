@@ -1,7 +1,7 @@
 <?php
 use Migrations\AbstractMigration;
 
-class AddAnonymousToComments extends AbstractMigration
+class AddAnonymousToComments extends \Migrations\BaseMigration
 {
     /**
      * Change Method.

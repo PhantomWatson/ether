@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class AddFormattedCommentToComments extends AbstractMigration
+class AddFormattedCommentToComments extends \Migrations\BaseMigration
 {
     public function change()
     {

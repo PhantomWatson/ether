@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveNewMessagesFromUsers extends AbstractMigration
+class RemoveNewMessagesFromUsers extends \Migrations\BaseMigration
 {
     public function change()
     {

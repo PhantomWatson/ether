@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveOldFields extends AbstractMigration
+class RemoveOldFields extends \Migrations\BaseMigration
 {
     public function change()
     {

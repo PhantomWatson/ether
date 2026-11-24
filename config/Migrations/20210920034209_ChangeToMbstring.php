@@ -1,7 +1,7 @@
 <?php
 use Migrations\AbstractMigration;
 
-class ChangeToMbstring extends AbstractMigration
+class ChangeToMbstring extends \Migrations\BaseMigration
 {
     /**
      * Up Method.

@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveTimestampFromUsers extends AbstractMigration
+class RemoveTimestampFromUsers extends \Migrations\BaseMigration
 {
     public function change()
     {

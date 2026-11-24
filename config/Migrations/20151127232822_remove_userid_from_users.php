@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveUseridFromUsers extends AbstractMigration
+class RemoveUseridFromUsers extends \Migrations\BaseMigration
 {
     public function change()
     {

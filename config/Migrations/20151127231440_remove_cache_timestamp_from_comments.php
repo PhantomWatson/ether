@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemovecacheTimestampFromComments extends AbstractMigration
+class RemovecacheTimestampFromComments extends \Migrations\BaseMigration
 {
     public function change()
     {

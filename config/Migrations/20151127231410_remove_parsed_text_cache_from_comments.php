@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveparsedTextCacheFromComments extends AbstractMigration
+class RemoveparsedTextCacheFromComments extends \Migrations\BaseMigration
 {
     public function change()
     {

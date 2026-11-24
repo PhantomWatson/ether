@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class FieldsNotNull extends AbstractMigration
+class FieldsNotNull extends \Migrations\BaseMigration
 {
     public function up()
     {

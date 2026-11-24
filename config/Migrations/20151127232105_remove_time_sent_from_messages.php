@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveTimeSentFromMessages extends AbstractMigration
+class RemoveTimeSentFromMessages extends \Migrations\BaseMigration
 {
     public function change()
     {

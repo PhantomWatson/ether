@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveTimeFromComments extends AbstractMigration
+class RemoveTimeFromComments extends \Migrations\BaseMigration
 {
     public function change()
     {

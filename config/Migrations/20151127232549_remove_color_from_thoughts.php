@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveColorFromThoughts extends AbstractMigration
+class RemoveColorFromThoughts extends \Migrations\BaseMigration
 {
     public function change()
     {

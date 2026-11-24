@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveStatusFromMessages extends AbstractMigration
+class RemoveStatusFromMessages extends \Migrations\BaseMigration
 {
     public function change()
     {

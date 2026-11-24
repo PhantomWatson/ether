@@ -1,7 +1,7 @@
 <?php
 use Migrations\AbstractMigration;
 
-class AddDefaultProfile extends AbstractMigration
+class AddDefaultProfile extends \Migrations\BaseMigration
 {
     /**
      * Up Method.

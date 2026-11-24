@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveEditedFromThoughts extends AbstractMigration
+class RemoveEditedFromThoughts extends \Migrations\BaseMigration
 {
     public function change()
     {

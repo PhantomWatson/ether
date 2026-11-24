@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class MakeFieldsBoolean extends AbstractMigration
+class MakeFieldsBoolean extends \Migrations\BaseMigration
 {
     public function up()
     {

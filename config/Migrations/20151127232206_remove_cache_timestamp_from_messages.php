@@ -1,8 +1,6 @@
 <?php
 
-use Phinx\Migration\AbstractMigration;
-
-class RemoveCacheTimestampFromMessages extends AbstractMigration
+class RemoveCacheTimestampFromMessages extends \Migrations\BaseMigration
 {
     public function change()
     {
