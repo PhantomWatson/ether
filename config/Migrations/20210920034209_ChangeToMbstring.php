@@ -1,5 +1,5 @@
 <?php
-use Migrations\AbstractMigration;
+
 
 class ChangeToMbstring extends \Migrations\BaseMigration
 {

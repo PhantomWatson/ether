@@ -1,5 +1,5 @@
 <?php
-use Migrations\AbstractMigration;
+
 
 class AddDefaultProfile extends \Migrations\BaseMigration
 {

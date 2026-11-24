@@ -1,5 +1,5 @@
 <?php
-use Migrations\AbstractMigration;
+
 
 class AddTtsToThoughts extends \Migrations\BaseMigration
 {
